@@ -17,7 +17,7 @@ export function GTMSystemVisualization() {
   return (
     <div className="flex flex-col items-center w-full">
       {/* Heading */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
           GTM Operating System
         </div>
@@ -37,19 +37,19 @@ export function GTMSystemVisualization() {
                 onMouseLeave={() => setActiveNode(null)}
                 className="relative cursor-pointer transition-all duration-200"
                 style={{
-                  transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                  transform: isActive ? 'scale(1.08)' : 'scale(1)',
                 }}
               >
                 <div
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center border-2 transition-all duration-200"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center border-2 transition-all duration-200"
                   style={{
                     backgroundColor: isActive ? 'var(--accent)' : 'var(--card-bg)',
                     borderColor: isActive ? 'var(--accent)' : 'var(--border-color)',
-                    boxShadow: isActive ? '0 0 20px rgba(21, 94, 239, 0.3)' : 'none',
+                    boxShadow: isActive ? '0 0 16px rgba(21, 94, 239, 0.25)' : 'none',
                   }}
                 >
                   <span
-                    className="text-xs sm:text-sm font-bold tracking-wide"
+                    className="text-[10px] sm:text-xs font-bold tracking-wide"
                     style={{
                       color: isActive ? '#ffffff' : 'var(--text-primary)',
                     }}
@@ -61,9 +61,9 @@ export function GTMSystemVisualization() {
 
               {/* Arrow connector */}
               {!isLast && (
-                <div className="flex flex-col items-center my-2">
+                <div className="flex flex-col items-center my-1.5">
                   <div
-                    className="w-0.5 h-6 sm:h-8 transition-all duration-200"
+                    className="w-0.5 h-3 sm:h-4 transition-all duration-200"
                     style={{
                       backgroundColor: activeNode === node.id || activeNode === nodes[index + 1].id
                         ? 'var(--accent)'
@@ -73,11 +73,11 @@ export function GTMSystemVisualization() {
                   <div
                     className="w-0 h-0 transition-all duration-200"
                     style={{
-                      borderLeft: '6px solid transparent',
-                      borderRight: '6px solid transparent',
+                      borderLeft: '4px solid transparent',
+                      borderRight: '4px solid transparent',
                       borderTop: activeNode === node.id || activeNode === nodes[index + 1].id
-                        ? '8px solid var(--accent)'
-                        : '8px solid var(--border-color)',
+                        ? '6px solid var(--accent)'
+                        : '6px solid var(--border-color)',
                     }}
                   />
                 </div>
