@@ -484,9 +484,9 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Geeky Gadgets */}
-            <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+          {/* Geeky Gadgets */}
+          <div className="mb-12">
+            <div className="rounded-lg p-8 mb-6" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
                   Geeky Gadgets
@@ -499,58 +499,41 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>150+</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Articles Published</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>High-quality tech reviews and insights over 3 years</div>
-                  </div>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>150+</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Articles Published</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>High-quality tech reviews over 3 years</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>30K</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Visitors</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Average unique visitors per month</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>30K</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Visitors</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Average unique visitors per month</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>+50%</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Organic Traffic Growth</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Through strategic SEO implementation</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>+50%</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Organic Traffic</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Growth through SEO</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>1K+</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Newsletter Subscribers</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Monthly newsletter with 25% open rate, 15% CTR</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>1K+</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Newsletter</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>25% open rate, 15% CTR</div>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Content Marketing</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>SEO</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Email Marketing</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Audience Building</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Content Marketing</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>SEO</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Email Marketing</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Audience Building</span>
               </div>
             </div>
+          </div>
 
-            {/* NextBuye */}
-            <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+          {/* NextBuye */}
+          <div className="mb-12">
+            <div className="rounded-lg p-8 mb-6" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
                   NextBuye
@@ -563,54 +546,35 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>₹22K+</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Sales</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Consistent monthly revenue through organic traffic</div>
-                  </div>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>₹22K+</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Sales</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Consistent revenue through organic traffic</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>Top 1</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Keyword Rankings</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Secured top positions for valuable keywords</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>Top 1</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Keyword Rankings</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Top positions for valuable keywords</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>3</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Sales Channels</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Own website + Flipkart + Amazon Seller Central</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>3</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Sales Channels</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Website + Flipkart + Amazon</div>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 text-right">
-                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>100%</div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Operations Ownership</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Product listings, pricing, customer service, analytics</div>
-                  </div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>100%</div>
+                  <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Operations</div>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Full ownership end-to-end</div>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>E-commerce</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Product Optimization</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Marketplace Management</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Pricing Strategy</span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Customer Analytics</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>E-commerce</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Product Optimization</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Marketplace Management</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Pricing Strategy</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>Customer Analytics</span>
               </div>
             </div>
           </div>
