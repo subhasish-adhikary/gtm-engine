@@ -466,6 +466,164 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Entrepreneurial Ventures */}
+      <section className="py-20 px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-12" style={{ backgroundColor: 'var(--accent)' }}></div>
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
+                Beyond the 9-to-5
+              </span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+              Entrepreneurial Ventures
+            </h2>
+            <p className="text-lg max-w-2xl" style={{ color: 'var(--text-tertiary)' }}>
+              Running my own ventures taught me to think like a founder — owning every metric, from content to conversion.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Geeky Gadgets */}
+            <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  Geeky Gadgets
+                </h3>
+                <p className="text-sm font-semibold mb-4" style={{ color: 'var(--accent)' }}>
+                  Tech Blog · Founder & Content Creator
+                </p>
+                <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Built and scaled a gadget review website from obscurity to 1,000 daily visitors through strategic content marketing and SEO.
+                </p>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>150+</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Articles Published</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>High-quality tech reviews and insights over 3 years</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>30K</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Visitors</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Average unique visitors per month</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>+50%</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Organic Traffic Growth</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Through strategic SEO implementation</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>1K+</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Newsletter Subscribers</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Monthly newsletter with 25% open rate, 15% CTR</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Content Marketing</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>SEO</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Email Marketing</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Audience Building</span>
+              </div>
+            </div>
+
+            {/* NextBuye */}
+            <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  NextBuye
+                </h3>
+                <p className="text-sm font-semibold mb-4" style={{ color: 'var(--accent)' }}>
+                  D2C eCommerce · Founder & Operator
+                </p>
+                <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Ran a direct-to-consumer handmade jewelry store, managing everything from product optimization to marketplace expansion.
+                </p>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>₹22K+</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Monthly Sales</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Consistent monthly revenue through organic traffic</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>Top 1</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Keyword Rankings</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Secured top positions for valuable keywords</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>3</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Sales Channels</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Own website + Flipkart + Amazon Seller Central</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 text-right">
+                    <div className="text-3xl font-bold" style={{ color: 'var(--accent)' }}>100%</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Operations Ownership</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Product listings, pricing, customer service, analytics</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>E-commerce</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Product Optimization</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Marketplace Management</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Pricing Strategy</span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Customer Analytics</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Takeaway */}
+          <div className="mt-12 p-6 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+            <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <strong style={{ color: 'var(--text-primary)' }}>What these ventures taught me:</strong> When you're the founder, you own every metric. Content isn't just "content" — it's traffic. SEO isn't just "rankings" — it's revenue. Email isn't just "newsletters" — it's retention. This founder mindset shapes how I approach GTM strategy today: every decision connects to business outcomes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* What I Actually Work On */}
       <section className="py-20 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
