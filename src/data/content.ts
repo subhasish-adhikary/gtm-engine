@@ -16,6 +16,7 @@ export const navigation = [
   { label: "Thinking", path: "/thinking" },
   { label: "Tools", path: "/tools" },
   { label: "GTM Stack", path: "/gtm-stack" },
+  { label: "Glossary", path: "/glossary" },
   { label: "Contact", path: "/contact" },
 ];
 

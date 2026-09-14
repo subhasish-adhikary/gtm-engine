@@ -8,6 +8,8 @@ import { ThinkingPage, ThinkingCategoryPage, ArticlePage } from './pages/Thinkin
 import { ToolsPage, ToolPage } from './pages/ToolsPages';
 import { GTMStackPage } from './pages/ToolsPages';
 import { GTMIntelligenceEngine } from './pages/gtm-engine/GTMIntelligenceEngine';
+import GlossaryPage from './pages/GlossaryPage';
+import GlossaryTermPage from './pages/GlossaryTermPage';
 import { useTheme } from './hooks/useTheme';
 
 export default function App() {
@@ -28,6 +30,8 @@ export default function App() {
           <Route path="/tools/:toolId" element={<ToolPage />} />
           <Route path="/tools/gtm-intelligence" element={<GTMIntelligenceEngine />} />
           <Route path="/gtm-stack" element={<GTMStackPage />} />
+          <Route path="/glossary" element={<GlossaryPage />} />
+          <Route path="/glossary/:slug" element={<GlossaryTermPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="*" element={<NotFoundPage />} />
