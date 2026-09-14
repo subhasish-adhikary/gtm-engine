@@ -52,7 +52,7 @@ export function HomePage() {
             <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
             <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Verified Impact</span>
           </div>
-          <div className="flex flex-wrap gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-8">
             {[
               { value: '+30%', label: 'Organic traffic', context: 'Velarudh Infotech' },
               { value: '+21%', label: 'Traffic & revenue', context: 'Sportskeeda' },
@@ -61,8 +61,8 @@ export function HomePage() {
               { value: '+5%', label: 'Lead conversion', context: 'Wisestep' },
               { value: '5 hrs/week', label: 'Overhead reduced', context: 'Wisestep · AI Automation' },
             ].map((metric, index) => (
-              <div key={index} className="flex-shrink-0">
-                <div className="text-3xl lg:text-4xl font-bold mb-1" style={{ color: 'var(--accent)' }}>{metric.value}</div>
+              <div key={index}>
+                <div className="text-3xl lg:text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>{metric.value}</div>
                 <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{metric.label}</div>
                 <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{metric.context}</div>
               </div>
@@ -170,33 +170,33 @@ export function HomePage() {
 
             {/* System Diagram */}
             <div className="relative">
-              <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+              <div className="rounded-lg p-8 lg:p-10" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
                 <div className="text-center mb-8">
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>MARKET</div>
-                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>↓</div>
+                  <div className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>MARKET</div>
+                  <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>↓</div>
                 </div>
                 <div className="text-center mb-8">
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>CUSTOMER SIGNALS</div>
-                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>↓</div>
+                  <div className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>CUSTOMER SIGNALS</div>
+                  <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>↓</div>
                 </div>
                 <div className="rounded-lg p-6 mb-8" style={{ backgroundColor: 'var(--bg-secondary)', border: '2px solid var(--accent)' }}>
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-4 text-center" style={{ color: 'var(--accent)' }}>GTM SYSTEM</div>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-center gap-2 text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                  <div className="text-sm font-semibold uppercase tracking-wider mb-5 text-center" style={{ color: 'var(--accent)' }}>GTM SYSTEM</div>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-center gap-3 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                       <span>ICP</span>
                       <span style={{ color: 'var(--accent)' }}>→</span>
                       <span>Positioning</span>
                       <span style={{ color: 'var(--accent)' }}>→</span>
                       <span>Messaging</span>
                     </div>
-                    <div className="flex items-center justify-center gap-2 text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    <div className="flex items-center justify-center gap-3 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                       <span>Demand</span>
                       <span style={{ color: 'var(--accent)' }}>→</span>
                       <span>Automation</span>
                       <span style={{ color: 'var(--accent)' }}>→</span>
                       <span>Sales</span>
                     </div>
-                    <div className="flex items-center justify-center gap-2 text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    <div className="flex items-center justify-center gap-3 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                       <span>Data</span>
                       <span style={{ color: 'var(--accent)' }}>→</span>
                       <span>Experimentation</span>
@@ -206,8 +206,8 @@ export function HomePage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>↓</div>
-                  <div className="text-xs font-semibold uppercase tracking-wider mt-2" style={{ color: 'var(--text-tertiary)' }}>REVENUE</div>
+                  <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>↓</div>
+                  <div className="text-sm font-semibold uppercase tracking-wider mt-2" style={{ color: 'var(--text-tertiary)' }}>REVENUE</div>
                 </div>
               </div>
             </div>
@@ -284,25 +284,25 @@ export function HomePage() {
             </div>
 
             {/* Circular Stack Visualization */}
-            <div className="relative aspect-square max-w-md mx-auto">
-              <svg viewBox="0 0 400 400" className="w-full h-full">
+            <div className="relative aspect-square max-w-2xl mx-auto w-full">
+              <svg viewBox="0 0 500 500" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
                 {/* Center */}
-                <circle cx="200" cy="200" r="60" fill="var(--accent)" />
-                <text x="200" y="195" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#fff">B2B</text>
-                <text x="200" y="210" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#fff">GTM</text>
-                <text x="200" y="225" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#fff">STACK</text>
+                <circle cx="250" cy="250" r="75" fill="var(--accent)" />
+                <text x="250" y="240" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#fff">B2B</text>
+                <text x="250" y="258" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#fff">GTM</text>
+                <text x="250" y="276" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#fff">STACK</text>
 
                 {/* Outer nodes */}
                 {['CRM', 'Automation', 'ABM', 'Intent', 'Sales Intel', 'AI', 'Analytics', 'Enrichment', 'Outbound', 'Content'].map((cat, i) => {
                   const angle = (i * 36 - 90) * (Math.PI / 180);
-                  const x = 200 + 140 * Math.cos(angle);
-                  const y = 200 + 140 * Math.sin(angle);
+                  const x = 250 + 175 * Math.cos(angle);
+                  const y = 250 + 175 * Math.sin(angle);
                   
                   return (
                     <g key={cat}>
-                      <line x1="200" y1="200" x2={x} y2={y} stroke="var(--border-color)" strokeWidth="1" />
-                      <circle cx={x} cy={y} r="30" fill="var(--card-bg)" stroke="var(--border-color)" strokeWidth="2" />
-                      <text x={x} y={y + 4} textAnchor="middle" fontSize="10" fontWeight="600" fill="var(--text-primary)">
+                      <line x1="250" y1="250" x2={x} y2={y} stroke="var(--border-color)" strokeWidth="2" />
+                      <circle cx={x} cy={y} r="38" fill="var(--card-bg)" stroke="var(--border-color)" strokeWidth="2" />
+                      <text x={x} y={y + 5} textAnchor="middle" fontSize="12" fontWeight="600" fill="var(--text-primary)">
                         {cat}
                       </text>
                     </g>
@@ -413,9 +413,9 @@ export function HomePage() {
 
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-0 right-0 top-1/2 h-px" style={{ backgroundColor: 'var(--border-color)' }} />
+            <div className="absolute left-0 right-0 top-6 h-0.5" style={{ backgroundColor: 'var(--border-color)' }} />
             
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 relative">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 lg:gap-8 relative">
               {[
                 { year: '2017', label: 'SEO + CONTENT', metric: '+30% organic traffic' },
                 { year: '2019', label: 'DIGITAL + AUTOMATION', metric: '+21% organic traffic' },
@@ -429,24 +429,24 @@ export function HomePage() {
                   onMouseLeave={() => setHoveredCareer(null)}
                   className="text-center cursor-pointer"
                 >
-                  <div className="relative mb-4">
+                  <div className="relative mb-5">
                     <div
-                      className="w-4 h-4 rounded-full mx-auto transition-all"
+                      className="w-5 h-5 rounded-full mx-auto transition-all"
                       style={{
                         backgroundColor: hoveredCareer === index ? 'var(--accent)' : 'var(--card-bg)',
-                        border: '2px solid var(--accent)',
-                        transform: hoveredCareer === index ? 'scale(1.5)' : 'scale(1)',
+                        border: '3px solid var(--accent)',
+                        transform: hoveredCareer === index ? 'scale(1.4)' : 'scale(1)',
                       }}
                     />
                   </div>
-                  <div className="text-2xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
+                  <div className="text-3xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
                     {stage.year}
                   </div>
-                  <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  <div className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
                     {stage.label}
                   </div>
                   {hoveredCareer === index && (
-                    <div className="text-xs mt-2 p-2 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                    <div className="text-sm mt-2 p-3 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
                       {stage.metric}
                     </div>
                   )}

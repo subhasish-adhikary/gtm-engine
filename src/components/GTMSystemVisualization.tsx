@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
 const nodes = [
-  { id: 'market', label: 'MARKET', x: 400, y: 80 },
+  { id: 'market', label: 'MARKET', x: 400, y: 60 },
   { id: 'icp', label: 'ICP', x: 400, y: 160 },
-  { id: 'positioning', label: 'POSITIONING', x: 400, y: 240 },
-  { id: 'demand', label: 'DEMAND', x: 400, y: 320 },
-  { id: 'signals', label: 'SIGNALS', x: 400, y: 400 },
-  { id: 'automation', label: 'AUTOMATION', x: 400, y: 480 },
-  { id: 'pipeline', label: 'PIPELINE', x: 400, y: 560 },
-  { id: 'revenue', label: 'REVENUE', x: 400, y: 640 },
+  { id: 'positioning', label: 'POSITIONING', x: 400, y: 260 },
+  { id: 'demand', label: 'DEMAND', x: 400, y: 360 },
+  { id: 'signals', label: 'SIGNALS', x: 400, y: 460 },
+  { id: 'automation', label: 'AUTOMATION', x: 400, y: 560 },
+  { id: 'pipeline', label: 'PIPELINE', x: 400, y: 660 },
+  { id: 'revenue', label: 'REVENUE', x: 400, y: 760 },
 ];
 
 export function GTMSystemVisualization() {
@@ -43,8 +43,8 @@ export function GTMSystemVisualization() {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full aspect-[4/5] max-w-md mx-auto">
-      <svg viewBox="0 0 800 720" className="w-full h-full">
+    <div ref={containerRef} className="relative w-full max-w-lg mx-auto" style={{ minHeight: '600px' }}>
+      <svg viewBox="0 0 800 820" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
         {/* Connection lines */}
         {nodes.map((node, index) => {
           if (index === nodes.length - 1) return null;
@@ -55,17 +55,17 @@ export function GTMSystemVisualization() {
             <g key={`line-${node.id}`}>
               <line
                 x1={node.x}
-                y1={node.y + 20}
+                y1={node.y + 35}
                 x2={nextNode.x}
-                y2={nextNode.y - 20}
+                y2={nextNode.y - 35}
                 stroke={isActive ? 'var(--accent)' : 'var(--border-color)'}
-                strokeWidth={isActive ? 2 : 1}
-                strokeDasharray={isActive ? '0' : '4 4'}
+                strokeWidth={isActive ? 3 : 2}
+                strokeDasharray={isActive ? '0' : '6 4'}
                 className="transition-all duration-300"
               />
               {/* Arrow */}
               <polygon
-                points={`${nextNode.x},${nextNode.y - 25} ${nextNode.x - 5},${nextNode.y - 35} ${nextNode.x + 5},${nextNode.y - 35}`}
+                points={`${nextNode.x},${nextNode.y - 40} ${nextNode.x - 8},${nextNode.y - 52} ${nextNode.x + 8},${nextNode.y - 52}`}
                 fill={isActive ? 'var(--accent)' : 'var(--border-color)'}
                 className="transition-all duration-300"
               />
@@ -89,10 +89,10 @@ export function GTMSystemVisualization() {
               <circle
                 cx={node.x}
                 cy={node.y}
-                r={isActive ? 32 : 28}
+                r={isActive ? 45 : 40}
                 fill={isActive ? 'var(--accent)' : 'var(--card-bg)'}
                 stroke={isActive ? 'var(--accent)' : 'var(--border-color)'}
-                strokeWidth={2}
+                strokeWidth={3}
                 style={{
                   transform: `translate(0, ${-offset}px)`,
                   transition: 'all 0.3s ease-out',
@@ -102,10 +102,10 @@ export function GTMSystemVisualization() {
               {/* Node label */}
               <text
                 x={node.x}
-                y={node.y + 4}
+                y={node.y + 5}
                 textAnchor="middle"
-                fontSize="11"
-                fontWeight="600"
+                fontSize="14"
+                fontWeight="700"
                 fill={isActive ? '#ffffff' : 'var(--text-primary)'}
                 style={{
                   transform: `translate(0, ${-offset}px)`,
@@ -122,7 +122,7 @@ export function GTMSystemVisualization() {
 
       {/* Title */}
       <div className="absolute top-0 left-0 right-0 text-center">
-        <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
+        <div className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
           GTM Operating System
         </div>
       </div>
