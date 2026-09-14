@@ -3,7 +3,8 @@ import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
 import { AboutPage, WorkPage, CaseStudyPage, ContactPage, PrivacyPage, NotFoundPage } from './pages/MainPages';
 import { ThinkingPage, ThinkingCategoryPage, ArticlePage } from './pages/ThinkingPages';
-import { ToolsPage, ToolPage, GTMStackPage } from './pages/ToolsPages';
+import { ToolsPage, ToolPage } from './pages/ToolsPages';
+import { GTMStackPage } from './pages/ToolsPages';
 import { useTheme } from './hooks/useTheme';
 
 export default function App() {

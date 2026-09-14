@@ -40,11 +40,14 @@ export const thinkingCategories = [
 
 export const tools = [
   { id: "channel-planner", title: "Marketing Channel Planner", description: "Given your ICP, ACV, budget, and sales cycle — which channels should you prioritize?", category: "Strategy", status: "active" },
-  { id: "gtm-diagnostic", title: "GTM Diagnostic", description: "Assess your go-to-market motion across positioning, channels, and funnel architecture.", category: "Strategy", status: "coming-soon" },
-  { id: "budget-lab", title: "Budget Lab", description: "Model marketing budget allocation across channels based on your stage and goals.", category: "Planning", status: "coming-soon" },
-  { id: "stack-builder", title: "GTM Stack Builder", description: "Design your marketing technology stack based on company size and growth stage.", category: "Technology", status: "coming-soon" },
-  { id: "ai-workflow-planner", title: "AI Marketing Workflow Planner", description: "Map AI applications across your marketing workflows and prioritize implementation.", category: "AI", status: "coming-soon" },
-  { id: "experiment-planner", title: "GTM Experiment Planner", description: "Design, prioritize, and track growth experiments with a structured framework.", category: "Experimentation", status: "coming-soon" },
+  { id: "gtm-diagnostic", title: "GTM Diagnostic", description: "Assess your go-to-market motion across positioning, channels, and funnel architecture.", category: "Strategy", status: "active" },
+  { id: "budget-lab", title: "GTM Budget Lab", description: "Model marketing budget allocation across channels based on your stage and goals.", category: "Planning", status: "active" },
+  { id: "stack-builder", title: "GTM Stack Builder", description: "Design your marketing technology stack based on company size and growth stage.", category: "Technology", status: "active" },
+  { id: "automation-planner", title: "Marketing Automation Planner", description: "Plan automation workflows for lead nurture, onboarding, retention, and reactivation.", category: "Automation", status: "active" },
+  { id: "copy-analyzer", title: "Ad Copy Analyzer", description: "Analyze ad and landing page copy for clarity, persuasion, and conversion potential.", category: "Content", status: "active" },
+  { id: "content-opportunity", title: "Content Opportunity Analyzer", description: "Identify content gaps and opportunities based on your market, competitors, and audience.", category: "Content", status: "active" },
+  { id: "experiment-planner", title: "GTM Experiment Planner", description: "Design, prioritize, and track growth experiments with a structured framework.", category: "Experimentation", status: "active" },
+  { id: "geo-diagnostic", title: "AI Visibility / GEO Diagnostic", description: "Assess your brand's visibility in AI-generated answers and generative search.", category: "AI", status: "active" },
 ];
 
 export const gtmStackCategories = [
