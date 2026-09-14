@@ -187,12 +187,249 @@ function ChannelPlannerTool() {
   );
 }
 
-// G2/Capterra-style GTM Stack Directory
+// Interactive Stack Recommender
+function StackRecommender() {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<{
+    stage: string;
+    budget: string;
+    team: string;
+    goal: string;
+  }>({
+    stage: '',
+    budget: '',
+    team: '',
+    goal: ''
+  });
+  const [showResults, setShowResults] = useState(false);
+
+  type AnswerKey = 'stage' | 'budget' | 'team' | 'goal';
+  
+  const questions: Array<{
+    key: AnswerKey;
+    question: string;
+    options: Array<{ value: string; label: string; desc: string }>;
+  }> = [
+    {
+      key: 'stage',
+      question: 'What stage is your company?',
+      options: [
+        { value: 'startup', label: 'Early-stage Startup', desc: 'Pre-seed to Series A' },
+        { value: 'growth', label: 'Growth Stage', desc: 'Series B to C' },
+        { value: 'enterprise', label: 'Enterprise', desc: 'Series D+ or public' }
+      ]
+    },
+    {
+      key: 'budget',
+      question: 'What\'s your monthly marketing budget?',
+      options: [
+        { value: 'low', label: '< $5,000/mo', desc: 'Lean startup budget' },
+        { value: 'medium', label: '$5k - $20k/mo', desc: 'Growth budget' },
+        { value: 'high', label: '> $20k/mo', desc: 'Enterprise budget' }
+      ]
+    },
+    {
+      key: 'team',
+      question: 'How large is your marketing team?',
+      options: [
+        { value: 'solo', label: 'Just me', desc: 'Solo marketer or founder' },
+        { value: 'small', label: '2-5 people', desc: 'Small team' },
+        { value: 'large', label: '6+ people', desc: 'Dedicated team' }
+      ]
+    },
+    {
+      key: 'goal',
+      question: 'What\'s your primary GTM goal?',
+      options: [
+        { value: 'pipeline', label: 'Generate Pipeline', desc: 'Focus on demand gen' },
+        { value: 'conversion', label: 'Improve Conversion', desc: 'Optimize existing funnel' },
+        { value: 'scale', label: 'Scale Operations', desc: 'Automate and grow' }
+      ]
+    }
+  ];
+
+  const getRecommendations = () => {
+    const recommended = gtmStacks.filter(stack => {
+      let score = 0;
+      
+      // Stage matching
+      if (answers.stage === 'startup' && (stack.budgetRange.includes('$500') || stack.budgetRange.includes('$1,000'))) score += 2;
+      if (answers.stage === 'growth' && (stack.budgetRange.includes('$5,000') || stack.budgetRange.includes('$10,000'))) score += 2;
+      if (answers.stage === 'enterprise' && (stack.budgetRange.includes('$50,000') || stack.budgetRange.includes('$100,000'))) score += 2;
+      
+      // Budget matching
+      if (answers.budget === 'low' && stack.complexity === 'Low') score += 1;
+      if (answers.budget === 'medium' && stack.complexity === 'Medium') score += 1;
+      if (answers.budget === 'high' && stack.complexity === 'High') score += 1;
+      
+      // Team size matching
+      if (answers.team === 'solo' && stack.complexity === 'Low') score += 1;
+      if (answers.team === 'small' && stack.complexity !== 'High') score += 1;
+      if (answers.team === 'large') score += 1;
+      
+      return score >= 2;
+    });
+
+    return recommended.slice(0, 3);
+  };
+
+  if (showResults) {
+    const recommendations = getRecommendations();
+    return (
+      <div className="p-8 rounded-2xl border-2" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Your Recommended Stacks
+          </h3>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Based on your answers, here are the best-fit stacks for your situation
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {recommendations.map((stack, idx) => (
+            <div key={stack.id} className="p-6 rounded-xl border-2 bg-white" style={{ borderColor: idx === 0 ? 'var(--accent)' : 'var(--border-color)' }}>
+              {idx === 0 && (
+                <div className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
+                  Top Pick
+                </div>
+              )}
+              <h4 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                {stack.name}
+              </h4>
+              <p className="text-xs mb-3" style={{ color: 'var(--text-tertiary)' }}>
+                {stack.whoItsFor}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                  {stack.complexity}
+                </span>
+                <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                  {stack.budgetRange}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1 mb-4">
+                {stack.tools.slice(0, 4).map(tool => (
+                  <span key={tool} className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>
+                    {tool}
+                  </span>
+                ))}
+              </div>
+              <button className="w-full px-4 py-2 rounded-lg text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
+                View Full Stack
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={() => {
+              setStep(0);
+              setAnswers({ stage: '', budget: '', team: '', goal: '' });
+              setShowResults(false);
+            }}
+            className="px-6 py-2 rounded-lg text-sm font-medium border"
+            style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+          >
+            Start Over
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentQuestion = questions[step];
+
+  return (
+    <div className="p-8 rounded-2xl border-2" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--bg-secondary)' }}>
+      {/* Progress */}
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex gap-2">
+          {questions.map((_, idx) => (
+            <div
+              key={idx}
+              className="h-1 w-16 rounded-full transition-colors"
+              style={{ backgroundColor: idx <= step ? 'var(--accent)' : 'var(--border-color)' }}
+            />
+          ))}
+        </div>
+        <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+          {step + 1} of {questions.length}
+        </span>
+      </div>
+
+      {/* Question */}
+      <div className="text-center mb-8">
+        <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          {currentQuestion.question}
+        </h3>
+      </div>
+
+      {/* Options */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {currentQuestion.options.map((option) => (
+          <button
+            key={option.value}
+            onClick={() => {
+              setAnswers({ ...answers, [currentQuestion.key]: option.value });
+              if (step < questions.length - 1) {
+                setStep(step + 1);
+              } else {
+                setShowResults(true);
+              }
+            }}
+            className="p-6 rounded-xl border-2 text-left transition-all hover:shadow-lg"
+            style={{
+              borderColor: answers[currentQuestion.key] === option.value ? 'var(--accent)' : 'var(--border-color)',
+              backgroundColor: answers[currentQuestion.key] === option.value ? 'var(--card-bg)' : 'var(--card-bg)'
+            }}
+          >
+            <div className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+              {option.label}
+            </div>
+            <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+              {option.desc}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex justify-between">
+        <button
+          onClick={() => setStep(Math.max(0, step - 1))}
+          disabled={step === 0}
+          className="px-6 py-2 rounded-lg text-sm font-medium border disabled:opacity-40"
+          style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+        >
+          Back
+        </button>
+        <button
+          onClick={() => {
+            if (step < questions.length - 1) {
+              setStep(step + 1);
+            } else {
+              setShowResults(true);
+            }
+          }}
+          className="px-6 py-2 rounded-lg text-sm font-medium"
+          style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+        >
+          {step === questions.length - 1 ? 'Get Recommendations' : 'Next'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Enhanced GTM Stack Directory
 export function GTMStackPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedComplexity, setSelectedComplexity] = useState<string>('all');
   const [selectedBudget, setSelectedBudget] = useState<string>('all');
+  const [showRecommender, setShowRecommender] = useState(false);
 
   // Get unique categories and counts
   const categories = useMemo(() => {
@@ -227,36 +464,116 @@ export function GTMStackPage() {
   }, [searchQuery, selectedCategory, selectedComplexity, selectedBudget]);
 
   return (
-    <div className="py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'GTM Stack' }]} />
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      {/* Hero Section */}
+      <div className="relative overflow-hidden border-b" style={{ borderColor: 'var(--border-color)' }}>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, var(--accent) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, var(--accent) 0%, transparent 50%)`
+        }} />
         
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
-            B2B Marketing Tool Stacks
-          </h1>
-          <p className="mt-3 text-lg" style={{ color: 'var(--text-secondary)' }}>
-            {gtmStacks.length}+ curated marketing technology stacks organized by use case, company stage, and budget.
-          </p>
-        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="max-w-3xl">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--accent)' }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                {gtmStacks.length}+ Curated Stacks
+              </span>
+            </div>
 
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6" style={{ color: 'var(--text-primary)' }}>
+              B2B Marketing<br />
+              <span style={{ color: 'var(--accent)' }}>Tool Stacks</span>
+            </h1>
+
+            {/* Description */}
+            <p className="text-lg sm:text-xl leading-relaxed mb-8" style={{ color: 'var(--text-secondary)' }}>
+              Stop guessing which tools you need. Explore {gtmStacks.length}+ battle-tested marketing technology stacks, 
+              organized by company stage, budget, and GTM motion. Each stack includes rationale, trade-offs, and 
+              implementation guidance from real-world experience.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={() => setShowRecommender(!showRecommender)}
+                className="px-6 py-3 rounded-lg text-sm font-semibold transition-all hover:shadow-lg"
+                style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+              >
+                {showRecommender ? 'Hide Recommender' : 'Find My Stack →'}
+              </button>
+              <a
+                href="#stacks"
+                className="px-6 py-3 rounded-lg text-sm font-semibold border transition-all hover:shadow-md"
+                style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', backgroundColor: 'var(--card-bg)' }}
+              >
+                Browse All Stacks
+              </a>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
+              <div>
+                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  {gtmStacks.length}+
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Tool Stacks
+                </div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  {categories.length}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Categories
+                </div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  {gtmStacks.reduce((sum, s) => sum + s.tools.length, 0)}+
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Tools Covered
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Interactive Recommender */}
+      {showRecommender && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <StackRecommender />
+        </div>
+      )}
+
+      {/* Search + Filters Section */}
+      <div id="stacks" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Search Bar */}
         <div className="mb-8">
-          <div className="relative">
+          <div className="relative max-w-2xl">
             <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-tertiary)' }} />
             <input
               type="text"
               placeholder="Search stacks by name, audience, or tool..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg border text-base"
-              style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+              className="w-full pl-12 pr-12 py-4 rounded-xl border-2 text-base transition-all focus:shadow-lg"
+              style={{ 
+                backgroundColor: 'var(--card-bg)', 
+                borderColor: 'var(--border-color)', 
+                color: 'var(--text-primary)' 
+              }}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-[var(--bg-secondary)]"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-[var(--bg-secondary)]"
               >
                 <X size={16} style={{ color: 'var(--text-tertiary)' }} />
               </button>
@@ -264,183 +581,181 @@ export function GTMStackPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Left Sidebar - Categories */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                Categories
-              </h3>
-              <div className="space-y-1">
-                <button
-                  onClick={() => setSelectedCategory('all')}
-                  className="w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                  style={{
-                    backgroundColor: selectedCategory === 'all' ? 'var(--bg-secondary)' : 'transparent',
-                    color: selectedCategory === 'all' ? 'var(--accent)' : 'var(--text-secondary)',
-                  }}
-                >
-                  All Stacks
-                  <span className="float-right text-xs" style={{ color: 'var(--text-tertiary)' }}>{gtmStacks.length}</span>
-                </button>
-                {categories.map(({ name, count }) => (
-                  <button
-                    key={name}
-                    onClick={() => setSelectedCategory(name)}
-                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                    style={{
-                      backgroundColor: selectedCategory === name ? 'var(--bg-secondary)' : 'transparent',
-                      color: selectedCategory === name ? 'var(--accent)' : 'var(--text-secondary)',
-                    }}
-                  >
-                    {name}
-                    <span className="float-right text-xs" style={{ color: 'var(--text-tertiary)' }}>{count}</span>
+        {/* Filter Pills */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          {/* Category Filter */}
+          <div className="relative">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-lg border text-sm font-medium cursor-pointer transition-all hover:shadow-md"
+              style={{ 
+                backgroundColor: selectedCategory !== 'all' ? 'var(--accent)' : 'var(--card-bg)',
+                borderColor: 'var(--border-color)',
+                color: selectedCategory !== 'all' ? '#fff' : 'var(--text-primary)'
+              }}
+            >
+              <option value="all">All Categories</option>
+              {categories.map(({ name, count }) => (
+                <option key={name} value={name}>{name} ({count})</option>
+              ))}
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 4L6 8L10 4" stroke={selectedCategory !== 'all' ? '#fff' : 'var(--text-tertiary)'} strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Complexity Filter */}
+          <div className="relative">
+            <select
+              value={selectedComplexity}
+              onChange={(e) => setSelectedComplexity(e.target.value)}
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-lg border text-sm font-medium cursor-pointer transition-all hover:shadow-md"
+              style={{ 
+                backgroundColor: selectedComplexity !== 'all' ? 'var(--accent)' : 'var(--card-bg)',
+                borderColor: 'var(--border-color)',
+                color: selectedComplexity !== 'all' ? '#fff' : 'var(--text-primary)'
+              }}
+            >
+              <option value="all">All Complexity</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 4L6 8L10 4" stroke={selectedComplexity !== 'all' ? '#fff' : 'var(--text-tertiary)'} strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Budget Filter */}
+          <div className="relative">
+            <select
+              value={selectedBudget}
+              onChange={(e) => setSelectedBudget(e.target.value)}
+              className="appearance-none pl-4 pr-10 py-2.5 rounded-lg border text-sm font-medium cursor-pointer transition-all hover:shadow-md"
+              style={{ 
+                backgroundColor: selectedBudget !== 'all' ? 'var(--accent)' : 'var(--card-bg)',
+                borderColor: 'var(--border-color)',
+                color: selectedBudget !== 'all' ? '#fff' : 'var(--text-primary)'
+              }}
+            >
+              <option value="all">All Budgets</option>
+              <option value="low">Low (&lt;$5k/mo)</option>
+              <option value="medium">Medium ($5k-$20k/mo)</option>
+              <option value="high">High (&gt;$20k/mo)</option>
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 4L6 8L10 4" stroke={selectedBudget !== 'all' ? '#fff' : 'var(--text-tertiary)'} strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Clear Filters */}
+          {(selectedCategory !== 'all' || selectedComplexity !== 'all' || selectedBudget !== 'all') && (
+            <button
+              onClick={() => {
+                setSelectedCategory('all');
+                setSelectedComplexity('all');
+                setSelectedBudget('all');
+              }}
+              className="px-4 py-2.5 rounded-lg text-sm font-medium border transition-all hover:shadow-md"
+              style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+            >
+              Clear Filters
+            </button>
+          )}
+        </div>
+
+        {/* Results Count */}
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+            Showing <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{filteredStacks.length}</span> of {gtmStacks.length} stacks
+          </p>
+        </div>
+
+        {/* Tool Cards Grid */}
+        {filteredStacks.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+              <Search size={24} style={{ color: 'var(--text-tertiary)' }} />
+            </div>
+            <p className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No stacks found</p>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Try adjusting your search or filters</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredStacks.map((stack) => (
+              <div
+                key={stack.id}
+                className="group p-6 rounded-xl border-2 transition-all hover:shadow-xl hover:-translate-y-1"
+                style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
+              >
+                {/* Header */}
+                <div className="mb-4">
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-[var(--accent)] transition-colors" style={{ color: 'var(--text-primary)' }}>
+                    {stack.name}
+                  </h3>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                    {stack.whoItsFor}
+                  </p>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="text-xs px-2.5 py-1 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                    {stack.category}
+                  </span>
+                  <span className="text-xs px-2.5 py-1 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                    {stack.complexity}
+                  </span>
+                  <span className="text-xs px-2.5 py-1 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                    {stack.budgetRange}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm mb-4 leading-relaxed line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
+                  {stack.problem}
+                </p>
+
+                {/* Tools */}
+                <div className="mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                    Tools ({stack.tools.length})
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {stack.tools.slice(0, 5).map((tool) => (
+                      <span key={tool} className="text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                        {tool}
+                      </span>
+                    ))}
+                    {stack.tools.length > 5 && (
+                      <span className="text-xs px-2 py-1 font-medium" style={{ color: 'var(--accent)' }}>
+                        +{stack.tools.length - 5}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: 'var(--border-color)' }}>
+                  <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                    {stack.alternatives.length} alternatives
+                  </div>
+                  <button className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: 'var(--accent)' }}>
+                    View Details
+                    <ExternalLink size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </button>
-                ))}
-              </div>
-
-              {/* Filters */}
-              <div className="mt-8">
-                <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                  Filters
-                </h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Complexity</label>
-                    <select
-                      value={selectedComplexity}
-                      onChange={(e) => setSelectedComplexity(e.target.value)}
-                      className="w-full px-3 py-2 rounded-md border text-sm"
-                      style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-                    >
-                      <option value="all">All</option>
-                      <option value="Low">Low</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Budget</label>
-                    <select
-                      value={selectedBudget}
-                      onChange={(e) => setSelectedBudget(e.target.value)}
-                      className="w-full px-3 py-2 rounded-md border text-sm"
-                      style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-                    >
-                      <option value="all">All</option>
-                      <option value="low">Low (&lt;$5k/mo)</option>
-                      <option value="medium">Medium ($5k-$20k/mo)</option>
-                      <option value="high">High (&gt;$20k/mo)</option>
-                    </select>
-                  </div>
-
-                  {(selectedCategory !== 'all' || selectedComplexity !== 'all' || selectedBudget !== 'all') && (
-                    <button
-                      onClick={() => {
-                        setSelectedCategory('all');
-                        setSelectedComplexity('all');
-                        setSelectedBudget('all');
-                      }}
-                      className="w-full px-3 py-2 rounded-md text-sm font-medium border transition-colors hover:border-[var(--accent)]"
-                      style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
-                    >
-                      Clear Filters
-                    </button>
-                  )}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-
-          {/* Main Content - Tool Cards */}
-          <div className="lg:col-span-3">
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                Showing {filteredStacks.length} of {gtmStacks.length} stacks
-              </p>
-            </div>
-
-            {filteredStacks.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-lg font-medium" style={{ color: 'var(--text-primary)' }}>No stacks found</p>
-                <p className="text-sm mt-2" style={{ color: 'var(--text-tertiary)' }}>Try adjusting your search or filters</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredStacks.map((stack) => (
-                  <div
-                    key={stack.id}
-                    className="p-6 rounded-lg border transition-all hover:shadow-lg"
-                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
-                  >
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
-                          {stack.name}
-                        </h3>
-                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                          {stack.whoItsFor}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
-                        {stack.category}
-                      </span>
-                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
-                        {stack.complexity}
-                      </span>
-                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
-                        {stack.budgetRange}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      {stack.problem}
-                    </p>
-
-                    {/* Tools */}
-                    <div className="mb-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>
-                        Tools ({stack.tools.length})
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {stack.tools.slice(0, 6).map((tool) => (
-                          <span key={tool} className="text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                            {tool}
-                          </span>
-                        ))}
-                        {stack.tools.length > 6 && (
-                          <span className="text-xs px-2 py-1" style={{ color: 'var(--text-tertiary)' }}>
-                            +{stack.tools.length - 6} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                      <div className="flex items-center justify-between">
-                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                          {stack.alternatives.length} alternatives
-                        </div>
-                        <button className="text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all" style={{ color: 'var(--accent)' }}>
-                          View Details <ExternalLink size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
