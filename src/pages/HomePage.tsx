@@ -13,37 +13,40 @@ export function HomePage() {
 
   return (
     <div>
-      {/* HERO SECTION - Single Column Layout */}
+      {/* HERO SECTION - Two Column Layout */}
       <section className="py-16 sm:py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="animate-fade-in-up mb-8">
-              <img 
-                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
-                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4"
-                style={{ borderColor: 'var(--border-color)' }}
-              />
-            </div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Content */}
             <div className="animate-fade-in-up">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />
                 <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · GTM Strategy · Marketing Automation</span>
               </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]" style={{ color: 'var(--text-primary)' }}>
+                I build the systems behind modern B2B growth.
+              </h1>
+              <p className="mt-6 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>
+                <Button to="/thinking" variant="secondary" size="lg">Explore Thinking</Button>
+              </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] animate-fade-in-up delay-100" style={{ color: 'var(--text-primary)' }}>
-              I build the systems behind modern B2B growth.
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed animate-fade-in-up delay-200" style={{ color: 'var(--text-secondary)' }}>
-              Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3 animate-fade-in-up delay-300">
-              <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>
-              <Button to="/thinking" variant="secondary" size="lg">Explore Thinking</Button>
+
+            {/* Right: Profile Image */}
+            <div className="flex justify-center lg:justify-end animate-fade-in-up delay-200">
+              <img 
+                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
+                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4"
+                style={{ borderColor: 'var(--border-color)' }}
+              />
             </div>
           </div>
 
-          {/* GTM System Visualization - Below Hero Text */}
+          {/* GTM System Visualization - Below Hero */}
           <div className="mt-16 sm:mt-20 animate-fade-in-up delay-400">
             <GTMSystemVisualization />
           </div>

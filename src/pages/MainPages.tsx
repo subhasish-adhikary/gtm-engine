@@ -294,16 +294,9 @@ export function ContactPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Contact' }]} />
         <SectionHeader eyebrow="Contact" title="Let's connect" description="Whether you're exploring GTM strategy, marketing automation, or AI in marketing." />
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="text-center lg:text-left">
-              <img 
-                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
-                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 mx-auto lg:mx-0"
-                style={{ borderColor: 'var(--border-color)' }}
-              />
-            </div>
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left: Contact Information */}
+          <div className="space-y-6">
             <Card>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}><Mail size={18} /></div>
@@ -322,14 +315,22 @@ export function ContactPage() {
                 </div>
               </div>
             </Card>
-          </div>
-          <div className="lg:col-span-3">
             <Card>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>The fastest way to reach me is via email or LinkedIn. I typically respond within 48 hours. For strategic conversations about GTM, automation, or AI in marketing, I'm happy to schedule a call.</p>
               <div className="mt-6">
                 <Button to={siteConfig.linkedin} size="lg">Connect on LinkedIn <ArrowRight size={16} className="ml-2" /></Button>
               </div>
             </Card>
+          </div>
+
+          {/* Right: Profile Image */}
+          <div className="flex justify-center lg:justify-end">
+            <img 
+              src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
+              alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+              className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4"
+              style={{ borderColor: 'var(--border-color)' }}
+            />
           </div>
         </div>
       </div>

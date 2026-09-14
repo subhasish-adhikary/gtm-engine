@@ -33,47 +33,52 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <div className="mb-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-8">
+            {/* Left: Content */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[var(--accent)]"></div>
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
+                  Career Evolution
+                </span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6" style={{ color: 'var(--text-primary)' }}>
+                Growth Marketing & GTM Engineer<br />
+                building systems for B2B pipeline.
+              </h1>
+              <p className="text-xl lg:text-2xl leading-relaxed mb-8" style={{ color: 'var(--text-secondary)' }}>
+                Subhasish Adhikary — Growth Marketing · GTM Strategy · Marketing Automation · RevOps
+              </p>
+              <p className="text-base lg:text-lg leading-relaxed mb-12" style={{ color: 'var(--text-tertiary)' }}>
+                6+ years building demand-generation, revenue and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses. Currently at LanceSoft, building growth and GTM systems that connect marketing execution with pipeline creation, sales productivity and scalable operating infrastructure.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  6+ Years Experience
+                </span>
+                <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  Growth Marketing
+                </span>
+                <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  GTM Engineering
+                </span>
+                <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  Marketing Automation
+                </span>
+                <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  Hyderabad, India
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Profile Image */}
+            <div className="flex justify-center lg:justify-end">
               <img 
                 src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
                 alt="Subhasish Adhikary - Growth Marketing & GTM Engineer"
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4"
+                className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4"
                 style={{ borderColor: 'var(--border-color)' }}
               />
-            </div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-[var(--accent)]"></div>
-              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
-                Career Evolution
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6" style={{ color: 'var(--text-primary)' }}>
-              Growth Marketing & GTM Engineer<br />
-              building systems for B2B pipeline.
-            </h1>
-            <p className="text-xl lg:text-2xl leading-relaxed max-w-3xl mb-8" style={{ color: 'var(--text-secondary)' }}>
-              Subhasish Adhikary — Growth Marketing · GTM Strategy · Marketing Automation · RevOps
-            </p>
-            <p className="text-base lg:text-lg leading-relaxed max-w-3xl mb-12" style={{ color: 'var(--text-tertiary)' }}>
-              6+ years building demand-generation, revenue and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses. Currently at LanceSoft, building growth and GTM systems that connect marketing execution with pipeline creation, sales productivity and scalable operating infrastructure.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                6+ Years Experience
-              </span>
-              <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                Growth Marketing
-              </span>
-              <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                GTM Engineering
-              </span>
-              <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                Marketing Automation
-              </span>
-              <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                Hyderabad, India
-              </span>
             </div>
           </div>
         </div>
