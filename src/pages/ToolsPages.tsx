@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
-import { tools, gtmStackCategories } from '../data/content';
+import { Search, X, ExternalLink, Filter } from 'lucide-react';
+import { tools } from '../data/content';
 import { gtmStacks } from '../data/gtmStacks';
-import { SectionHeader, Card, Tag, Breadcrumb, Button } from '../components/UI';
+import { SectionHeader, Card, Tag, Breadcrumb } from '../components/UI';
 import { GTMBudgetLab, GTMDiagnostic, GTMStackBuilder } from './ToolsAdvanced';
 import { MarketingAutomationPlanner, AdCopyAnalyzer, ContentOpportunityAnalyzer, GTMExperimentPlanner, AIVisibilityDiagnostic } from './ToolsAdvanced2';
 
@@ -28,7 +28,6 @@ export function ToolsPage() {
           ))}
         </div>
 
-        {/* CTA */}
         <div className="mt-16 p-8 rounded-lg border text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
           <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Need help applying these tools to your strategy?</h3>
           <p className="mt-3 text-sm max-w-lg mx-auto" style={{ color: 'var(--text-tertiary)' }}>
@@ -51,7 +50,15 @@ export function ToolsPage() {
 export function ToolPage() {
   const { toolId } = useParams();
   const tool = tools.find(t => t.id === toolId);
-  if (!tool) return <div className="py-32 text-center"><h2 className="text-xl font-semibold">Tool not found</h2><Link to="/tools" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back</Link></div>;
+  
+  if (!tool) {
+    return (
+      <div className="py-32 text-center">
+        <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Tool not found</h2>
+        <Link to="/tools" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back to Tools</Link>
+      </div>
+    );
+  }
 
   const toolComponents: Record<string, React.ComponentType> = {
     'channel-planner': ChannelPlannerTool,
@@ -66,7 +73,15 @@ export function ToolPage() {
   };
 
   const ToolComponent = toolComponents[toolId as string];
-  if (!ToolComponent) return <div className="py-32 text-center"><h2 className="text-xl font-semibold">Tool coming soon</h2><Link to="/tools" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back</Link></div>;
+  
+  if (!ToolComponent) {
+    return (
+      <div className="py-32 text-center">
+        <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Tool coming soon</h2>
+        <Link to="/tools" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back to Tools</Link>
+      </div>
+    );
+  }
 
   return <ToolComponent />;
 }
@@ -126,7 +141,7 @@ function ChannelPlannerTool() {
                   ))}
                 </div>
               </div>
-              <Button type="submit" size="lg">Generate Recommendation</Button>
+              <button type="submit" className="px-6 py-3 rounded-md text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>Generate Recommendation</button>
             </form>
           </Card>
         </div>
@@ -163,145 +178,268 @@ function ChannelPlannerTool() {
               <li className="text-sm" style={{ color: 'var(--text-secondary)' }}>4. Set up 90-day measurement</li>
             </ol>
           </div>
-          <div className="mt-6"><Button variant="secondary" onClick={() => setShowOutput(false)}>Adjust Inputs</Button></div>
+          <div className="mt-6">
+            <button onClick={() => setShowOutput(false)} className="px-4 py-2 rounded-md text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>Adjust Inputs</button>
+          </div>
         </Card>
       </div>
     </div>
   );
 }
 
-import { GTMOperatingSystem } from '../components/GTMOperatingSystem';
-import { gtmStages } from '../data/gtmOperatingSystem';
-
+// G2/Capterra-style GTM Stack Directory
 export function GTMStackPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState({ category: '', complexity: '', budget: '' });
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedComplexity, setSelectedComplexity] = useState<string>('all');
+  const [selectedBudget, setSelectedBudget] = useState<string>('all');
 
-  const filtered = gtmStacks.filter(s => {
-    const matchSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery.toLowerCase()) || s.whoItsFor.toLowerCase().includes(searchQuery.toLowerCase()) || s.tools.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchFilters = (!filters.category || s.category === filters.category) && (!filters.complexity || s.complexity === filters.complexity);
-    return matchSearch && matchFilters;
-  });
+  // Get unique categories and counts
+  const categories = useMemo(() => {
+    const categoryMap = new Map<string, number>();
+    gtmStacks.forEach(stack => {
+      categoryMap.set(stack.category, (categoryMap.get(stack.category) || 0) + 1);
+    });
+    return Array.from(categoryMap.entries()).map(([name, count]) => ({ name, count }));
+  }, []);
 
-  const categories = [...new Set(gtmStacks.map(s => s.category))];
+  // Filter stacks
+  const filteredStacks = useMemo(() => {
+    return gtmStacks.filter(stack => {
+      const matchesSearch = !searchQuery || 
+        stack.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        stack.whoItsFor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        stack.tools.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      const matchesCategory = selectedCategory === 'all' || stack.category === selectedCategory;
+      const matchesComplexity = selectedComplexity === 'all' || stack.complexity === selectedComplexity;
+      
+      let matchesBudget = true;
+      if (selectedBudget !== 'all') {
+        const budget = stack.budgetRange.toLowerCase();
+        if (selectedBudget === 'low') matchesBudget = budget.includes('$500') || budget.includes('$1,000') || budget.includes('$2,000');
+        else if (selectedBudget === 'medium') matchesBudget = budget.includes('$5,000') || budget.includes('$10,000') || budget.includes('$15,000');
+        else if (selectedBudget === 'high') matchesBudget = budget.includes('$50,000') || budget.includes('$100,000') || budget.includes('$200,000');
+      }
+      
+      return matchesSearch && matchesCategory && matchesComplexity && matchesBudget;
+    });
+  }, [searchQuery, selectedCategory, selectedComplexity, selectedBudget]);
 
   return (
     <div className="py-12 sm:py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'GTM Stack' }]} />
         
-        {/* GTM Operating System Visualization */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
-              The GTM Operating System
-            </h2>
-            <p className="text-lg max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-              Your GTM stack should follow your GTM motion. Most teams build their stack tool-first. Start with the motion, identify the capabilities required to operate it, then choose the minimum technology needed to execute.
-            </p>
-          </div>
-          
-          <GTMOperatingSystem />
-          
-          <div className="mt-12 text-center">
-            <p className="text-sm italic max-w-2xl mx-auto" style={{ color: 'var(--text-tertiary)' }}>
-              Software is the infrastructure. The GTM model is the system.
-            </p>
-          </div>
-        </section>
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+            B2B Marketing Tool Stacks
+          </h1>
+          <p className="mt-3 text-lg" style={{ color: 'var(--text-secondary)' }}>
+            {gtmStacks.length}+ curated marketing technology stacks organized by use case, company stage, and budget.
+          </p>
+        </div>
 
-        {/* Semantic HTML for SEO */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-8" style={{ color: 'var(--text-primary)' }}>
-            The GTM Operating System: A Complete Framework
-          </h2>
-          <div className="prose max-w-none">
-            {gtmStages.map(stage => (
-              <div key={stage.id} className="mb-8">
-                <h3 className="text-xl font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
-                  {stage.number}. {stage.name}
+        {/* Search Bar */}
+        <div className="mb-8">
+          <div className="relative">
+            <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-tertiary)' }} />
+            <input
+              type="text"
+              placeholder="Search stacks by name, audience, or tool..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 rounded-lg border text-base"
+              style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-[var(--bg-secondary)]"
+              >
+                <X size={16} style={{ color: 'var(--text-tertiary)' }} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Left Sidebar - Categories */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-24">
+              <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-tertiary)' }}>
+                Categories
+              </h3>
+              <div className="space-y-1">
+                <button
+                  onClick={() => setSelectedCategory('all')}
+                  className="w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  style={{
+                    backgroundColor: selectedCategory === 'all' ? 'var(--bg-secondary)' : 'transparent',
+                    color: selectedCategory === 'all' ? 'var(--accent)' : 'var(--text-secondary)',
+                  }}
+                >
+                  All Stacks
+                  <span className="float-right text-xs" style={{ color: 'var(--text-tertiary)' }}>{gtmStacks.length}</span>
+                </button>
+                {categories.map(({ name, count }) => (
+                  <button
+                    key={name}
+                    onClick={() => setSelectedCategory(name)}
+                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    style={{
+                      backgroundColor: selectedCategory === name ? 'var(--bg-secondary)' : 'transparent',
+                      color: selectedCategory === name ? 'var(--accent)' : 'var(--text-secondary)',
+                    }}
+                  >
+                    {name}
+                    <span className="float-right text-xs" style={{ color: 'var(--text-tertiary)' }}>{count}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Filters */}
+              <div className="mt-8">
+                <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-tertiary)' }}>
+                  Filters
                 </h3>
-                <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
-                  {stage.description}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {stage.capabilities.map(cap => (
-                    <div key={cap.id} className="p-3 rounded-lg border" style={{ borderColor: 'var(--border-color)' }}>
-                      <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
-                        {cap.name}
-                      </h4>
-                      <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                        {cap.description}
-                      </p>
-                    </div>
-                  ))}
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Complexity</label>
+                    <select
+                      value={selectedComplexity}
+                      onChange={(e) => setSelectedComplexity(e.target.value)}
+                      className="w-full px-3 py-2 rounded-md border text-sm"
+                      style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+                    >
+                      <option value="all">All</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Budget</label>
+                    <select
+                      value={selectedBudget}
+                      onChange={(e) => setSelectedBudget(e.target.value)}
+                      className="w-full px-3 py-2 rounded-md border text-sm"
+                      style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+                    >
+                      <option value="all">All</option>
+                      <option value="low">Low (&lt;$5k/mo)</option>
+                      <option value="medium">Medium ($5k-$20k/mo)</option>
+                      <option value="high">High (&gt;$20k/mo)</option>
+                    </select>
+                  </div>
+
+                  {(selectedCategory !== 'all' || selectedComplexity !== 'all' || selectedBudget !== 'all') && (
+                    <button
+                      onClick={() => {
+                        setSelectedCategory('all');
+                        setSelectedComplexity('all');
+                        setSelectedBudget('all');
+                      }}
+                      className="w-full px-3 py-2 rounded-md text-sm font-medium border transition-colors hover:border-[var(--accent)]"
+                      style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                    >
+                      Clear Filters
+                    </button>
+                  )}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </section>
 
-        <SectionHeader eyebrow="GTM Stack" title={`${gtmStacks.length}+ B2B Marketing Tool Stacks`} description="Each stack solves a specific business problem. Not just tool lists — strategic recommendations with rationale, trade-offs, and alternatives." />
-        
-        <div className="mt-8 relative">
-          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-tertiary)' }} />
-          <input type="text" placeholder="Search stacks by name, audience, or tool..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 rounded-lg border text-sm" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} />
-        </div>
+          {/* Main Content - Tool Cards */}
+          <div className="lg:col-span-3">
+            <div className="mb-4 flex items-center justify-between">
+              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                Showing {filteredStacks.length} of {gtmStacks.length} stacks
+              </p>
+            </div>
 
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <select value={filters.category} onChange={(e) => setFilters({ ...filters, category: e.target.value })} className="px-3 py-2 rounded-lg border text-xs" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
-            <option value="">All Categories</option>
-            {categories.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-          <select value={filters.complexity} onChange={(e) => setFilters({ ...filters, complexity: e.target.value })} className="px-3 py-2 rounded-lg border text-xs" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
-            <option value="">All Complexity</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-          {(searchQuery || filters.category || filters.complexity) && (
-            <button onClick={() => { setSearchQuery(''); setFilters({ category: '', complexity: '', budget: '' }); }} className="px-3 py-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}><X size={12} />Clear</button>
-          )}
-        </div>
-
-        <div className="mt-4 text-sm" style={{ color: 'var(--text-tertiary)' }}>
-          Showing {filtered.length} of {gtmStacks.length} stacks
-        </div>
-
-        <div className="mt-6 space-y-4">
-          {filtered.slice(0, 20).map((stack) => (
-            <Card key={stack.id} hoverable>
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <Tag>{stack.category}</Tag>
-                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-tertiary)' }}>{stack.complexity} complexity</span>
-                <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-tertiary)' }}>{stack.budgetRange}</span>
+            {filteredStacks.length === 0 ? (
+              <div className="text-center py-16">
+                <p className="text-lg font-medium" style={{ color: 'var(--text-primary)' }}>No stacks found</p>
+                <p className="text-sm mt-2" style={{ color: 'var(--text-tertiary)' }}>Try adjusting your search or filters</p>
               </div>
-              <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{stack.name}</h3>
-              <p className="text-xs mb-2" style={{ color: 'var(--text-tertiary)' }}>{stack.whoItsFor}</p>
-              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>{stack.problem}</p>
-              <div className="flex flex-wrap gap-2">
-                {stack.tools.slice(0, 6).map(t => <span key={t} className="text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>{t}</span>)}
-                {stack.tools.length > 6 && <span className="text-xs px-2 py-1" style={{ color: 'var(--text-tertiary)' }}>+{stack.tools.length - 6} more</span>}
-              </div>
-            </Card>
-          ))}
-        </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredStacks.map((stack) => (
+                  <div
+                    key={stack.id}
+                    className="p-6 rounded-lg border transition-all hover:shadow-lg"
+                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
+                  >
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                          {stack.name}
+                        </h3>
+                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                          {stack.whoItsFor}
+                        </p>
+                      </div>
+                    </div>
 
-        {filtered.length > 20 && (
-          <div className="mt-6 text-center text-sm" style={{ color: 'var(--text-tertiary)' }}>
-            Showing first 20 of {filtered.length} results. Refine filters to see specific stacks.
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                        {stack.category}
+                      </span>
+                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                        {stack.complexity}
+                      </span>
+                      <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                        {stack.budgetRange}
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      {stack.problem}
+                    </p>
+
+                    {/* Tools */}
+                    <div className="mb-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                        Tools ({stack.tools.length})
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {stack.tools.slice(0, 6).map((tool) => (
+                          <span key={tool} className="text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                            {tool}
+                          </span>
+                        ))}
+                        {stack.tools.length > 6 && (
+                          <span className="text-xs px-2 py-1" style={{ color: 'var(--text-tertiary)' }}>
+                            +{stack.tools.length - 6} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                          {stack.alternatives.length} alternatives
+                        </div>
+                        <button className="text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all" style={{ color: 'var(--accent)' }}>
+                          View Details <ExternalLink size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-
-        {/* CTA */}
-        <div className="mt-12 p-6 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
-          <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Not sure which stack is right for you?</h3>
-          <p className="text-sm mb-4" style={{ color: 'var(--text-tertiary)' }}>
-            Use the GTM Stack Builder to get a personalized recommendation based on your budget, team size, and GTM model.
-          </p>
-          <Link to="/tools/stack-builder" className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
-            Build Your Stack →
-          </Link>
         </div>
       </div>
     </div>
