@@ -640,28 +640,28 @@ export function GTMStackPage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
-              <div>
-                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12 pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="p-6 rounded-xl border-2 text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+                <div className="text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
                   {gtmStacks.length}+
                 </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                   Tool Stacks
                 </div>
               </div>
-              <div>
-                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+              <div className="p-6 rounded-xl border-2 text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+                <div className="text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
                   {categories.length}
                 </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                   Categories
                 </div>
               </div>
-              <div>
-                <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+              <div className="p-6 rounded-xl border-2 text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+                <div className="text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
                   {gtmStacks.reduce((sum, s) => sum + s.tools.length, 0)}+
                 </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                   Tools Covered
                 </div>
               </div>
