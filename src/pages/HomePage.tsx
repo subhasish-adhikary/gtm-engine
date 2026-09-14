@@ -13,36 +13,31 @@ export function HomePage() {
 
   return (
     <div>
-      {/* HERO SECTION - Two Column Layout */}
+      {/* HERO SECTION - Single Column Layout */}
       <section className="py-16 sm:py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Typography */}
-            <div className="max-w-2xl">
-              <div className="animate-fade-in-up">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · B2B GTM · Marketing Intelligence</span>
-                </div>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] animate-fade-in-up delay-100" style={{ color: 'var(--text-primary)' }}>
-                I build growth systems where strategy, data and automation meet.
-              </h1>
-              <p className="mt-6 text-lg leading-relaxed animate-fade-in-up delay-200" style={{ color: 'var(--text-secondary)' }}>
-                I work across product marketing, demand generation, growth and marketing operations. I care about the economics behind the funnel, not just the activity inside it.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3 animate-fade-in-up delay-300">
-                <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>
-                <Button to="/thinking" variant="secondary" size="lg">Explore Thinking</Button>
+          <div className="max-w-3xl">
+            <div className="animate-fade-in-up">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · B2B GTM · Marketing Intelligence</span>
               </div>
             </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] animate-fade-in-up delay-100" style={{ color: 'var(--text-primary)' }}>
+              I build growth systems where strategy, data and automation meet.
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed animate-fade-in-up delay-200" style={{ color: 'var(--text-secondary)' }}>
+              I work across product marketing, demand generation, growth and marketing operations. I care about the economics behind the funnel, not just the activity inside it.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3 animate-fade-in-up delay-300">
+              <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>
+              <Button to="/thinking" variant="secondary" size="lg">Explore Thinking</Button>
+            </div>
+          </div>
 
-            {/* Right: GTM System Visualization */}
-            <div className="animate-fade-in-up delay-200 flex items-center justify-center">
-              <div className="w-full max-w-xl">
-                <GTMSystemVisualization />
-              </div>
-            </div>
+          {/* GTM System Visualization - Below Hero Text */}
+          <div className="mt-16 sm:mt-20 animate-fade-in-up delay-400">
+            <GTMSystemVisualization />
           </div>
         </div>
       </section>

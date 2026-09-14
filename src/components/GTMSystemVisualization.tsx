@@ -15,41 +15,41 @@ export function GTMSystemVisualization() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="w-full">
       {/* Heading */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-8">
         <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
           GTM Operating System
         </div>
       </div>
 
-      {/* Flowchart */}
-      <div className="flex flex-col items-center gap-0">
+      {/* Flowchart - Horizontal */}
+      <div className="flex items-center justify-center gap-0 overflow-x-auto pb-4">
         {nodes.map((node, index) => {
           const isActive = activeNode === node.id;
           const isLast = index === nodes.length - 1;
 
           return (
-            <div key={node.id} className="flex flex-col items-center">
+            <div key={node.id} className="flex items-center flex-shrink-0">
               {/* Node */}
               <div
                 onMouseEnter={() => setActiveNode(node.id)}
                 onMouseLeave={() => setActiveNode(null)}
                 className="relative cursor-pointer transition-all duration-200"
                 style={{
-                  transform: isActive ? 'scale(1.08)' : 'scale(1)',
+                  transform: isActive ? 'scale(1.1)' : 'scale(1)',
                 }}
               >
                 <div
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center border-2 transition-all duration-200"
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center border-2 transition-all duration-200"
                   style={{
                     backgroundColor: isActive ? 'var(--accent)' : 'var(--card-bg)',
                     borderColor: isActive ? 'var(--accent)' : 'var(--border-color)',
-                    boxShadow: isActive ? '0 0 16px rgba(21, 94, 239, 0.25)' : 'none',
+                    boxShadow: isActive ? '0 0 20px rgba(21, 94, 239, 0.3)' : 'none',
                   }}
                 >
                   <span
-                    className="text-[10px] sm:text-xs font-bold tracking-wide"
+                    className="text-[9px] sm:text-[11px] font-bold tracking-wide text-center px-1"
                     style={{
                       color: isActive ? '#ffffff' : 'var(--text-primary)',
                     }}
@@ -59,11 +59,11 @@ export function GTMSystemVisualization() {
                 </div>
               </div>
 
-              {/* Arrow connector */}
+              {/* Arrow connector - Horizontal */}
               {!isLast && (
-                <div className="flex flex-col items-center my-1.5">
+                <div className="flex items-center mx-2 sm:mx-3">
                   <div
-                    className="w-0.5 h-3 sm:h-4 transition-all duration-200"
+                    className="h-0.5 w-6 sm:w-8 transition-all duration-200"
                     style={{
                       backgroundColor: activeNode === node.id || activeNode === nodes[index + 1].id
                         ? 'var(--accent)'
@@ -73,9 +73,9 @@ export function GTMSystemVisualization() {
                   <div
                     className="w-0 h-0 transition-all duration-200"
                     style={{
-                      borderLeft: '4px solid transparent',
-                      borderRight: '4px solid transparent',
-                      borderTop: activeNode === node.id || activeNode === nodes[index + 1].id
+                      borderTop: '4px solid transparent',
+                      borderBottom: '4px solid transparent',
+                      borderLeft: activeNode === node.id || activeNode === nodes[index + 1].id
                         ? '6px solid var(--accent)'
                         : '6px solid var(--border-color)',
                     }}
