@@ -38,8 +38,10 @@ export function HomePage() {
             </div>
 
             {/* Right: GTM System Visualization */}
-            <div className="animate-fade-in-up delay-200">
-              <GTMSystemVisualization />
+            <div className="animate-fade-in-up delay-200 flex items-center justify-center">
+              <div className="w-full max-w-xl">
+                <GTMSystemVisualization />
+              </div>
             </div>
           </div>
         </div>
@@ -59,10 +61,10 @@ export function HomePage() {
               { value: '+30%', label: 'Partner conversion', context: 'Sportskeeda' },
               { value: '+12%', label: 'Funnel performance', context: 'Wisestep' },
               { value: '+5%', label: 'Lead conversion', context: 'Wisestep' },
-              { value: '5 hrs/week', label: 'Overhead reduced', context: 'Wisestep · AI Automation' },
+              { value: '5h', label: 'Saved per week', context: 'Wisestep · AI Automation' },
             ].map((metric, index) => (
               <div key={index}>
-                <div className="text-3xl lg:text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>{metric.value}</div>
+                <div className="text-3xl lg:text-4xl font-bold mb-2 whitespace-nowrap" style={{ color: 'var(--accent)' }}>{metric.value}</div>
                 <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{metric.label}</div>
                 <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{metric.context}</div>
               </div>

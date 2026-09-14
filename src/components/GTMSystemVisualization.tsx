@@ -43,8 +43,8 @@ export function GTMSystemVisualization() {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-lg mx-auto" style={{ minHeight: '600px' }}>
-      <svg viewBox="0 0 800 820" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+    <div ref={containerRef} className="relative w-full" style={{ minHeight: '500px' }}>
+      <svg viewBox="0 0 800 820" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
         {/* Connection lines */}
         {nodes.map((node, index) => {
           if (index === nodes.length - 1) return null;
