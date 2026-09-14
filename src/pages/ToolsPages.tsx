@@ -423,6 +423,130 @@ function StackRecommender() {
   );
 }
 
+// Stack Detail Modal
+function StackDetailModal({ stack, onClose }: { stack: typeof gtmStacks[0]; onClose: () => void }) {
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="sticky top-0 bg-[var(--card-bg)] border-b-2 border-[var(--border-color)] p-6 flex items-start justify-between">
+          <div className="flex-1">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+              {stack.name}
+            </h2>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+              {stack.whoItsFor}
+            </p>
+          </div>
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-[var(--bg-secondary)] rounded-lg transition-colors"
+          >
+            <X size={24} style={{ color: 'var(--text-secondary)' }} />
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-6">
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2">
+            <span className="text-sm px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+              {stack.category}
+            </span>
+            <span className="text-sm px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+              {stack.complexity} Complexity
+            </span>
+            <span className="text-sm px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+              {stack.budgetRange}
+            </span>
+          </div>
+
+          {/* Problem */}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
+              Problem This Solves
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              {stack.problem}
+            </p>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>
+              Tools in This Stack ({stack.tools.length})
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {stack.tools.map((tool) => (
+                <div 
+                  key={tool}
+                  className="p-3 rounded-lg border text-sm font-medium"
+                  style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-primary)' }}
+                >
+                  {tool}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Why These Tools */}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
+              Why These Tools?
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              {stack.whyTheseTools}
+            </p>
+          </div>
+
+          {/* Alternatives */}
+          {stack.alternatives.length > 0 && (
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>
+                Alternative Stacks
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {stack.alternatives.map((alt) => (
+                  <span 
+                    key={alt}
+                    className="text-sm px-3 py-1.5 rounded-lg"
+                    style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}
+                  >
+                    {alt}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Trade-offs */}
+          {stack.tradeOffs.length > 0 && (
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>
+                Trade-offs to Consider
+              </h3>
+              <ul className="space-y-2">
+                {stack.tradeOffs.map((tradeoff, idx) => (
+                  <li key={idx} className="text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
+                    <span style={{ color: 'var(--accent)' }}>•</span>
+                    <span>{tradeoff}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Enhanced GTM Stack Directory
 export function GTMStackPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -430,6 +554,7 @@ export function GTMStackPage() {
   const [selectedComplexity, setSelectedComplexity] = useState<string>('all');
   const [selectedBudget, setSelectedBudget] = useState<string>('all');
   const [showRecommender, setShowRecommender] = useState(false);
+  const [selectedStack, setSelectedStack] = useState<typeof gtmStacks[0] | null>(null);
 
   // Get unique categories and counts
   const categories = useMemo(() => {
@@ -747,7 +872,11 @@ export function GTMStackPage() {
                   <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
                     {stack.alternatives.length} alternatives
                   </div>
-                  <button className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: 'var(--accent)' }}>
+                  <button 
+                    onClick={() => setSelectedStack(stack)}
+                    className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" 
+                    style={{ color: 'var(--accent)' }}
+                  >
                     View Details
                     <ExternalLink size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </button>
@@ -757,6 +886,14 @@ export function GTMStackPage() {
           </div>
         )}
       </div>
+
+      {/* Stack Detail Modal */}
+      {selectedStack && (
+        <StackDetailModal 
+          stack={selectedStack} 
+          onClose={() => setSelectedStack(null)} 
+        />
+      )}
     </div>
   );
 }
