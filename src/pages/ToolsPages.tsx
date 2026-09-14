@@ -170,6 +170,9 @@ function ChannelPlannerTool() {
   );
 }
 
+import { GTMOperatingSystem } from '../components/GTMOperatingSystem';
+import { gtmStages } from '../data/gtmOperatingSystem';
+
 export function GTMStackPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ category: '', complexity: '', budget: '' });
@@ -186,6 +189,58 @@ export function GTMStackPage() {
     <div className="py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'GTM Stack' }]} />
+        
+        {/* GTM Operating System Visualization */}
+        <section className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
+              The GTM Operating System
+            </h2>
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              Your GTM stack should follow your GTM motion. Most teams build their stack tool-first. Start with the motion, identify the capabilities required to operate it, then choose the minimum technology needed to execute.
+            </p>
+          </div>
+          
+          <GTMOperatingSystem />
+          
+          <div className="mt-12 text-center">
+            <p className="text-sm italic max-w-2xl mx-auto" style={{ color: 'var(--text-tertiary)' }}>
+              Software is the infrastructure. The GTM model is the system.
+            </p>
+          </div>
+        </section>
+
+        {/* Semantic HTML for SEO */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold mb-8" style={{ color: 'var(--text-primary)' }}>
+            The GTM Operating System: A Complete Framework
+          </h2>
+          <div className="prose max-w-none">
+            {gtmStages.map(stage => (
+              <div key={stage.id} className="mb-8">
+                <h3 className="text-xl font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
+                  {stage.number}. {stage.name}
+                </h3>
+                <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
+                  {stage.description}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {stage.capabilities.map(cap => (
+                    <div key={cap.id} className="p-3 rounded-lg border" style={{ borderColor: 'var(--border-color)' }}>
+                      <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                        {cap.name}
+                      </h4>
+                      <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                        {cap.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <SectionHeader eyebrow="GTM Stack" title={`${gtmStacks.length}+ B2B Marketing Tool Stacks`} description="Each stack solves a specific business problem. Not just tool lists — strategic recommendations with rationale, trade-offs, and alternatives." />
         
         <div className="mt-8 relative">
