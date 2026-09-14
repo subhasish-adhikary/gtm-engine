@@ -6,6 +6,7 @@ import { AboutPage, WorkPage, CaseStudyPage, ContactPage, PrivacyPage, NotFoundP
 import { ThinkingPage, ThinkingCategoryPage, ArticlePage } from './pages/ThinkingPages';
 import { ToolsPage, ToolPage } from './pages/ToolsPages';
 import { GTMStackPage } from './pages/ToolsPages';
+import { GTMIntelligenceEngine } from './pages/gtm-engine/GTMIntelligenceEngine';
 import { useTheme } from './hooks/useTheme';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/thinking/:categoryId/:articleId" element={<ArticlePage />} />
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/tools/:toolId" element={<ToolPage />} />
+          <Route path="/tools/gtm-intelligence" element={<GTMIntelligenceEngine />} />
           <Route path="/gtm-stack" element={<GTMStackPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />

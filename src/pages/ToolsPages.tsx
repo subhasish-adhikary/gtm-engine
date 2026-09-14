@@ -13,7 +13,48 @@ export function ToolsPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Tools' }]} />
         <SectionHeader eyebrow="Interactive Tools" title="Strategy toolkits for marketers" description="Decision-focused tools that answer 'What should I do?' — not just 'What does this mean?'" />
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        {/* Featured: GTM Intelligence Engine */}
+        <Link to="/tools/gtm-intelligence" className="block mt-12 mb-8">
+          <div className="p-8 rounded-2xl border-2 transition-all hover:shadow-xl" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--card-bg)' }}>
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
+                  <span className="text-xs font-bold">NEW</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                  GTM Intelligence Engine
+                </h3>
+                <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Get a data-driven GTM strategy based on your company's economics, resources, and market context. 
+                  Answers: Which channels? How much budget? What's the expected funnel? What NOT to do?
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <span className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                8-Step Diagnostic
+              </span>
+              <span className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                Channel Scoring
+              </span>
+              <span className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                Budget Allocation
+              </span>
+              <span className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                90-Day Plan
+              </span>
+              <span className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                Benchmark-Backed
+              </span>
+            </div>
+            <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+              Launch GTM Intelligence Engine →
+            </div>
+          </div>
+        </Link>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool) => (
             <Link key={tool.id} to={`/tools/${tool.id}`}>
               <Card hoverable>
