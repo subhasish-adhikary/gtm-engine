@@ -20,14 +20,14 @@ export function HomePage() {
             <div className="animate-fade-in-up">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · B2B GTM · Marketing Intelligence</span>
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · GTM Strategy · Marketing Automation</span>
               </div>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] animate-fade-in-up delay-100" style={{ color: 'var(--text-primary)' }}>
-              I build growth systems where strategy, data and automation meet.
+              I build the systems behind modern B2B growth.
             </h1>
             <p className="mt-6 text-lg leading-relaxed animate-fade-in-up delay-200" style={{ color: 'var(--text-secondary)' }}>
-              I work across product marketing, demand generation, growth and marketing operations. I care about the economics behind the funnel, not just the activity inside it.
+              Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
             </p>
             <div className="mt-10 flex flex-wrap gap-3 animate-fade-in-up delay-300">
               <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>

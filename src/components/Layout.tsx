@@ -57,6 +57,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <Link to="/" className="text-lg font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>{siteConfig.name}</Link>
+            <p className="mt-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.location}</p>
             <p className="mt-3 text-sm max-w-md" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.description}</p>
           </div>
           <div>
@@ -67,6 +68,7 @@ function Footer() {
             <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-tertiary)' }}>Connect</h4>
             <ul className="space-y-2">
               <li><a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: 'var(--text-secondary)' }}>LinkedIn</a></li>
+              <li><a href={siteConfig.twitter} target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: 'var(--text-secondary)' }}>X / Twitter</a></li>
               <li><a href={`mailto:${siteConfig.email}`} className="text-sm" style={{ color: 'var(--text-secondary)' }}>Email</a></li>
               <li><Link to="/contact" className="text-sm" style={{ color: 'var(--text-secondary)' }}>Contact</Link></li>
             </ul>

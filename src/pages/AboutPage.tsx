@@ -41,30 +41,30 @@ export default function AboutPage() {
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6" style={{ color: 'var(--text-primary)' }}>
-              From optimizing pages<br />
-              to designing GTM systems.
+              Growth Marketing & GTM Engineer<br />
+              building systems for B2B pipeline.
             </h1>
             <p className="text-xl lg:text-2xl leading-relaxed max-w-3xl mb-8" style={{ color: 'var(--text-secondary)' }}>
-              Subhasish Adhikary — Product Marketing · GTM Strategy · Growth & AI
+              Subhasish Adhikary — Growth Marketing · GTM Strategy · Marketing Automation · RevOps
             </p>
             <p className="text-base lg:text-lg leading-relaxed max-w-3xl mb-12" style={{ color: 'var(--text-tertiary)' }}>
-              I work at the intersection of product marketing, GTM strategy, growth, automation, MarTech, experimentation, and AI-enabled systems. Over 6+ years, I've evolved from executing individual channels to architecting complete B2B SaaS go-to-market systems.
+              6+ years building demand-generation, revenue and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses. Currently at LanceSoft, building growth and GTM systems that connect marketing execution with pipeline creation, sales productivity and scalable operating infrastructure.
             </p>
             <div className="flex flex-wrap gap-3">
               <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                 6+ Years Experience
               </span>
               <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                B2B SaaS
+                Growth Marketing
               </span>
               <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                GTM Strategy
+                GTM Engineering
               </span>
               <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                AI & Automation
+                Marketing Automation
               </span>
               <span className="px-4 py-2 rounded-full text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                Product Marketing
+                Hyderabad, India
               </span>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
 
           {/* Timeline Navigation */}
           <div className="hidden lg:flex items-center justify-between mb-12 sticky top-24 z-10 py-4 px-6 rounded-lg" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
-            {['2017', '2019', '2022', '2024', 'Now'].map((year, index) => (
+            {['2017', '2019', '2022', '2024', '2026', 'Now'].map((year, index) => (
               <button
                 key={year}
                 onClick={() => {
@@ -328,28 +328,41 @@ export default function AboutPage() {
                       Wisestep [Avance Consulting] · Senior Growth Marketing & GTM Strategist
                     </p>
                     <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                      Feb 2024 – Present
+                      Feb 2024 – July 2026
                     </p>
                   </div>
                 </div>
                 <div className="lg:col-span-8">
                   <div className="rounded-lg p-8 mb-6" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
                     <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
-                      Own GTM strategy and MarTech roadmap for two global B2B SaaS products across EU, North America, and APAC. Founding GTM strategist for Pamgro (global EOR and payroll SaaS). Defined ICP, positioning, competitive differentiation, messaging, and sales enablement.
+                      Owned GTM strategy and MarTech roadmap for two global B2B SaaS products across US, UK, Europe and APAC. Built outbound GTM motion for PamGro's EOR offering targeting 11-500 employee companies. Generated 10 qualified sales meetings, contributed to 2 closed customers and 1 active enterprise opportunity worth $30K-$50K ARR.
                     </p>
                     <div className="grid sm:grid-cols-3 gap-4 mb-6">
                       <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>+5%</div>
-                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Lead Conversion</div>
+                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>10</div>
+                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Qualified Meetings</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Through multi-channel outbound</div>
                       </div>
                       <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>+12%</div>
-                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Funnel Uplift</div>
+                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>2</div>
+                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Closed Customers</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Plus 1 enterprise opportunity</div>
                       </div>
                       <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                         <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>5 hrs</div>
                         <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Weekly Saved</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Through AI automation</div>
                       </div>
+                    </div>
+                    <div className="mb-6">
+                      <div className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Key Achievements:</div>
+                      <ul className="space-y-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Founded GTM strategy for PamGro — defined ICP, positioning, messaging and competitive intelligence</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Built sales-enablement assets: one-pagers, pitch decks, battlecards, BANT frameworks and cold-calling guides</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Built AI-driven workflows using Clay, N8N, Make and Zapier for outbound sequencing and lead enrichment</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Improved lead conversion by 5% and delivered 12% uplift in funnel performance through A/B testing and CRO</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Managed 2 marketing team members and presented GTM strategy to senior leadership and board-level audiences</li>
+                      </ul>
                     </div>
                     <div className="mb-6">
                       <div className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>GTM Components:</div>
@@ -402,8 +415,72 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Now: AI-Native GTM Systems */}
+            {/* 2026: LanceSoft - Growth Marketing & GTM */}
             <div data-timeline-section="4" className="scroll-mt-32">
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="lg:col-span-4">
+                  <div className="sticky top-32">
+                    <div className="text-6xl lg:text-7xl font-bold mb-4" style={{ color: 'var(--accent)' }}>
+                      2026
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                      Growth Marketing & GTM
+                    </h3>
+                    <p className="text-sm font-semibold mb-4" style={{ color: 'var(--text-tertiary)' }}>
+                      LanceSoft · Hyderabad / Remote
+                    </p>
+                    <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                      July 2026 – Present
+                    </p>
+                  </div>
+                </div>
+                <div className="lg:col-span-8">
+                  <div className="rounded-lg p-8 mb-6" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
+                    <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
+                      Owning growth, GTM and revenue-enablement initiatives across LanceSoft's staffing business and HummingBird HRMS/ATS platform. Connecting marketing execution with pipeline creation, sales productivity and scalable operating infrastructure.
+                    </p>
+                    <div className="grid sm:grid-cols-3 gap-4 mb-6">
+                      <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>3</div>
+                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Client Wins</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Through marketing & sales-enablement</div>
+                      </div>
+                      <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>AI</div>
+                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>RevOps Workflows</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Clay, Make, AI agents, HubSpot</div>
+                      </div>
+                      <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                        <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>SDR</div>
+                        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Infrastructure</div>
+                        <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Cold calling, enrichment, enablement</div>
+                      </div>
+                    </div>
+                    <div className="mb-6">
+                      <div className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Key Responsibilities:</div>
+                      <ul className="space-y-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Running outbound demand-generation programs across staffing and HR technology using account targeting, enrichment, cold email and multi-touch engagement</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Architecting AI-powered RevOps workflows using Clay, Make, AI agents and HubSpot for campaign-to-CRM data flows</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Building SDR operating infrastructure covering cold calling, prospecting, enrichment and enablement</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Developing enterprise ABM programs for high-value accounts (1,000+ employees, $500M+ revenue)</li>
+                        <li className="flex items-start gap-2"><span style={{ color: 'var(--accent)' }}>•</span>Creating AI-assisted RFP, RFO and government-tender workflows</li>
+                      </ul>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Outbound</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>ABM</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>RevOps</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>AI Automation</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>Clay</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>HubSpot</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Now: AI-Native GTM Systems */}
+            <div data-timeline-section="5" className="scroll-mt-32">
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
                 <div className="lg:col-span-4">
                   <div className="sticky top-32">
