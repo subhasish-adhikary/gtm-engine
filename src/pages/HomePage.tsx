@@ -17,6 +17,14 @@ export function HomePage() {
       <section className="py-16 sm:py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
+            <div className="animate-fade-in-up mb-8">
+              <img 
+                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
+                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4"
+                style={{ borderColor: 'var(--border-color)' }}
+              />
+            </div>
             <div className="animate-fade-in-up">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />

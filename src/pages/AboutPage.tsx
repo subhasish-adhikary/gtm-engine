@@ -34,6 +34,14 @@ export default function AboutPage() {
       <section className="relative pt-32 pb-20 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
+            <div className="mb-8">
+              <img 
+                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
+                alt="Subhasish Adhikary - Growth Marketing & GTM Engineer"
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4"
+                style={{ borderColor: 'var(--border-color)' }}
+              />
+            </div>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-[var(--accent)]"></div>
               <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>

@@ -296,6 +296,14 @@ export function ContactPage() {
         <SectionHeader eyebrow="Contact" title="Let's connect" description="Whether you're exploring GTM strategy, marketing automation, or AI in marketing." />
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2 space-y-6">
+            <div className="text-center lg:text-left">
+              <img 
+                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
+                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 mx-auto lg:mx-0"
+                style={{ borderColor: 'var(--border-color)' }}
+              />
+            </div>
             <Card>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}><Mail size={18} /></div>
