@@ -1,16 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import { gtmStages, tools, getToolById, type GTMStage, type Tool } from '../data/gtmOperatingSystem';
-import { X } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { gtmStages, tools, getToolById, type Tool } from '../data/gtmOperatingSystem';
+import { X, ArrowRight } from 'lucide-react';
 
-type ViewMode = 'full' | 'lean' | 'enterprise' | 'budget';
-type FilterCategory = 'all' | 'intelligence' | 'demand' | 'sales' | 'retention' | 'measurement';
+type ViewMode = 'full' | 'lean' | 'enterprise';
 
 export function GTMOperatingSystem() {
   const [hoveredStage, setHoveredStage] = useState<string | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('full');
-  const [filter, setFilter] = useState<FilterCategory>('all');
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);
@@ -30,14 +28,8 @@ export function GTMOperatingSystem() {
   // Filter tools based on view mode
   const getVisibleTools = () => {
     if (viewMode === 'lean') {
-      // Show only essential tools
       return ['hubspot', 'ga4', 'clay', 'ahrefs', 'zapier'];
     }
-    if (viewMode === 'enterprise') {
-      // Show all tools
-      return tools.map(t => t.id);
-    }
-    // Full view - show all tools
     return tools.map(t => t.id);
   };
 
@@ -61,66 +53,60 @@ export function GTMOperatingSystem() {
 
   // Handle stage click
   const handleStageClick = (stageId: string) => {
-    if (selectedStage === stageId) {
-      setSelectedStage(null);
-    } else {
-      setSelectedStage(stageId);
-    }
+    setSelectedStage(selectedStage === stageId ? null : stageId);
   };
 
   // Handle tool click
   const handleToolClick = (toolId: string) => {
     const tool = getToolById(toolId);
-    if (tool) {
-      setSelectedTool(tool);
-    }
+    if (tool) setSelectedTool(tool);
   };
 
-  // Get stage angle
+  // Get stage angle with better distribution
   const getStageAngle = (index: number) => {
-    return (index * 360) / gtmStages.length + rotation;
+    return (index * 360) / gtmStages.length + rotation - 90; // Start from top
   };
 
-  // Get position on circle
-  const getPositionOnCircle = (angle: number, radius: number) => {
+  // Get position on circle with proper centering
+  const getPositionOnCircle = (angle: number, radius: number, centerX = 400, centerY = 400) => {
     const radian = (angle * Math.PI) / 180;
     return {
-      x: 400 + radius * Math.cos(radian),
-      y: 400 + radius * Math.sin(radian)
+      x: centerX + radius * Math.cos(radian),
+      y: centerY + radius * Math.sin(radian)
     };
   };
 
   return (
-    <div className="w-full">
-      {/* Controls */}
-      <div className="mb-8 flex flex-wrap gap-4 items-center justify-between">
-        <div className="flex gap-2">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Controls Header */}
+      <div className="mb-12 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setViewMode('full')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
               viewMode === 'full'
-                ? 'bg-[var(--accent)] text-white'
-                : 'border border-[var(--border-color)] text-[var(--text-secondary)]'
+                ? 'bg-[var(--accent)] text-white shadow-md'
+                : 'border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
             }`}
           >
             Full Stack
           </button>
           <button
             onClick={() => setViewMode('lean')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
               viewMode === 'lean'
-                ? 'bg-[var(--accent)] text-white'
-                : 'border border-[var(--border-color)] text-[var(--text-secondary)]'
+                ? 'bg-[var(--accent)] text-white shadow-md'
+                : 'border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
             }`}
           >
             Lean Stack
           </button>
           <button
             onClick={() => setViewMode('enterprise')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
               viewMode === 'enterprise'
-                ? 'bg-[var(--accent)] text-white'
-                : 'border border-[var(--border-color)] text-[var(--text-secondary)]'
+                ? 'bg-[var(--accent)] text-white shadow-md'
+                : 'border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
             }`}
           >
             Enterprise
@@ -128,238 +114,245 @@ export function GTMOperatingSystem() {
         </div>
 
         {/* System Health */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 px-5 py-3 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
           <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
             System Health
           </span>
-          <div className="flex items-center gap-2">
-            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <div className="flex items-center gap-3">
+            <div className="w-32 h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
               <div
-                className="h-full rounded-full transition-all"
+                className="h-full rounded-full transition-all duration-500"
                 style={{
                   width: `${healthScore}%`,
                   backgroundColor: healthScore > 75 ? '#10b981' : healthScore > 50 ? '#f59e0b' : '#ef4444'
                 }}
               />
             </div>
-            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+            <span className="text-lg font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
               {healthScore}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Main Visualization */}
-      <div className="relative w-full aspect-square max-w-4xl mx-auto">
-        <svg
-          ref={svgRef}
-          viewBox="0 0 800 800"
-          className="w-full h-full"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-        >
-          {/* Center Circle */}
-          <circle cx="400" cy="400" r="120" fill="var(--bg-secondary)" stroke="var(--border-color)" strokeWidth="2" />
-          <text x="400" y="380" textAnchor="middle" className="text-2xl font-bold" fill="var(--text-primary)">
-            GTM
-          </text>
-          <text x="400" y="410" textAnchor="middle" className="text-2xl font-bold" fill="var(--text-primary)">
-            Operating
-          </text>
-          <text x="400" y="440" textAnchor="middle" className="text-2xl font-bold" fill="var(--text-primary)">
-            System
-          </text>
+      {/* Main Visualization Container */}
+      <div className="relative mb-12">
+        <div className="relative w-full aspect-square max-w-3xl mx-auto">
+          <svg
+            ref={svgRef}
+            viewBox="0 0 800 800"
+            className="w-full h-full"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+          >
+            {/* Background Circle */}
+            <circle cx="400" cy="400" r="380" fill="none" stroke="var(--border-color)" strokeWidth="1" opacity="0.2" />
+            <circle cx="400" cy="400" r="280" fill="none" stroke="var(--border-color)" strokeWidth="1" opacity="0.15" />
+            <circle cx="400" cy="400" r="180" fill="none" stroke="var(--border-color)" strokeWidth="1" opacity="0.1" />
 
-          {/* GTM Stages */}
-          {gtmStages.map((stage, index) => {
-            const angle = getStageAngle(index);
-            const pos = getPositionOnCircle(angle, 200);
-            const isHovered = hoveredStage === stage.id;
-            const isSelected = selectedStage === stage.id;
-            const isDimmed = hoveredStage && !isHovered;
+            {/* Center Hub */}
+            <circle cx="400" cy="400" r="90" fill="var(--card-bg)" stroke="var(--border-color)" strokeWidth="2" />
+            <circle cx="400" cy="400" r="85" fill="var(--bg-secondary)" />
+            <text x="400" y="385" textAnchor="middle" className="text-xl font-bold" fill="var(--text-primary)" style={{ fontSize: '20px' }}>
+              GTM
+            </text>
+            <text x="400" y="410" textAnchor="middle" className="text-sm font-semibold" fill="var(--text-secondary)" style={{ fontSize: '14px' }}>
+              Operating
+            </text>
+            <text x="400" y="430" textAnchor="middle" className="text-sm font-semibold" fill="var(--text-secondary)" style={{ fontSize: '14px' }}>
+              System
+            </text>
 
-            return (
-              <g
-                key={stage.id}
-                onMouseEnter={() => setHoveredStage(stage.id)}
-                onMouseLeave={() => setHoveredStage(null)}
-                onClick={() => handleStageClick(stage.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                {/* Stage Circle */}
-                <circle
-                  cx={pos.x}
-                  cy={pos.y}
-                  r={isSelected ? 50 : 40}
-                  fill={isHovered || isSelected ? 'var(--accent)' : 'var(--card-bg)'}
+            {/* Connection Lines */}
+            {gtmStages.map((stage, index) => {
+              const angle = getStageAngle(index);
+              const pos = getPositionOnCircle(angle, 240);
+              const nextIndex = (index + 1) % gtmStages.length;
+              const nextAngle = getStageAngle(nextIndex);
+              const nextPos = getPositionOnCircle(nextAngle, 240);
+              
+              return (
+                <line
+                  key={`line-${stage.id}`}
+                  x1={pos.x}
+                  y1={pos.y}
+                  x2={nextPos.x}
+                  y2={nextPos.y}
                   stroke="var(--border-color)"
                   strokeWidth="2"
-                  opacity={isDimmed ? 0.3 : 1}
-                  className="transition-all duration-200"
+                  opacity="0.3"
+                  strokeDasharray="8 4"
                 />
-                
-                {/* Stage Number */}
-                <text
-                  x={pos.x}
-                  y={pos.y - 8}
-                  textAnchor="middle"
-                  className="text-xs font-semibold"
-                  fill={isHovered || isSelected ? 'white' : 'var(--text-tertiary)'}
-                  opacity={isDimmed ? 0.3 : 1}
-                >
-                  {stage.number}
-                </text>
-                
-                {/* Stage Name */}
-                <text
-                  x={pos.x}
-                  y={pos.y + 8}
-                  textAnchor="middle"
-                  className="text-sm font-semibold"
-                  fill={isHovered || isSelected ? 'white' : 'var(--text-primary)'}
-                  opacity={isDimmed ? 0.3 : 1}
-                >
-                  {stage.name}
-                </text>
-
-                {/* Capabilities (shown on hover) */}
-                {isHovered && stage.capabilities.map((cap, capIndex) => {
-                  const capAngle = angle + (capIndex - stage.capabilities.length / 2) * 15;
-                  const capPos = getPositionOnCircle(capAngle, 280);
-                  
-                  return (
-                    <g key={cap.id}>
-                      <circle
-                        cx={capPos.x}
-                        cy={capPos.y}
-                        r="25"
-                        fill="var(--bg-secondary)"
-                        stroke="var(--border-color)"
-                        strokeWidth="1"
-                        className="animate-fade-in"
-                      />
-                      <text
-                        x={capPos.x}
-                        y={capPos.y}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        className="text-xs"
-                        fill="var(--text-secondary)"
-                      >
-                        {cap.name.split(' ')[0]}
-                      </text>
-                    </g>
-                  );
-                })}
-
-                {/* Tools (shown on hover) */}
-                {isHovered && stage.capabilities.flatMap(cap => cap.tools).filter(toolId => visibleToolIds.includes(toolId)).map((toolId, toolIndex) => {
-                  const tool = getToolById(toolId);
-                  if (!tool) return null;
-                  
-                  const toolAngle = angle + (toolIndex - 2) * 10;
-                  const toolPos = getPositionOnCircle(toolAngle, 340);
-                  
-                  return (
-                    <g
-                      key={toolId}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleToolClick(toolId);
-                      }}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <circle
-                        cx={toolPos.x}
-                        cy={toolPos.y}
-                        r="18"
-                        fill="var(--card-bg)"
-                        stroke="var(--accent)"
-                        strokeWidth="1.5"
-                        className="animate-fade-in hover:scale-110 transition-transform"
-                      />
-                      <text
-                        x={toolPos.x}
-                        y={toolPos.y}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        className="text-xs font-medium"
-                        fill="var(--text-primary)"
-                      >
-                        {tool.name.split(' ')[0]}
-                      </text>
-                    </g>
-                  );
-                })}
-              </g>
-            );
-          })}
-
-          {/* Connection Lines (subtle) */}
-          {gtmStages.map((stage, index) => {
-            const angle = getStageAngle(index);
-            const pos = getPositionOnCircle(angle, 200);
-            const nextIndex = (index + 1) % gtmStages.length;
-            const nextAngle = getStageAngle(nextIndex);
-            const nextPos = getPositionOnCircle(nextAngle, 200);
-            
-            return (
-              <line
-                key={`line-${stage.id}`}
-                x1={pos.x}
-                y1={pos.y}
-                x2={nextPos.x}
-                y2={nextPos.y}
-                stroke="var(--border-color)"
-                strokeWidth="1"
-                opacity="0.3"
-                strokeDasharray="4 4"
-              />
-            );
-          })}
-        </svg>
-
-        {/* Stage Info Panel */}
-        {hoveredStage && (
-          <div className="absolute top-4 left-4 right-4 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-lg p-4 shadow-lg">
-            {(() => {
-              const stage = gtmStages.find(s => s.id === hoveredStage);
-              if (!stage) return null;
-              return (
-                <>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>
-                      {stage.number}
-                    </span>
-                    <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
-                      {stage.name}
-                    </h3>
-                  </div>
-                  <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>
-                    {stage.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {stage.capabilities.map(cap => (
-                      <span key={cap.id} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
-                        {cap.name}
-                      </span>
-                    ))}
-                  </div>
-                </>
               );
-            })()}
-          </div>
-        )}
+            })}
+
+            {/* GTM Stages */}
+            {gtmStages.map((stage, index) => {
+              const angle = getStageAngle(index);
+              const pos = getPositionOnCircle(angle, 240);
+              const isHovered = hoveredStage === stage.id;
+              const isSelected = selectedStage === stage.id;
+              const isDimmed = hoveredStage && !isHovered;
+
+              return (
+                <g
+                  key={stage.id}
+                  onMouseEnter={() => setHoveredStage(stage.id)}
+                  onMouseLeave={() => setHoveredStage(null)}
+                  onClick={() => handleStageClick(stage.id)}
+                  style={{ cursor: 'pointer' }}
+                  className="transition-opacity duration-200"
+                  opacity={isDimmed ? 0.3 : 1}
+                >
+                  {/* Stage Circle */}
+                  <circle
+                    cx={pos.x}
+                    cy={pos.y}
+                    r={isHovered || isSelected ? 55 : 48}
+                    fill={isHovered || isSelected ? 'var(--accent)' : 'var(--card-bg)'}
+                    stroke={isHovered || isSelected ? 'var(--accent)' : 'var(--border-color)'}
+                    strokeWidth="3"
+                    className="transition-all duration-200"
+                  />
+                  
+                  {/* Stage Number */}
+                  <text
+                    x={pos.x}
+                    y={pos.y - 10}
+                    textAnchor="middle"
+                    fill={isHovered || isSelected ? 'white' : 'var(--text-tertiary)'}
+                    style={{ fontSize: '12px', fontWeight: 600 }}
+                  >
+                    {stage.number}
+                  </text>
+                  
+                  {/* Stage Name */}
+                  <text
+                    x={pos.x}
+                    y={pos.y + 10}
+                    textAnchor="middle"
+                    fill={isHovered || isSelected ? 'white' : 'var(--text-primary)'}
+                    style={{ fontSize: '13px', fontWeight: 600 }}
+                  >
+                    {stage.name}
+                  </text>
+
+                  {/* Capabilities Ring (shown on hover) */}
+                  {isHovered && stage.capabilities.map((cap, capIndex) => {
+                    const capAngle = angle + (capIndex - (stage.capabilities.length - 1) / 2) * 20;
+                    const capPos = getPositionOnCircle(capAngle, 320);
+                    
+                    return (
+                      <g key={cap.id} className="animate-fade-in">
+                        <circle
+                          cx={capPos.x}
+                          cy={capPos.y}
+                          r="28"
+                          fill="var(--bg-secondary)"
+                          stroke="var(--border-color)"
+                          strokeWidth="2"
+                        />
+                        <text
+                          x={capPos.x}
+                          y={capPos.y + 1}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          fill="var(--text-secondary)"
+                          style={{ fontSize: '10px', fontWeight: 500 }}
+                        >
+                          {cap.name.length > 10 ? cap.name.substring(0, 9) + '…' : cap.name}
+                        </text>
+                      </g>
+                    );
+                  })}
+
+                  {/* Tools Ring (shown on hover) */}
+                  {isHovered && stage.capabilities.flatMap(cap => cap.tools).filter(toolId => visibleToolIds.includes(toolId)).slice(0, 8).map((toolId, toolIndex) => {
+                    const tool = getToolById(toolId);
+                    if (!tool) return null;
+                    
+                    const toolAngle = angle + (toolIndex - 3.5) * 12;
+                    const toolPos = getPositionOnCircle(toolAngle, 370);
+                    
+                    return (
+                      <g
+                        key={toolId}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToolClick(toolId);
+                        }}
+                        style={{ cursor: 'pointer' }}
+                        className="animate-fade-in"
+                      >
+                        <circle
+                          cx={toolPos.x}
+                          cy={toolPos.y}
+                          r="20"
+                          fill="var(--card-bg)"
+                          stroke="var(--accent)"
+                          strokeWidth="2"
+                          className="transition-transform hover:scale-110"
+                        />
+                        <text
+                          x={toolPos.x}
+                          y={toolPos.y + 1}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          fill="var(--text-primary)"
+                          style={{ fontSize: '9px', fontWeight: 600 }}
+                        >
+                          {tool.name.length > 8 ? tool.name.substring(0, 7) + '…' : tool.name}
+                        </text>
+                      </g>
+                    );
+                  })}
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* Stage Info Panel - Positioned outside SVG */}
+          {hoveredStage && (
+            <div className="absolute top-0 left-0 right-0 bg-[var(--card-bg)] border-2 border-[var(--accent)] rounded-xl p-6 shadow-xl z-10">
+              {(() => {
+                const stage = gtmStages.find(s => s.id === hoveredStage);
+                if (!stage) return null;
+                return (
+                  <>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-sm font-bold px-3 py-1 rounded-lg" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>
+                        {stage.number}
+                      </span>
+                      <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {stage.name}
+                      </h3>
+                    </div>
+                    <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      {stage.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {stage.capabilities.map(cap => (
+                        <span key={cap.id} className="text-xs px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                          {cap.name}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Tool Detail Drawer */}
       {selectedTool && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setSelectedTool(null)}>
-          <div className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="sticky top-0 bg-[var(--card-bg)] border-b border-[var(--border-color)] p-6 flex items-start justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedTool(null)}>
+          <div className="bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 bg-[var(--card-bg)] border-b-2 border-[var(--border-color)] p-6 flex items-start justify-between">
               <div>
                 <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
                   {selectedTool.name}
@@ -368,73 +361,74 @@ export function GTMOperatingSystem() {
                   {selectedTool.category} {selectedTool.subcategory && `· ${selectedTool.subcategory}`}
                 </p>
               </div>
-              <button onClick={() => setSelectedTool(null)} className="p-2 hover:bg-[var(--bg-secondary)] rounded-md transition-colors">
-                <X size={20} style={{ color: 'var(--text-secondary)' }} />
+              <button onClick={() => setSelectedTool(null)} className="p-2 hover:bg-[var(--bg-secondary)] rounded-lg transition-colors">
+                <X size={24} style={{ color: 'var(--text-secondary)' }} />
               </button>
             </div>
             
             <div className="p-6 space-y-6">
               <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Primary Use Case</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.primaryUseCase}</p>
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>Primary Use Case</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{selectedTool.primaryUseCase}</p>
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Best For</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.bestFor}</p>
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>Best For</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{selectedTool.bestFor}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Budget</h3>
-                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.budget}</p>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>Budget</h3>
+                  <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{selectedTool.budget}</p>
                 </div>
-                <div>
-                  <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Complexity</h3>
-                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.complexity}</p>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>Complexity</h3>
+                  <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{selectedTool.complexity}</p>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Strengths</h3>
-                <ul className="space-y-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>Strengths</h3>
+                <ul className="space-y-2">
                   {selectedTool.strengths.map((strength, i) => (
-                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
-                      <span style={{ color: 'var(--accent)' }}>✓</span>
-                      {strength}
+                    <li key={i} className="text-sm flex items-start gap-3" style={{ color: 'var(--text-secondary)' }}>
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>✓</span>
+                      <span className="leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Weaknesses</h3>
-                <ul className="space-y-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>Weaknesses</h3>
+                <ul className="space-y-2">
                   {selectedTool.weaknesses.map((weakness, i) => (
-                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
-                      <span style={{ color: 'var(--text-tertiary)' }}>✗</span>
-                      {weakness}
+                    <li key={i} className="text-sm flex items-start gap-3" style={{ color: 'var(--text-secondary)' }}>
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-tertiary)' }}>✗</span>
+                      <span className="leading-relaxed">{weakness}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>When to Use</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.whyUse}</p>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>When Not to Use</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{selectedTool.whyNotUse}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg border-2" style={{ borderColor: 'var(--accent)' }}>
+                  <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>When to Use</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{selectedTool.whyUse}</p>
+                </div>
+                <div className="p-4 rounded-lg border-2" style={{ borderColor: 'var(--border-color)' }}>
+                  <h3 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>When Not to Use</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{selectedTool.whyNotUse}</p>
+                </div>
               </div>
 
               {selectedTool.alternatives.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-tertiary)' }}>Alternatives</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--accent)' }}>Alternatives</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedTool.alternatives.map((alt, i) => (
-                      <span key={i} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                      <span key={i} className="text-sm px-3 py-1.5 rounded-lg font-medium" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
                         {alt}
                       </span>
                     ))}
@@ -447,10 +441,10 @@ export function GTMOperatingSystem() {
                   href={selectedTool.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 rounded-md text-sm font-medium"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all hover:shadow-lg"
                   style={{ backgroundColor: 'var(--accent)', color: 'white' }}
                 >
-                  Visit Website →
+                  Visit Website <ArrowRight size={16} />
                 </a>
               )}
             </div>
@@ -458,40 +452,52 @@ export function GTMOperatingSystem() {
         </div>
       )}
 
-      {/* Mobile View */}
-      <div className="md:hidden mt-8">
-        <div className="space-y-3">
+      {/* Mobile View - Enhanced */}
+      <div className="md:hidden mt-12">
+        <div className="space-y-4">
           {gtmStages.map(stage => (
             <button
               key={stage.id}
               onClick={() => handleStageClick(stage.id)}
-              className="w-full p-4 rounded-lg border text-left transition-colors hover:border-[var(--accent)]"
-              style={{ borderColor: selectedStage === stage.id ? 'var(--accent)' : 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
+              className="w-full p-5 rounded-xl border-2 text-left transition-all hover:shadow-lg"
+              style={{ 
+                borderColor: selectedStage === stage.id ? 'var(--accent)' : 'var(--border-color)', 
+                backgroundColor: 'var(--card-bg)',
+                boxShadow: selectedStage === stage.id ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
+              }}
             >
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-bold px-3 py-1.5 rounded-lg" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>
                   {stage.number}
                 </span>
-                <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                <span className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
                   {stage.name}
                 </span>
+                <ArrowRight 
+                  size={20} 
+                  className="ml-auto transition-transform"
+                  style={{ 
+                    color: 'var(--text-tertiary)',
+                    transform: selectedStage === stage.id ? 'rotate(90deg)' : 'rotate(0deg)'
+                  }} 
+                />
               </div>
               {selectedStage === stage.id && (
-                <div className="mt-3 pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                  <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>
+                <div className="mt-4 pt-4 border-t-2" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     {stage.description}
                   </p>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {stage.capabilities.map(cap => (
-                      <div key={cap.id} className="pl-4 border-l-2" style={{ borderColor: 'var(--border-color)' }}>
-                        <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                      <div key={cap.id} className="pl-4 border-l-4" style={{ borderColor: 'var(--accent)' }}>
+                        <div className="text-sm font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                           {cap.name}
                         </div>
-                        <div className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                        <div className="text-xs mb-2" style={{ color: 'var(--text-tertiary)' }}>
                           {cap.description}
                         </div>
                         {cap.tools.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-2">
+                          <div className="flex flex-wrap gap-2">
                             {cap.tools.filter(toolId => visibleToolIds.includes(toolId)).map(toolId => {
                               const tool = getToolById(toolId);
                               if (!tool) return null;
@@ -502,7 +508,7 @@ export function GTMOperatingSystem() {
                                     e.stopPropagation();
                                     handleToolClick(toolId);
                                   }}
-                                  className="text-xs px-2 py-0.5 rounded border hover:border-[var(--accent)] transition-colors"
+                                  className="text-xs px-3 py-1.5 rounded-lg border-2 font-medium hover:border-[var(--accent)] transition-all"
                                   style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
                                 >
                                   {tool.name}
