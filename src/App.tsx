@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { SEO } from './components/SEO';
 import { HomePage } from './pages/HomePage';
 import { AboutPage, WorkPage, CaseStudyPage, ContactPage, PrivacyPage, NotFoundPage } from './pages/MainPages';
 import { ThinkingPage, ThinkingCategoryPage, ArticlePage } from './pages/ThinkingPages';
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <HashRouter>
       <Layout theme={theme} toggleTheme={toggleTheme}>
+        <SEO />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

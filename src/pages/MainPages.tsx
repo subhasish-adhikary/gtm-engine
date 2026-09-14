@@ -14,8 +14,21 @@ export function AboutPage() {
             <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>About</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>{siteConfig.name}</h1>
+          <p className="mt-2 text-base" style={{ color: 'var(--text-tertiary)' }}>Growth Marketing · B2B GTM Strategy · Marketing Automation · AI in Marketing</p>
           <p className="mt-6 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{aboutContent.introduction}</p>
+          <p className="mt-4 text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            I approach marketing as a systems design problem. Every channel, tool, and campaign should serve a coherent growth architecture — connected to business outcomes, measurable in economic terms, and built to compound over time.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-4">
+            <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--accent)' }}>
+              <Linkedin size={16} /> Connect on LinkedIn
+            </a>
+            <a href={`mailto:${siteConfig.email}`} className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--accent)' }}>
+              <Mail size={16} /> {siteConfig.email}
+            </a>
+          </div>
         </div>
+
         <section className="mt-16">
           <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Marketing Philosophy</h3>
           <div className="space-y-4 max-w-3xl">
@@ -27,6 +40,7 @@ export function AboutPage() {
             ))}
           </div>
         </section>
+
         <section className="mt-16">
           <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Areas of Expertise</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl">
@@ -36,6 +50,68 @@ export function AboutPage() {
                 <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{area}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Approach & Methodology</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
+            <Card>
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Diagnose First</h4>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                Every engagement starts with understanding the current state — market position, funnel economics, channel performance, and organizational capabilities. No prescriptions without diagnosis.
+              </p>
+            </Card>
+            <Card>
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Design Systems</h4>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                Strategy becomes infrastructure. I design marketing systems — not campaigns — that connect positioning, channels, automation, and measurement into coherent architectures.
+              </p>
+            </Card>
+            <Card>
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Compound Returns</h4>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                Every decision should build on the last. I optimize for systems that improve over time — through data, learning, and structural advantages that compound.
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Research & Thinking</h3>
+          <p className="text-sm leading-relaxed mb-6 max-w-3xl" style={{ color: 'var(--text-secondary)' }}>
+            I publish research-led analysis on B2B GTM strategy, marketing automation, and AI in marketing. All articles cite primary sources, include original frameworks, and provide practical implementation guidance. No AI-generated summaries — just original analysis grounded in real implementation experience.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button to="/thinking" variant="secondary">Read 15 Research Articles</Button>
+            <Button to="/work" variant="secondary">View Case Studies</Button>
+            <Button to="/tools" variant="secondary">Explore Interactive Tools</Button>
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Methodology & Sources</h3>
+          <div className="max-w-3xl p-6 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+              My work is grounded in primary research from leading industry sources:
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+              <span>Gartner</span>
+              <span>Forrester</span>
+              <span>McKinsey</span>
+              <span>BCG</span>
+              <span>Bain & Company</span>
+              <span>Google</span>
+              <span>Salesforce</span>
+              <span>HubSpot</span>
+              <span>LinkedIn</span>
+              <span>Harvard Business Review</span>
+              <span>MIT Sloan</span>
+              <span>First Round Review</span>
+            </div>
+            <p className="text-xs mt-4 leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+              All statistics are verified and attributed. Where data is unavailable or uncertain, I state assumptions explicitly rather than presenting speculation as fact.
+            </p>
           </div>
         </section>
       </div>

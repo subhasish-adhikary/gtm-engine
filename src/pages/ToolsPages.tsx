@@ -27,6 +27,22 @@ export function ToolsPage() {
             </Link>
           ))}
         </div>
+
+        {/* CTA */}
+        <div className="mt-16 p-8 rounded-lg border text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+          <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Need help applying these tools to your strategy?</h3>
+          <p className="mt-3 text-sm max-w-lg mx-auto" style={{ color: 'var(--text-tertiary)' }}>
+            I work with B2B companies on GTM strategy, marketing automation, and AI in marketing. Let's discuss your specific challenges.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/contact" className="inline-flex items-center px-5 py-2.5 rounded-md text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
+              Get in Touch
+            </Link>
+            <Link to="/gtm-stack" className="inline-flex items-center px-5 py-2.5 rounded-md text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
+              Explore 79+ Tool Stacks
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -221,6 +237,17 @@ export function GTMStackPage() {
             Showing first 20 of {filtered.length} results. Refine filters to see specific stacks.
           </div>
         )}
+
+        {/* CTA */}
+        <div className="mt-12 p-6 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+          <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Not sure which stack is right for you?</h3>
+          <p className="text-sm mb-4" style={{ color: 'var(--text-tertiary)' }}>
+            Use the GTM Stack Builder to get a personalized recommendation based on your budget, team size, and GTM model.
+          </p>
+          <Link to="/tools/stack-builder" className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
+            Build Your Stack →
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, User, Search, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, User, Search, BookOpen } from 'lucide-react';
 import { thinkingCategories } from '../data/content';
 import { allArticles } from '../data/articles';
 import { SectionHeader, Card, Breadcrumb } from '../components/UI';
@@ -45,9 +45,9 @@ export function ThinkingPage() {
             <Link to={`/thinking/${featuredArticle.category}/${featuredArticle.id}`} className="block group">
               <Card hoverable>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {featuredArticle.featuredImage && (
+                  {featuredArticle.featuredImage && !featuredArticle.featuredImage.startsWith('/images/') && (
                     <div className="aspect-video rounded-lg overflow-hidden">
-                      <img src={featuredArticle.featuredImage} alt={featuredArticle.featuredImageAlt} className="w-full h-full object-cover" />
+                      <img src={featuredArticle.featuredImage} alt={featuredArticle.featuredImageAlt} loading="lazy" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div>
@@ -270,6 +270,22 @@ export function ArticlePage() {
               </div>
             </section>
           )}
+
+          {/* Article CTA */}
+          <section className="mt-12 p-6 rounded-lg border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+            <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Apply these insights to your GTM strategy</h3>
+            <p className="text-sm mb-4" style={{ color: 'var(--text-tertiary)' }}>
+              Use the interactive tools to diagnose your current approach, plan your budget, or design your marketing stack.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/tools" className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium" style={{ backgroundColor: 'var(--accent)', color: '#fff' }}>
+                Explore Tools <ArrowRight size={14} className="ml-2" />
+              </Link>
+              <Link to="/contact" className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
+                Discuss Your Strategy
+              </Link>
+            </div>
+          </section>
         </div>
       </div>
     </div>

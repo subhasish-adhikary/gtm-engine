@@ -106,6 +106,25 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* GTM Stack */}
+      <section className="py-16 sm:py-20 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-10">
+            <SectionHeader eyebrow="GTM Stack" title="79+ B2B marketing tool stacks" description="Curated technology stacks organized by company stage, budget, and GTM motion. Each with rationale, trade-offs, and alternatives." />
+            <Link to="/gtm-stack" className="hidden sm:inline-flex items-center text-sm font-medium" style={{ color: 'var(--accent)' }}>View all stacks <ArrowRight size={14} className="ml-1" /></Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+            {['CRM', 'Marketing Automation', 'ABM', 'Sales Intelligence', 'Intent Data', 'AI Marketing'].map((cat) => (
+              <Link key={cat} to="/gtm-stack">
+                <div className="p-3 rounded-lg border text-center text-sm font-medium transition-colors hover:border-accent" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                  {cat}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 sm:py-20 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>Let's build something strategic</h2>
