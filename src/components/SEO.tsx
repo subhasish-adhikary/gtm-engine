@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { allArticles } from '../data/articles';
 import { tools } from '../data/content';
+import { glossaryTerms, getTermBySlug } from '../data/glossary';
 import { 
   generateWebSiteSchema, 
   generatePersonSchema, 
@@ -9,6 +10,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema,
   generateFAQPageSchema,
+  generateDefinedTermSchema,
   injectMultipleStructuredData,
   updateMetaTags 
 } from '../utils/structuredData';
@@ -51,6 +53,10 @@ const routeMetadata: Record<string, { title: string; description: string }> = {
   '/gtm-stack': {
     title: '79+ B2B Marketing Tool Stacks — Curated by Category | Subhasish Adhikary',
     description: '79+ curated B2B marketing technology stacks organized by company stage, budget, and GTM motion. Each stack includes rationale, trade-offs, and alternatives.'
+  },
+  '/glossary': {
+    title: 'Marketing Glossary — 150+ Modern Marketing Terms | Subhasish Adhikary',
+    description: 'Comprehensive marketing glossary covering 150+ modern marketing concepts including GTM, Growth, Demand Generation, Marketing Automation, AI Marketing, AEO, GEO, SEO, and more.'
   },
   '/contact': {
     title: 'Contact — Subhasish Adhikary',
@@ -111,17 +117,37 @@ export function SEO() {
           );
         }
       } else {
-        // Standard page route
-        const metadata = routeMetadata[path] || routeMetadata['/'];
-        updateMetaTags(metadata.title, metadata.description, `${baseUrl}${path === '/' ? '' : '/#' + path}`);
-        
-        // Add breadcrumb for non-home pages
-        if (path !== '/') {
-          const label = path.replace(/^\//, '').split('/').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
-          schemas.push(generateBreadcrumbSchema([
-            { label: 'Home', path: '/' },
-            { label }
-          ]));
+        // Check for glossary term route
+        const glossaryMatch = path.match(/^\/glossary\/([^/]+)$/);
+        if (glossaryMatch) {
+          const [, slug] = glossaryMatch;
+          const term = getTermBySlug(slug);
+          if (term) {
+            schemas.push(generateDefinedTermSchema(term));
+            schemas.push(generateBreadcrumbSchema([
+              { label: 'Home', path: '/' },
+              { label: 'Glossary', path: '/glossary' },
+              { label: term.term }
+            ]));
+            updateMetaTags(
+              `${term.term} — Marketing Glossary | Subhasish Adhikary`,
+              term.shortDefinition,
+              `${baseUrl}/#/glossary/${slug}`
+            );
+          }
+        } else {
+          // Standard page route
+          const metadata = routeMetadata[path] || routeMetadata['/'];
+          updateMetaTags(metadata.title, metadata.description, `${baseUrl}${path === '/' ? '' : '/#' + path}`);
+          
+          // Add breadcrumb for non-home pages
+          if (path !== '/') {
+            const label = path.replace(/^\//, '').split('/').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+            schemas.push(generateBreadcrumbSchema([
+              { label: 'Home', path: '/' },
+              { label }
+            ]));
+          }
         }
       }
     }

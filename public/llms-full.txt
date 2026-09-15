@@ -1,0 +1,426 @@
+# Subhasish Adhikary - Complete Profile
+
+> Growth marketing and GTM strategist with 6+ years of experience building go-to-market systems for B2B SaaS, staffing, HR technology, MarTech, and digital businesses. This website provides comprehensive GTM intelligence tools, B2B marketing tool stacks, a 150+ term marketing glossary, and strategic marketing articles.
+
+## About Subhasish Adhikary
+
+**Professional Background:**
+- Growth Marketing & GTM Strategist
+- 6+ years of experience in B2B marketing
+- Based in Hyderabad, India
+- Specializes in building go-to-market systems that connect strategy, data, automation, and AI
+
+**Core Specializations:**
+- B2B go-to-market (GTM) strategy
+- Growth marketing
+- Marketing automation
+- GTM engineering
+- AI marketing and AI operations
+- Demand generation
+- Product marketing
+- Revenue operations (RevOps)
+- Cold email and outbound marketing
+- Marketing analytics and attribution
+
+**Industry Experience:**
+- B2B SaaS
+- Staffing and recruiting technology
+- HR technology (HRMS/ATS)
+- Marketing technology (MarTech)
+- Digital businesses
+
+**Professional Approach:**
+Subhasish builds GTM systems that integrate strategy, data, automation, and AI to create scalable, measurable marketing operations. Focus on connecting marketing activities to business outcomes through systematic approaches rather than tactical execution.
+
+## GTM Intelligence Tool
+
+**URL:** https://subhasishadhikary.com/#/tools/gtm-intelligence
+
+**What it does:**
+Interactive GTM intelligence tool that helps B2B companies build comprehensive go-to-market strategies. The tool analyzes company inputs and generates a complete GTM strategy.
+
+**Inputs:**
+- Company stage (startup, growth, enterprise)
+- Product/service description
+- Target market and ICP
+- Resources and budget
+- Current marketing channels
+- Business goals and objectives
+
+**Outputs:**
+- Ideal Customer Profile (ICP) definition
+- Positioning and messaging framework
+- Channel strategy and prioritization
+- Marketing automation recommendations
+- Implementation roadmap
+- Success metrics and KPIs
+
+**Use cases:**
+- Early-stage startups building their first GTM strategy
+- Growth-stage companies optimizing their GTM motion
+- Enterprises restructuring their marketing operations
+- Companies evaluating AI marketing implementation
+
+## GTM Stack Visualization
+
+**URL:** https://subhasishadhikary.com/#/gtm-stack
+
+**What it is:**
+Interactive visualization showing how different marketing technologies connect across the complete GTM motion. The stack visualization demonstrates how tools integrate across awareness, consideration, decision, and retention stages.
+
+**What users can learn:**
+- How marketing technologies integrate across the buyer journey
+- Which tools work together in a cohesive stack
+- How to build a complete marketing technology stack
+- Best practices for marketing technology integration
+- How to align marketing technology with GTM strategy
+
+## B2B Marketing Tool Stacks Directory
+
+**URL:** https://subhasishadhikary.com/#/gtm-stack
+
+**What it contains:**
+Comprehensive directory of 79+ B2B marketing technology stacks organized by category. Each stack includes tool recommendations, use cases, implementation guidance, and integration patterns.
+
+**Categories Covered:**
+
+**GTM / Go-to-Market:**
+- GTM Strategy: https://subhasishadhikary.com/#/glossary/go-to-market-strategy
+- GTM Engineering: https://subhasishadhikary.com/#/glossary/gtm-engineering
+- GTM Motion: https://subhasishadhikary.com/#/glossary/gtm-motion
+- GTM Stack: https://subhasishadhikary.com/#/glossary/gtm-stack
+- GTM Efficiency: https://subhasishadhikary.com/#/glossary/gtm-efficiency
+
+**Growth Marketing:**
+- Growth Marketing: https://subhasishadhikary.com/#/glossary/growth-marketing
+- Growth Loops: https://subhasishadhikary.com/#/glossary/growth-loops
+- Growth Flywheel: https://subhasishadhikary.com/#/glossary/growth-flywheel
+- North Star Metric: https://subhasishadhikary.com/#/glossary/north-star-metric
+- Product-Led Growth: https://subhasishadhikary.com/#/glossary/product-led-growth
+- Sales-Led Growth: https://subhasishadhikary.com/#/glossary/sales-led-growth
+
+**Demand Generation:**
+- Demand Generation: https://subhasishadhikary.com/#/glossary/demand-generation
+- Pipeline Generation: https://subhasishadhikary.com/#/glossary/pipeline-generation
+- Intent Data: https://subhasishadhikary.com/#/glossary/intent-data
+- Intent Signals: https://subhasishadhikary.com/#/glossary/intent-signals
+
+**Account-Based Marketing:**
+- Account-Based Marketing (ABM): https://subhasishadhikary.com/#/glossary/account-based-marketing
+- ABM Lite: https://subhasishadhikary.com/#/glossary/abm-lite
+- Programmatic ABM: https://subhasishadhikary.com/#/glossary/programmatic-abm
+- One-to-One ABM: https://subhasishadhikary.com/#/glossary/one-to-one-abm
+- One-to-Few ABM: https://subhasishadhikary.com/#/glossary/one-to-few-abm
+- Account Intelligence: https://subhasishadhikary.com/#/glossary/account-intelligence
+- Account Engagement: https://subhasishadhikary.com/#/glossary/account-engagement
+- Buying Group: https://subhasishadhikary.com/#/glossary/buying-group
+- Account Selection: https://subhasishadhikary.com/#/glossary/account-selection
+- Account Tiering: https://subhasishadhikary.com/#/glossary/account-tiering
+
+**Marketing Automation:**
+- Marketing Automation: https://subhasishadhikary.com/#/glossary/marketing-automation
+- Lifecycle Automation: https://subhasishadhikary.com/#/glossary/lifecycle-automation
+- Lead Nurturing: https://subhasishadhikary.com/#/glossary/lead-nurturing
+- Lead Scoring: https://subhasishadhikary.com/#/glossary/lead-scoring
+- Predictive Lead Scoring: https://subhasishadhikary.com/#/glossary/predictive-lead-scoring
+- Workflow Automation: https://subhasishadhikary.com/#/glossary/workflow-automation
+- Trigger-Based Marketing: https://subhasishadhikary.com/#/glossary/trigger-based-marketing
+- Behavioral Automation: https://subhasishadhikary.com/#/glossary/behavioral-automation
+- Marketing Operations: https://subhasishadhikary.com/#/glossary/marketing-operations
+- Automated Personalization: https://subhasishadhikary.com/#/glossary/automated-personalization
+- Lead Routing: https://subhasishadhikary.com/#/glossary/lead-routing
+- Automated Qualification: https://subhasishadhikary.com/#/glossary/automated-qualification
+- Marketing Orchestration: https://subhasishadhikary.com/#/glossary/marketing-orchestration
+
+**AI Marketing:**
+- AI Marketing: https://subhasishadhikary.com/#/glossary/ai-marketing
+- AI Agents: https://subhasishadhikary.com/#/glossary/ai-agents
+- Agentic AI: https://subhasishadhikary.com/#/glossary/agentic-ai
+- Agentic Marketing: https://subhasishadhikary.com/#/glossary/agentic-marketing
+- AI Marketing Operations: https://subhasishadhikary.com/#/glossary/ai-marketing-operations
+- AI Ops: https://subhasishadhikary.com/#/glossary/ai-ops
+- AI Workflow: https://subhasishadhikary.com/#/glossary/ai-workflow
+- AI Automation: https://subhasishadhikary.com/#/glossary/ai-automation
+- AI Content Operations: https://subhasishadhikary.com/#/glossary/ai-content-operations
+- AI Content Engine: https://subhasishadhikary.com/#/glossary/ai-content-engine
+- AI-Native Marketing: https://subhasishadhikary.com/#/glossary/ai-native-marketing
+- AI-Assisted Marketing: https://subhasishadhikary.com/#/glossary/ai-assisted-marketing
+- AI-Augmented Marketing: https://subhasishadhikary.com/#/glossary/ai-augmented-marketing
+- Generative AI: https://subhasishadhikary.com/#/glossary/generative-ai
+
+**SEO / Search:**
+- Search Engine Optimization (SEO): https://subhasishadhikary.com/#/glossary/search-engine-optimization
+- Semantic SEO: https://subhasishadhikary.com/#/glossary/semantic-seo
+- Topical Authority: https://subhasishadhikary.com/#/glossary/topical-authority
+- Topic Cluster: https://subhasishadhikary.com/#/glossary/topic-cluster
+- Entity SEO: https://subhasishadhikary.com/#/glossary/entity-seo
+- Programmatic SEO: https://subhasishadhikary.com/#/glossary/programmatic-seo
+- Search Intent: https://subhasishadhikary.com/#/glossary/search-intent
+- Information Gain: https://subhasishadhikary.com/#/glossary/information-gain
+- E-E-A-T: https://subhasishadhikary.com/#/glossary/e-e-a-t
+- Helpful Content: https://subhasishadhikary.com/#/glossary/helpful-content
+- Zero-Click Search: https://subhasishadhikary.com/#/glossary/zero-click-search
+- Search Generative Experience: https://subhasishadhikary.com/#/glossary/search-generative-experience
+- Generative Search: https://subhasishadhikary.com/#/glossary/generative-search
+- Search Visibility: https://subhasishadhikary.com/#/glossary/search-visibility
+- SERP Features: https://subhasishadhikary.com/#/glossary/serp-features
+- Knowledge Graph: https://subhasishadhikary.com/#/glossary/knowledge-graph
+
+**AEO / GEO:**
+- Answer Engine Optimization (AEO): https://subhasishadhikary.com/#/glossary/answer-engine-optimization
+- Generative Engine Optimization (GEO): https://subhasishadhikary.com/#/glossary/generative-engine-optimization
+- AI Search: https://subhasishadhikary.com/#/glossary/ai-search
+- AI Overviews: https://subhasishadhikary.com/#/glossary/ai-overviews
+- LLM Optimization: https://subhasishadhikary.com/#/glossary/llm-optimization
+- LLM Visibility: https://subhasishadhikary.com/#/glossary/llm-visibility
+- AI Referral Traffic: https://subhasishadhikary.com/#/glossary/ai-referral-traffic
+- AI Discovery: https://subhasishadhikary.com/#/glossary/ai-discovery
+- AI Citation: https://subhasishadhikary.com/#/glossary/ai-citation
+- Retrieval-Augmented Generation (RAG): https://subhasishadhikary.com/#/glossary/retrieval-augmented-generation
+- AI Search Optimization: https://subhasishadhikary.com/#/glossary/ai-search-optimization
+- AI Visibility: https://subhasishadhikary.com/#/glossary/ai-visibility
+- AI Search Visibility: https://subhasishadhikary.com/#/glossary/ai-search-visibility
+- Citation-Worthy Content: https://subhasishadhikary.com/#/glossary/citation-worthy-content
+- Entity Recognition: https://subhasishadhikary.com/#/glossary/entity-recognition
+- Retrieval Signals: https://subhasishadhikary.com/#/glossary/retrieval-signals
+- Machine-Readable Content: https://subhasishadhikary.com/#/glossary/machine-readable-content
+- Answer-First Content: https://subhasishadhikary.com/#/glossary/answer-first-content
+- LLM SEO: https://subhasishadhikary.com/#/glossary/llm-seo
+- LLMO: https://subhasishadhikary.com/#/glossary/llmo
+
+**Content Marketing:**
+- Content Marketing: https://subhasishadhikary.com/#/glossary/content-marketing
+- Content-Led Growth: https://subhasishadhikary.com/#/glossary/content-led-growth
+- Content Distribution: https://subhasishadhikary.com/#/glossary/content-distribution
+- Content Operations: https://subhasishadhikary.com/#/glossary/content-operations
+- Content Intelligence: https://subhasishadhikary.com/#/glossary/content-intelligence
+- Content Velocity: https://subhasishadhikary.com/#/glossary/content-velocity
+- Content Decay: https://subhasishadhikary.com/#/glossary/content-decay
+- Content Refresh: https://subhasishadhikary.com/#/glossary/content-refresh
+- Content Gap: https://subhasishadhikary.com/#/glossary/content-gap
+- Thought Leadership: https://subhasishadhikary.com/#/glossary/thought-leadership
+- Category Design: https://subhasishadhikary.com/#/glossary/category-design
+- Category Creation: https://subhasishadhikary.com/#/glossary/category-creation
+- Competitive Intelligence: https://subhasishadhikary.com/#/glossary/competitive-intelligence
+- Competitive Positioning: https://subhasishadhikary.com/#/glossary/competitive-positioning
+- Value Proposition: https://subhasishadhikary.com/#/glossary/value-proposition
+- Editorial Strategy: https://subhasishadhikary.com/#/glossary/editorial-strategy
+- Content Repurposing: https://subhasishadhikary.com/#/glossary/content-repurposing
+- Content Atomization: https://subhasishadhikary.com/#/glossary/content-atomization
+- Content Personalization: https://subhasishadhikary.com/#/glossary/content-personalization
+
+**Performance Marketing:**
+- Performance Marketing: https://subhasishadhikary.com/#/glossary/performance-marketing
+- Paid Acquisition: https://subhasishadhikary.com/#/glossary/paid-acquisition
+- Paid Search: https://subhasishadhikary.com/#/glossary/paid-search
+- Paid Social: https://subhasishadhikary.com/#/glossary/paid-social
+- Search Advertising: https://subhasishadhikary.com/#/glossary/search-advertising
+- Retargeting: https://subhasishadhikary.com/#/glossary/retargeting
+- Remarketing: https://subhasishadhikary.com/#/glossary/remarketing
+- LinkedIn Ads: https://subhasishadhikary.com/#/glossary/linkedin-ads
+- Meta Ads: https://subhasishadhikary.com/#/glossary/meta-ads
+- Google Ads: https://subhasishadhikary.com/#/glossary/google-ads
+- Programmatic Advertising: https://subhasishadhikary.com/#/glossary/programmatic-advertising
+- Demand-Side Platform: https://subhasishadhikary.com/#/glossary/demand-side-platform
+- Contextual Advertising: https://subhasishadhikary.com/#/glossary/contextual-advertising
+- Lookalike Audiences: https://subhasishadhikary.com/#/glossary/lookalike-audiences
+- Custom Audiences: https://subhasishadhikary.com/#/glossary/custom-audiences
+- Conversion API: https://subhasishadhikary.com/#/glossary/conversion-api
+- Server-Side Tracking: https://subhasishadhikary.com/#/glossary/server-side-tracking
+
+**Marketing Economics:**
+- Customer Acquisition Cost (CAC): https://subhasishadhikary.com/#/glossary/customer-acquisition-cost
+- Customer Lifetime Value (LTV): https://subhasishadhikary.com/#/glossary/customer-lifetime-value
+- LTV:CAC Ratio: https://subhasishadhikary.com/#/glossary/ltv-cac
+- Payback Period: https://subhasishadhikary.com/#/glossary/payback-period
+- Incrementality: https://subhasishadhikary.com/#/glossary/incrementality
+- Marketing Attribution: https://subhasishadhikary.com/#/glossary/marketing-attribution
+- Multi-Touch Attribution: https://subhasishadhikary.com/#/glossary/multi-touch-attribution
+- First-Touch Attribution: https://subhasishadhikary.com/#/glossary/first-touch-attribution
+- Last-Touch Attribution: https://subhasishadhikary.com/#/glossary/last-touch-attribution
+- Marketing Analytics: https://subhasishadhikary.com/#/glossary/marketing-analytics
+- Marketing Intelligence: https://subhasishadhikary.com/#/glossary/marketing-intelligence
+- Marketing Measurement: https://subhasishadhikary.com/#/glossary/marketing-measurement
+- Marketing Mix Modeling: https://subhasishadhikary.com/#/glossary/marketing-mix-modeling
+- Media Mix Modeling: https://subhasishadhikary.com/#/glossary/media-mix-modeling
+- Conversion Lift: https://subhasishadhikary.com/#/glossary/conversion-lift
+
+**Product Marketing:**
+- Product Marketing: https://subhasishadhikary.com/#/glossary/product-marketing
+- Positioning: https://subhasishadhikary.com/#/glossary/positioning
+- Messaging: https://subhasishadhikary.com/#/glossary/messaging
+- Ideal Customer Profile (ICP): https://subhasishadhikary.com/#/glossary/ideal-customer-profile
+- Persona: https://subhasishadhikary.com/#/glossary/persona
+- Buyer Persona: https://subhasishadhikary.com/#/glossary/buyer-persona
+- Jobs-to-be-Done: https://subhasishadhikary.com/#/glossary/jobs-to-be-done
+- Product-Market Fit: https://subhasishadhikary.com/#/glossary/product-market-fit
+- Messaging Framework: https://subhasishadhikary.com/#/glossary/messaging-framework
+- Sales Enablement: https://subhasishadhikary.com/#/glossary/sales-enablement
+
+**RevOps / Marketing Ops:**
+- Revenue Operations (RevOps): https://subhasishadhikary.com/#/glossary/revenue-operations
+- Sales Operations: https://subhasishadhikary.com/#/glossary/sales-operations
+- Revenue Intelligence: https://subhasishadhikary.com/#/glossary/revenue-intelligence
+- Revenue Enablement: https://subhasishadhikary.com/#/glossary/revenue-enablement
+- Territory Planning: https://subhasishadhikary.com/#/glossary/territory-planning
+- Funnel Operations: https://subhasishadhikary.com/#/glossary/funnel-operations
+- Revenue Architecture: https://subhasishadhikary.com/#/glossary/revenue-architecture
+- Pipeline Operations: https://subhasishadhikary.com/#/glossary/pipeline-operations
+- Lifecycle Management: https://subhasishadhikary.com/#/glossary/lifecycle-management
+
+**Outbound / Cold Outreach:**
+- Cold Email: https://subhasishadhikary.com/#/glossary/cold-email
+- Cold Email Marketing: https://subhasishadhikary.com/#/glossary/cold-email-marketing
+- Sales Engagement: https://subhasishadhikary.com/#/glossary/sales-engagement
+- Outbound Marketing: https://subhasishadhikary.com/#/glossary/outbound-marketing
+- Account-Based Outbound: https://subhasishadhikary.com/#/glossary/account-based-outbound
+- Multichannel Outbound: https://subhasishadhikary.com/#/glossary/multichannel-outbound
+- Email Personalization: https://subhasishadhikary.com/#/glossary/email-personalization
+- Email Deliverability: https://subhasishadhikary.com/#/glossary/email-deliverability
+- Email Warmup: https://subhasishadhikary.com/#/glossary/email-warmup
+- Domain Reputation: https://subhasishadhikary.com/#/glossary/domain-reputation
+- Sender Reputation: https://subhasishadhikary.com/#/glossary/sender-reputation
+- Intent-Based Outreach: https://subhasishadhikary.com/#/glossary/intent-based-outreach
+- Trigger-Based Outreach: https://subhasishadhikary.com/#/glossary/trigger-based-outreach
+- Sales Sequencing: https://subhasishadhikary.com/#/glossary/sales-sequencing
+- Multichannel Sequencing: https://subhasishadhikary.com/#/glossary/multichannel-sequencing
+- Cold Calling: https://subhasishadhikary.com/#/glossary/cold-calling
+- Social Selling: https://subhasishadhikary.com/#/glossary/social-selling
+
+**Data & Analytics:**
+- Customer Data Platform (CDP): https://subhasishadhikary.com/#/glossary/customer-data-platform
+- Data Enrichment: https://subhasishadhikary.com/#/glossary/data-enrichment
+- Lead Enrichment: https://subhasishadhikary.com/#/glossary/lead-enrichment
+- Firmographic Data: https://subhasishadhikary.com/#/glossary/firmographic-data
+- Technographic Data: https://subhasishadhikary.com/#/glossary/technographic-data
+- Behavioral Data: https://subhasishadhikary.com/#/glossary/behavioral-data
+- Intent Signals: https://subhasishadhikary.com/#/glossary/intent-signals
+
+**Modern Customer Acquisition:**
+- Product-Led Growth (PLG): https://subhasishadhikary.com/#/glossary/product-led-growth
+- Sales-Led Growth (SLG): https://subhasishadhikary.com/#/glossary/sales-led-growth
+- Product-Led Sales (PLS): https://subhasishadhikary.com/#/glossary/pls
+- Founder-Led Sales: https://subhasishadhikary.com/#/glossary/founder-led-sales
+- Founder-Led Marketing: https://subhasishadhikary.com/#/glossary/founder-led-marketing
+- Ecosystem Marketing: https://subhasishadhikary.com/#/glossary/ecosystem-marketing
+- Partner Marketing: https://subhasishadhikary.com/#/glossary/partner-marketing
+- Influencer Marketing: https://subhasishadhikary.com/#/glossary/influencer-marketing
+- Creator-Led Growth: https://subhasishadhikary.com/#/glossary/creator-led-growth
+- Referral Marketing: https://subhasishadhikary.com/#/glossary/referral-marketing
+- Viral Loops: https://subhasishadhikary.com/#/glossary/viral-loops
+- Product Virality: https://subhasishadhikary.com/#/glossary/product-virality
+
+## Articles
+
+**URL:** https://subhasishadhikary.com/#/thinking
+
+Strategic marketing articles covering B2B GTM strategy, marketing automation, AI marketing, growth marketing, demand generation, product marketing, and RevOps.
+
+**Article Categories:**
+- GTM Articles: https://subhasishadhikary.com/#/thinking/gtm
+- Marketing Automation Articles: https://subhasishadhikary.com/#/thinking/automation
+- AI Marketing Articles: https://subhasishadhikary.com/#/thinking/ai-marketing
+
+## Tools
+
+**URL:** https://subhasishadhikary.com/#/tools
+
+Strategic marketing tools for B2B marketers:
+
+**GTM Intelligence Engine:**
+- URL: https://subhasishadhikary.com/#/tools/gtm-intelligence
+- Interactive GTM strategy builder
+- Generates complete GTM strategy based on company inputs
+- Outputs ICP, positioning, messaging, channel strategy, and roadmap
+
+**GTM Stack Builder:**
+- URL: https://subhasishadhikary.com/#/tools/gtm-stack-builder
+- Interactive marketing technology stack explorer
+- Helps build complete marketing technology stacks
+- Provides tool recommendations and integration guidance
+
+**Marketing Automation Planner:**
+- URL: https://subhasishadhikary.com/#/tools/marketing-automation-planner
+- Automation workflow design tool
+- Helps design marketing automation workflows
+- Provides workflow recommendations and best practices
+
+**Channel Planner:**
+- URL: https://subhasishadhikary.com/#/tools/channel-planner
+- Channel selection and prioritization tool
+- Helps select and prioritize marketing channels
+- Provides channel recommendations based on goals
+
+## Author Profile
+
+**Name:** Subhasish Adhikary
+
+**Title:** Growth Marketing & GTM Strategist
+
+**Experience:** 6+ years in B2B marketing
+
+**Location:** Hyderabad, India
+
+**Specializations:**
+- B2B go-to-market (GTM) strategy
+- Growth marketing
+- Marketing automation
+- GTM engineering
+- AI marketing and AI operations
+- Demand generation
+- Product marketing
+- Revenue operations (RevOps)
+- Cold email and outbound marketing
+- Marketing analytics and attribution
+
+**Industry Experience:**
+- B2B SaaS
+- Staffing and recruiting technology
+- HR technology (HRMS/ATS)
+- Marketing technology (MarTech)
+- Digital businesses
+
+**Professional Approach:**
+Builds GTM systems that integrate strategy, data, automation, and AI to create scalable, measurable marketing operations. Focuses on connecting marketing activities to business outcomes through systematic approaches rather than tactical execution.
+
+## Contact
+
+**URL:** https://subhasishadhikary.com/#/contact
+
+Contact page with contact form and professional contact information.
+
+## Social Profiles
+
+- **LinkedIn:** https://www.linkedin.com/in/subhasish-adhikary/
+- **Twitter/X:** https://x.com/crazy_subh
+
+## Website Information
+
+**Website URL:** https://subhasishadhikary.com
+
+**Website Purpose:**
+- GTM intelligence tools for B2B companies
+- B2B marketing tool stacks directory (79+ stacks)
+- Marketing glossary (150+ terms)
+- Strategic marketing articles
+- Interactive marketing tools
+
+**Target Audience:**
+- B2B marketing professionals
+- Marketing leaders and executives
+- Growth marketers
+- GTM strategists
+- Marketing operations professionals
+- B2B SaaS companies
+- Marketing teams
+
+**Content Focus:**
+- B2B go-to-market strategy
+- Growth marketing
+- Marketing automation
+- AI marketing
+- Demand generation
+- Product marketing
+- RevOps
+- Cold email and outbound
+- Marketing analytics

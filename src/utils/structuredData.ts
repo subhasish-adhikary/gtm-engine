@@ -149,6 +149,22 @@ export function generateFAQPageSchema(faqs: Array<{ question: string; answer: st
   };
 }
 
+export function generateDefinedTermSchema(term: any) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    name: term.term,
+    description: term.shortDefinition,
+    url: `https://subhasishadhikary.com/#/glossary/${term.slug}`,
+    termCode: term.id,
+    inDefinedTermSet: {
+      '@type': 'DefinedTermSet',
+      name: 'Marketing Glossary',
+      url: 'https://subhasishadhikary.com/#/glossary'
+    }
+  };
+}
+
 export function injectMultipleStructuredData(schemas: any[]) {
   if (typeof document === 'undefined') return;
   
