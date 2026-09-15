@@ -3919,6 +3919,477 @@ export const glossaryTerms: GlossaryTerm[] = [
     featured: false,
     emerging: false,
     status: 'established'
+  },
+  // Additional AEO / GEO Terms
+  {
+    id: 'aeo',
+    slug: 'aeo',
+    term: 'AEO',
+    category: 'aeo-geo',
+    shortDefinition: 'AEO is the abbreviation for Answer Engine Optimization. It refers to structuring content so answer engines can identify, understand and use it when responding to user questions.',
+    fullDefinition: 'AEO (Answer Engine Optimization) is the standard industry abbreviation for Answer Engine Optimization, the practice of optimizing content for AI-powered answer engines like ChatGPT, Perplexity, and Google AI Overviews. The term has become widely used as AI search has grown, though definitions vary across the industry. Some practitioners use AEO to refer specifically to optimization for conversational AI systems, while others use it more broadly to encompass all AI search optimization. AEO focuses on making content discoverable, citable, and useful for AI systems that synthesize answers from multiple sources, rather than optimizing for traditional search engine rankings.',
+    whyItMatters: 'The widespread adoption of the AEO acronym reflects the growing importance of optimizing for AI-powered answer engines. As users increasingly turn to ChatGPT, Perplexity, and other AI systems for information, ensuring your content is optimized for these platforms becomes critical. AEO helps ensure your brand, expertise, and content are represented accurately in AI-generated answers, driving visibility and referral traffic from AI platforms.',
+    howItWorks: 'AEO works the same way as Answer Engine Optimization (see that entry for detailed explanation). The term AEO is simply the abbreviation. AEO involves structuring content with clear definitions, using semantic HTML and structured data, establishing entity clarity, citing authoritative sources, and creating content that AI systems can easily retrieve, understand, and cite.',
+    example: 'A marketing technology company uses AEO to optimize their content for AI answer engines. They create comprehensive guides with clear definitions at the top, use structured data markup, cite authoritative sources, and ensure content is independently understandable. When users ask ChatGPT or Perplexity about marketing automation, the company\'s content is retrieved, cited, and drives referral traffic.',
+    useCases: [
+      'Optimizing for AI answer engines',
+      'Ensuring brand representation in AI answers',
+      'Driving traffic from AI platforms',
+      'Building authority in AI-generated content'
+    ],
+    commonMistakes: [
+      'Confusing AEO with traditional SEO',
+      'Not understanding that AEO definitions vary across the industry',
+      'Treating AEO as a replacement for SEO rather than complementary',
+      'Not measuring AI referral traffic and citation'
+    ],
+    relatedTerms: ['answer-engine-optimization', 'generative-engine-optimization', 'ai-search', 'llm-optimization', 'ai-visibility'],
+    synonyms: ['Answer Engine Optimization'],
+    confusedWith: ['generative-engine-optimization', 'seo'],
+    primaryKeyword: 'AEO',
+    secondaryKeywords: ['Answer Engine Optimization', 'AI answer optimization'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Journal: AEO Guide', url: 'https://www.searchenginejournal.com/', description: 'Industry guide to Answer Engine Optimization' }
+    ],
+    faq: [
+      { question: 'Is AEO the same as Answer Engine Optimization?', answer: 'Yes, AEO is simply the abbreviation for Answer Engine Optimization. They refer to the same practice of optimizing content for AI-powered answer engines.' },
+      { question: 'Does AEO have a universally accepted definition?', answer: 'No, AEO definitions vary across the industry. Some use it narrowly for conversational AI optimization, others more broadly for all AI search optimization. The core concept is consistent, but scope varies.' },
+      { question: 'How is AEO different from GEO?', answer: 'AEO focuses specifically on answer engines like ChatGPT and Perplexity. GEO (Generative Engine Optimization) is broader and includes generative search features like Google AI Overviews. In practice, the optimization strategies overlap significantly.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'geo',
+    slug: 'geo',
+    term: 'GEO',
+    category: 'aeo-geo',
+    shortDefinition: 'GEO is the abbreviation for Generative Engine Optimization. It refers to optimizing information and digital content for visibility and representation within generative AI systems.',
+    fullDefinition: 'GEO (Generative Engine Optimization) is the standard industry abbreviation for Generative Engine Optimization, the practice of optimizing content for visibility and citation in generative AI search systems. The term encompasses optimization for Google AI Overviews, AI chatbots like ChatGPT and Claude, AI search engines like Perplexity, and other generative search experiences. GEO definitions vary across the industry—some practitioners use it interchangeably with AEO, while others distinguish GEO as broader. GEO focuses on making content discoverable, retrievable, and citable by AI systems that generate answers by synthesizing information from multiple sources.',
+    whyItMatters: 'The widespread adoption of the GEO acronym reflects the fundamental shift toward generative AI search. As users increasingly receive answers from AI systems rather than clicking through to websites, optimizing for generative search becomes critical for brand visibility and traffic. GEO ensures your content remains visible in the AI search era and can drive measurable traffic from AI platforms.',
+    howItWorks: 'GEO works the same way as Generative Engine Optimization (see that entry for detailed explanation). The term GEO is simply the abbreviation. GEO involves creating content with clear entity definitions, using structured data markup, establishing topical authority, citing credible sources, and formatting content for easy extraction by AI systems.',
+    example: 'A B2B SaaS company uses GEO to optimize their content for generative AI search. They create comprehensive guides with clear definitions, use structured data, establish topical authority through comprehensive coverage, and cite authoritative sources. When users search in Google AI Overviews or ask Perplexity about their product category, the company\'s content is retrieved and cited.',
+    useCases: [
+      'Optimizing for Google AI Overviews',
+      'Increasing citations in AI chatbot responses',
+      'Driving traffic from AI search platforms',
+      'Building authority in AI-generated answers'
+    ],
+    commonMistakes: [
+      'Confusing GEO with traditional SEO',
+      'Not understanding that GEO definitions vary across the industry',
+      'Treating GEO as a replacement for SEO rather than complementary',
+      'Not measuring AI search visibility and citation'
+    ],
+    relatedTerms: ['generative-engine-optimization', 'answer-engine-optimization', 'ai-search', 'ai-overviews', 'llm-optimization'],
+    synonyms: ['Generative Engine Optimization'],
+    confusedWith: ['answer-engine-optimization', 'seo'],
+    primaryKeyword: 'GEO',
+    secondaryKeywords: ['Generative Engine Optimization', 'AI search optimization'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Land: GEO Guide', url: 'https://searchengineland.com/', description: 'Industry guide to Generative Engine Optimization' }
+    ],
+    faq: [
+      { question: 'Is GEO the same as Generative Engine Optimization?', answer: 'Yes, GEO is simply the abbreviation for Generative Engine Optimization. They refer to the same practice of optimizing content for generative AI search systems.' },
+      { question: 'Does GEO have a universally accepted definition?', answer: 'No, GEO definitions vary across the industry. Some use it interchangeably with AEO, others distinguish it as broader. The core concept is consistent, but scope varies by practitioner.' },
+      { question: 'How is GEO different from AEO?', answer: 'GEO is broader and includes generative search features like Google AI Overviews. AEO focuses specifically on answer engines like ChatGPT and Perplexity. In practice, the optimization strategies overlap significantly.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'llm-seo',
+    slug: 'llm-seo',
+    term: 'LLM SEO',
+    category: 'aeo-geo',
+    shortDefinition: 'LLM SEO refers to adapting content, entities and website information so large language model-powered discovery systems can understand and surface a brand or source.',
+    fullDefinition: 'LLM SEO (Large Language Model SEO) is the practice of optimizing content and website information so that large language model-powered discovery systems can accurately understand, retrieve, and represent that information. LLM SEO focuses on making content understandable to LLMs like GPT-4, Claude, and Gemini, ensuring that brands, products, and expertise are accurately represented in LLM-generated responses. LLM SEO encompasses entity clarity, semantic structure, topical authority, and content that LLMs can easily retrieve and synthesize. It is closely related to LLM optimization but focuses specifically on the SEO aspects of LLM optimization.',
+    whyItMatters: 'As LLM-powered discovery becomes more prevalent, ensuring your content is optimized for LLM retrieval becomes critical. Content not optimized for LLMs may not be retrieved, may be misrepresented, or may not be cited in LLM responses. LLM SEO ensures your brand, products, and expertise are accurately represented in LLM-generated content, driving visibility and credibility in the AI search era.',
+    howItWorks: 'LLM SEO works by optimizing content for LLM understanding and retrieval: creating clear, well-structured content that directly answers questions, using semantic HTML and structured data to help LLMs understand content, establishing entity clarity so LLMs can accurately identify and represent your brand, creating comprehensive topical coverage to establish authority, and ensuring content is factual, citable, and authoritative. The goal is to make your content the go-to source for LLMs when generating answers.',
+    example: 'A B2B SaaS company implements LLM SEO by creating comprehensive, well-structured documentation that directly answers common questions about their product. They use semantic HTML and structured data to help LLMs understand their content. They establish clear entity definitions for their brand, products, and key concepts. They create comprehensive topical coverage of their domain. When users ask LLMs about their product category, their content is retrieved, accurately represented, and cited.',
+    useCases: [
+      'Optimizing content for LLM retrieval',
+      'Ensuring accurate brand representation in LLM responses',
+      'Establishing authority for LLM citation',
+      'Driving traffic from LLM-powered platforms'
+    ],
+    commonMistakes: [
+      'Treating LLM SEO as identical to traditional SEO',
+      'Not establishing clear entity definitions for brand and products',
+      'Creating content that is not directly answerable or retrievable',
+      'Ignoring semantic structure and markup',
+      'Not establishing topical authority for LLM citation'
+    ],
+    relatedTerms: ['llm-optimization', 'llm-visibility', 'ai-search', 'ai-overviews', 'ai-citation', 'seo'],
+    synonyms: ['Large Language Model SEO', 'LLM Search Optimization'],
+    confusedWith: ['llm-optimization', 'seo'],
+    primaryKeyword: 'LLM SEO',
+    secondaryKeywords: ['large language model SEO', 'LLM search optimization', 'LLM optimization SEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Journal: LLM SEO', url: 'https://www.searchenginejournal.com/', description: 'Guide to optimizing for large language models' }
+    ],
+    faq: [
+      { question: 'How is LLM SEO different from traditional SEO?', answer: 'Traditional SEO optimizes for search engine algorithms and ranking. LLM SEO optimizes for LLM retrieval, understanding, and representation. SEO focuses on keywords and links; LLM SEO focuses on entity clarity, semantic structure, and answerability.' },
+      { question: 'What are the key practices for LLM SEO?', answer: 'Create clear, well-structured content that directly answers questions. Use semantic HTML and structured data. Establish entity clarity. Create comprehensive topical coverage. Ensure content is factual, citable, and authoritative.' },
+      { question: 'How is LLM SEO different from LLM optimization?', answer: 'LLM SEO focuses specifically on the SEO aspects of LLM optimization—retrieval, visibility, and citation. LLM optimization is broader and includes all aspects of optimizing for LLMs, including prompt engineering and model fine-tuning.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'llmo',
+    slug: 'llmo',
+    term: 'LLMO',
+    category: 'aeo-geo',
+    shortDefinition: 'LLMO, or Large Language Model Optimization, refers to practices intended to improve how accurately and consistently a brand or information source is represented by LLM-powered systems.',
+    fullDefinition: 'LLMO (Large Language Model Optimization) is the standard industry abbreviation for Large Language Model Optimization, the practice of optimizing content and information so that large language models can accurately understand, retrieve, and represent that information. LLMO encompasses a broader set of practices than LLM SEO, including not just content optimization but also prompt engineering, model fine-tuning, and system-level optimization for LLM-powered applications. LLMO focuses on improving how accurately and consistently a brand, product, or information source is represented by LLM-powered systems.',
+    whyItMatters: 'As LLM-powered applications become more prevalent, ensuring your brand and information are accurately represented becomes critical. LLMO helps ensure that when users interact with LLM-powered systems, they receive accurate, consistent, and favorable representations of your brand, products, and expertise. This is particularly important for B2B companies whose products and services may be complex and require accurate representation.',
+    howItWorks: 'LLMO works the same way as LLM Optimization (see that entry for detailed explanation). The term LLMO is simply the abbreviation. LLMO involves optimizing content for LLM retrieval and understanding, establishing entity clarity, creating comprehensive topical coverage, and ensuring content is factual and citable. LLMO may also include prompt engineering, model fine-tuning, and system-level optimization for LLM-powered applications.',
+    example: 'A B2B SaaS company uses LLMO to ensure their product is accurately represented in LLM-powered systems. They optimize their documentation for LLM retrieval, establish clear entity definitions, create comprehensive topical coverage, and ensure all content is factual and citable. They also work with LLM providers to ensure their product information is accurately represented in training data. When users ask LLMs about their product category, their product is accurately represented.',
+    useCases: [
+      'Ensuring accurate brand representation in LLM responses',
+      'Optimizing for LLM-powered applications',
+      'Improving consistency of brand representation',
+      'Working with LLM providers on training data'
+    ],
+    commonMistakes: [
+      'Confusing LLMO with LLM SEO',
+      'Not understanding that LLMO is broader than just content optimization',
+      'Focusing only on content without considering system-level optimization',
+      'Not working with LLM providers on training data accuracy'
+    ],
+    relatedTerms: ['llm-optimization', 'llm-seo', 'llm-visibility', 'ai-search', 'ai-marketing'],
+    synonyms: ['Large Language Model Optimization'],
+    confusedWith: ['llm-optimization', 'llm-seo'],
+    primaryKeyword: 'LLMO',
+    secondaryKeywords: ['large language model optimization', 'LLM optimization'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Anthropic: LLM Optimization', url: 'https://www.anthropic.com/', description: 'Research on LLM optimization practices' }
+    ],
+    faq: [
+      { question: 'Is LLMO the same as LLM Optimization?', answer: 'Yes, LLMO is simply the abbreviation for Large Language Model Optimization. They refer to the same practice of optimizing for large language models.' },
+      { question: 'How is LLMO different from LLM SEO?', answer: 'LLMO is broader and includes all aspects of LLM optimization, including prompt engineering and system-level optimization. LLM SEO focuses specifically on content optimization for LLM retrieval and visibility.' },
+      { question: 'What does LLMO include beyond content optimization?', answer: 'LLMO may include prompt engineering, model fine-tuning, working with LLM providers on training data, system-level optimization for LLM-powered applications, and ensuring consistent brand representation across LLM systems.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'ai-visibility',
+    slug: 'ai-visibility',
+    term: 'AI Visibility',
+    category: 'aeo-geo',
+    shortDefinition: 'AI visibility measures how prominently a brand, organization, product or concept appears in AI-generated answers relevant to its market.',
+    fullDefinition: 'AI visibility is a metric that measures how often and how prominently a brand, organization, product, or concept appears in AI-generated answers and responses. Unlike traditional search visibility which measures presence in search engine results, AI visibility measures presence in AI-generated content across multiple platforms: ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini, and other AI systems. AI visibility encompasses both frequency (how often you appear) and quality (how accurately and favorably you are represented).',
+    whyItMatters: 'As AI-powered discovery becomes more prevalent, AI visibility becomes a critical metric for brand awareness and market presence. Low AI visibility means your brand may not be discovered by users interacting with AI, or may be inaccurately represented. High AI visibility ensures your brand is discovered, accurately represented, and properly credited in AI-generated content. For B2B companies, AI visibility is particularly important because buyers increasingly use AI systems for research and evaluation.',
+    howItWorks: 'AI visibility is measured by querying AI systems about your market, product category, or specific questions, and tracking: how often your brand is mentioned, whether the representation is accurate, whether sources are cited, and how you compare to competitors. AI visibility can be tracked manually or using specialized AI search monitoring tools. The metric encompasses multiple dimensions: mention frequency, accuracy of representation, citation frequency, sentiment, and competitive positioning.',
+    example: 'A B2B SaaS company monitors their AI visibility by regularly querying AI models about their product category and tracking: how often their brand is mentioned (mention frequency), whether the representation is accurate (accuracy), whether sources are cited (citation frequency), and how they compare to competitors (competitive positioning). They find their brand is mentioned in 70% of relevant queries, accurately represented, and properly cited. They compare this to competitors and track changes over time.',
+    useCases: [
+      'Monitoring brand visibility in AI responses',
+      'Ensuring accurate brand representation in AI content',
+      'Competitive analysis of AI visibility',
+      'Tracking changes in AI visibility over time',
+      'Identifying gaps in AI representation'
+    ],
+    commonMistakes: [
+      'Not monitoring AI visibility at all',
+      'Assuming AI visibility is the same as search visibility',
+      'Not tracking accuracy of brand representation in AI responses',
+      'Ignoring competitive AI visibility',
+      'Not taking action to improve AI visibility'
+    ],
+    relatedTerms: ['llm-visibility', 'ai-search-visibility', 'ai-search', 'ai-citation', 'ai-discovery', 'search-visibility'],
+    synonyms: ['AI Brand Visibility', 'Generative AI Visibility'],
+    confusedWith: ['llm-visibility', 'search-visibility'],
+    primaryKeyword: 'AI visibility',
+    secondaryKeywords: ['AI brand visibility', 'generative AI visibility', 'AI search visibility'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Forrester: AI Brand Visibility', url: 'https://www.forrester.com/', description: 'Research on brand visibility in AI systems' }
+    ],
+    faq: [
+      { question: 'How do I measure AI visibility?', answer: 'Query AI models about your product category and track: mention frequency, accuracy of representation, citation frequency, and comparison to competitors. Use AI search monitoring tools to track visibility systematically.' },
+      { question: 'What factors affect AI visibility?', answer: 'Content quality and comprehensiveness, entity clarity, topical authority, citation frequency, accuracy of representation, presence across multiple sources, and optimization for AI retrieval.' },
+      { question: 'How is AI visibility different from search visibility?', answer: 'Search visibility measures presence in search engine results. AI visibility measures presence in AI-generated answers across multiple AI platforms. They are related but distinct metrics.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'ai-search-visibility',
+    slug: 'ai-search-visibility',
+    term: 'AI Search Visibility',
+    category: 'aeo-geo',
+    shortDefinition: 'AI search visibility refers specifically to the presence and representation of a website, brand or entity within AI-powered search experiences.',
+    fullDefinition: 'AI search visibility is a specific subset of AI visibility that measures the presence and representation of a website, brand, or entity specifically within AI-powered search experiences. This includes visibility in Google AI Overviews, Bing Copilot, Perplexity, ChatGPT with search, and other AI search platforms. AI search visibility focuses specifically on search contexts rather than all AI-generated content. It measures how prominently and accurately your website, brand, or entity appears in AI search results and AI-generated search responses.',
+    whyItMatters: 'AI search visibility is critical because AI-powered search is becoming a primary way users discover information. Low AI search visibility means your website may not be discovered by users interacting with AI search, or may be inaccurately represented. High AI search visibility ensures your website is discovered, accurately represented, and drives traffic from AI search platforms. For B2B companies, AI search visibility is particularly important because it directly impacts discovery and traffic from AI search platforms.',
+    howItWorks: 'AI search visibility is measured by querying AI search platforms about relevant topics and tracking: how often your website is cited or linked, whether the representation is accurate, whether your brand is mentioned, and how you compare to competitors. AI search visibility can be tracked using specialized AI search monitoring tools or manual monitoring. The metric encompasses multiple dimensions: citation frequency, accuracy of representation, brand mention frequency, and competitive positioning in AI search results.',
+    example: 'A B2B SaaS company monitors their AI search visibility by querying AI search platforms (Google AI Overviews, Perplexity, ChatGPT with search) about their product category and tracking: how often their website is cited (citation frequency), whether the representation is accurate (accuracy), whether their brand is mentioned (brand mention frequency), and how they compare to competitors (competitive positioning). They find their website is cited in 60% of relevant AI search queries, accurately represented, and their brand is mentioned in 75% of queries.',
+    useCases: [
+      'Monitoring website visibility in AI search',
+      'Ensuring accurate representation in AI search results',
+      'Tracking citation frequency in AI search',
+      'Competitive analysis of AI search visibility',
+      'Optimizing for AI search platforms'
+    ],
+    commonMistakes: [
+      'Not monitoring AI search visibility separately from general AI visibility',
+      'Assuming AI search visibility is the same as traditional search visibility',
+      'Not tracking citation frequency in AI search',
+      'Ignoring competitive AI search visibility',
+      'Not optimizing specifically for AI search platforms'
+    ],
+    relatedTerms: ['ai-visibility', 'ai-search', 'ai-overviews', 'ai-citation', 'llm-visibility', 'search-visibility'],
+    synonyms: ['AI Search Presence', 'Generative Search Visibility'],
+    confusedWith: ['ai-visibility', 'search-visibility'],
+    primaryKeyword: 'AI search visibility',
+    secondaryKeywords: ['AI search presence', 'generative search visibility', 'AI search optimization'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Similarweb: AI Search Traffic', url: 'https://www.similarweb.com/', description: 'Analysis of traffic from AI search platforms' }
+    ],
+    faq: [
+      { question: 'How is AI search visibility different from AI visibility?', answer: 'AI visibility is broader and measures presence in all AI-generated content. AI search visibility is specific to AI-powered search experiences like Google AI Overviews, Perplexity, and ChatGPT with search.' },
+      { question: 'How do I measure AI search visibility?', answer: 'Query AI search platforms about your product category and track: citation frequency, accuracy of representation, brand mention frequency, and competitive positioning. Use AI search monitoring tools to track visibility systematically.' },
+      { question: 'How is AI search visibility different from traditional search visibility?', answer: 'Traditional search visibility measures presence in search engine results pages. AI search visibility measures presence in AI-powered search experiences. They are related but distinct, with different optimization strategies.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'citation-worthy-content',
+    slug: 'citation-worthy-content',
+    term: 'Citation-Worthy Content',
+    category: 'aeo-geo',
+    shortDefinition: 'Citation-worthy content is information that contains sufficiently clear, specific, useful and trustworthy evidence or explanation that another system can reasonably reference it as a source.',
+    fullDefinition: 'Citation-worthy content is content that meets the quality, clarity, specificity, and trustworthiness standards that make it suitable for citation by AI systems, researchers, journalists, and other content creators. Citation-worthy content provides clear, specific, useful information backed by evidence or authoritative explanation. It is independently understandable, factually accurate, properly sourced, and represents authoritative expertise on its topic. AI systems like ChatGPT, Perplexity, and Google AI Overviews prioritize citation-worthy content when generating answers because it provides reliable, verifiable information.',
+    whyItMatters: 'In the AI search era, citation-worthy content is critical for brand visibility and authority. AI systems cite content that meets high standards of quality, clarity, and trustworthiness. Content that is not citation-worthy may not be retrieved or cited by AI systems, reducing visibility and authority. For B2B companies, creating citation-worthy content ensures their expertise is represented in AI-generated answers, driving visibility, credibility, and traffic from AI platforms.',
+    howItWorks: 'Citation-worthy content is created by: providing clear, specific information that directly answers questions, backing claims with evidence (data, research, examples), citing authoritative sources, demonstrating expertise through comprehensive coverage, ensuring factual accuracy, using clear and unambiguous language, structuring content for easy retrieval and understanding, and maintaining consistency and reliability over time. AI systems evaluate content for citation-worthiness based on these factors when generating answers.',
+    example: 'A B2B SaaS company creates citation-worthy content by publishing a comprehensive guide on marketing automation best practices. The guide provides clear, specific recommendations backed by data from their research survey of 500 companies. It cites authoritative sources (Gartner, Forrester), includes real examples and case studies, demonstrates deep expertise through comprehensive coverage, and is structured with clear headings and definitions. When AI systems generate answers about marketing automation, this guide is retrieved and cited because it meets citation-worthiness standards.',
+    useCases: [
+      'Creating content for AI citation',
+      'Building authority for AI search visibility',
+      'Earning citations from researchers and journalists',
+      'Establishing thought leadership',
+      'Driving traffic from AI platforms'
+    ],
+    commonMistakes: [
+      'Creating vague, generic content that lacks specificity',
+      'Not backing claims with evidence or sources',
+      'Not demonstrating expertise through comprehensive coverage',
+      'Creating content that is not independently understandable',
+      'Not maintaining factual accuracy and consistency'
+    ],
+    relatedTerms: ['ai-citation', 'ai-search', 'llm-optimization', 'e-e-a-t', 'information-gain', 'helpful-content'],
+    synonyms: ['Citable Content', 'Authoritative Content'],
+    confusedWith: ['ai-citation', 'helpful-content'],
+    primaryKeyword: 'citation-worthy content',
+    secondaryKeywords: ['citable content', 'authoritative content', 'AI citation content'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Journal: Creating Citation-Worthy Content', url: 'https://www.searchenginejournal.com/', description: 'Guide to creating content for AI citation' }
+    ],
+    faq: [
+      { question: 'What makes content citation-worthy?', answer: 'Content is citation-worthy when it provides clear, specific, useful information backed by evidence or authoritative explanation. It must be independently understandable, factually accurate, properly sourced, and demonstrate authoritative expertise.' },
+      { question: 'How do I make my content more citation-worthy?', answer: 'Provide clear, specific information that directly answers questions. Back claims with evidence (data, research, examples). Cite authoritative sources. Demonstrate expertise through comprehensive coverage. Ensure factual accuracy. Use clear, unambiguous language.' },
+      { question: 'How do AI systems determine if content is citation-worthy?', answer: 'AI systems evaluate content based on clarity, specificity, evidence quality, source authority, comprehensiveness, factual accuracy, and structural clarity. Content meeting these standards is more likely to be retrieved and cited.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'entity-recognition',
+    slug: 'entity-recognition',
+    term: 'Entity Recognition',
+    category: 'aeo-geo',
+    shortDefinition: 'Entity recognition is the process of identifying distinct entities such as people, organizations, products, locations and concepts within unstructured information.',
+    fullDefinition: 'Entity recognition (also called named entity recognition or NER) is a natural language processing task that involves identifying and classifying named entities in text into predefined categories such as person names, organizations, locations, product names, dates, and other entity types. In the context of SEO and AI search, entity recognition is critical because search engines and AI systems use entity recognition to understand what content is about, identify relationships between entities, and build knowledge graphs. For marketers, understanding entity recognition helps optimize content so that search engines and AI systems can accurately identify and understand the entities discussed in their content.',
+    whyItMatters: 'Entity recognition is foundational to how modern search engines and AI systems understand content. When search engines can accurately recognize entities in your content (your brand, products, team members, industry concepts), they can better understand what your content is about, establish relationships between entities, and rank your content appropriately. For B2B companies, ensuring your brand, products, and key concepts are clearly recognized as entities helps with search visibility, knowledge graph inclusion, and AI search representation.',
+    howItWorks: 'Entity recognition works by using natural language processing models to analyze text and identify named entities. The models are trained on large datasets of annotated text and learn to recognize patterns that indicate entity types. For example, the model learns that "Apple" followed by "Inc." is likely an organization, while "Apple" followed by "iPhone" is likely a product. In SEO, entity recognition is used by search engines to understand content, build knowledge graphs, and improve search results. Marketers can support entity recognition by using clear, unambiguous language, providing context for entities, and using structured data to explicitly define entities.',
+    example: 'A B2B SaaS company named "Acme" creates content about their product "Acme CRM." Entity recognition systems analyze the content and identify "Acme" as an organization, "Acme CRM" as a product, and related entities like "CRM," "sales automation," and "customer relationship management" as concepts. This helps search engines understand what the content is about and establish relationships between entities. The company uses structured data (Schema.org markup) to explicitly define these entities, making recognition more accurate.',
+    useCases: [
+      'Optimizing content for search engine understanding',
+      'Supporting knowledge graph inclusion',
+      'Improving AI search representation',
+      'Clarifying brand and product entities',
+      'Establishing entity relationships'
+    ],
+    commonMistakes: [
+      'Using ambiguous language that makes entity recognition difficult',
+      'Not providing sufficient context for entities',
+      'Not using structured data to explicitly define entities',
+      'Using inconsistent naming for entities across content',
+      'Not understanding how entity recognition affects search visibility'
+    ],
+    relatedTerms: ['entity-seo', 'knowledge-graph', 'semantic-seo', 'structured-data', 'ai-search'],
+    synonyms: ['Named Entity Recognition', 'NER'],
+    confusedWith: ['entity-seo', 'keyword-research'],
+    primaryKeyword: 'entity recognition',
+    secondaryKeywords: ['named entity recognition', 'NER', 'entity identification'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Named Entity Recognition', url: 'https://cloud.google.com/natural-language/docs/analyzing-entities', description: 'Google Cloud documentation on entity recognition' },
+      { title: 'Wikipedia: Named-entity recognition', url: 'https://en.wikipedia.org/wiki/Named-entity_recognition', description: 'Overview of named entity recognition in NLP' }
+    ],
+    faq: [
+      { question: 'What is entity recognition?', answer: 'Entity recognition is the process of identifying named entities (people, organizations, products, locations, concepts) in text and classifying them into predefined categories. It is a fundamental NLP task used by search engines and AI systems.' },
+      { question: 'How does entity recognition affect SEO?', answer: 'Entity recognition helps search engines understand what your content is about. When entities are clearly recognized, search engines can better rank your content, establish relationships between entities, and include you in knowledge graphs.' },
+      { question: 'How do I support entity recognition in my content?', answer: 'Use clear, unambiguous language. Provide sufficient context for entities. Use structured data (Schema.org markup) to explicitly define entities. Be consistent in naming entities across your content.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'retrieval-signals',
+    slug: 'retrieval-signals',
+    term: 'Retrieval Signals',
+    category: 'aeo-geo',
+    shortDefinition: 'Retrieval signals are characteristics of information that influence whether a retrieval system considers a piece of content relevant to a query or information need.',
+    fullDefinition: 'Retrieval signals are the characteristics, features, and indicators that retrieval systems (search engines, AI systems, recommendation engines) use to determine whether a piece of content is relevant to a query or information need. These signals include textual features (keywords, semantic similarity), structural features (headings, lists, structured data), authority signals (backlinks, citations, domain authority), freshness signals (publication date, update frequency), and engagement signals (click-through rates, time on page). In the context of AI search and SEO, understanding retrieval signals helps marketers optimize content so that retrieval systems consider it relevant and rank it appropriately.',
+    whyItMatters: 'Retrieval signals determine whether your content is retrieved and ranked by search engines and AI systems. Understanding which signals matter and how to optimize for them is fundamental to SEO and AI search optimization. Different retrieval systems weight signals differently—traditional search engines may prioritize backlinks and keywords, while AI systems may prioritize semantic relevance, entity clarity, and citation-worthiness. For B2B companies, understanding retrieval signals helps optimize content for both traditional search and AI search, maximizing visibility across all discovery channels.',
+    howItWorks: 'Retrieval systems analyze content using various signals to determine relevance. Textual signals include keyword matching, semantic similarity (how closely the content meaning matches the query), and entity recognition. Structural signals include clear headings, lists, tables, and structured data that make content easy to parse. Authority signals include backlinks, citations, domain authority, and brand mentions. Freshness signals include publication date and update frequency. Engagement signals include click-through rates, time on page, and bounce rates. Retrieval systems combine these signals using algorithms (traditional search) or machine learning models (AI systems) to rank content by relevance.',
+    example: 'A B2B SaaS company optimizes their content for retrieval signals: they use clear headings and semantic HTML (structural signals), include relevant keywords and semantically related terms (textual signals), earn backlinks from authoritative sites (authority signals), regularly update content (freshness signals), and create engaging content that keeps users on the page (engagement signals). They also use structured data to explicitly define entities and relationships. When search engines or AI systems retrieve content, these signals help their content rank highly for relevant queries.',
+    useCases: [
+      'Optimizing content for search engine ranking',
+      'Optimizing content for AI search retrieval',
+      'Improving content relevance and visibility',
+      'Understanding how retrieval systems evaluate content',
+      'Prioritizing optimization efforts based on signal importance'
+    ],
+    commonMistakes: [
+      'Focusing only on keywords without considering other signals',
+      'Ignoring structural signals like headings and structured data',
+      'Not earning authority signals like backlinks and citations',
+      'Not keeping content fresh and updated',
+      'Not understanding how different retrieval systems weight signals differently'
+    ],
+    relatedTerms: ['search-engine-optimization', 'ai-search', 'semantic-seo', 'entity-seo', 'content-quality'],
+    synonyms: ['Relevance Signals', 'Ranking Signals'],
+    confusedWith: ['ranking-factors', 'seo-signals'],
+    primaryKeyword: 'retrieval signals',
+    secondaryKeywords: ['relevance signals', 'ranking signals', 'search signals'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: How Search Works', url: 'https://www.google.com/search/howsearchworks/', description: 'Google\'s explanation of search retrieval and ranking' },
+      { title: 'Moz: Ranking Factors', url: 'https://moz.com/learn/seo/ranking-factors', description: 'Comprehensive guide to search ranking factors' }
+    ],
+    faq: [
+      { question: 'What are retrieval signals?', answer: 'Retrieval signals are characteristics that retrieval systems use to determine content relevance. They include textual features, structural features, authority signals, freshness signals, and engagement signals.' },
+      { question: 'How do retrieval signals differ between search engines and AI systems?', answer: 'Traditional search engines may prioritize backlinks and keywords, while AI systems may prioritize semantic relevance, entity clarity, and citation-worthiness. Different systems weight signals differently based on their algorithms and goals.' },
+      { question: 'How do I optimize for retrieval signals?', answer: 'Use clear headings and structured data (structural signals). Include relevant keywords and semantically related terms (textual signals). Earn backlinks and citations (authority signals). Keep content fresh and updated (freshness signals). Create engaging content (engagement signals).' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'machine-readable-content',
+    slug: 'machine-readable-content',
+    term: 'Machine-Readable Content',
+    category: 'aeo-geo',
+    shortDefinition: 'Machine-readable content is information structured in ways that software systems can reliably parse, interpret and process.',
+    fullDefinition: 'Machine-readable content is content that is structured, formatted, and marked up in ways that allow software systems (search engines, AI systems, applications) to reliably parse, interpret, and process the information. Machine-readable content uses standardized formats, structured data markup (like Schema.org), semantic HTML, clear hierarchies, and unambiguous language so that machines can understand the content\'s meaning, structure, and relationships. In the context of SEO and AI search, machine-readable content is critical because search engines and AI systems can only optimize and retrieve content they can understand.',
+    whyItMatters: 'Machine-readable content is foundational to SEO and AI search optimization. Search engines and AI systems can only rank, retrieve, and represent content they can understand. Content that is not machine-readable may not be properly indexed, may be misunderstood, or may not be retrieved for relevant queries. For B2B companies, ensuring content is machine-readable helps search engines and AI systems accurately understand and represent their brand, products, and expertise, improving visibility and accuracy in search and AI results.',
+    howItWorks: 'Machine-readable content is created by: using semantic HTML (proper heading hierarchy, lists, tables), implementing structured data markup (Schema.org) to explicitly define entities and relationships, using clear and unambiguous language, providing consistent formatting and structure, using standardized formats (JSON-LD for structured data, proper date formats, etc.), and ensuring content is accessible (proper alt text, ARIA labels). These practices make it easier for machines to parse, interpret, and process the content accurately.',
+    example: 'A B2B SaaS company creates machine-readable content by using semantic HTML (proper H1, H2, H3 hierarchy), implementing Schema.org markup for their Organization, Product, and Article entities, using clear and unambiguous language, providing consistent formatting, and using JSON-LD for structured data. When search engines or AI systems process their content, they can accurately understand the entities, relationships, and meaning, leading to better indexing, ranking, and representation.',
+    useCases: [
+      'Improving search engine indexing and ranking',
+      'Supporting AI search retrieval and representation',
+      'Enabling rich results and knowledge panels',
+      'Improving content accessibility',
+      'Supporting integration with other systems'
+    ],
+    commonMistakes: [
+      'Not using semantic HTML or proper heading hierarchy',
+      'Not implementing structured data markup',
+      'Using ambiguous or inconsistent language',
+      'Not providing consistent formatting and structure',
+      'Not ensuring content accessibility'
+    ],
+    relatedTerms: ['structured-data', 'semantic-seo', 'entity-seo', 'ai-search', 'search-engine-optimization'],
+    synonyms: ['Machine-Processable Content', 'Structured Content'],
+    confusedWith: ['structured-data', 'semantic-html'],
+    primaryKeyword: 'machine-readable content',
+    secondaryKeywords: ['machine-processable content', 'structured content', 'machine-readable SEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Schema.org: Getting Started', url: 'https://schema.org/docs/gs.html', description: 'Guide to implementing structured data' },
+      { title: 'Google: Structured Data Guidelines', url: 'https://developers.google.com/search/docs/appearance/structured-data', description: 'Google\'s guidelines for structured data' }
+    ],
+    faq: [
+      { question: 'What makes content machine-readable?', answer: 'Content is machine-readable when it uses semantic HTML, structured data markup, clear and unambiguous language, consistent formatting, and standardized formats. These practices allow machines to parse, interpret, and process the content accurately.' },
+      { question: 'How is machine-readable content different from human-readable content?', answer: 'Human-readable content is optimized for human understanding and engagement. Machine-readable content is optimized for machine understanding and processing. Ideally, content should be both—readable by humans and parseable by machines.' },
+      { question: 'How do I make my content more machine-readable?', answer: 'Use semantic HTML (proper heading hierarchy, lists, tables). Implement structured data markup (Schema.org). Use clear, unambiguous language. Provide consistent formatting. Use standardized formats (JSON-LD, proper date formats). Ensure accessibility.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'answer-first-content',
+    slug: 'answer-first-content',
+    term: 'Answer-First Content',
+    category: 'aeo-geo',
+    shortDefinition: 'Answer-first content presents the direct answer to a question early in the page before expanding into supporting explanation, context, examples and evidence.',
+    fullDefinition: 'Answer-first content is a content structure approach where the direct answer to a question or the key conclusion is presented prominently at the beginning of the content, before expanding into supporting explanation, context, examples, and evidence. This structure is particularly effective for SEO and AI search optimization because it allows search engines and AI systems to quickly identify and extract the answer, while still providing comprehensive supporting information for users who want more detail. Answer-first content aligns with how users search (asking questions) and how search engines and AI systems retrieve and present answers.',
+    whyItMatters: 'Answer-first content is critical for SEO and AI search optimization because it makes it easier for search engines and AI systems to identify and extract answers. Featured snippets, AI Overviews, and AI-generated answers often pull from answer-first content because the answer is clearly presented upfront. For B2B companies, creating answer-first content increases the likelihood of earning featured snippets, being cited in AI-generated answers, and ranking for question-based queries. It also improves user experience by providing the answer upfront for users who want quick answers.',
+    howItWorks: 'Answer-first content works by structuring content to present the direct answer or key conclusion prominently at the beginning, typically in the first paragraph or as a highlighted summary. The content then expands into supporting explanation, context, examples, evidence, and detailed information. This structure serves both users who want quick answers (they get the answer immediately) and users who want comprehensive information (they can read the full content). Search engines and AI systems can easily identify and extract the answer from the beginning of the content, while still having access to comprehensive supporting information.',
+    example: 'A B2B SaaS company creates answer-first content for the query "what is marketing automation." The content begins with a clear, concise answer: "Marketing automation is software that automates repetitive marketing tasks like email campaigns, lead nurturing, and customer segmentation." The content then expands into detailed explanation, benefits, use cases, implementation steps, and examples. This structure makes it easy for search engines to extract the answer for featured snippets or AI systems to cite the answer in AI-generated responses, while still providing comprehensive information for users who want more detail.',
+    useCases: [
+      'Earning featured snippets in search results',
+      'Being cited in AI-generated answers',
+      'Ranking for question-based queries',
+      'Improving user experience for quick answers',
+      'Optimizing for voice search'
+    ],
+    commonMistakes: [
+      'Burying the answer deep in the content',
+      'Not clearly presenting the direct answer upfront',
+      'Making the answer too long or complex',
+      'Not providing sufficient supporting information after the answer',
+      'Not optimizing for question-based queries'
+    ],
+    relatedTerms: ['featured-snippets', 'ai-overviews', 'ai-citation', 'search-intent', 'content-structure'],
+    synonyms: ['Answer-First Structure', 'Direct Answer Content'],
+    confusedWith: ['featured-snippets', 'content-marketing'],
+    primaryKeyword: 'answer-first content',
+    secondaryKeywords: ['answer-first structure', 'direct answer content', 'featured snippet content'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Backlinko: Featured Snippets Guide', url: 'https://backlinko.com/featured-snippets', description: 'Guide to optimizing for featured snippets' },
+      { title: 'Search Engine Journal: Answer Engine Optimization', url: 'https://www.searchenginejournal.com/', description: 'Guide to creating content for AI answers' }
+    ],
+    faq: [
+      { question: 'What is answer-first content?', answer: 'Answer-first content presents the direct answer to a question prominently at the beginning of the content, before expanding into supporting explanation, context, examples, and evidence. It serves both users who want quick answers and those who want comprehensive information.' },
+      { question: 'Why is answer-first content important for SEO?', answer: 'Answer-first content makes it easier for search engines to identify and extract answers for featured snippets. It also helps AI systems cite answers in AI-generated responses. This increases visibility and traffic from both traditional search and AI search.' },
+      { question: 'How do I create answer-first content?', answer: 'Start with a clear, concise answer to the main question in the first paragraph or as a highlighted summary. Then expand into supporting explanation, context, examples, and evidence. Ensure the answer is clear, specific, and directly addresses the query.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
   }
 ];
 
