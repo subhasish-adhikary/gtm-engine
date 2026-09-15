@@ -24,11 +24,12 @@ export default function GlossaryTermPage() {
   }
 
   const category = glossaryCategories.find(c => c.id === term.category);
-  const relatedTermsData = term.relatedTerms
+  const relatedTermsData = (term.relatedTerms || [])
     .map(id => glossaryTerms.find(t => t.id === id))
     .filter(Boolean) as typeof glossaryTerms;
 
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return 'N/A';
     return new Date(dateStr).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',

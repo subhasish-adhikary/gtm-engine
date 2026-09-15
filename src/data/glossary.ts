@@ -5,23 +5,29 @@ export interface GlossaryTerm {
   category: string;
   shortDefinition: string;
   fullDefinition: string;
-  whyItMatters: string;
+  whyItMatters?: string;
   howItWorks?: string;
   example?: string;
   useCases?: string[];
   commonMistakes?: string[];
-  relatedTerms: string[];
+  relatedTerms?: string[];
   synonyms?: string[];
   confusedWith?: string[];
-  primaryKeyword: string;
-  secondaryKeywords: string[];
-  publishedDate: string;
-  updatedDate: string;
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
+  publishedDate?: string;
+  updatedDate?: string;
   sources?: Array<{ title: string; url: string; description?: string }>;
   faq?: Array<{ question: string; answer: string }>;
-  featured: boolean;
-  emerging: boolean;
-  status: 'established' | 'emerging' | 'experimental';
+  featured?: boolean;
+  emerging?: boolean;
+  status?: 'established' | 'emerging' | 'experimental';
+  // Additional fields for paid media and other specialized entries
+  b2bUseCases?: string[];
+  targetingConsiderations?: string;
+  measurement?: string;
+  privacyAndTrackingLimitations?: string;
+  comparisonWithAdjacentConcepts?: string;
 }
 
 export const glossaryCategories = [
@@ -6614,6 +6620,515 @@ export const glossaryTerms: GlossaryTerm[] = [
     featured: false,
     emerging: false,
     status: 'established'
+  },
+  // K. PAID MEDIA
+  {
+    id: 'paid-search',
+    slug: 'paid-search',
+    term: 'Paid Search',
+    category: 'paid-media',
+    shortDefinition: 'Paid search is advertising that places sponsored results within search engine results pages based on queries, keywords, audiences or other targeting mechanisms.',
+    fullDefinition: 'Paid search (also called search engine marketing or SEM) is a form of digital advertising where advertisers bid to place sponsored ads within search engine results pages (SERPs). When users search for specific keywords or queries, paid search ads appear alongside or above organic search results. Paid search operates on an auction-based model where advertisers bid on keywords relevant to their target audience. The most common paid search platforms are Google Ads and Microsoft Advertising (Bing Ads). Paid search is particularly effective for B2B companies because it captures demand at the moment of intent—when prospects are actively searching for solutions.',
+    whyItMatters: 'Paid search is critical for B2B companies because it captures high-intent demand when prospects are actively searching for solutions. It provides immediate visibility, complements organic SEO, and enables precise targeting of decision-makers. Paid search is particularly valuable for B2B because it captures demand at the moment of intent.',
+    howItWorks: 'Paid search works through an auction-based system: advertisers create ads targeting specific keywords, set budgets and bids, and when users search for those keywords, the search engine runs an auction to determine which ads appear and in what order. Ad rank is determined by bid amount, ad quality (relevance, click-through rate, landing page experience), and expected impact of ad extensions. Advertisers pay only when users click on their ads (cost-per-click or CPC).',
+    useCases: [
+      'Capturing high-intent demand when prospects search for solutions',
+      'Targeting specific keywords related to product categories or use cases',
+      'Reaching decision-makers searching for specific solutions',
+      'Complementing organic SEO efforts',
+      'Testing messaging and positioning quickly',
+      'Launching new products or entering new markets'
+    ],
+    commonMistakes: [
+      'Not using negative keywords to exclude irrelevant searches',
+      'Not optimizing landing pages for conversion',
+      'Not tracking conversions and attributing to keywords',
+      'Bidding too broadly without proper targeting',
+      'Not monitoring quality score and ad relevance'
+    ],
+    relatedTerms: ['search-advertising', 'google-ads', 'seo', 'paid-social', 'display-advertising'],
+    synonyms: ['Search Engine Marketing', 'SEM', 'Search Ads'],
+    confusedWith: ['organic-seo', 'display-advertising', 'paid-social'],
+    primaryKeyword: 'paid search',
+    secondaryKeywords: ['search engine marketing', 'SEM', 'search ads', 'B2B paid search'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google Ads: How Google Ads Works', url: 'https://ads.google.com/home/how-it-works/', description: 'Official Google Ads documentation' },
+      { title: 'Microsoft Advertising: How It Works', url: 'https://ads.microsoft.com/', description: 'Official Microsoft Advertising documentation' }
+    ],
+    faq: [
+      { question: 'How much does paid search cost for B2B?', answer: 'B2B paid search costs vary widely by industry and keywords. B2B CPCs are typically higher than B2C ($5-$50+ per click for competitive keywords). Monthly budgets range from $5K-$100K+ depending on goals and competition. Focus on ROI rather than absolute cost.' },
+      { question: 'How do you measure paid search effectiveness for B2B?', answer: 'Measure downstream metrics: lead quality, pipeline generated, customer acquisition cost, and ROAS. Track conversion events (form submissions, demo requests) and attribute to keywords. Focus on quality over quantity—B2B leads are fewer but higher value.' },
+      { question: 'What are the main challenges with paid search for B2B?', answer: 'Main challenges include: higher CPCs than B2C, longer sales cycles making attribution difficult, smaller audience sizes, and privacy/tracking limitations. Solutions include: focusing on high-intent keywords, using audience targeting, implementing server-side tracking, and focusing on downstream metrics.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'paid-social',
+    slug: 'paid-social',
+    term: 'Paid Social',
+    category: 'paid-media',
+    shortDefinition: 'Paid social is advertising distributed through social media platforms using paid audience targeting and placement systems.',
+    fullDefinition: 'Paid social is digital advertising distributed through social media platforms (LinkedIn, Facebook/Instagram, Twitter/X, etc.) where advertisers target specific audiences based on demographics, interests, behaviors, and other attributes. Unlike paid search which captures search intent, paid social targets audiences based on who they are rather than what they\'re searching for. Paid social is particularly effective for B2B companies for brand awareness, thought leadership, and reaching specific professional audiences. LinkedIn is the primary B2B paid social platform, though Facebook/Instagram can be effective for certain B2B audiences.',
+    howItWorks: 'Paid social works through audience targeting: advertisers define target audiences based on demographics (age, location), professional attributes (job title, company, industry on LinkedIn), interests, behaviors, and custom audiences (website visitors, email lists). Ads are placed in users\' feeds, stories, or other placements. Advertisers bid on audience segments and pay based on impressions (CPM), clicks (CPC), or other actions. The platform\'s algorithm optimizes delivery based on campaign objectives (awareness, consideration, conversion).',
+    b2bUseCases: [
+      'Building brand awareness among target professional audiences',
+      'Establishing thought leadership through content promotion',
+      'Reaching specific professional audiences (by job title, company, industry)',
+      'Promoting content (whitepapers, webinars, blog posts)',
+      'Retargeting website visitors',
+      'Building custom audiences for account-based marketing'
+    ],
+    targetingConsiderations: 'Paid social targeting includes: demographic targeting (age, location, gender), professional targeting (job title, company size, industry, seniority on LinkedIn), interest targeting (interests, behaviors), custom audiences (website visitors, email lists, customer lists), and lookalike audiences. For B2B, LinkedIn provides the most granular professional targeting. Facebook/Instagram can be effective for certain B2B audiences but has less granular professional targeting.',
+    measurement: 'Paid social measurement includes: impressions, reach, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use pixel tracking and conversion tracking to track conversions. Attribution can be challenging due to cross-platform behavior.',
+    privacyAndTrackingLimitations: 'Paid social tracking relies on pixels and conversion tracking. Privacy regulations (GDPR, CCPA) and platform changes (iOS 14.5+ ATT, cookie restrictions) impact tracking capabilities. Solutions include: conversion APIs, first-party data collection, and broad targeting rather than granular targeting. Attribution is challenging due to cross-platform behavior and privacy restrictions.',
+    comparisonWithAdjacentConcepts: 'Paid social vs paid search: Paid social targets based on who users are; paid search captures search intent. Paid social vs display advertising: Paid social targets based on social platform data; display targets based on website content or audience networks. Paid social vs organic social: Paid social provides guaranteed reach; organic social relies on algorithm and engagement.',
+    sources: [
+      { title: 'LinkedIn Ads: Campaign Manager Guide', url: 'https://www.linkedin.com/help/lms/', description: 'Official LinkedIn Ads documentation' },
+      { title: 'Meta Business: Ads Manager Guide', url: 'https://www.facebook.com/business/help', description: 'Official Meta Ads documentation' }
+    ],
+    faq: [
+      { question: 'Which social platform is best for B2B paid social?', answer: 'LinkedIn is the primary B2B platform due to granular professional targeting (job title, company, industry). Facebook/Instagram can be effective for certain B2B audiences but has less granular professional targeting. Twitter/X can be effective for certain industries (tech, media). Choose based on where your target audience spends time.' },
+      { question: 'How do you measure paid social effectiveness for B2B?', answer: 'Measure downstream metrics: lead quality, pipeline generated, customer acquisition cost, and ROAS. Track conversion events and attribute to campaigns. Focus on quality over quantity—B2B leads are fewer but higher value. Use conversion tracking and attribution tools.' },
+      { question: 'What are the main challenges with paid social for B2B?', answer: 'Main challenges include: privacy/tracking limitations (iOS 14.5+, cookie restrictions), higher costs than B2C, smaller audience sizes, and attribution challenges. Solutions include: conversion APIs, first-party data collection, broad targeting, and focusing on downstream metrics.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'search-advertising',
+    slug: 'search-advertising',
+    term: 'Search Advertising',
+    category: 'paid-media',
+    shortDefinition: 'Search advertising is paid advertising designed to appear in response to user search behavior or search-related intent.',
+    fullDefinition: 'Search advertising is a broad term encompassing paid advertising that appears in response to user search behavior or search-related intent. This includes paid search (ads in search engine results pages), shopping ads (product listings in search results), and other search-related ad placements. Search advertising captures demand at the moment of intent—when users are actively searching for solutions, products, or information. Search advertising is particularly effective for B2B companies because it captures high-intent demand when prospects are actively researching solutions.',
+    howItWorks: 'Search advertising works through keyword targeting and auction-based systems: advertisers create ads targeting specific keywords or search queries, set budgets and bids, and when users search for those keywords, ads appear in search results. The system includes keyword targeting (exact match, phrase match, broad match), audience targeting, and quality-based ranking (ad relevance, click-through rate, landing page experience). Advertisers pay based on clicks (CPC) or other actions.',
+    b2bUseCases: [
+      'Capturing high-intent demand when prospects search for solutions',
+      'Targeting specific keywords related to product categories or use cases',
+      'Reaching decision-makers actively researching solutions',
+      'Complementing organic SEO efforts',
+      'Testing messaging and positioning quickly',
+      'Launching new products or entering new markets'
+    ],
+    targetingConsiderations: 'Search advertising targeting includes: keyword targeting (exact match, phrase match, broad match), audience targeting (in-market audiences, custom intent audiences), location targeting, device targeting, and ad scheduling. For B2B, audience targeting is particularly important because B2B search behavior is different from B2C. Use negative keywords to exclude irrelevant searches.',
+    measurement: 'Search advertising measurement includes: click-through rate (CTR), cost per click (CPC), conversion rate, cost per acquisition (CPA), return on ad spend (ROAS), quality score, impression share, and click share. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use conversion tracking to track form submissions, demo requests, and other conversion events.',
+    privacyAndTrackingLimitations: 'Search advertising tracking relies on cookies and conversion tracking pixels. Privacy regulations and browser changes impact tracking capabilities. Solutions include: server-side tracking, conversion APIs, and first-party data collection. Attribution can be challenging due to cross-device behavior and privacy restrictions.',
+    comparisonWithAdjacentConcepts: 'Search advertising vs paid search: Search advertising is the broader category; paid search is a subset focused on search engine results. Search advertising vs display advertising: Search captures intent-based demand; display builds awareness. Search advertising vs paid social: Search captures search intent; paid social targets based on audience attributes.',
+    sources: [
+      { title: 'Google Ads: Search Advertising', url: 'https://ads.google.com/', description: 'Official Google Ads documentation' }
+    ],
+    faq: [
+      { question: 'What is the difference between search advertising and paid search?', answer: 'Search advertising is the broader category encompassing all search-related advertising. Paid search is a subset focused specifically on ads in search engine results pages. Search advertising includes paid search, shopping ads, and other search-related placements.' },
+      { question: 'How is search advertising different from display advertising?', answer: 'Search advertising captures intent-based demand when users are actively searching. Display advertising builds awareness by placing ads on websites based on content or audience targeting. Search is pull marketing (capturing demand); display is push marketing (creating awareness).' },
+      { question: 'What are the main benefits of search advertising for B2B?', answer: 'Main benefits include: capturing high-intent demand, reaching decision-makers actively researching solutions, complementing organic SEO, testing messaging quickly, and launching new products. Search advertising is particularly effective for B2B because it captures demand at the moment of intent.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'retargeting',
+    slug: 'retargeting',
+    term: 'Retargeting',
+    category: 'paid-media',
+    shortDefinition: 'Retargeting is advertising directed at people who have previously interacted with a website, product, content or other digital property.',
+    fullDefinition: 'Retargeting (also called remarketing) is a form of digital advertising that targets users who have previously interacted with a website, product, content, or other digital property. Retargeting works by tracking user behavior (using pixels, cookies, or other tracking methods) and then serving ads to those users when they visit other websites or platforms. Retargeting is particularly effective because it targets users who have already shown interest, making them more likely to convert. Retargeting is commonly used for website visitors, cart abandoners, content downloaders, and other engaged users.',
+    howItWorks: 'Retargeting works through tracking and ad serving: when users visit a website or interact with digital property, a tracking pixel or cookie is placed on their browser. When those users visit other websites or platforms, the tracking pixel triggers and serves retargeting ads. Advertisers create retargeting campaigns targeting specific audience segments (website visitors, cart abandoners, content downloaders) and set budgets and bids. The platform serves ads to users in those audience segments. Retargeting can be done across multiple platforms (Google, Facebook, LinkedIn, etc.).',
+    b2bUseCases: [
+      'Retargeting website visitors who didn\'t convert',
+      'Retargeting cart abandoners (for e-commerce)',
+      'Retargeting content downloaders to promote related content or offers',
+      'Retargeting webinar registrants who didn\'t attend',
+      'Retargeting trial users who didn\'t convert to paid',
+      'Retargeting past customers for upsell or cross-sell'
+    ],
+    targetingConsiderations: 'Retargeting targeting includes: website visitors (all visitors, specific pages, time since visit), custom audiences (email lists, customer lists), engagement audiences (content downloaders, webinar registrants), and exclusion audiences (customers, converted users). For B2B, focus on high-value segments: decision-makers, engaged users, and high-intent visitors. Use exclusion audiences to avoid wasting spend on irrelevant users.',
+    measurement: 'Retargeting measurement includes: impressions, click-through rate (CTR), cost per click (CPC), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Track conversion events and attribute to retargeting campaigns. Compare retargeting performance to prospecting campaigns.',
+    privacyAndTrackingLimitations: 'Retargeting relies heavily on cookies and tracking pixels. Privacy regulations (GDPR, CCPA) and browser changes (Safari ITP, Firefox ETP, Chrome phasing out third-party cookies) significantly impact retargeting capabilities. Solutions include: server-side tracking, conversion APIs, first-party data collection, and platform-specific solutions (Facebook Custom Audiences, LinkedIn Matched Audiences). Retargeting windows are limited (typically 30-90 days) due to cookie expiration.',
+    comparisonWithAdjacentConcepts: 'Retargeting vs remarketing: Terms are often used interchangeably, though some platforms distinguish them (Google uses "remarketing" for search and display, "retargeting" for social). Retargeting vs prospecting: Retargeting targets users who have already shown interest; prospecting targets new users. Retargeting vs lookalike audiences: Retargeting targets known users; lookalikes target similar users.',
+    sources: [
+      { title: 'Google Ads: Remarketing Guide', url: 'https://support.google.com/google-ads/answer/2454016', description: 'Official Google Ads remarketing documentation' },
+      { title: 'Meta Business: Custom Audiences', url: 'https://www.facebook.com/business/help/168290963255323', description: 'Official Meta Custom Audiences documentation' }
+    ],
+    faq: [
+      { question: 'What is the difference between retargeting and remarketing?', answer: 'The terms are often used interchangeably. Some platforms distinguish them: Google uses "remarketing" for search and display retargeting, while "retargeting" is more commonly used for social media retargeting. In practice, they refer to the same concept: targeting users who have previously interacted with your brand.' },
+      { question: 'How long can you retarget users?', answer: 'Retargeting windows are typically limited to 30-90 days due to cookie expiration. Some platforms allow longer windows (up to 540 days for Google Ads), but effectiveness decreases over time. For B2B with longer sales cycles, use multiple touchpoints and extend retargeting windows where possible.' },
+      { question: 'How do privacy changes affect retargeting?', answer: 'Privacy regulations (GDPR, CCPA) and browser changes (Safari ITP, Firefox ETP, Chrome phasing out third-party cookies) significantly impact retargeting. Solutions include: server-side tracking, conversion APIs, first-party data collection, and platform-specific solutions. Focus on first-party data and consent-based tracking.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'remarketing',
+    slug: 'remarketing',
+    term: 'Remarketing',
+    category: 'paid-media',
+    shortDefinition: 'Remarketing generally refers to re-engaging people who have previously interacted with a business. The term is often used interchangeably with retargeting, although platform terminology can differ.',
+    fullDefinition: 'Remarketing is a broad term referring to re-engaging people who have previously interacted with a business through various channels. While often used interchangeably with retargeting, some platforms distinguish between the terms: Google uses "remarketing" for search and display advertising (targeting users who have visited your website), while "retargeting" is more commonly used for social media advertising. Remarketing encompasses various re-engagement tactics: email remarketing (re-engaging email subscribers), retargeting ads (serving ads to previous website visitors), and other re-engagement tactics. The key distinction is that remarketing targets users who have already shown interest in your brand.',
+    howItWorks: 'Remarketing works by identifying users who have previously interacted with your business and re-engaging them through various channels. For ad-based remarketing: tracking pixels or cookies track user behavior, and ads are served to those users when they visit other websites or platforms. For email remarketing: email lists are used to re-engage subscribers with targeted emails. Remarketing can be done across multiple channels: display ads, search ads, social media ads, email, and other channels. The goal is to re-engage users who have already shown interest and move them further down the funnel.',
+    b2bUseCases: [
+      'Re-engaging website visitors who didn\'t convert',
+      'Re-engaging email subscribers who haven\'t engaged',
+      'Re-engaging trial users who haven\'t converted to paid',
+      'Re-engaging past customers for upsell or cross-sell',
+      'Re-engaging leads who haven\'t progressed in the funnel',
+      'Re-engaging webinar registrants who didn\'t attend'
+    ],
+    targetingConsiderations: 'Remarketing targeting includes: website visitors (all visitors, specific pages, time since visit), email subscribers (engaged subscribers, inactive subscribers), customers (past customers, current customers), and engagement audiences (content downloaders, webinar registrants). For B2B, focus on high-value segments: decision-makers, engaged users, and high-intent visitors. Use exclusion audiences to avoid wasting spend on irrelevant users.',
+    measurement: 'Remarketing measurement includes: impressions, click-through rate (CTR), cost per click (CPC), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Track conversion events and attribute to remarketing campaigns. Compare remarketing performance to prospecting campaigns.',
+    privacyAndTrackingLimitations: 'Remarketing relies on tracking (cookies, pixels, email lists). Privacy regulations (GDPR, CCPA) impact tracking capabilities and require consent for tracking. Email remarketing requires explicit consent under GDPR. Solutions include: first-party data collection, consent-based tracking, and transparent privacy policies. Ensure compliance with privacy regulations for all remarketing activities.',
+    comparisonWithAdjacentConcepts: 'Remarketing vs retargeting: Terms are often used interchangeably, though some platforms distinguish them. Google uses "remarketing" for search and display, "retargeting" for social. Remarketing vs prospecting: Remarketing targets users who have already shown interest; prospecting targets new users. Remarketing vs email marketing: Remarketing is a subset of email marketing focused on re-engagement.',
+    sources: [
+      { title: 'Google Ads: Remarketing Guide', url: 'https://support.google.com/google-ads/answer/2454016', description: 'Official Google Ads remarketing documentation' }
+    ],
+    faq: [
+      { question: 'What is the difference between remarketing and retargeting?', answer: 'The terms are often used interchangeably. Some platforms distinguish them: Google uses "remarketing" for search and display advertising, while "retargeting" is more commonly used for social media. In practice, they refer to the same concept: re-engaging users who have previously interacted with your brand.' },
+      { question: 'Is remarketing the same as email marketing?', answer: 'Remarketing is a subset of email marketing focused on re-engaging users who have previously interacted with your brand. Email marketing is broader and includes all email marketing activities (newsletters, promotions, etc.). Remarketing specifically targets previous engagers.' },
+      { question: 'How do you comply with privacy regulations for remarketing?', answer: 'Ensure compliance with privacy regulations (GDPR, CCPA) by: obtaining consent for tracking, providing clear privacy policies, offering opt-out mechanisms, using first-party data where possible, and being transparent about data collection and usage. Consult legal counsel for specific compliance requirements.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'linkedin-ads',
+    slug: 'linkedin-ads',
+    term: 'LinkedIn Ads',
+    category: 'paid-media',
+    shortDefinition: 'LinkedIn Ads is LinkedIn\'s advertising platform for targeting professional audiences using attributes such as job role, company, industry, skills and other available targeting signals.',
+    fullDefinition: 'LinkedIn Ads is LinkedIn\'s advertising platform that enables advertisers to target professional audiences based on professional attributes: job title, job function, seniority, company name, company size, industry, skills, groups, and other professional attributes. LinkedIn Ads is the primary B2B paid social platform because it provides the most granular professional targeting available. LinkedIn Ads offers various ad formats: sponsored content (native ads in feed), message ads (direct messages), text ads (sidebar ads), video ads, carousel ads, and thought leader ads (promoting employee content). LinkedIn Ads is particularly effective for B2B companies targeting professional audiences.',
+    howItWorks: 'LinkedIn Ads works through audience targeting and auction-based ad serving: advertisers define target audiences based on professional attributes, create ads in various formats, set budgets and bids, and LinkedIn serves ads to users matching the target audience. The platform uses an auction system where ad rank is determined by bid amount, ad relevance, and expected performance. Advertisers pay based on clicks (CPC), impressions (CPM), or sends (for message ads). LinkedIn provides detailed analytics on campaign performance, audience demographics, and engagement metrics.',
+    b2bUseCases: [
+      'Targeting decision-makers by job title, function, and seniority',
+      'Reaching specific industries or company sizes',
+      'Building brand awareness among professional audiences',
+      'Promoting content (whitepapers, webinars, blog posts)',
+      'Generating leads through lead gen forms',
+      'Account-based marketing targeting specific companies',
+      'Promoting thought leadership and employee content'
+    ],
+    targetingConsiderations: 'LinkedIn Ads targeting includes: job title, job function, job seniority, company name, company size, industry, skills, groups, schools, years of experience, and location. LinkedIn also offers matched audiences (website visitors, email lists, account lists) and lookalike audiences. LinkedIn targeting is the most granular for B2B professional targeting, but costs are higher than other platforms. Use layered targeting (combining multiple attributes) for precision, but avoid over-targeting (too narrow).',
+    measurement: 'LinkedIn Ads measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), cost per lead (CPL), and return on ad spend (ROAS). LinkedIn provides detailed analytics on campaign performance, audience demographics, and engagement. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use LinkedIn Insight Tag for website tracking and conversion tracking.',
+    privacyAndTrackingLimitations: 'LinkedIn Ads tracking relies on the LinkedIn Insight Tag (similar to Facebook Pixel). Privacy regulations (GDPR, CCPA) require consent for tracking. LinkedIn provides conversion API for server-side tracking. LinkedIn audience data is based on professional profiles, which are more stable than behavioral data. LinkedIn complies with privacy regulations and provides transparency on data usage.',
+    comparisonWithAdjacentConcepts: 'LinkedIn Ads vs Facebook/Instagram Ads: LinkedIn provides granular professional targeting; Facebook provides broader audience targeting with lower costs. LinkedIn Ads vs Google Ads: LinkedIn targets based on professional attributes; Google captures search intent. LinkedIn Ads vs organic LinkedIn: LinkedIn Ads provides guaranteed reach; organic relies on algorithm and engagement.',
+    sources: [
+      { title: 'LinkedIn Ads: Campaign Manager Guide', url: 'https://www.linkedin.com/help/lms/', description: 'Official LinkedIn Ads documentation' },
+      { title: 'LinkedIn Marketing Solutions', url: 'https://business.linkedin.com/marketing-solutions', description: 'LinkedIn marketing solutions overview' }
+    ],
+    faq: [
+      { question: 'How much does LinkedIn Ads cost for B2B?', answer: 'LinkedIn Ads costs are higher than other platforms due to granular professional targeting. CPCs typically range from $5-$15+ for B2B. CPL ranges from $50-$200+ depending on targeting and offer. Monthly budgets typically start at $5K-$10K for meaningful results. Focus on ROI rather than absolute cost.' },
+      { question: 'What targeting works best for B2B on LinkedIn?', answer: 'Best targeting for B2B includes: job title + company size + industry, job function + seniority + location, company name lists (for ABM), and matched audiences (website visitors, email lists). Use layered targeting for precision, but avoid over-targeting. Test different targeting combinations.' },
+      { question: 'What ad formats work best for B2B on LinkedIn?', answer: 'Best ad formats for B2B include: sponsored content (native ads in feed) for content promotion, lead gen forms for lead generation, video ads for brand awareness, and thought leader ads for promoting employee content. Test different formats to see what works for your audience.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'meta-ads',
+    slug: 'meta-ads',
+    term: 'Meta Ads',
+    category: 'paid-media',
+    shortDefinition: 'Meta Ads is Meta\'s advertising platform used to create and distribute paid campaigns across Meta-owned properties and available placements.',
+    fullDefinition: 'Meta Ads (formerly Facebook Ads) is Meta\'s advertising platform that enables advertisers to create and distribute paid campaigns across Meta-owned properties (Facebook, Instagram, Messenger, Audience Network) and available placements. Meta Ads targets audiences based on demographics, interests, behaviors, and custom audiences (website visitors, email lists, customer lists). While primarily known for B2C advertising, Meta Ads can be effective for B2B companies targeting specific audiences, building brand awareness, or reaching audiences not reachable on LinkedIn. Meta Ads offers various ad formats: image ads, video ads, carousel ads, collection ads, stories ads, and more.',
+    howItWorks: 'Meta Ads works through audience targeting and auction-based ad serving: advertisers define target audiences based on demographics, interests, behaviors, or custom audiences, create ads in various formats, set budgets and bids, and Meta serves ads to users matching the target audience across Meta properties. The platform uses an auction system where ad rank is determined by bid amount, ad relevance, and expected performance. Advertisers pay based on clicks (CPC), impressions (CPM), or other actions. Meta provides detailed analytics on campaign performance, audience demographics, and engagement.',
+    b2bUseCases: [
+      'Building brand awareness among target audiences',
+      'Reaching audiences not reachable on LinkedIn',
+      'Promoting content to broad audiences',
+      'Retargeting website visitors',
+      'Building custom audiences for account-based marketing',
+      'Reaching decision-makers on personal social media',
+      'Promoting events or webinars'
+    ],
+    targetingConsiderations: 'Meta Ads targeting includes: demographics (age, location, gender, education), interests (interests, behaviors), custom audiences (website visitors, email lists, customer lists), and lookalike audiences. Meta targeting is less granular for professional targeting than LinkedIn, but offers broader reach and lower costs. For B2B, use custom audiences (email lists, website visitors) and lookalike audiences for professional targeting. Use interest targeting cautiously for B2B.',
+    measurement: 'Meta Ads measurement includes: impressions, reach, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). Meta provides detailed analytics on campaign performance, audience demographics, and engagement. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use Meta Pixel for website tracking and conversion tracking.',
+    privacyAndTrackingLimitations: 'Meta Ads tracking relies on Meta Pixel and conversion tracking. Privacy regulations (GDPR, CCPA) and platform changes (iOS 14.5+ ATT) significantly impact tracking capabilities. Meta provides Conversions API for server-side tracking. Attribution is challenging due to cross-platform behavior and privacy restrictions. Solutions include: Conversions API, first-party data collection, and broad targeting rather than granular targeting.',
+    comparisonWithAdjacentConcepts: 'Meta Ads vs LinkedIn Ads: Meta provides broader reach and lower costs; LinkedIn provides granular professional targeting. Meta Ads vs Google Ads: Meta targets based on audience attributes; Google captures search intent. Meta Ads vs organic social: Meta Ads provides guaranteed reach; organic relies on algorithm and engagement.',
+    sources: [
+      { title: 'Meta Business: Ads Manager Guide', url: 'https://www.facebook.com/business/help', description: 'Official Meta Ads documentation' },
+      { title: 'Meta Business: Conversions API', url: 'https://www.facebook.com/business/help/1667622266634664', description: 'Official Meta Conversions API documentation' }
+    ],
+    faq: [
+      { question: 'Is Meta Ads effective for B2B?', answer: 'Meta Ads can be effective for B2B for brand awareness, reaching audiences not reachable on LinkedIn, and promoting content. However, Meta targeting is less granular for professional targeting than LinkedIn. For B2B, use custom audiences (email lists, website visitors) and lookalike audiences for professional targeting.' },
+      { question: 'How do you target B2B audiences on Meta Ads?', answer: 'Target B2B audiences using: custom audiences (email lists, website visitors, customer lists), lookalike audiences (based on custom audiences), and interest targeting (cautiously). Custom audiences and lookalikes are most effective for B2B. Use interest targeting cautiously as it\'s less granular for professional targeting.' },
+      { question: 'How do privacy changes affect Meta Ads for B2B?', answer: 'Privacy changes (iOS 14.5+ ATT, cookie restrictions) significantly impact Meta Ads tracking. Solutions include: Conversions API for server-side tracking, first-party data collection, broad targeting rather than granular targeting, and focusing on downstream metrics. Attribution is challenging; focus on downstream metrics.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'google-ads',
+    slug: 'google-ads',
+    term: 'Google Ads',
+    category: 'paid-media',
+    shortDefinition: 'Google Ads is Google\'s advertising platform for running paid campaigns across search, display, video, shopping and other available inventory.',
+    fullDefinition: 'Google Ads is Google\'s comprehensive advertising platform that enables advertisers to run paid campaigns across Google\'s extensive inventory: search (Google Search results), display (Google Display Network), video (YouTube), shopping (Google Shopping), discover (Google Discover), maps (Google Maps), and more. Google Ads is the largest digital advertising platform and offers various campaign types: search campaigns (text ads in search results), display campaigns (banner ads on websites), video campaigns (video ads on YouTube), shopping campaigns (product listings), app campaigns (app installs), and more. Google Ads is particularly effective for capturing search intent and reaching users across Google\'s extensive inventory.',
+    howItWorks: 'Google Ads works through auction-based ad serving across multiple inventory types: for search campaigns, advertisers bid on keywords and ads appear in search results; for display campaigns, advertisers target audiences or websites and ads appear on websites in the Google Display Network; for video campaigns, advertisers create video ads that appear on YouTube; for shopping campaigns, product listings appear in Google Shopping. The platform uses auction systems where ad rank is determined by bid amount, ad quality, and expected performance. Advertisers pay based on clicks (CPC), impressions (CPM), or other actions.',
+    b2bUseCases: [
+      'Capturing high-intent search demand',
+      'Building brand awareness through display and video',
+      'Promoting products through shopping ads',
+      'Reaching users across Google\'s extensive inventory',
+      'Complementing organic SEO efforts',
+      'Testing messaging and positioning quickly',
+      'Launching new products or entering new markets'
+    ],
+    targetingConsiderations: 'Google Ads targeting varies by campaign type: search campaigns use keyword targeting; display campaigns use audience targeting (in-market audiences, custom intent audiences, custom audiences) or website targeting; video campaigns use audience targeting; shopping campaigns use product targeting. For B2B search campaigns, use keyword targeting and audience targeting. For B2B display campaigns, use in-market audiences and custom intent audiences. Use negative keywords to exclude irrelevant searches.',
+    measurement: 'Google Ads measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), return on ad spend (ROAS), quality score (for search), impression share, and click share. Google provides detailed analytics on campaign performance. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use conversion tracking to track form submissions, demo requests, and other conversion events.',
+    privacyAndTrackingLimitations: 'Google Ads tracking relies on cookies and conversion tracking. Privacy regulations (GDPR, CCPA) and browser changes (Safari ITP, Firefox ETP, Chrome phasing out third-party cookies) impact tracking capabilities. Google provides enhanced conversions and conversion API for server-side tracking. Attribution can be challenging due to cross-device behavior and privacy restrictions. Solutions include: enhanced conversions, conversion API, and first-party data collection.',
+    comparisonWithAdjacentConcepts: 'Google Ads vs Microsoft Advertising: Google has larger inventory and more features; Microsoft has lower competition and costs. Google Ads vs Meta Ads: Google captures search intent; Meta targets based on audience attributes. Google Ads vs organic SEO: Google Ads provides immediate visibility; SEO provides long-term visibility.',
+    sources: [
+      { title: 'Google Ads: How It Works', url: 'https://ads.google.com/home/how-it-works/', description: 'Official Google Ads documentation' },
+      { title: 'Google Ads: Campaign Types', url: 'https://ads.google.com/home/campaign-types/', description: 'Official Google Ads campaign types documentation' }
+    ],
+    faq: [
+      { question: 'What campaign types does Google Ads offer?', answer: 'Google Ads offers: search campaigns (text ads in search results), display campaigns (banner ads on websites), video campaigns (video ads on YouTube), shopping campaigns (product listings), discover campaigns (Google Discover), app campaigns (app installs), and more. Each campaign type has different targeting and ad formats.' },
+      { question: 'How is Google Ads different from Microsoft Advertising?', answer: 'Google Ads has larger inventory (Google Search, Display, YouTube) and more features. Microsoft Advertising (Bing Ads) has smaller inventory but lower competition and costs. Google is better for reach; Microsoft can be more cost-effective for certain keywords. Use both for comprehensive coverage.' },
+      { question: 'How do privacy changes affect Google Ads?', answer: 'Privacy changes (cookie restrictions, privacy regulations) impact Google Ads tracking. Solutions include: enhanced conversions, conversion API, first-party data collection, and focusing on downstream metrics. Google is phasing out third-party cookies; prepare with server-side tracking and first-party data.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'programmatic-advertising',
+    slug: 'programmatic-advertising',
+    term: 'Programmatic Advertising',
+    category: 'paid-media',
+    shortDefinition: 'Programmatic advertising uses automated technology to buy and sell digital advertising inventory based on predefined targeting, bidding and optimization parameters.',
+    fullDefinition: 'Programmatic advertising is the automated buying and selling of digital advertising inventory using technology platforms. Instead of manually negotiating and purchasing ad placements, programmatic advertising uses algorithms and real-time bidding (RTB) to automatically buy ad impressions based on predefined targeting, bidding, and optimization parameters. Programmatic advertising encompasses various types: real-time bidding (RTB) for real-time auction-based buying, programmatic direct for guaranteed impressions without auctions, and private marketplaces (PMPs) for invited auction-based buying. Programmatic advertising enables efficient, data-driven ad buying at scale across multiple publishers and platforms.',
+    howItWorks: 'Programmatic advertising works through automated platforms: advertisers define targeting criteria (audience, budget, bid), and when users visit websites or apps, the programmatic platform runs real-time auctions to determine which ads serve. The process involves: demand-side platforms (DSPs) representing advertisers, supply-side platforms (SSPs) representing publishers, and ad exchanges facilitating auctions. When a user visits a website, the SSP sends bid requests to DSPs, DSPs evaluate based on targeting criteria and submit bids, the highest bid wins, and the ad serves. The entire process happens in milliseconds.',
+    b2bUseCases: [
+      'Scaling display advertising across multiple publishers',
+      'Targeting specific professional audiences at scale',
+      'Retargeting website visitors across the web',
+      'Running programmatic video campaigns',
+      'Buying native advertising at scale',
+      'Implementing account-based marketing at scale',
+      'Optimizing ad spend based on real-time data'
+    ],
+    targetingConsiderations: 'Programmatic advertising targeting includes: audience targeting (demographics, interests, behaviors), contextual targeting (website content, keywords), geo-targeting (location), device targeting (desktop, mobile, tablet), and time targeting (day, time). For B2B, use professional audience targeting (job title, company, industry) through specialized B2B data providers. Use contextual targeting for relevant content. Use retargeting for engaged users.',
+    measurement: 'Programmatic advertising measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). Programmatic platforms provide detailed analytics on campaign performance, audience demographics, and publisher performance. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use conversion tracking and attribution tools.',
+    privacyAndTrackingLimitations: 'Programmatic advertising relies heavily on cookies and third-party data. Privacy regulations (GDPR, CCPA) and browser changes (cookie restrictions) significantly impact programmatic capabilities. Solutions include: first-party data collection, consent management platforms, contextual targeting (less reliant on cookies), and privacy-compliant data providers. The industry is moving toward privacy-first programmatic with reduced reliance on third-party cookies.',
+    comparisonWithAdjacentConcepts: 'Programmatic vs direct buying: Programmatic is automated and real-time; direct is manual and negotiated. Programmatic vs DSP: DSP is a component of programmatic (represents advertisers). Programmatic vs programmatic direct: Programmatic direct is guaranteed impressions without auctions; programmatic RTB is auction-based. Programmatic vs social ads: Programmatic buys across web; social buys within social platforms.',
+    sources: [
+      { title: 'IAB: Programmatic Advertising', url: 'https://www.iab.com/guidelines/iab-programmatic-automation-guidelines/', description: 'IAB programmatic advertising guidelines' }
+    ],
+    faq: [
+      { question: 'What is the difference between programmatic and direct buying?', answer: 'Programmatic advertising is automated and uses real-time bidding to buy ad impressions. Direct buying is manual and involves negotiating directly with publishers for guaranteed impressions. Programmatic is more efficient and data-driven; direct provides guaranteed impressions and premium placements.' },
+      { question: 'What is a DSP (Demand-Side Platform)?', answer: 'A DSP is a technology platform that allows advertisers to buy advertising inventory programmatically. DSPs represent advertisers in programmatic auctions, allowing them to set targeting criteria, budgets, and bids. DSPs automate the buying process and provide analytics on campaign performance.' },
+      { question: 'How do privacy changes affect programmatic advertising?', answer: 'Privacy changes (cookie restrictions, privacy regulations) significantly impact programmatic advertising. Solutions include: first-party data collection, consent management, contextual targeting, and privacy-compliant data providers. The industry is moving toward privacy-first programmatic with reduced reliance on third-party cookies.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'demand-side-platform',
+    slug: 'demand-side-platform',
+    term: 'Demand-Side Platform',
+    category: 'paid-media',
+    shortDefinition: 'A Demand-Side Platform, or DSP, is technology that allows advertisers or agencies to purchase digital advertising inventory programmatically.',
+    fullDefinition: 'A Demand-Side Platform (DSP) is a technology platform that enables advertisers and agencies to purchase digital advertising inventory programmatically across multiple publishers, exchanges, and ad networks. DSPs provide a single interface for advertisers to manage programmatic advertising campaigns: defining targeting criteria, setting budgets and bids, managing campaigns, and analyzing performance. DSPs connect to multiple supply-side platforms (SSPs) and ad exchanges, allowing advertisers to buy inventory across the open web, private marketplaces, and direct deals. Major DSPs include The Trade Desk, MediaMath, Amazon DSP, and Google DV360.',
+    howItWorks: 'DSPs work by connecting advertisers to multiple supply sources: DSPs connect to multiple SSPs (representing publishers) and ad exchanges. When advertisers create campaigns, they define targeting criteria (audience, budget, bid), and the DSP automatically bids on inventory matching those criteria across connected supply sources. When users visit websites or apps, SSPs send bid requests to DSPs, DSPs evaluate based on targeting criteria and submit bids, the highest bid wins, and the ad serves. DSPs provide campaign management, optimization, and analytics in a single interface.',
+    b2bUseCases: [
+      'Scaling display advertising across multiple publishers',
+      'Targeting specific professional audiences at scale',
+      'Running programmatic video campaigns',
+      'Implementing account-based marketing at scale',
+      'Buying native advertising at scale',
+      'Optimizing ad spend based on real-time data',
+      'Managing complex multi-channel programmatic campaigns'
+    ],
+    targetingConsiderations: 'DSP targeting includes: audience targeting (demographics, interests, behaviors), contextual targeting (website content, keywords), geo-targeting (location), device targeting (desktop, mobile, tablet), and time targeting (day, time). For B2B, use professional audience targeting through specialized B2B data providers (LinkedIn, ZoomInfo, etc.). Use contextual targeting for relevant content. Use retargeting for engaged users. DSPs provide access to premium B2B data providers for professional targeting.',
+    measurement: 'DSP measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). DSPs provide detailed analytics on campaign performance, audience demographics, publisher performance, and attribution. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Use conversion tracking and attribution tools integrated with DSPs.',
+    privacyAndTrackingLimitations: 'DSPs rely on cookies and third-party data for targeting and tracking. Privacy regulations (GDPR, CCPA) and browser changes (cookie restrictions) impact DSP capabilities. Solutions include: first-party data integration, consent management, contextual targeting, and privacy-compliant data providers. DSPs are adapting to privacy-first approaches with reduced reliance on third-party cookies.',
+    comparisonWithAdjacentConcepts: 'DSP vs SSP: DSP represents advertisers (buy side); SSP represents publishers (sell side). DSP vs ad exchange: DSP is for advertisers; ad exchange facilitates auctions between DSPs and SSPs. DSP vs social ads platforms: DSP buys across web; social platforms buy within their platforms. DSP vs programmatic: DSP is a component of programmatic (represents advertisers).',
+    sources: [
+      { title: 'The Trade Desk: DSP Overview', url: 'https://www.thetradedesk.com/', description: 'The Trade Desk DSP overview' },
+      { title: 'IAB: Programmatic Ecosystem', url: 'https://www.iab.com/', description: 'IAB programmatic ecosystem overview' }
+    ],
+    faq: [
+      { question: 'What is the difference between a DSP and an ad exchange?', answer: 'A DSP (Demand-Side Platform) represents advertisers and allows them to buy inventory programmatically. An ad exchange facilitates auctions between DSPs (buyers) and SSPs (sellers). DSPs are for advertisers; ad exchanges are marketplaces connecting buyers and sellers.' },
+      { question: 'What are the main DSPs for B2B advertising?', answer: 'Main DSPs include: The Trade Desk, MediaMath, Amazon DSP, Google DV360, and Adobe Advertising Cloud. For B2B, look for DSPs with access to B2B data providers (LinkedIn, ZoomInfo, etc.) and B2B targeting capabilities.' },
+      { question: 'How do you use DSPs for B2B advertising?', answer: 'Use DSPs for B2B by: defining target audiences using B2B data providers, setting up targeting criteria (job title, company, industry), creating campaigns, setting budgets and bids, and optimizing based on performance. Use B2B data providers for professional targeting and integrate with CRM for conversion tracking.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'contextual-advertising',
+    slug: 'contextual-advertising',
+    term: 'Contextual Advertising',
+    category: 'paid-media',
+    shortDefinition: 'Contextual advertising targets advertising based on the content or context of the environment where an advertisement appears rather than relying primarily on individual behavioral profiles.',
+    fullDefinition: 'Contextual advertising is a form of targeted advertising where ads are targeted based on the content or context of the environment where the advertisement appears, rather than based on individual user behavior or demographic profiles. For example, an ad for marketing automation software might appear on a webpage about marketing automation, regardless of who is viewing the page. Contextual advertising has gained importance as privacy regulations and browser changes limit behavioral targeting. Contextual advertising is privacy-friendly because it doesn\'t rely on personal data or cookies—it targets based on content context rather than user behavior.',
+    howItWorks: 'Contextual advertising works by analyzing the content of webpages and matching ads to relevant content: when a user visits a webpage, the ad platform analyzes the page content (keywords, topics, sentiment) and serves ads relevant to that content. For example, a page about "marketing automation" might serve ads for marketing automation software. Contextual targeting uses natural language processing and machine learning to analyze content and match ads to relevant content. Contextual advertising doesn\'t require user data or cookies—it targets based on content context.',
+    b2bUseCases: [
+      'Reaching professionals reading relevant industry content',
+      'Targeting users researching specific topics or solutions',
+      'Privacy-friendly targeting without relying on personal data',
+      'Reaching users in relevant content environments',
+      'Complementing behavioral targeting',
+      'Reaching users when behavioral targeting is limited'
+    ],
+    targetingConsiderations: 'Contextual advertising targeting includes: keyword targeting (specific keywords on pages), topic targeting (broad topics), sentiment targeting (positive, negative, neutral sentiment), and category targeting (content categories). For B2B, use keyword and topic targeting for relevant industry content. Use contextual targeting to reach users reading relevant content. Contextual targeting is less precise than behavioral targeting but is privacy-friendly and effective for reaching users in relevant contexts.',
+    measurement: 'Contextual advertising measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), cost per thousand impressions (CPM), conversion rate, and cost per acquisition (CPA). Contextual advertising platforms provide analytics on campaign performance and contextual targeting performance. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Contextual advertising can be effective for B2B when targeting relevant industry content.',
+    privacyAndTrackingLimitations: 'Contextual advertising is privacy-friendly because it doesn\'t rely on personal data or cookies—it targets based on content context. This makes contextual advertising compliant with privacy regulations (GDPR, CCPA) and unaffected by browser changes limiting behavioral targeting. Contextual advertising is becoming more important as behavioral targeting becomes more limited.',
+    comparisonWithAdjacentConcepts: 'Contextual vs behavioral targeting: Contextual targets based on content context; behavioral targets based on user behavior. Contextual is privacy-friendly; behavioral relies on personal data. Contextual vs demographic targeting: Contextual targets based on content; demographic targets based on user demographics. Contextual is privacy-friendly; demographic relies on personal data.',
+    sources: [
+      { title: 'IAB: Contextual Advertising', url: 'https://www.iab.com/', description: 'IAB contextual advertising guidelines' }
+    ],
+    faq: [
+      { question: 'How is contextual advertising different from behavioral targeting?', answer: 'Contextual advertising targets based on content context (what the page is about); behavioral targeting targets based on user behavior (what the user has done). Contextual is privacy-friendly and doesn\'t require personal data; behavioral relies on personal data and cookies.' },
+      { question: 'Is contextual advertising effective for B2B?', answer: 'Yes, contextual advertising can be effective for B2B when targeting relevant industry content. It\'s particularly effective for reaching professionals reading relevant content. It\'s less precise than behavioral targeting but is privacy-friendly and effective for reaching users in relevant contexts.' },
+      { question: 'Why is contextual advertising becoming more important?', answer: 'Contextual advertising is becoming more important because privacy regulations (GDPR, CCPA) and browser changes (cookie restrictions) limit behavioral targeting. Contextual advertising is privacy-friendly and unaffected by these changes. It\'s becoming more important as behavioral targeting becomes more limited.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'lookalike-audiences',
+    slug: 'lookalike-audiences',
+    term: 'Lookalike Audiences',
+    category: 'paid-media',
+    shortDefinition: 'Lookalike audiences are modeled audiences created by an advertising platform to find users with characteristics similar to a source audience or customer group.',
+    fullDefinition: 'Lookalike audiences (also called similar audiences) are modeled audiences created by advertising platforms (Facebook/Meta, LinkedIn, Google, etc.) to find users with characteristics similar to a source audience or customer group. Advertisers provide a source audience (website visitors, email lists, customer lists, etc.), and the platform uses machine learning to identify users with similar characteristics (demographics, interests, behaviors) and creates a lookalike audience. Lookalike audiences enable advertisers to reach new users similar to their best customers or engaged users. Lookalike audiences are particularly effective for B2B companies looking to reach new professional audiences similar to their existing customers or engaged users.',
+    howItWorks: 'Lookalike audiences work through machine learning modeling: advertisers provide a source audience (website visitors, email lists, customer lists, etc.), and the platform analyzes the characteristics of users in that audience (demographics, interests, behaviors). The platform then uses machine learning to identify users outside the source audience with similar characteristics and creates a lookalike audience. Advertisers can specify the size of the lookalike audience (typically 1-10% of the population in a geographic area). Smaller lookalikes (1%) are more similar to the source; larger lookalikes (10%) are broader but less similar.',
+    b2bUseCases: [
+      'Reaching new professional audiences similar to existing customers',
+      'Expanding reach to users similar to engaged website visitors',
+      'Reaching users similar to email subscribers',
+      'Expanding account-based marketing to similar companies',
+      'Reaching new audiences similar to high-value customers',
+      'Scaling reach while maintaining relevance'
+    ],
+    targetingConsiderations: 'Lookalike audience targeting requires: a source audience (website visitors, email lists, customer lists), a geographic region, and a size (1-10%). For B2B, use high-quality source audiences: high-value customers, engaged website visitors, or email subscribers. LinkedIn lookalikes are based on professional attributes; Meta lookalikes are based on broader attributes. Use smaller lookalikes (1-2%) for more precision; larger lookalikes (5-10%) for broader reach.',
+    measurement: 'Lookalike audience measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). Compare lookalike audience performance to source audience performance and other targeting methods. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Track conversion events and attribute to lookalike audiences.',
+    privacyAndTrackingLimitations: 'Lookalike audiences rely on platform data and machine learning. Privacy regulations (GDPR, CCPA) require consent for data usage. Platforms have adapted to privacy changes by adjusting lookalike audience creation. Lookalike audiences are less effective when source audiences are small or when privacy restrictions limit data availability. Ensure compliance with privacy regulations for source audience data.',
+    comparisonWithAdjacentConcepts: 'Lookalike vs custom audiences: Lookalikes are modeled audiences based on source audiences; custom audiences are defined audiences (website visitors, email lists). Lookalike vs contextual targeting: Lookalikes target based on user similarity; contextual targets based on content context. Lookalike vs demographic targeting: Lookalikes use machine learning to find similar users; demographic targeting uses predefined demographic criteria.',
+    sources: [
+      { title: 'Meta Business: Lookalike Audiences', url: 'https://www.facebook.com/business/help/168290963255323', description: 'Official Meta Lookalike Audiences documentation' },
+      { title: 'LinkedIn: Matched Audiences', url: 'https://www.linkedin.com/help/lms/', description: 'Official LinkedIn Matched Audiences documentation' }
+    ],
+    faq: [
+      { question: 'How do lookalike audiences work?', answer: 'Lookalike audiences work by: providing a source audience (website visitors, email lists, customers), the platform analyzes characteristics of users in that audience, and uses machine learning to identify users with similar characteristics. You can specify the size (1-10%)—smaller is more similar, larger is broader.' },
+      { question: 'What makes a good source audience for lookalikes?', answer: 'Good source audiences are: high-quality (high-value customers, engaged users), large enough (at least 100 users), and representative of your target audience. For B2B, use high-value customers, engaged website visitors, or email subscribers as source audiences.' },
+      { question: 'How do privacy changes affect lookalike audiences?', answer: 'Privacy changes impact lookalike audiences by limiting data availability. Platforms have adapted by adjusting lookalike creation. Lookalikes are less effective when source audiences are small or when privacy restrictions limit data. Ensure compliance with privacy regulations for source audience data.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'custom-audiences',
+    slug: 'custom-audiences',
+    term: 'Custom Audiences',
+    category: 'paid-media',
+    shortDefinition: 'Custom audiences are advertiser-defined audiences built using available customer, website, app or engagement data subject to platform rules.',
+    fullDefinition: 'Custom audiences are advertiser-defined audiences built using available data: customer lists (email lists, customer databases), website visitors (tracked via pixels), app users (tracked via SDKs), or engagement data (engagement with your content, videos, etc.). Custom audiences enable advertisers to target specific groups of users they already have relationships with or have engaged with their brand. Custom audiences are particularly effective for B2B companies targeting existing customers, website visitors, or email subscribers. Custom audiences are subject to platform rules and privacy regulations—advertisers must have consent to use customer data and must comply with privacy regulations.',
+    howItWorks: 'Custom audiences work by uploading or defining audience data: for customer lists, advertisers upload email lists or customer databases (hashed for privacy); for website visitors, advertisers use tracking pixels to track website visitors; for app users, advertisers use SDKs to track app users; for engagement data, advertisers define engagement criteria (engaged with content, watched videos, etc.). The platform matches the uploaded data to platform users and creates a custom audience. Advertisers can then target ads to that custom audience or use it as a source for lookalike audiences.',
+    b2bUseCases: [
+      'Targeting existing customers for upsell or cross-sell',
+      'Retargeting website visitors who didn\'t convert',
+      'Re-engaging email subscribers who haven\'t engaged',
+      'Targeting trial users who haven\'t converted to paid',
+      'Building lookalike audiences based on high-value customers',
+      'Account-based marketing targeting specific companies',
+      'Re-engaging past customers'
+    ],
+    targetingConsiderations: 'Custom audience targeting includes: customer lists (email lists, customer databases), website visitors (all visitors, specific pages, time since visit), app users, and engagement audiences (content downloaders, webinar registrants, video viewers). For B2B, use high-value customer lists, engaged website visitors, and email subscribers. Use custom audiences for retargeting, account-based marketing, and building lookalike audiences. Ensure compliance with privacy regulations for customer data.',
+    measurement: 'Custom audience measurement includes: impressions, clicks, click-through rate (CTR), cost per click (CPC), conversion rate, cost per acquisition (CPA), and return on ad spend (ROAS). Compare custom audience performance to other targeting methods. For B2B, focus on downstream metrics: lead quality, pipeline generated, and customer acquisition cost. Track conversion events and attribute to custom audiences.',
+    privacyAndTrackingLimitations: 'Custom audiences require compliance with privacy regulations (GDPR, CCPA). For customer lists, advertisers must have consent to use customer data and must hash data for privacy. For website visitors, advertisers must comply with cookie consent requirements. Platforms have adapted to privacy changes with enhanced consent mechanisms. Ensure compliance with all applicable privacy regulations when using custom audiences.',
+    comparisonWithAdjacentConcepts: 'Custom vs lookalike audiences: Custom audiences are defined audiences (customer lists, website visitors); lookalikes are modeled audiences based on source audiences. Custom vs retargeting: Custom audiences include retargeting (website visitors) but also include customer lists and other defined audiences. Custom vs demographic targeting: Custom uses advertiser data; demographic uses platform demographic data.',
+    sources: [
+      { title: 'Meta Business: Custom Audiences', url: 'https://www.facebook.com/business/help/168290963255323', description: 'Official Meta Custom Audiences documentation' },
+      { title: 'LinkedIn: Matched Audiences', url: 'https://www.linkedin.com/help/lms/', description: 'Official LinkedIn Matched Audiences documentation' }
+    ],
+    faq: [
+      { question: 'What data can you use for custom audiences?', answer: 'You can use: customer lists (email lists, customer databases), website visitors (tracked via pixels), app users (tracked via SDKs), and engagement data (engagement with content, videos, etc.). For customer lists, you must have consent and hash data for privacy.' },
+      { question: 'How do you comply with privacy regulations for custom audiences?', answer: 'Comply with privacy regulations by: obtaining consent for customer data, hashing data for privacy, complying with cookie consent requirements, providing clear privacy policies, and offering opt-out mechanisms. Consult legal counsel for specific compliance requirements.' },
+      { question: 'How are custom audiences different from lookalike audiences?', answer: 'Custom audiences are defined audiences (customer lists, website visitors, etc.) that you define. Lookalike audiences are modeled audiences created by the platform based on a source audience (which can be a custom audience). Custom audiences are your defined audiences; lookalikes are modeled audiences similar to your source.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'conversion-api',
+    slug: 'conversion-api',
+    term: 'Conversion API',
+    category: 'paid-media',
+    shortDefinition: 'Conversion APIs allow businesses to send conversion or event data directly from their servers or other controlled systems to advertising platforms.',
+    fullDefinition: 'Conversion APIs (CAPI) are server-side APIs that enable businesses to send conversion or event data directly from their servers or other controlled systems to advertising platforms (Meta, Google, LinkedIn, etc.). Unlike pixel-based tracking (which relies on browser-side tracking), Conversion APIs send data from the server, providing more reliable tracking that is less affected by browser restrictions, ad blockers, and privacy changes. Conversion APIs were developed in response to privacy changes (iOS 14.5+ ATT, cookie restrictions) that limited pixel-based tracking. Conversion APIs enable more accurate conversion tracking, better attribution, and improved campaign optimization.',
+    howItWorks: 'Conversion APIs work by sending event data from your server to advertising platforms: when a conversion event occurs on your website (form submission, purchase, etc.), your server sends the event data directly to the advertising platform\'s API. The event data includes: event type (Purchase, Lead, etc.), event parameters (value, currency, content IDs), user data (hashed email, phone, etc. for matching), and event metadata (timestamp, event ID). The advertising platform receives the event data and uses it for attribution, optimization, and reporting. Conversion APIs complement pixel-based tracking and provide more reliable tracking.',
+    b2bUseCases: [
+      'Improving conversion tracking accuracy for B2B campaigns',
+      'Tracking B2B conversion events (form submissions, demo requests)',
+      'Improving attribution for B2B campaigns with long sales cycles',
+      'Enabling better campaign optimization based on accurate conversion data',
+      'Complying with privacy regulations while maintaining tracking',
+      'Overcoming browser restrictions and ad blockers'
+    ],
+    targetingConsiderations: 'Conversion APIs don\'t directly affect targeting—they improve tracking and attribution. However, better tracking enables better optimization, which improves targeting over time. Conversion APIs enable more accurate conversion data, which platforms use for optimization and targeting. For B2B, use Conversion APIs to track conversion events (form submissions, demo requests) and improve campaign optimization.',
+    measurement: 'Conversion APIs improve measurement by providing more accurate conversion data. Conversion API data is used for: conversion tracking, attribution, campaign optimization, and reporting. Conversion APIs provide more reliable tracking than pixel-based tracking, especially with browser restrictions and ad blockers. For B2B, use Conversion APIs to track conversion events and improve campaign performance.',
+    privacyAndTrackingLimitations: 'Conversion APIs are designed to be privacy-compliant: they send hashed user data (email, phone) for matching, comply with privacy regulations (GDPR, CCPA), and provide more reliable tracking than pixel-based tracking. Conversion APIs are less affected by browser restrictions and ad blockers. Ensure compliance with privacy regulations when implementing Conversion APIs: obtain consent, hash data, provide clear privacy policies.',
+    comparisonWithAdjacentConcepts: 'Conversion API vs pixel tracking: Conversion API sends data from server; pixel tracking uses browser-side tracking. Conversion API is more reliable and privacy-compliant; pixel tracking is affected by browser restrictions. Conversion API vs server-side tracking: Conversion API is a specific implementation of server-side tracking for advertising platforms. Server-side tracking is broader.',
+    sources: [
+      { title: 'Meta Business: Conversions API', url: 'https://www.facebook.com/business/help/1667622266634664', description: 'Official Meta Conversions API documentation' },
+      { title: 'Google Ads: Enhanced Conversions', url: 'https://support.google.com/google-ads/answer/10049460', description: 'Official Google enhanced conversions documentation' }
+    ],
+    faq: [
+      { question: 'What is the difference between Conversion API and pixel tracking?', answer: 'Conversion API sends conversion data from your server to advertising platforms. Pixel tracking uses browser-side tracking (pixels) to track conversions. Conversion API is more reliable and less affected by browser restrictions, ad blockers, and privacy changes.' },
+      { question: 'How do you implement Conversion API?', answer: 'Implement Conversion API by: setting up server-side event tracking, sending event data to advertising platform APIs, hashing user data for privacy, and testing implementation. Each platform (Meta, Google, LinkedIn) has specific API documentation. Consult platform documentation for implementation details.' },
+      { question: 'How do Conversion APIs help with privacy compliance?', answer: 'Conversion APIs help with privacy compliance by: sending hashed user data (not raw data), complying with privacy regulations (GDPR, CCPA), and providing more reliable tracking than pixel-based tracking. Ensure compliance by obtaining consent, hashing data, and providing clear privacy policies.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'server-side-tracking',
+    slug: 'server-side-tracking',
+    term: 'Server-Side Tracking',
+    category: 'paid-media',
+    shortDefinition: 'Server-side tracking processes or sends tracking events from a server or backend system rather than relying exclusively on browser-side tracking.',
+    fullDefinition: 'Server-side tracking is a tracking approach where tracking events are processed or sent from a server or backend system rather than relying exclusively on browser-side tracking (pixels, JavaScript). Traditional tracking relies on browser-side tracking: pixels and JavaScript running in the user\'s browser send tracking data to analytics and advertising platforms. Server-side tracking moves this processing to the server, providing more reliable tracking that is less affected by browser restrictions, ad blockers, and privacy changes. Server-side tracking includes various implementations: server-side Google Tag Manager, conversion APIs, and custom server-side implementations.',
+    howItWorks: 'Server-side tracking works by processing tracking events on the server: when a user performs an action on your website (page view, form submission, purchase), your server processes the event and sends tracking data to analytics and advertising platforms. This is different from browser-side tracking where the user\'s browser sends the data. Server-side tracking provides more reliable tracking because it\'s not affected by browser restrictions, ad blockers, or privacy changes that limit browser-side tracking. Server-side tracking can be implemented through server-side GTM, conversion APIs, or custom implementations.',
+    b2bUseCases: [
+      'Improving tracking reliability for B2B campaigns',
+      'Overcoming browser restrictions and ad blockers',
+      'Improving attribution for B2B campaigns',
+      'Complying with privacy regulations while maintaining tracking',
+      'Enabling better campaign optimization',
+      'Tracking B2B conversion events reliably'
+    ],
+    targetingConsiderations: 'Server-side tracking doesn\'t directly affect targeting—it improves tracking and attribution. However, better tracking enables better optimization, which improves targeting over time. Server-side tracking provides more reliable conversion data, which platforms use for optimization and targeting. For B2B, use server-side tracking to improve tracking reliability and campaign performance.',
+    measurement: 'Server-side tracking improves measurement by providing more reliable tracking data. Server-side tracking data is used for: conversion tracking, attribution, campaign optimization, and reporting. Server-side tracking provides more reliable tracking than browser-side tracking, especially with browser restrictions and ad blockers. For B2B, use server-side tracking to improve tracking reliability and campaign performance.',
+    privacyAndTrackingLimitations: 'Server-side tracking is designed to be more privacy-compliant: it processes data on the server (not in the browser), can implement proper consent management, and is less affected by browser restrictions. However, server-side tracking still requires compliance with privacy regulations (GDPR, CCPA). Ensure proper consent management, data minimization, and clear privacy policies when implementing server-side tracking.',
+    comparisonWithAdjacentConcepts: 'Server-side vs browser-side tracking: Server-side processes data on server; browser-side processes data in browser. Server-side is more reliable and privacy-compliant; browser-side is affected by browser restrictions. Server-side tracking vs conversion API: Conversion API is a specific implementation of server-side tracking for advertising platforms. Server-side tracking is broader.',
+    sources: [
+      { title: 'Google: Server-Side Tagging', url: 'https://developers.google.com/tag-platform/tag-manager/server-side', description: 'Official Google server-side tagging documentation' },
+      { title: 'Stape: Server-Side Tracking Guide', url: 'https://stape.io/', description: 'Guide to server-side tracking' }
+    ],
+    faq: [
+      { question: 'What is the difference between server-side and browser-side tracking?', answer: 'Server-side tracking processes tracking events on your server; browser-side tracking processes events in the user\'s browser. Server-side is more reliable and less affected by browser restrictions, ad blockers, and privacy changes.' },
+      { question: 'How do you implement server-side tracking?', answer: 'Implement server-side tracking through: server-side Google Tag Manager, conversion APIs, or custom server-side implementations. Server-side GTM is the most common approach. Consult platform documentation for implementation details.' },
+      { question: 'How does server-side tracking help with privacy compliance?', answer: 'Server-side tracking helps with privacy compliance by: processing data on the server (not in browser), enabling proper consent management, and being less affected by browser restrictions. Ensure compliance with privacy regulations (GDPR, CCPA) by obtaining consent, minimizing data, and providing clear privacy policies.' }
+    ],
+    featured: false,
+    emerging: true,
+    status: 'emerging'
   }
 ];
 
@@ -6638,8 +7153,8 @@ export function searchTerms(query: string): GlossaryTerm[] {
   return glossaryTerms.filter(term => 
     term.term.toLowerCase().includes(lowerQuery) ||
     term.shortDefinition.toLowerCase().includes(lowerQuery) ||
-    term.primaryKeyword.toLowerCase().includes(lowerQuery) ||
-    term.secondaryKeywords.some(kw => kw.toLowerCase().includes(lowerQuery)) ||
+    (term.primaryKeyword && term.primaryKeyword.toLowerCase().includes(lowerQuery)) ||
+    (term.secondaryKeywords && term.secondaryKeywords.some(kw => kw.toLowerCase().includes(lowerQuery))) ||
     (term.synonyms && term.synonyms.some(syn => syn.toLowerCase().includes(lowerQuery)))
   );
 }
