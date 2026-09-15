@@ -27,7 +27,7 @@ function Navbar({ theme, toggleTheme }: any) {
             <img 
               src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
               alt="Subhasish Adhikary" 
-              className="h-10 w-auto"
+              className="h-8 w-auto"
             />
           </Link>
           <div className="hidden md:flex items-center gap-1">
@@ -62,15 +62,15 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-block mb-3">
               <img 
                 src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
                 alt="Subhasish Adhikary" 
-                className="h-12 w-auto mb-3"
+                className="h-10 w-auto"
               />
             </Link>
-            <p className="mt-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.location}</p>
-            <p className="mt-3 text-sm max-w-md" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.description}</p>
+            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.location}</p>
+            <p className="mt-2 text-sm max-w-md" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.description}</p>
           </div>
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-tertiary)' }}>Navigate</h4>
@@ -87,14 +87,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--border-color)' }}>
-          <div className="flex items-center gap-4">
-            <img 
-              src="https://i.ibb.co/qLc6nsC9/Subhasish-Adhikary-portfolio-website-logo.png" 
-              alt="Subhasish Adhikary Portfolio" 
-              className="h-8 w-auto"
-            />
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-          </div>
+          <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <Link to="/privacy" className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Privacy</Link>
         </div>
       </div>
