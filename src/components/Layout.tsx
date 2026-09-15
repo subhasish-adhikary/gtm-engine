@@ -23,7 +23,13 @@ function Navbar({ theme, toggleTheme }: any) {
     <header className="fixed top-0 left-0 right-0 z-50 border-b transition-shadow duration-200" style={{ backgroundColor: 'var(--nav-bg)', borderColor: scrolled ? 'var(--border-color)' : 'transparent', backdropFilter: 'blur(12px)', boxShadow: scrolled ? '0 1px 3px rgba(0,0,0,0.04)' : 'none' }}>
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-lg font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>SA</Link>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
+              alt="Subhasish Adhikary" 
+              className="h-10 w-auto"
+            />
+          </Link>
           <div className="hidden md:flex items-center gap-1">
             {navigation.map((item) => (
               <Link key={item.path} to={item.path} className="px-3 py-2 text-sm font-medium rounded-md transition-colors" style={{ color: isActive(item.path) ? 'var(--accent)' : 'var(--text-secondary)', backgroundColor: isActive(item.path) ? 'var(--bg-secondary)' : 'transparent' }}>{item.label}</Link>
@@ -56,7 +62,13 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Link to="/" className="text-lg font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>{siteConfig.name}</Link>
+            <Link to="/" className="inline-block">
+              <img 
+                src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
+                alt="Subhasish Adhikary" 
+                className="h-12 w-auto mb-3"
+              />
+            </Link>
             <p className="mt-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.location}</p>
             <p className="mt-3 text-sm max-w-md" style={{ color: 'var(--text-tertiary)' }}>{siteConfig.description}</p>
           </div>
@@ -75,7 +87,14 @@ function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--border-color)' }}>
-          <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <img 
+              src="https://i.ibb.co/qLc6nsC9/Subhasish-Adhikary-portfolio-website-logo.png" 
+              alt="Subhasish Adhikary Portfolio" 
+              className="h-8 w-auto"
+            />
+            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          </div>
           <Link to="/privacy" className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Privacy</Link>
         </div>
       </div>
