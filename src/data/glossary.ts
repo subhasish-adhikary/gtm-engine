@@ -3170,6 +3170,755 @@ export const glossaryTerms: GlossaryTerm[] = [
     featured: true,
     emerging: true,
     status: 'emerging'
+  },
+  // G. SEO / SEARCH
+  {
+    id: 'search-engine-optimization',
+    slug: 'search-engine-optimization',
+    term: 'Search Engine Optimization',
+    category: 'seo',
+    shortDefinition: 'SEO is the practice of improving a website and its content so search engines can understand, discover and potentially rank its pages for relevant queries.',
+    fullDefinition: 'Search Engine Optimization (SEO) encompasses the technical, content, and authority-building practices that help websites rank in organic search results. SEO involves three core pillars: technical SEO (site architecture, crawlability, page speed, structured data), on-page SEO (content quality, keyword optimization, user experience), and off-page SEO (backlinks, brand mentions, authority signals). Modern SEO has evolved from keyword manipulation to creating genuinely helpful content that satisfies user intent while meeting technical requirements for search engine crawlers.',
+    whyItMatters: 'Organic search remains one of the most important channels for B2B discovery, with 68% of online experiences beginning with a search engine (BrightEdge). For B2B companies, SEO drives high-intent traffic from buyers actively researching solutions. Unlike paid advertising, organic search traffic compounds over time and does not stop when you stop paying. However, SEO requires sustained investment and patience—results typically take 6-12 months to materialize.',
+    howItWorks: 'SEO works by aligning your website with how search engines evaluate and rank content. Search engines crawl your site to discover pages, index them to understand content, and rank them based on relevance, authority, and user experience signals. Effective SEO involves: technical optimization (fast loading, mobile-friendly, crawlable structure), content creation (answering user queries comprehensively), authority building (earning backlinks and mentions), and continuous monitoring (tracking rankings, traffic, and conversions).',
+    example: 'A B2B SaaS company selling project management software implements SEO by: creating comprehensive guides on project management methodologies, optimizing technical infrastructure for speed and crawlability, earning backlinks from industry publications through original research, implementing structured data for better search understanding, and continuously updating content based on performance data. Over 12 months, they grow organic traffic from 5,000 to 25,000 monthly visitors, generating 150+ marketing qualified leads.',
+    useCases: [
+      'Driving organic traffic from high-intent searches',
+      'Building brand authority in your industry',
+      'Reducing customer acquisition costs over time',
+      'Capturing demand at all stages of the buyer journey',
+      'Competing against well-funded competitors'
+    ],
+    commonMistakes: [
+      'Focusing only on keywords without considering user intent',
+      'Neglecting technical SEO fundamentals (speed, mobile, crawlability)',
+      'Creating thin content just to target keywords',
+      'Expecting immediate results without sustained investment',
+      'Ignoring the evolution toward AI-powered search'
+    ],
+    relatedTerms: ['semantic-seo', 'topical-authority', 'search-intent', 'e-e-a-t', 'helpful-content', 'ai-search'],
+    synonyms: ['SEO', 'Organic Search Optimization'],
+    confusedWith: ['paid-search', 'content-marketing'],
+    primaryKeyword: 'search engine optimization',
+    secondaryKeywords: ['SEO', 'organic search', 'search optimization'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google Search Central: SEO Fundamentals', url: 'https://developers.google.com/search/docs/fundamentals', description: 'Official Google documentation on SEO' },
+      { title: 'BrightEdge: Organic Search Statistics', url: 'https://www.brightedge.com/', description: 'Research on organic search importance' }
+    ],
+    faq: [
+      { question: 'How long does SEO take to show results?', answer: 'SEO typically requires 6-12 months of sustained effort before showing significant results. Technical fixes may show faster results, while content and authority building take longer. The timeline depends on competition, site authority, and investment level.' },
+      { question: 'Is SEO still relevant with AI search?', answer: 'Yes, but SEO is evolving. Traditional SEO principles (helpful content, technical optimization, authority) remain important. However, you must also optimize for AI search experiences like AI Overviews and LLM retrieval. The fundamentals remain; the tactics evolve.' },
+      { question: 'What is the difference between SEO and content marketing?', answer: 'SEO focuses on technical optimization and search visibility. Content marketing focuses on creating valuable content for your audience. They overlap significantly—good content marketing supports SEO, and good SEO requires good content. SEO is the technical discipline; content marketing is the content creation discipline.' }
+    ],
+    featured: true,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'semantic-seo',
+    slug: 'semantic-seo',
+    term: 'Semantic SEO',
+    category: 'seo',
+    shortDefinition: 'Semantic SEO focuses on the meaning, relationships, entities and broader topic coverage surrounding a search query rather than relying primarily on exact-match keywords.',
+    fullDefinition: 'Semantic SEO is an approach to search optimization that emphasizes understanding and addressing the underlying meaning, context, and relationships within search queries and content. Rather than targeting exact keyword matches, semantic SEO focuses on covering topics comprehensively, addressing related subtopics, and establishing clear entity relationships. This approach aligns with how modern search engines (especially Google with its Knowledge Graph and BERT algorithm) understand and process language—focusing on meaning and context rather than literal keyword matching.',
+    whyItMatters: 'Search engines have evolved far beyond simple keyword matching. Google\'s algorithms now understand context, synonyms, and relationships between concepts. A page about "project management software" should also address related concepts like "team collaboration," "task tracking," "Gantt charts," and "resource allocation" because search engines understand these are semantically related. Semantic SEO helps you rank for a broader range of queries and build topical authority, which is increasingly important for ranking in competitive spaces.',
+    howItWorks: 'Semantic SEO works by: identifying the core topic and all related subtopics, entities, and questions users have; creating comprehensive content that addresses the full semantic field around a topic; using structured data to clearly define entities and relationships; organizing content in topic clusters that demonstrate topical authority; and optimizing for user intent rather than just keywords. Tools like natural language processing APIs, knowledge graph explorers, and topic modeling tools help identify semantic relationships.',
+    example: 'A B2B company selling marketing automation software creates a comprehensive guide on "marketing automation." Instead of just targeting that exact phrase, they cover: types of marketing automation, benefits, implementation steps, integration with CRM, best practices, common mistakes, ROI calculation, vendor comparison, and industry-specific use cases. They create supporting content on each subtopic and interlink them. This comprehensive coverage signals to search engines that they are an authority on the full topic, not just one keyword.',
+    useCases: [
+      'Building topical authority in competitive spaces',
+      'Ranking for a broader range of search queries',
+      'Creating content that matches modern search engine understanding',
+      'Improving content relevance and user satisfaction',
+      'Competing against established competitors'
+    ],
+    commonMistakes: [
+      'Still focusing primarily on exact-match keywords',
+      'Creating thin content that doesn\'t cover the full topic',
+      'Ignoring entity relationships and context',
+      'Not using structured data to clarify entities',
+      'Creating disconnected content instead of topic clusters'
+    ],
+    relatedTerms: ['search-engine-optimization', 'topical-authority', 'topic-cluster', 'entity-seo', 'search-intent'],
+    synonyms: ['Semantic Search Optimization', 'Topic-Focused SEO'],
+    confusedWith: ['search-engine-optimization', 'keyword-research'],
+    primaryKeyword: 'semantic SEO',
+    secondaryKeywords: ['semantic search optimization', 'topic-focused SEO', 'semantic search'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Understanding BERT', url: 'https://blog.google/technology/ai/search-ber/', description: 'Google\'s explanation of BERT and semantic understanding' },
+      { title: 'Search Engine Journal: Semantic SEO Guide', url: 'https://www.searchenginejournal.com/', description: 'Comprehensive guide to semantic SEO' }
+    ],
+    faq: [
+      { question: 'How is semantic SEO different from traditional SEO?', answer: 'Traditional SEO focuses on exact keyword matching and optimization. Semantic SEO focuses on meaning, context, and comprehensive topic coverage. Semantic SEO aligns with how modern search engines understand language and user intent.' },
+      { question: 'What tools help with semantic SEO?', answer: 'Tools like Google\'s Natural Language API, AnswerThePublic, AlsoAsked, and topic modeling tools help identify semantic relationships. Knowledge graph explorers and entity extraction tools help understand entity relationships.' },
+      { question: 'Does semantic SEO replace keyword research?', answer: 'No, semantic SEO enhances keyword research. You still need to understand what terms users search for, but you also need to understand the broader semantic field around those terms. Keyword research informs semantic SEO; it doesn\'t replace it.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'topical-authority',
+    slug: 'topical-authority',
+    term: 'Topical Authority',
+    category: 'seo',
+    shortDefinition: 'Topical authority refers to the depth, breadth and demonstrated relevance of a website\'s content within a particular subject area.',
+    fullDefinition: 'Topical authority is a measure of how comprehensively and authoritatively a website covers a particular topic or subject area. It\'s not just about having content on a topic—it\'s about demonstrating deep expertise through comprehensive coverage, logical content organization, internal linking structure, and external signals of authority (backlinks, mentions, citations). Search engines use topical authority as a ranking signal because sites with strong topical authority are more likely to provide accurate, comprehensive, and helpful information to users.',
+    whyItMatters: 'Topical authority has become increasingly important as search engines prioritize comprehensive, authoritative content over thin, keyword-optimized pages. Sites with strong topical authority tend to rank better across a broader range of related queries, earn more backlinks naturally, and build trust with users. For B2B companies, topical authority establishes thought leadership and drives high-intent traffic from buyers researching solutions in your space.',
+    howItWorks: 'Topical authority is built through: creating comprehensive content that covers all aspects of a topic, organizing content in logical topic clusters with clear pillar pages and supporting content, implementing strong internal linking that demonstrates content relationships, earning external signals of authority (backlinks from authoritative sites, mentions, citations), and continuously updating and expanding content based on performance and user feedback. Search engines evaluate topical authority through content analysis, link analysis, and user engagement signals.',
+    example: 'A B2B SaaS company selling CRM software builds topical authority in "customer relationship management" by creating: a comprehensive pillar page on CRM fundamentals, supporting content on CRM implementation, CRM best practices, CRM integration, CRM for specific industries, CRM comparison guides, and CRM ROI calculation. They interlink all this content logically, earn backlinks from industry publications, and continuously update content based on user feedback. Over time, they become the go-to resource for CRM information, ranking for hundreds of related queries.',
+    useCases: [
+      'Establishing thought leadership in your industry',
+      'Ranking for a broader range of related queries',
+      'Building trust with potential customers',
+      'Earning natural backlinks and mentions',
+      'Competing against established players'
+    ],
+    commonMistakes: [
+      'Creating shallow content that doesn\'t demonstrate depth',
+      'Not organizing content in logical topic clusters',
+      'Neglecting internal linking structure',
+      'Focusing only on individual pages rather than topic coverage',
+      'Not earning external signals of authority'
+    ],
+    relatedTerms: ['search-engine-optimization', 'semantic-seo', 'topic-cluster', 'entity-seo', 'e-e-a-t'],
+    synonyms: ['Subject Authority', 'Domain Authority (topic-specific)'],
+    confusedWith: ['domain-authority', 'content-marketing'],
+    primaryKeyword: 'topical authority',
+    secondaryKeywords: ['topic authority', 'subject authority', 'SEO authority'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google Search Quality Evaluator Guidelines', url: 'https://static.googleusercontent.com/media/guidelines.raterhub.com/en//searchqualityevaluatorguidelines.pdf', description: 'Google\'s guidelines on evaluating content quality and authority' },
+      { title: 'Ahrefs: Topical Authority Guide', url: 'https://ahrefs.com/blog/topical-authority/', description: 'Comprehensive guide to building topical authority' }
+    ],
+    faq: [
+      { question: 'How do you measure topical authority?', answer: 'Topical authority is measured through: ranking performance across related queries, backlink profile quality and relevance, content comprehensiveness and depth, user engagement signals, and external mentions/citations. Tools like Ahrefs, SEMrush, and Moz provide authority metrics.' },
+      { question: 'How long does it take to build topical authority?', answer: 'Building topical authority typically takes 12-24 months of sustained effort. It requires comprehensive content creation, consistent quality, earning backlinks, and building user trust. The timeline depends on competition and investment level.' },
+      { question: 'Can a new site build topical authority quickly?', answer: 'It\'s challenging but possible. Focus on a narrow topic area, create exceptionally comprehensive content, earn high-quality backlinks through original research or unique insights, and provide exceptional user experience. It still takes time, but focused effort can accelerate the process.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'topic-cluster',
+    slug: 'topic-cluster',
+    term: 'Topic Cluster',
+    category: 'seo',
+    shortDefinition: 'A topic cluster is a content architecture where a central pillar topic is supported by related pages covering narrower subtopics, connected through contextual internal links.',
+    fullDefinition: 'A topic cluster (also called a content cluster or pillar-cluster model) is a method of organizing website content around a central "pillar" page that provides comprehensive coverage of a broad topic, supported by multiple "cluster" pages that dive deeper into specific subtopics. All pages in the cluster are interconnected through strategic internal linking, creating a clear content hierarchy that demonstrates topical authority to search engines and helps users navigate related content. This structure aligns with how search engines understand topical relationships and authority.',
+    whyItMatters: 'Topic clusters help search engines understand your content structure and topical authority. When you have a comprehensive pillar page supported by detailed cluster pages, all interconnected, search engines can see that you\'re an authority on the broader topic. This structure also improves user experience by helping visitors find related content and understand the full scope of a topic. For B2B companies, topic clusters are particularly effective for capturing demand across the entire buyer journey.',
+    howItWorks: 'A topic cluster works by: identifying a broad topic that\'s relevant to your business and has search demand, creating a comprehensive pillar page that covers the topic at a high level, identifying subtopics and questions related to the main topic, creating detailed cluster pages for each subtopic, and implementing strategic internal linking between the pillar and all cluster pages (and between related cluster pages). The pillar page links to all cluster pages, cluster pages link back to the pillar, and related cluster pages link to each other.',
+    example: 'A B2B marketing automation company creates a topic cluster around "email marketing": Pillar page: "The Complete Guide to Email Marketing" (covers fundamentals, strategy, best practices, tools, metrics). Cluster pages: "Email Marketing Strategy," "Email Design Best Practices," "Email Automation Workflows," "Email Deliverability Guide," "Email Marketing Metrics," "Email Marketing Tools Comparison," "B2B Email Marketing Guide." All pages interlink strategically, with the pillar linking to all clusters, clusters linking back to the pillar, and related clusters linking to each other.',
+    useCases: [
+      'Building topical authority in competitive spaces',
+      'Capturing search demand across the buyer journey',
+      'Improving user experience and content navigation',
+      'Supporting content marketing and SEO strategies',
+      'Organizing large content libraries'
+    ],
+    commonMistakes: [
+      'Creating pillar pages that aren\'t truly comprehensive',
+      'Not implementing proper internal linking structure',
+      'Creating cluster pages that are too thin or disconnected',
+      'Choosing topics that don\'t align with business goals',
+      'Not updating and expanding the cluster over time'
+    ],
+    relatedTerms: ['topical-authority', 'semantic-seo', 'search-engine-optimization', 'content-marketing', 'internal-linking'],
+    synonyms: ['Content Cluster', 'Pillar-Cluster Model'],
+    confusedWith: ['content-marketing', 'site-architecture'],
+    primaryKeyword: 'topic cluster',
+    secondaryKeywords: ['content cluster', 'pillar cluster', 'topic cluster SEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'HubSpot: Topic Clusters Guide', url: 'https://blog.hubspot.com/marketing/topic-clusters', description: 'HubSpot\'s guide to implementing topic clusters' },
+      { title: 'Search Engine Journal: Topic Clusters', url: 'https://www.searchenginejournal.com/', description: 'Guide to topic cluster implementation' }
+    ],
+    faq: [
+      { question: 'How many cluster pages should a topic cluster have?', answer: 'There\'s no fixed number. A topic cluster might have 5-20 cluster pages depending on the breadth of the topic and search demand. Start with the most important subtopics and expand based on performance and user feedback.' },
+      { question: 'How do you choose topics for topic clusters?', answer: 'Choose topics based on: relevance to your business, search demand (use keyword research), competition level, and your ability to create comprehensive, authoritative content. Focus on topics where you can genuinely demonstrate expertise.' },
+      { question: 'How important is internal linking in topic clusters?', answer: 'Internal linking is critical. It\'s what creates the cluster structure and signals topical relationships to search engines. The pillar should link to all clusters, clusters should link back to the pillar, and related clusters should link to each other. Use descriptive anchor text.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'entity-seo',
+    slug: 'entity-seo',
+    term: 'Entity SEO',
+    category: 'seo',
+    shortDefinition: 'Entity SEO focuses on making people, organizations, products, places, concepts and their relationships clearly understandable to search engines and knowledge systems.',
+    fullDefinition: 'Entity SEO is an approach to search optimization that focuses on clearly defining and connecting entities (people, organizations, products, places, concepts) and their relationships so search engines and knowledge systems can understand them. Rather than optimizing for keywords, entity SEO optimizes for how search engines understand and represent real-world things and their connections. This approach aligns with how modern search engines use knowledge graphs and entity recognition to understand content and provide better search results.',
+    whyItMatters: 'Search engines have moved beyond keyword matching to understanding entities and relationships. When search engines clearly understand what your brand, products, and team members are, and how they relate to each other and to broader concepts, they can better rank your content, display rich results, and include you in knowledge panels and AI-generated answers. For B2B companies, entity SEO is particularly important for brand recognition, product discovery, and establishing authority.',
+    howItWorks: 'Entity SEO works by: clearly defining your key entities (brand, products, team members, locations), using structured data (Schema.org markup) to explicitly define entities and their properties, creating content that establishes entity relationships, earning mentions and citations from authoritative sources, and ensuring consistency in how entities are represented across the web. Tools like Google\'s Knowledge Graph, Schema.org, and entity extraction APIs help identify and optimize entities.',
+    example: 'A B2B SaaS company implements entity SEO by: creating Schema.org markup for their Organization (name, logo, founding date, leadership), Product (name, description, features, pricing), and Person entities (team members with roles and bios); creating comprehensive "About" pages that clearly define the company and its offerings; earning mentions in industry publications; ensuring consistent NAP (Name, Address, Phone) across directories; and creating content that establishes relationships between their products, industry concepts, and customer success stories.',
+    useCases: [
+      'Improving brand recognition in search',
+      'Earning knowledge panel displays',
+      'Improving product discovery',
+      'Establishing team member authority',
+      'Supporting AI search and LLM retrieval'
+    ],
+    commonMistakes: [
+      'Not implementing structured data for key entities',
+      'Inconsistent entity representation across the web',
+      'Not clearly defining entity relationships',
+      'Focusing only on keywords without considering entities',
+      'Not earning external mentions and citations'
+    ],
+    relatedTerms: ['semantic-seo', 'search-engine-optimization', 'topical-authority', 'knowledge-graph', 'structured-data'],
+    synonyms: ['Entity Optimization', 'Knowledge Graph SEO'],
+    confusedWith: ['semantic-seo', 'technical-seo'],
+    primaryKeyword: 'entity SEO',
+    secondaryKeywords: ['entity optimization', 'knowledge graph SEO', 'entity search'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Introduction to Knowledge Graph', url: 'https://blog.google/products/search/introducing-knowledge-graphs-google-search/', description: 'Google\'s explanation of knowledge graphs and entities' },
+      { title: 'Schema.org: Official Documentation', url: 'https://schema.org/', description: 'Official structured data vocabulary' }
+    ],
+    faq: [
+      { question: 'What is an entity in SEO?', answer: 'An entity is a distinct, identifiable thing—person, organization, product, place, or concept—that search engines can understand and represent. Entities have defined properties and relationships with other entities.' },
+      { question: 'How do you optimize for entities?', answer: 'Implement structured data (Schema.org markup), create comprehensive content that clearly defines entities and their relationships, earn mentions and citations from authoritative sources, ensure consistency across the web, and use entity recognition tools to understand how search engines perceive your entities.' },
+      { question: 'How is entity SEO different from keyword SEO?', answer: 'Keyword SEO focuses on matching search queries with content. Entity SEO focuses on clearly defining real-world things and their relationships so search engines understand them. Entity SEO is more about meaning and relationships; keyword SEO is more about literal matching.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'programmatic-seo',
+    slug: 'programmatic-seo',
+    term: 'Programmatic SEO',
+    category: 'seo',
+    shortDefinition: 'Programmatic SEO uses templates, structured datasets and automation to create large numbers of search-focused pages. Quality depends on whether each page provides unique and useful information.',
+    fullDefinition: 'Programmatic SEO (pSEO) is the practice of using templates, structured data, and automation to create large numbers of pages targeting specific search queries. Rather than manually creating each page, pSEO uses a systematic approach: identify a pattern of search queries, create a template that can be populated with unique data for each query, and automate page generation. The key to successful programmatic SEO is ensuring each generated page provides unique, valuable information—not just thin, duplicate content. When done well, pSEO can capture long-tail search demand at scale.',
+    whyItMatters: 'Programmatic SEO allows you to capture search demand for thousands or even millions of specific queries that would be impossible to target with manually created content. For B2B companies, this might mean creating pages for "[tool] vs [tool] comparisons," "[industry] [solution] providers," "[location] [service] companies," or "[use case] [product] examples." When each page provides genuine value, pSEO can drive significant organic traffic. However, poor-quality programmatic SEO can harm your site\'s overall authority.',
+    howItWorks: 'Programmatic SEO works by: identifying a pattern of search queries with common structure (e.g., "best [tool] for [use case]"), creating a structured dataset with unique information for each variation, designing a template that can display this information effectively, automating page generation using the template and data, and ensuring each page provides unique value. The process requires careful planning to ensure quality, proper implementation to avoid technical issues, and ongoing monitoring to maintain quality.',
+    example: 'A B2B software review site implements programmatic SEO to create comparison pages: they identify the pattern "best [software category] for [industry]," create a database of software tools with detailed information (features, pricing, pros/cons, industry fit), design a template that displays comparisons effectively, and automate generation of hundreds of comparison pages. Each page provides unique, valuable information about specific software for specific industries. They earn significant organic traffic from these long-tail queries.',
+    useCases: [
+      'Capturing long-tail search demand at scale',
+      'Creating comparison and vs. pages',
+      'Building location-based landing pages',
+      'Generating industry-specific solution pages',
+      'Creating use case-specific content'
+    ],
+    commonMistakes: [
+      'Creating thin, low-quality pages just to target keywords',
+      'Not ensuring each page provides unique value',
+      'Neglecting technical SEO (duplicate content, crawl issues)',
+      'Not monitoring quality over time',
+      'Scaling too quickly without quality controls'
+    ],
+    relatedTerms: ['search-engine-optimization', 'content-marketing', 'technical-seo', 'content-quality'],
+    synonyms: ['pSEO', 'Automated SEO', 'Scalable SEO'],
+    confusedWith: ['content-marketing', 'technical-seo'],
+    primaryKeyword: 'programmatic SEO',
+    secondaryKeywords: ['pSEO', 'automated SEO', 'scalable SEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Ahrefs: Programmatic SEO Guide', url: 'https://ahrefs.com/blog/programmatic-seo/', description: 'Comprehensive guide to programmatic SEO' },
+      { title: 'Search Engine Journal: Programmatic SEO', url: 'https://www.searchenginejournal.com/', description: 'Guide to implementing programmatic SEO' }
+    ],
+    faq: [
+      { question: 'Is programmatic SEO safe from Google penalties?', answer: 'Programmatic SEO is safe when each page provides unique, valuable information. Google penalizes thin, duplicate, or low-quality content—not the method of creation. Focus on quality and unique value for each page.' },
+      { question: 'What types of content work well for programmatic SEO?', answer: 'Content with clear patterns and structured data works best: comparisons, location-based pages, industry-specific solutions, use case examples, tool directories, and data-driven content. The key is having unique data for each variation.' },
+      { question: 'How do you ensure quality in programmatic SEO?', answer: 'Ensure each page provides unique value, implement quality controls in your template and data, manually review a sample of generated pages, monitor performance and user engagement, and continuously improve based on feedback. Quality should be the priority over quantity.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'search-intent',
+    slug: 'search-intent',
+    term: 'Search Intent',
+    category: 'seo',
+    shortDefinition: 'Search intent is the underlying goal a user has when entering a search query, such as learning, comparing, evaluating, navigating or completing an action.',
+    fullDefinition: 'Search intent (also called user intent or query intent) refers to the primary goal a user aims to achieve when entering a search query. Understanding search intent is critical for SEO because search engines prioritize content that matches user intent. The four main types of search intent are: informational (seeking knowledge), navigational (seeking a specific website or page), commercial investigation (researching before a purchase), and transactional (ready to make a purchase or take action). Modern search engines use sophisticated algorithms to determine intent and rank content accordingly.',
+    whyItMatters: 'Matching search intent is one of the most important factors in SEO. You can have the most comprehensive, well-optimized content, but if it doesn\'t match what users are trying to achieve, it won\'t rank well. For B2B companies, understanding search intent helps you create content that matches each stage of the buyer journey: informational content for awareness, commercial investigation content for consideration, and transactional content for decision. Misaligned intent leads to poor rankings, low engagement, and wasted content investment.',
+    howItWorks: 'Search intent is determined by analyzing: the query itself (keywords and phrasing), the types of content currently ranking for that query, user behavior signals (click-through rates, time on page, bounce rates), and contextual signals (location, device, search history). Search engines use machine learning to understand intent and rank content that best satisfies it. To optimize for intent, you analyze what types of content rank for your target queries, create content that matches that intent, and monitor performance to ensure alignment.',
+    example: 'A B2B SaaS company selling project management software targets three types of queries based on intent: Informational: "what is project management software" (create educational guide), Commercial Investigation: "best project management software for remote teams" (create comparison guide with recommendations), Transactional: "project management software pricing" (create pricing page with clear CTAs). Each piece of content matches the specific intent of the query, increasing the likelihood of ranking and converting.',
+    useCases: [
+      'Creating content that matches buyer journey stages',
+      'Improving search rankings by aligning with intent',
+      'Increasing conversion rates through intent-matched content',
+      'Prioritizing content creation based on intent and value',
+      'Optimizing landing pages for specific intents'
+    ],
+    commonMistakes: [
+      'Creating content without analyzing search intent',
+      'Targeting transactional keywords with informational content',
+      'Ignoring the intent behind long-tail keywords',
+      'Not updating content when intent shifts',
+      'Assuming intent based on keywords without analyzing SERPs'
+    ],
+    relatedTerms: ['search-engine-optimization', 'semantic-seo', 'content-marketing', 'buyer-journey', 'conversion-rate-optimization'],
+    synonyms: ['User Intent', 'Query Intent'],
+    confusedWith: ['keyword-research', 'content-marketing'],
+    primaryKeyword: 'search intent',
+    secondaryKeywords: ['user intent', 'query intent', 'SEO intent'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Understanding Search Intent', url: 'https://developers.google.com/search/docs/fundamentals/creating-helpful-content', description: 'Google\'s guidance on creating content that satisfies user intent' },
+      { title: 'Backlinko: Search Intent Guide', url: 'https://backlinko.com/search-intent', description: 'Comprehensive guide to understanding and optimizing for search intent' }
+    ],
+    faq: [
+      { question: 'What are the four types of search intent?', answer: 'The four main types are: Informational (seeking knowledge), Navigational (seeking a specific site/page), Commercial Investigation (researching before purchase), and Transactional (ready to purchase or take action). Some frameworks combine commercial and transactional into "Commercial."' },
+      { question: 'How do you determine search intent for a keyword?', answer: 'Analyze the query itself, examine what types of content currently rank for that query, look at user behavior signals, and use intent classification tools. The SERP (search engine results page) is the best indicator of what Google thinks the intent is.' },
+      { question: 'Can a keyword have multiple intents?', answer: 'Yes, many keywords have mixed intent. For example, "best CRM software" has commercial investigation intent but could also satisfy informational intent. The primary intent determines what type of content ranks best, but content can satisfy multiple intents.' }
+    ],
+    featured: true,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'information-gain',
+    slug: 'information-gain',
+    term: 'Information Gain',
+    category: 'seo',
+    shortDefinition: 'Information gain in SEO refers to the degree to which content contributes useful information, evidence, analysis or perspective beyond what is already available in competing results.',
+    fullDefinition: 'Information gain is a concept from information theory applied to SEO that measures how much new, useful information content adds beyond what\'s already available in search results. Content with high information gain provides unique data, original research, novel analysis, expert insights, or perspectives that users can\'t easily find elsewhere. Search engines increasingly prioritize content with high information gain because it provides more value to users. In an era of AI-generated content and content saturation, information gain is a key differentiator.',
+    whyItMatters: 'As search results become saturated with similar content (especially with the rise of AI-generated content), information gain becomes a critical ranking factor. Content that simply regurgitates existing information provides little value to users and is less likely to rank well. Content with high information gain—original research, unique data, expert analysis, novel perspectives—stands out, earns more backlinks, ranks better, and drives more conversions. For B2B companies, information gain establishes thought leadership and competitive advantage.',
+    howItWorks: 'Information gain is achieved by: conducting original research and surveys, analyzing proprietary data, providing expert analysis and insights based on real experience, offering unique perspectives or frameworks, including case studies and real examples, and presenting information in novel ways. Search engines evaluate information gain through content analysis, comparing your content to existing results, and measuring user engagement signals. Content with high information gain tends to earn more backlinks, social shares, and user engagement.',
+    example: 'A B2B marketing automation company publishes a report on "State of B2B Marketing Automation 2024" based on a survey of 500 marketing leaders. The report includes original data on adoption rates, challenges, ROI, and trends—information not available elsewhere. This content has high information gain because it provides unique data and insights. It earns backlinks from industry publications, ranks for competitive keywords, and establishes the company as a thought leader.',
+    useCases: [
+      'Differentiating content in competitive spaces',
+      'Earning backlinks and media mentions',
+      'Establishing thought leadership',
+      'Improving search rankings',
+      'Driving conversions through unique insights'
+    ],
+    commonMistakes: [
+      'Creating content that just summarizes existing information',
+      'Not including original data, research, or analysis',
+      'Relying solely on AI-generated content without unique insights',
+      'Not leveraging proprietary data or expertise',
+      'Ignoring the competitive landscape when creating content'
+    ],
+    relatedTerms: ['search-engine-optimization', 'content-marketing', 'topical-authority', 'e-e-a-t', 'helpful-content'],
+    synonyms: ['Content Uniqueness', 'Information Value'],
+    confusedWith: ['content-quality', 'content-marketing'],
+    primaryKeyword: 'information gain',
+    secondaryKeywords: ['information gain SEO', 'content uniqueness', 'unique content'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Original Research Patent', url: 'https://patents.google.com/', description: 'Google\'s patent on identifying original research in content' },
+      { title: 'Ahrefs: Information Gain in SEO', url: 'https://ahrefs.com/blog/information-gain/', description: 'Guide to creating content with high information gain' }
+    ],
+    faq: [
+      { question: 'How do you measure information gain?', answer: 'Information gain is measured by comparing your content to existing search results and evaluating: unique data or research, original analysis, expert insights, novel perspectives, and user engagement signals. Tools like Google\'s NLP API can help analyze content uniqueness.' },
+      { question: 'How do you create content with high information gain?', answer: 'Conduct original research, analyze proprietary data, include expert insights based on real experience, provide unique frameworks or perspectives, include real case studies and examples, and present information in novel ways. Focus on what you can provide that competitors can\'t.' },
+      { question: 'Is information gain more important than keyword optimization?', answer: 'Both are important, but information gain is increasingly critical. You can have perfect keyword optimization, but if your content doesn\'t provide unique value, it won\'t rank well or satisfy users. Information gain differentiates your content in competitive spaces.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'e-e-a-t',
+    slug: 'e-e-a-t',
+    term: 'E-E-A-T',
+    category: 'seo',
+    shortDefinition: 'E-E-A-T stands for Experience, Expertise, Authoritativeness and Trustworthiness. It is a framework used in Google\'s search quality guidance to assess characteristics associated with high-quality content.',
+    fullDefinition: 'E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) is a framework from Google\'s Search Quality Evaluator Guidelines that describes characteristics of high-quality content. Experience refers to first-hand or life experience with the topic. Expertise refers to the knowledge and skill of the content creator. Authoritativeness refers to the reputation and recognition of the creator, content, and website. Trustworthiness refers to the accuracy, reliability, and honesty of the content. While E-E-A-T is not a direct ranking factor, it correlates strongly with content that ranks well because search engines aim to surface trustworthy, authoritative content.',
+    whyItMatters: 'E-E-A-T is particularly important for YMYL (Your Money or Your Life) topics—content that could impact health, financial stability, safety, or wellbeing. However, E-E-A-T matters for all content because search engines prioritize trustworthy, authoritative content. For B2B companies, E-E-A-T is critical because buyers research vendors extensively and need to trust your expertise and authority. Strong E-E-A-T signals help you rank better, earn more backlinks, and convert more visitors.',
+    howItWorks: 'E-E-A-T is demonstrated through: clear author information with credentials and experience, comprehensive content that demonstrates expertise, external signals of authority (backlinks, mentions, citations, reviews), transparent information about the website and organization, accurate and well-sourced information, and positive user signals (engagement, low bounce rates, positive reviews). Search engines evaluate E-E-A-T through content analysis, link analysis, and external signals. While not a direct ranking algorithm, E-E-A-T correlates with ranking success.',
+    example: 'A B2B SaaS company selling cybersecurity software demonstrates E-E-A-T by: having content written by recognized security experts with clear bios and credentials, publishing comprehensive guides that demonstrate deep expertise, earning backlinks from security publications and industry associations, maintaining transparent "About" and "Team" pages, citing sources and providing accurate information, and earning positive reviews and mentions. These signals help them rank for competitive security keywords and build trust with potential customers.',
+    useCases: [
+      'Improving rankings for competitive keywords',
+      'Building trust with potential customers',
+      'Earning backlinks and media mentions',
+      'Establishing thought leadership',
+      'Improving conversion rates through trust'
+    ],
+    commonMistakes: [
+      'Not providing clear author information and credentials',
+      'Creating content without demonstrating real expertise',
+      'Neglecting to earn external authority signals',
+      'Not being transparent about the organization',
+      'Publishing inaccurate or poorly-sourced information'
+    ],
+    relatedTerms: ['search-engine-optimization', 'topical-authority', 'helpful-content', 'content-quality', 'information-gain'],
+    synonyms: ['EAT', 'Search Quality Guidelines'],
+    confusedWith: ['domain-authority', 'content-quality'],
+    primaryKeyword: 'E-E-A-T',
+    secondaryKeywords: ['EAT', 'search quality', 'Google quality guidelines'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google Search Quality Evaluator Guidelines', url: 'https://static.googleusercontent.com/media/guidelines.raterhub.com/en//searchqualityevaluatorguidelines.pdf', description: 'Official Google guidelines on E-E-A-T' },
+      { title: 'Search Engine Journal: E-E-A-T Guide', url: 'https://www.searchenginejournal.com/', description: 'Comprehensive guide to E-E-A-T' }
+    ],
+    faq: [
+      { question: 'Is E-E-A-T a direct ranking factor?', answer: 'No, E-E-A-T is not a direct ranking factor in Google\'s algorithm. However, it\'s used by human quality raters whose feedback helps Google refine its algorithms. Content with strong E-E-A-T tends to rank better because it aligns with what Google\'s algorithms are trying to surface.' },
+      { question: 'What\'s the difference between E-A-T and E-E-A-T?', answer: 'E-E-A-T added "Experience" to the original E-A-T framework in December 2022. Experience refers to first-hand experience with the topic, which is particularly important for topics where real-world experience matters (product reviews, medical advice, etc.).' },
+      { question: 'How do you improve E-E-A-T?', answer: 'Provide clear author information with credentials, demonstrate expertise through comprehensive content, earn backlinks and mentions from authoritative sources, be transparent about your organization, ensure accuracy and proper sourcing, and build positive user signals through engagement and satisfaction.' }
+    ],
+    featured: true,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'helpful-content',
+    slug: 'helpful-content',
+    term: 'Helpful Content',
+    category: 'seo',
+    shortDefinition: 'Helpful content is content created primarily to satisfy users by providing useful, reliable information rather than being produced mainly to manipulate search rankings.',
+    fullDefinition: 'Helpful content is a concept from Google\'s Search Quality guidelines and Helpful Content System that describes content created primarily to help and satisfy users rather than to manipulate search rankings. Helpful content provides original, comprehensive, accurate information that satisfies user intent. It\'s created by people with real expertise and experience, provides unique value, and leaves users feeling they\'ve achieved their goal. Google\'s Helpful Content System identifies and demotes content that provides little value to users, regardless of other SEO factors.',
+    whyItMatters: 'Google\'s Helpful Content System (launched in 2022 and updated since) actively identifies and demotes unhelpful content. This includes content created primarily for search engines, content that summarizes what others have said without adding value, content on trending topics without real expertise, and content that promises answers but doesn\'t deliver. For B2B companies, creating helpful content is essential for ranking, earning trust, and converting visitors. Unhelpful content not only ranks poorly but damages your site\'s overall authority.',
+    howItWorks: 'Helpful content is created by: understanding user intent and creating content that satisfies it, providing original information, research, or analysis, demonstrating real expertise and experience, being comprehensive without being verbose, ensuring accuracy and proper sourcing, presenting information clearly and accessibly, and focusing on user satisfaction rather than search engine manipulation. Google\'s Helpful Content System uses machine learning to identify helpful vs. unhelpful content across your entire site, not just individual pages.',
+    example: 'A B2B SaaS company creates helpful content by: researching what questions their target customers actually have, creating comprehensive guides that answer those questions based on real expertise and experience, including original data and insights, providing clear examples and case studies, ensuring accuracy through expert review, and focusing on genuinely helping users rather than just ranking. Their content ranks well because it satisfies users, earns backlinks naturally, and builds trust.',
+    useCases: [
+      'Improving search rankings through user satisfaction',
+      'Building trust and authority with potential customers',
+      'Earning natural backlinks and mentions',
+      'Differentiating from competitors',
+      'Supporting the entire buyer journey'
+    ],
+    commonMistakes: [
+      'Creating content primarily for search engines rather than users',
+      'Summarizing existing content without adding unique value',
+      'Writing about topics without real expertise or experience',
+      'Prioritizing quantity over quality',
+      'Not updating or improving content over time'
+    ],
+    relatedTerms: ['search-engine-optimization', 'e-e-a-t', 'information-gain', 'content-quality', 'search-intent'],
+    synonyms: ['User-First Content', 'Quality Content'],
+    confusedWith: ['content-marketing', 'content-quality'],
+    primaryKeyword: 'helpful content',
+    secondaryKeywords: ['Google helpful content', 'user-first content', 'quality content'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Helpful Content System', url: 'https://developers.google.com/search/docs/fundamentals/creating-helpful-content', description: 'Official Google documentation on helpful content' },
+      { title: 'Google Search Central Blog: Helpful Content Update', url: 'https://blog.google/products/search/', description: 'Google\'s announcement and guidance on helpful content' }
+    ],
+    faq: [
+      { question: 'How does Google determine if content is helpful?', answer: 'Google uses a machine learning system to identify helpful vs. unhelpful content across your site. It evaluates factors like: whether content satisfies users, provides original value, demonstrates expertise, and leaves users feeling they\'ve achieved their goal. It\'s a site-wide system, not page-by-page.' },
+      { question: 'Can AI-generated content be helpful?', answer: 'Yes, AI-generated content can be helpful if it provides genuine value to users. The issue isn\'t how content is created, but whether it\'s helpful. However, AI content often lacks original insights, real experience, and unique value—making it more likely to be unhelpful.' },
+      { question: 'How do you recover from a helpful content penalty?', answer: 'Identify and improve or remove unhelpful content. Focus on creating content that genuinely helps users, demonstrates real expertise, and provides unique value. The helpful content system runs continuously, so improvements will be reflected over time.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'zero-click-search',
+    slug: 'zero-click-search',
+    term: 'Zero-Click Search',
+    category: 'seo',
+    shortDefinition: 'Zero-click search occurs when a user obtains the information they need directly from a search results page without clicking through to a website.',
+    fullDefinition: 'Zero-click search refers to searches where users find the information they need directly on the search engine results page (SERP) without clicking through to a website. This happens through SERP features like featured snippets, knowledge panels, instant answers, calculators, and AI-generated overviews. Zero-click searches have increased dramatically as search engines provide more direct answers. For marketers, this means that while your content may rank well, it might not drive clicks if the information is fully satisfied on the SERP.',
+    whyItMatters: 'Studies show that over 50% of searches result in zero clicks (though this varies by query type and industry). For B2B companies, this has significant implications: your content might rank #1 but drive minimal traffic if the answer is fully satisfied in a featured snippet or AI overview. However, zero-click searches aren\'t all bad—they can still build brand awareness and authority. The key is understanding which queries drive zero-click behavior and optimizing your strategy accordingly.',
+    howItWorks: 'Zero-click searches happen when search engines can fully satisfy user intent on the SERP through: featured snippets (concise answers extracted from web pages), knowledge panels (information about entities), instant answers (calculators, conversions, definitions), AI overviews (AI-generated summaries), and other SERP features. Search engines determine when to show these features based on query type, user intent, and available information. For informational queries with clear, concise answers, zero-click rates are highest.',
+    example: 'A user searches "what is marketing automation." Google displays a featured snippet with a concise definition extracted from a comprehensive guide, plus a knowledge panel about marketing automation. The user gets the information they need without clicking through. The website that provided the featured snippet gets brand exposure but no click. However, if the user wants more detailed information, they might click through to the full guide.',
+    useCases: [
+      'Building brand awareness through SERP features',
+      'Establishing authority through featured snippets',
+      'Optimizing for queries that drive clicks vs. zero-click',
+      'Balancing informational and commercial content',
+      'Adapting strategy to AI search behavior'
+    ],
+    commonMistakes: [
+      'Focusing only on rankings without considering click-through rates',
+      'Not optimizing for SERP features',
+      'Ignoring the impact of zero-click searches on traffic',
+      'Not adapting strategy to AI search and AI overviews',
+      'Creating only informational content without commercial intent'
+    ],
+    relatedTerms: ['search-engine-optimization', 'serp-features', 'ai-overviews', 'search-intent', 'featured-snippets'],
+    synonyms: ['Zero-Click Searches', 'No-Click Searches'],
+    confusedWith: ['featured-snippets', 'search-engine-optimization'],
+    primaryKeyword: 'zero-click search',
+    secondaryKeywords: ['zero-click searches', 'no-click searches', 'zero click SEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'SparkToro: Zero-Click Search Study', url: 'https://sparktoro.com/', description: 'Research on zero-click search behavior' },
+      { title: 'Moz: Zero-Click Searches', url: 'https://moz.com/blog/zero-click-searches', description: 'Analysis of zero-click search trends' }
+    ],
+    faq: [
+      { question: 'What percentage of searches are zero-click?', answer: 'Studies vary, but research suggests 50-65% of searches result in zero clicks. The rate varies by query type, industry, and whether AI overviews are displayed. Informational queries have higher zero-click rates than commercial or transactional queries.' },
+      { question: 'Are zero-click searches bad for SEO?', answer: 'Not necessarily. Zero-click searches can still build brand awareness and authority. However, they reduce organic traffic. The key is understanding which queries drive zero-click behavior and optimizing your strategy to balance visibility and traffic.' },
+      { question: 'How do you optimize for zero-click searches?', answer: 'Optimize for SERP features (featured snippets, knowledge panels), create content that\'s likely to be featured, balance informational and commercial content, focus on queries that drive clicks, and build brand authority even in zero-click scenarios.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'search-generative-experience',
+    slug: 'search-generative-experience',
+    term: 'Search Generative Experience',
+    category: 'seo',
+    shortDefinition: 'Search Generative Experience refers to search interfaces that use generative AI to synthesize answers and information within the search experience.',
+    fullDefinition: 'Search Generative Experience (SGE) is Google\'s implementation of generative AI in search, now called AI Overviews. SGE uses large language models to synthesize information from multiple sources and generate comprehensive answers directly in the search results. Rather than just providing a list of links, SGE provides AI-generated summaries that answer queries using information retrieved from indexed web pages. SGE represents a fundamental shift in how users interact with search and how websites are discovered.',
+    whyItMatters: 'SGE/AI Overviews change the search experience fundamentally. Users may get answers without clicking through to websites, potentially reducing organic traffic. However, sites cited in AI Overviews gain prominent visibility. For B2B companies, understanding SGE is critical for adapting SEO strategy, optimizing for AI search, and ensuring visibility in the evolving search landscape. SGE is part of the broader shift toward AI-powered search.',
+    howItWorks: 'SGE works by: analyzing the user\'s query, retrieving relevant information from indexed web pages, using a large language model to synthesize a comprehensive answer, and displaying the AI-generated summary prominently in search results. The AI overview may cite sources, and users can click through to source pages for more information. SGE appears for queries where direct answers are valuable, particularly informational queries. Google is continuously expanding where and how SGE appears.',
+    example: 'A user searches "how to improve email marketing open rates." Google displays an AI Overview at the top of search results with a synthesized answer covering best practices, tips, and strategies, citing multiple sources. The user receives a comprehensive answer without clicking through links, though they can click cited sources for more detail. The websites cited gain visibility but may receive fewer clicks.',
+    useCases: [
+      'Understanding the impact on organic traffic',
+      'Optimizing content for AI Overview inclusion',
+      'Adapting SEO strategy to AI search',
+      'Tracking visibility in AI Overviews',
+      'Balancing traditional SEO and AI search optimization'
+    ],
+    commonMistakes: [
+      'Ignoring AI Overviews and their impact',
+      'Not optimizing content for AI retrieval and citation',
+      'Assuming AI Overviews work the same as traditional search',
+      'Not tracking AI Overview visibility and impact',
+      'Panic about traffic loss without adapting strategy'
+    ],
+    relatedTerms: ['ai-overviews', 'ai-search', 'generative-search', 'search-engine-optimization', 'zero-click-search'],
+    synonyms: ['SGE', 'AI Overviews', 'Google AI Search'],
+    confusedWith: ['ai-overviews', 'ai-search'],
+    primaryKeyword: 'Search Generative Experience',
+    secondaryKeywords: ['SGE', 'Google SGE', 'AI search Google'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: AI Overviews', url: 'https://blog.google/products/search/generative-ai/', description: 'Official Google documentation on AI in search' },
+      { title: 'Search Engine Land: SGE Guide', url: 'https://searchengineland.com/', description: 'Comprehensive coverage of Search Generative Experience' }
+    ],
+    faq: [
+      { question: 'Is SGE the same as AI Overviews?', answer: 'Yes, SGE (Search Generative Experience) is now called AI Overviews. Google rebranded SGE to AI Overviews as the feature rolled out more broadly. They refer to the same feature.' },
+      { question: 'How does SGE affect organic traffic?', answer: 'SGE can reduce clicks for some queries by providing direct answers. However, it can also increase visibility for cited sites. Impact varies by query type and industry. Informational queries see more zero-click behavior; commercial queries still drive clicks.' },
+      { question: 'How do you optimize for SGE?', answer: 'Create clear, well-structured content that directly answers questions. Use structured data. Establish topical authority. Ensure content is high-quality and citable. Optimize for AI retrieval and synthesis, not just keyword ranking.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'generative-search',
+    slug: 'generative-search',
+    term: 'Generative Search',
+    category: 'seo',
+    shortDefinition: 'Generative search uses AI to generate synthesized responses to user queries using retrieved or indexed information rather than presenting only traditional ranked results.',
+    fullDefinition: 'Generative search is a broader term encompassing all search experiences that use generative AI to create synthesized responses to user queries. Unlike traditional search that presents a list of ranked links, generative search uses large language models to retrieve relevant information and generate comprehensive answers. Examples include Google\'s AI Overviews (formerly SGE), Bing\'s Copilot, Perplexity, ChatGPT with search, and other AI-powered search experiences. Generative search represents a fundamental shift in how users discover information.',
+    whyItMatters: 'Generative search is changing how users find information and how brands are discovered. Users increasingly receive direct answers from AI rather than clicking through to websites. This changes discoverability, traffic patterns, and SEO strategy. For B2B companies, optimizing for generative search is becoming as important as traditional SEO. Understanding how generative search works and how to optimize for it is critical for maintaining visibility.',
+    howItWorks: 'Generative search works by: processing the user\'s query using natural language understanding, retrieving relevant information from indexed sources (web pages, documents, databases), using a large language model to synthesize a comprehensive answer, and presenting the AI-generated response to the user. The AI may cite sources, and users can often click through for more information. Different generative search platforms have different approaches, but all use AI to generate answers rather than just presenting links.',
+    example: 'A user asks Perplexity "What are the best B2B marketing automation platforms?" Perplexity retrieves information from multiple sources, synthesizes a comprehensive comparison of platforms like HubSpot, Marketo, and Pardot, provides recommendations based on use cases, and cites sources. The user receives a direct answer without clicking through links, though they can click cited sources for more detail.',
+    useCases: [
+      'Understanding the shift to AI-powered search',
+      'Optimizing for AI search visibility',
+      'Adapting SEO strategy to generative search',
+      'Tracking visibility across AI platforms',
+      'Balancing traditional and AI search optimization'
+    ],
+    commonMistakes: [
+      'Ignoring generative search platforms',
+      'Not optimizing content for AI retrieval and synthesis',
+      'Assuming generative search works the same as traditional search',
+      'Not tracking visibility in AI search platforms',
+      'Focusing only on Google and ignoring other AI platforms'
+    ],
+    relatedTerms: ['ai-search', 'ai-overviews', 'search-generative-experience', 'search-engine-optimization', 'llm-optimization'],
+    synonyms: ['AI Search', 'AI-Powered Search'],
+    confusedWith: ['ai-search', 'search-generative-experience'],
+    primaryKeyword: 'generative search',
+    secondaryKeywords: ['AI search', 'AI-powered search', 'generative AI search'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Journal: Generative Search', url: 'https://www.searchenginejournal.com/', description: 'Coverage of generative search developments' },
+      { title: 'Moz: AI in Search', url: 'https://moz.com/blog/', description: 'Analysis of AI-powered search trends' }
+    ],
+    faq: [
+      { question: 'What are the main generative search platforms?', answer: 'Major platforms include Google AI Overviews, Bing Copilot, Perplexity, ChatGPT with search, Claude with search, and others. Each has different approaches to generative search.' },
+      { question: 'How is generative search different from traditional search?', answer: 'Traditional search presents ranked links. Generative search uses AI to synthesize answers from multiple sources. Users receive direct answers rather than navigating through links.' },
+      { question: 'Will generative search replace traditional search?', answer: 'Generative search is becoming more prevalent, but traditional search still drives significant traffic. Most likely, both will coexist, with different use cases. Optimizing for both is the best strategy.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'ai-search-optimization',
+    slug: 'ai-search-optimization',
+    term: 'AI Search Optimization',
+    category: 'seo',
+    shortDefinition: 'AI search optimization focuses on making information understandable, retrievable and useful within AI-powered search and answer experiences.',
+    fullDefinition: 'AI search optimization (also called AI SEO, LLM optimization, or GEO/AEO) is the practice of optimizing content and information architecture so that AI-powered search systems can accurately understand, retrieve, and represent that information. Unlike traditional SEO that optimizes for search engine rankings, AI search optimization optimizes for AI retrieval, synthesis, and citation. This includes making content clear, well-structured, factually accurate, and citable so AI systems can use it to generate answers.',
+    whyItMatters: 'As AI-powered search becomes more prevalent, optimizing for AI search is becoming as important as traditional SEO. Content not optimized for AI may not be retrieved, may be misrepresented, or may not be cited in AI responses. For B2B companies, AI search optimization ensures visibility in AI search experiences, accurate brand representation, and traffic from AI platforms. It\'s a critical component of modern search strategy.',
+    howItWorks: 'AI search optimization works by: creating clear, well-structured content that directly answers questions, using semantic HTML and structured data to help AI understand content, establishing entity clarity so AI can accurately identify and represent your brand, creating comprehensive topical coverage to establish authority, ensuring content is factual, citable, and authoritative, and using clear, unambiguous language that AI can accurately interpret. The goal is to make your content the go-to source for AI systems when generating answers.',
+    example: 'A B2B SaaS company optimizes for AI search by: creating comprehensive, well-structured documentation that directly answers common questions about their product, using semantic HTML and structured data to help AI understand their content, establishing clear entity definitions for their brand, products, and key concepts, creating comprehensive topical coverage of their domain, and ensuring all content is factual and citable. When users ask AI models about their product category, their content is retrieved, accurately represented, and cited.',
+    useCases: [
+      'Optimizing for AI search visibility',
+      'Ensuring accurate brand representation in AI',
+      'Driving traffic from AI platforms',
+      'Establishing authority for AI citation',
+      'Adapting to the evolution of search'
+    ],
+    commonMistakes: [
+      'Treating AI search optimization as identical to traditional SEO',
+      'Not establishing clear entity definitions',
+      'Creating content that isn\'t directly answerable or retrievable',
+      'Ignoring semantic structure and markup',
+      'Not establishing topical authority for AI citation'
+    ],
+    relatedTerms: ['llm-optimization', 'llm-visibility', 'ai-search', 'ai-overviews', 'ai-citation', 'search-engine-optimization'],
+    synonyms: ['AI SEO', 'LLM Optimization', 'GEO', 'AEO'],
+    confusedWith: ['search-engine-optimization', 'llm-optimization'],
+    primaryKeyword: 'AI search optimization',
+    secondaryKeywords: ['AI SEO', 'LLM optimization', 'GEO', 'AEO'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Search Engine Journal: AI Search Optimization', url: 'https://www.searchenginejournal.com/', description: 'Guide to optimizing for AI search' },
+      { title: 'Moz: AI SEO Guide', url: 'https://moz.com/blog/', description: 'Comprehensive guide to AI search optimization' }
+    ],
+    faq: [
+      { question: 'How is AI search optimization different from traditional SEO?', answer: 'Traditional SEO optimizes for search engine rankings and click-through. AI search optimization optimizes for AI retrieval, understanding, and citation. SEO focuses on keywords and links; AI optimization focuses on entity clarity, semantic structure, and answerability.' },
+      { question: 'What are the key practices for AI search optimization?', answer: 'Create clear, well-structured content that directly answers questions. Use semantic HTML and structured data. Establish entity clarity. Create comprehensive topical coverage. Ensure content is factual, citable, and authoritative.' },
+      { question: 'How do you measure AI search optimization effectiveness?', answer: 'Track AI search visibility, citation frequency in AI responses, accuracy of brand representation in AI content, and traffic from AI platforms. Use AI search monitoring tools to track performance.' }
+    ],
+    featured: true,
+    emerging: true,
+    status: 'emerging'
+  },
+  {
+    id: 'search-visibility',
+    slug: 'search-visibility',
+    term: 'Search Visibility',
+    category: 'seo',
+    shortDefinition: 'Search visibility describes how prominently and frequently a website, page or brand appears across relevant search results.',
+    fullDefinition: 'Search visibility is a metric that measures how often and how prominently a website, page, or brand appears in search results for relevant queries. It\'s broader than just rankings—it encompasses rankings across all relevant keywords, presence in SERP features (featured snippets, knowledge panels, AI overviews), and visibility across different search platforms (Google, Bing, AI search platforms). High search visibility means you appear frequently and prominently for queries your target audience searches.',
+    whyItMatters: 'Search visibility directly correlates with organic traffic, brand awareness, and business results. Higher visibility means more impressions, more clicks, more traffic, and more opportunities. For B2B companies, search visibility is critical for capturing demand at all stages of the buyer journey. Tracking search visibility (not just individual rankings) gives you a more complete picture of your search performance and opportunities.',
+    howItWorks: 'Search visibility is calculated by analyzing: rankings across all relevant keywords (weighted by search volume and importance), presence in SERP features, visibility across search platforms, and trends over time. SEO tools like Ahrefs, SEMrush, and Moz provide search visibility metrics. Improving search visibility involves: optimizing existing content, creating new content for relevant queries, earning SERP features, optimizing for AI search, and continuously monitoring and improving performance.',
+    example: 'A B2B SaaS company tracks their search visibility and finds they appear in top 10 results for 150 relevant keywords, have 12 featured snippets, and appear in AI Overviews for 25 queries. Their search visibility score is 68% (meaning they appear in 68% of relevant searches). They identify opportunities to improve visibility for 50 additional keywords and work to earn more SERP features and AI Overview citations.',
+    useCases: [
+      'Measuring overall search performance',
+      'Identifying opportunities for improvement',
+      'Tracking progress over time',
+      'Comparing against competitors',
+      'Prioritizing SEO efforts'
+    ],
+    commonMistakes: [
+      'Focusing only on individual keyword rankings',
+      'Not tracking visibility across all relevant queries',
+      'Ignoring SERP features and AI search visibility',
+      'Not comparing against competitors',
+      'Not tracking visibility trends over time'
+    ],
+    relatedTerms: ['search-engine-optimization', 'search-intent', 'serp-features', 'ai-overviews', 'organic-traffic'],
+    synonyms: ['SEO Visibility', 'Search Presence'],
+    confusedWith: ['search-rankings', 'organic-traffic'],
+    primaryKeyword: 'search visibility',
+    secondaryKeywords: ['SEO visibility', 'search presence', 'search performance'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Ahrefs: Search Visibility Guide', url: 'https://ahrefs.com/blog/search-visibility/', description: 'Guide to measuring and improving search visibility' },
+      { title: 'SEMrush: Visibility Metrics', url: 'https://www.semrush.com/', description: 'SEMrush\'s visibility tracking capabilities' }
+    ],
+    faq: [
+      { question: 'How is search visibility different from search rankings?', answer: 'Search rankings measure your position for individual keywords. Search visibility measures your overall presence across all relevant queries, including SERP features and AI search. Visibility is a more comprehensive metric.' },
+      { question: 'How do you measure search visibility?', answer: 'Use SEO tools like Ahrefs, SEMrush, or Moz that track rankings across all relevant keywords, SERP feature presence, and calculate a visibility score. Track visibility over time and compare against competitors.' },
+      { question: 'How do you improve search visibility?', answer: 'Optimize existing content, create new content for relevant queries, earn SERP features (featured snippets, knowledge panels), optimize for AI search, build topical authority, earn backlinks, and continuously monitor and improve.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'serp-features',
+    slug: 'serp-features',
+    term: 'SERP Features',
+    category: 'seo',
+    shortDefinition: 'SERP features are search-result elements beyond traditional organic blue links, including featured snippets, knowledge panels, image results, video results, local packs and other enhanced result types.',
+    fullDefinition: 'SERP (Search Engine Results Page) features are enhanced result types that appear on search results pages beyond traditional organic blue links. These include featured snippets (concise answers extracted from web pages), knowledge panels (information about entities), image carousels, video results, local packs (map results for local searches), people also ask boxes, site links, reviews, and many others. SERP features provide users with quick answers and rich information directly on the results page. For marketers, earning SERP features increases visibility and can drive significant traffic, though some features (like featured snippets) may reduce clicks to the source page.',
+    whyItMatters: 'SERP features dramatically change the search experience and can significantly impact traffic. Appearing in SERP features increases visibility and can drive substantial traffic. However, some features (especially featured snippets and AI overviews) may reduce clicks to the source page because users get answers without clicking. For B2B companies, earning SERP features is important for visibility, authority, and traffic. Understanding which features appear for your target queries helps you optimize your strategy.',
+    howItWorks: 'SERP features are triggered by search engines based on query type, user intent, and available information. Featured snippets are extracted from pages that provide clear, concise answers. Knowledge panels are generated from structured data and authoritative sources. Local packs appear for location-based queries. Search engines determine which features to show based on what will best satisfy user intent. To earn SERP features, you need to provide the type of information search engines are looking for in a format they can easily extract.',
+    example: 'A B2B SaaS company optimizes for SERP features by: structuring content to earn featured snippets (clear headings, concise answers, lists and tables), implementing structured data for knowledge panels, creating video content for video carousels, optimizing for local search if relevant, and monitoring which SERP features appear for their target queries. They earn featured snippets for 15 queries, increasing visibility significantly.',
+    useCases: [
+      'Increasing search visibility',
+      'Driving traffic through rich results',
+      'Building authority through featured snippets',
+      'Capturing local search traffic',
+      'Enhancing brand presence in search'
+    ],
+    commonMistakes: [
+      'Not optimizing for SERP features',
+      'Not monitoring which features appear for target queries',
+      'Ignoring the impact of SERP features on click-through rates',
+      'Not implementing structured data',
+      'Not adapting strategy to AI overviews and new SERP features'
+    ],
+    relatedTerms: ['search-engine-optimization', 'search-visibility', 'featured-snippets', 'knowledge-graph', 'ai-overviews'],
+    synonyms: ['Search Features', 'Rich Results'],
+    confusedWith: ['search-engine-optimization', 'structured-data'],
+    primaryKeyword: 'SERP features',
+    secondaryKeywords: ['search features', 'rich results', 'SERP elements'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Search Features', url: 'https://developers.google.com/search/docs/appearance/search-features', description: 'Official Google documentation on SERP features' },
+      { title: 'Moz: SERP Features Guide', url: 'https://moz.com/learn/seo/serp-features', description: 'Comprehensive guide to SERP features' }
+    ],
+    faq: [
+      { question: 'What are the most common SERP features?', answer: 'Common SERP features include: featured snippets, knowledge panels, image carousels, video results, local packs, people also ask, site links, reviews, and AI overviews. The features that appear depend on query type and intent.' },
+      { question: 'How do you earn featured snippets?', answer: 'Structure content with clear headings, provide concise answers to questions, use lists and tables where appropriate, and ensure content is comprehensive and authoritative. Featured snippets are extracted from pages that clearly answer questions.' },
+      { question: 'Do SERP features increase or decrease traffic?', answer: 'It depends. SERP features increase visibility but may decrease clicks for some features (like featured snippets where users get answers without clicking). However, they can also increase clicks by making your result more prominent. Monitor impact for your specific queries.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
+  },
+  {
+    id: 'knowledge-graph',
+    slug: 'knowledge-graph',
+    term: 'Knowledge Graph',
+    category: 'seo',
+    shortDefinition: 'A knowledge graph represents entities and relationships between them in a structured form, allowing systems to understand concepts and how they relate to one another.',
+    fullDefinition: 'A knowledge graph is a structured representation of entities (people, organizations, products, places, concepts) and the relationships between them. Google\'s Knowledge Graph, launched in 2012, was a major advancement in search understanding—moving beyond keyword matching to understanding real-world entities and their connections. Knowledge graphs power knowledge panels, enhance search understanding, and enable more intelligent search results. For SEO, understanding knowledge graphs is important for entity SEO, structured data, and ensuring your brand and products are properly understood by search engines.',
+    whyItMatters: 'Knowledge graphs are foundational to how modern search engines understand content and entities. When your brand, products, and team members are properly represented in knowledge graphs, you get better search understanding, potential knowledge panel displays, and better representation in AI search. For B2B companies, knowledge graph optimization is part of entity SEO and helps ensure search engines accurately understand and represent your business.',
+    howItWorks: 'Knowledge graphs work by storing entities and their properties (attributes) and relationships in a structured format. For example, a knowledge graph might store: "Company X" (entity) has "founding date: 2015" (property), "CEO: John Smith" (relationship), "product: Product Y" (relationship). Search engines use knowledge graphs to understand queries, generate knowledge panels, enhance search results, and power AI features. Entities are added to knowledge graphs through structured data, authoritative sources, and consistent information across the web.',
+    example: 'Google\'s Knowledge Graph includes entities for major companies, their products, leadership, and relationships. When you search "Apple," you see a knowledge panel with information about Apple Inc., including logo, CEO, founding date, products, and related entities. This information comes from the knowledge graph. B2B companies can influence their knowledge graph representation through structured data, authoritative sources, and consistent information.',
+    useCases: [
+      'Improving search engine understanding of your brand',
+      'Earning knowledge panel displays',
+      'Supporting entity SEO',
+      'Enhancing AI search representation',
+      'Improving search results for brand queries'
+    ],
+    commonMistakes: [
+      'Not implementing structured data for key entities',
+      'Inconsistent information across the web',
+      'Not clearly defining entity relationships',
+      'Ignoring knowledge graph optimization',
+      'Not earning authoritative mentions and citations'
+    ],
+    relatedTerms: ['entity-seo', 'structured-data', 'semantic-seo', 'serp-features', 'search-engine-optimization'],
+    synonyms: ['Knowledge Base', 'Entity Graph'],
+    confusedWith: ['entity-seo', 'structured-data'],
+    primaryKeyword: 'knowledge graph',
+    secondaryKeywords: ['Google Knowledge Graph', 'entity graph', 'knowledge base'],
+    publishedDate: '2024-09-15',
+    updatedDate: '2024-09-15',
+    sources: [
+      { title: 'Google: Introducing the Knowledge Graph', url: 'https://blog.google/products/search/introducing-knowledge-graphs-google-search/', description: 'Google\'s announcement of the Knowledge Graph' },
+      { title: 'Wikipedia: Knowledge Graph', url: 'https://en.wikipedia.org/wiki/Knowledge_Graph', description: 'Overview of knowledge graphs in search' }
+    ],
+    faq: [
+      { question: 'What is Google\'s Knowledge Graph?', answer: 'Google\'s Knowledge Graph is a structured database of entities and relationships that helps Google understand real-world things and their connections. It powers knowledge panels and enhances search understanding.' },
+      { question: 'How do you get into the Knowledge Graph?', answer: 'Implement structured data (Schema.org markup), ensure consistent information across the web, earn authoritative mentions and citations, and create comprehensive content that clearly defines entities and relationships. There\'s no guaranteed way to get into the Knowledge Graph, but these practices help.' },
+      { question: 'How does the Knowledge Graph relate to entity SEO?', answer: 'The Knowledge Graph is Google\'s implementation of entity understanding. Entity SEO is the practice of optimizing for entity understanding. The Knowledge Graph is the system; entity SEO is the optimization practice.' }
+    ],
+    featured: false,
+    emerging: false,
+    status: 'established'
   }
 ];
 
