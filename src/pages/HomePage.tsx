@@ -53,6 +53,78 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* EXPERIENCE & EXPERTISE - Compact Credibility Section */}
+      <section className="py-12 border-b" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Experience & Industries */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Experience</span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>6+ Years</div>
+                  <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>B2B Marketing Experience</div>
+                </div>
+                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>Industries</div>
+                  <div className="flex flex-wrap gap-2">
+                    {['B2B SaaS', 'Staffing', 'HR Technology', 'MarTech', 'Digital'].map((industry) => (
+                      <span key={industry} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                        {industry}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Companies & Organizations */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Organizations</span>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { name: 'LanceSoft', role: 'Growth Marketing & GTM' },
+                  { name: 'Wisestep (Avance Consulting)', role: 'Senior Growth Marketing & GTM Strategist' },
+                  { name: 'Sportskeeda', role: 'Affiliate & Growth Marketing Manager' },
+                  { name: 'Velarudh Infotech', role: 'SEO Content Strategist' },
+                ].map((org) => (
+                  <div key={org.name} className="pb-3 border-b last:border-b-0" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{org.name}</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{org.role}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tools & Platforms */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Tools & Platforms</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['HubSpot', 'Salesforce', 'Clay', 'Apollo', '6sense', 'Salesforce Marketing Cloud', 'Zoho CRM', 'Marketo', 'Factors.ai', 'RB2B'].map((tool) => (
+                  <span key={tool} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+                    {tool}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                  <span className="font-semibold">Based on documented project experience</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PROOF STRIP - Horizontal Metrics Rail */}
       <section className="py-12 border-y" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
