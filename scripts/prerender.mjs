@@ -19,6 +19,11 @@ import { createRequire } from 'node:module';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// Downloaded browsers must live inside node_modules (not ~/.cache) so CI
+// hosts that cache node_modules (Vercel) reuse them across builds. Has to be
+// set before playwright-core is imported.
+process.env.PLAYWRIGHT_BROWSERS_PATH ??= '0';
+
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
 const PORT = 4180;
@@ -84,9 +89,46 @@ if (!up) {
   throw new Error('vite preview did not start');
 }
 
-// 4. Capture routes with a real browser.
+// 4. Capture routes with a real browser. Prefer an installed Chrome (dev
+//    machines); containers without one (Vercel etc.) fall back to Playwright's
+//    bundled Chromium, downloading it on first use. If no browser can run at
+//    all, prerendering is skipped so the deploy still ships the SPA.
 const { chromium } = await import('playwright-core');
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const noSandbox = ['--no-sandbox', '--disable-setuid-sandbox'];
+const launchers = [
+  { label: 'system Chrome', run: () => chromium.launch({ channel: 'chrome', headless: true }) },
+  {
+    label: 'bundled Chromium',
+    run: () => {
+      execSync('npx playwright-core install chromium', { cwd: root, stdio: 'inherit' });
+      return chromium.launch({ headless: true, args: noSandbox });
+    },
+  },
+  {
+    label: 'bundled Chromium headless shell',
+    run: () => {
+      execSync('npx playwright-core install chromium-headless-shell', { cwd: root, stdio: 'inherit' });
+      return chromium.launch({ channel: 'chromium-headless-shell', headless: true, args: noSandbox });
+    },
+  },
+];
+let browser;
+let lastLaunchError;
+for (const { label, run } of launchers) {
+  try {
+    browser = await run();
+    console.log(`Browser: ${label}`);
+    break;
+  } catch (err) {
+    lastLaunchError = err;
+  }
+}
+if (!browser) {
+  console.warn(`\nWARNING: no usable browser found; skipping prerender.\n  ${String(lastLaunchError).split('\n')[0]}\n`);
+  try { process.kill(-preview.pid, 'SIGTERM'); } catch { preview.kill(); }
+  rmSync(tmpData, { force: true });
+  process.exit(0);
+}
 const context = await browser.newContext();
 
 async function capture(route) {
