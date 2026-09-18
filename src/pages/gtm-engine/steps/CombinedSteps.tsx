@@ -65,7 +65,7 @@ export function Step4ICP({ input, updateInput }: StepProps) {
         </div>
         <div>
           <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Number of Potential Accounts</label>
-          <input type="number" value={icp.potentialAccounts || ''} onChange={(e) => updateInput({ icp: { ...icp, potentialAccounts: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="1000" />
+          <input min="0" type="number" value={icp.potentialAccounts || ''} onChange={(e) => updateInput({ icp: { ...icp, potentialAccounts: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="1000" />
         </div>
       </div>
     </div>
@@ -164,11 +164,11 @@ export function Step7Resources({ input, updateInput }: StepProps) {
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Marketing Team Size *</label>
-          <input type="number" value={resources.marketingTeamSize || ''} onChange={(e) => updateInput({ resources: { ...resources, marketingTeamSize: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="2" required />
+          <input min="0" type="number" value={resources.marketingTeamSize || ''} onChange={(e) => updateInput({ resources: { ...resources, marketingTeamSize: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="2" required />
         </div>
         <div>
           <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Sales Team Size *</label>
-          <input type="number" value={resources.salesTeamSize || ''} onChange={(e) => updateInput({ resources: { ...resources, salesTeamSize: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="3" required />
+          <input min="0" type="number" value={resources.salesTeamSize || ''} onChange={(e) => updateInput({ resources: { ...resources, salesTeamSize: Number(e.target.value) } })} className="w-full px-4 py-3 rounded-lg border-2 text-base" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="3" required />
         </div>
         <div>
           <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Founder Involvement *</label>

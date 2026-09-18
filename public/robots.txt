@@ -1,46 +1,13 @@
-# Global rules for all crawlers
+# robots.txt for subhasishadhikary.com
+# Portfolio and GTM marketing resource site (React SPA served with history fallback)
+
 User-agent: *
 Allow: /
-Allow: /*.js
-Allow: /*.css
-Allow: /images/
-Allow: /public/
+Disallow: /assets/*.map
 
-# Allow access to all important pages
-Allow: /#/about
-Allow: /#/work
-Allow: /#/thinking
-Allow: /#/tools
-Allow: /#/gtm-stack
-Allow: /#/glossary
-Allow: /#/contact
-Allow: /#/privacy
-
-# Allow access to glossary terms
-Allow: /#/glossary/*
-
-# Allow access to articles
-Allow: /#/thinking/*
-
-# Allow access to tools
-Allow: /#/tools/*
-
-# Block admin and private areas (if any exist)
-# Disallow: /#/admin
-# Disallow: /#/private
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Sitemap location
+# Sitemap
 Sitemap: https://subhasishadhikary.com/sitemap.xml
 
-# Additional sitemaps (if needed)
-# Sitemap: https://subhasishadhikary.com/sitemap-articles.xml
-# Sitemap: https://subhasishadhikary.com/sitemap-glossary.xml
-
-# Notes:
-# - This is a React SPA using HashRouter
-# - All content is accessible via hash navigation (/#/path)
-# - All content is rendered in HTML for accessibility
-# - No content is hidden behind JavaScript-only interactions
+# LLM discoverability files
+# llms.txt and llms-full.txt are served from the root and are intentionally
+# left open to crawling so AI systems can discover site structure.

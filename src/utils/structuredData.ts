@@ -11,7 +11,7 @@ export function generateWebSiteSchema() {
     description: siteConfig.description,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${baseUrl}/#/thinking?q={search_term_string}`,
+      target: `${baseUrl}/thinking?q={search_term_string}`,
       'query-input': 'required name=search_term_string'
     }
   };
@@ -56,7 +56,7 @@ export function generateArticleSchema(article: any) {
     author: {
       '@type': 'Person',
       name: article.author,
-      url: `${baseUrl}/#/about`,
+      url: `${baseUrl}/about`,
       description: article.authorBio
     },
     publisher: {
@@ -66,7 +66,7 @@ export function generateArticleSchema(article: any) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${baseUrl}/#/thinking/${article.category}/${article.id}`
+      '@id': `${baseUrl}/thinking/${article.category}/${article.id}`
     },
     keywords: article.atAGlance?.join(', ') || '',
     articleSection: article.category === 'gtm' ? 'B2B Go-to-Market' : 
@@ -149,18 +149,56 @@ export function generateFAQPageSchema(faqs: Array<{ question: string; answer: st
   };
 }
 
+export function generateEducationSchema(education: {
+  institution: string;
+  degree: string;
+  specialization: string;
+  duration: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: `${education.degree}, ${education.specialization}`,
+    provider: {
+      '@type': 'CollegeOrUniversity',
+      name: education.institution
+    },
+    description: `Master of Business Administration in Marketing completed at ${education.institution} (${education.duration}).`
+  };
+}
+
+export function generateCredentialCourseSchema(credential: {
+  title: string;
+  issuer?: string;
+  provider?: string;
+  description: string;
+  image?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: credential.title,
+    description: credential.description,
+    ...(credential.image ? { image: `${baseUrl}${credential.image}` } : {}),
+    provider: {
+      '@type': 'Organization',
+      name: credential.provider || credential.issuer
+    }
+  };
+}
+
 export function generateDefinedTermSchema(term: any) {
   return {
     '@context': 'https://schema.org',
     '@type': 'DefinedTerm',
     name: term.term,
     description: term.shortDefinition,
-    url: `https://subhasishadhikary.com/#/glossary/${term.slug}`,
+    url: `https://subhasishadhikary.com/glossary/${term.slug}`,
     termCode: term.id,
     inDefinedTermSet: {
       '@type': 'DefinedTermSet',
       name: 'Marketing Glossary',
-      url: 'https://subhasishadhikary.com/#/glossary'
+      url: 'https://subhasishadhikary.com/glossary'
     }
   };
 }
@@ -181,11 +219,25 @@ export function injectMultipleStructuredData(schemas: any[]) {
   });
 }
 
-export function updateMetaTags(title: string, description: string, canonical?: string) {
+export function updateMetaTags(title: string, description: string, canonical?: string, noindex = false) {
   if (typeof document === 'undefined') return;
-  
+
   // Update title
   document.title = title;
+
+  // Robots directive: noindex only for not-found states; removed otherwise
+  // so valid pages stay indexable.
+  let metaRobots = document.querySelector('meta[name="robots"]');
+  if (noindex) {
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.setAttribute('name', 'robots');
+      document.head.appendChild(metaRobots);
+    }
+    metaRobots.setAttribute('content', 'noindex');
+  } else if (metaRobots) {
+    metaRobots.remove();
+  }
   
   // Update meta description
   let metaDesc = document.querySelector('meta[name="description"]');

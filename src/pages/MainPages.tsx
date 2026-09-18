@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { ArrowRight, Mail, Linkedin, BookOpen, AlertCircle, Target, Lightbulb, CheckCircle, TrendingUp } from 'lucide-react';
-import { siteConfig, aboutContent, selectedWork } from '../data/content';
+import { siteConfig, aboutContent } from '../data/content';
+import { caseStudies, getCaseStudyBySlug } from '../data/caseStudies';
 import { Button, SectionHeader, Card, Tag, Breadcrumb } from '../components/UI';
 
 export function AboutPage() {
@@ -126,8 +127,8 @@ export function WorkPage() {
         <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Work' }]} />
         <SectionHeader eyebrow="Work" title="Strategic narratives" description="Each project represents a strategic challenge — diagnosed, designed, and executed." />
         <div className="mt-12 space-y-8">
-          {selectedWork.map((work, index) => (
-            <Link key={work.id} to={`/work/${work.id}`}>
+          {caseStudies.map((work, index) => (
+            <Link key={work.id} to={`/work/${work.slug}`}>
               <Card hoverable>
                 <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                   <div className="flex-shrink-0">
@@ -154,74 +155,18 @@ export function WorkPage() {
   );
 }
 
-const caseStudies: any = {
-  'gtm-system-redesign': {
-    title: 'B2B GTM System Redesign', category: 'GTM Strategy', tags: ['GTM', 'Product Marketing', 'Demand Gen'],
-    summary: 'Rebuilt the go-to-market motion for a B2B SaaS platform.',
-    context: 'The company had strong product-market fit but struggled with inconsistent pipeline generation.',
-    challenge: 'Pipeline generation was unpredictable. Marketing and sales operated in silos.',
-    diagnosis: 'Three core issues: unclear positioning, fragmented channel strategy, no feedback loop.',
-    strategy: 'Designed a unified GTM system with three pillars: sharpened positioning, integrated channels, shared metrics.',
-    execution: [
-      { phase: 'Positioning & Messaging', duration: '4 weeks', description: 'Customer interviews, competitive analysis, messaging framework.' },
-      { phase: 'Channel Integration', duration: '6 weeks', description: 'Mapped customer journey, built integrated campaigns.' },
-      { phase: 'Sales Alignment', duration: '4 weeks', description: 'Defined qualification criteria, built handoff processes.' },
-    ],
-    results: [{ label: 'Pipeline Growth', value: '2.4x' }, { label: 'Sales Cycle', value: '-18%' }, { label: 'Lead Quality', value: '+40%' }],
-    lessons: ['Positioning clarity accelerates everything else.', 'Shared metrics create shared accountability.', 'Integration beats optimization.'],
-  },
-  'marketing-automation-overhaul': {
-    title: 'Marketing Automation Overhaul', category: 'Marketing Automation', tags: ['Automation', 'HubSpot', 'Lifecycle'],
-    summary: 'Designed a multi-touch automation architecture replacing fragmented workflows.',
-    context: 'The marketing team had built dozens of automation workflows creating complexity.',
-    challenge: 'Automation had become a liability. The team spent more time maintaining workflows.',
-    diagnosis: 'Automation built bottom-up rather than top-down. No unified model of customer journey.',
-    strategy: 'Designed lifecycle-based automation architecture with clear stage definitions.',
-    execution: [
-      { phase: 'Lifecycle Design', duration: '3 weeks', description: 'Defined lifecycle stages and transition triggers.' },
-      { phase: 'Journey Mapping', duration: '4 weeks', description: 'Mapped current state journeys, identified gaps.' },
-      { phase: 'Architecture Build', duration: '8 weeks', description: 'Built new automation architecture in HubSpot.' },
-    ],
-    results: [{ label: 'Workflow Count', value: '-60%' }, { label: 'Maintenance Time', value: '-70%' }, { label: 'Conversion Rate', value: '+35%' }],
-    lessons: ['Architecture before automation.', 'Lifecycle stages simplify everything.', 'Governance prevents chaos.'],
-  },
-  'ai-content-engine': {
-    title: 'AI-Enabled Content Engine', category: 'AI Marketing', tags: ['AI', 'Content', 'Operations'],
-    summary: 'Built an AI-augmented content production system.',
-    context: 'Content production was manual and inconsistent across channels.',
-    challenge: 'Scaling content output without sacrificing quality or brand voice.',
-    diagnosis: 'No systematic approach to AI integration. Content created in isolation.',
-    strategy: 'Built AI-augmented workflows with human editorial oversight at key checkpoints.',
-    execution: [
-      { phase: 'Workflow Design', duration: '3 weeks', description: 'Mapped content production, identified AI opportunities.' },
-      { phase: 'AI Integration', duration: '6 weeks', description: 'Implemented AI tools for research, drafting, optimization.' },
-      { phase: 'Quality Framework', duration: '3 weeks', description: 'Built editorial review process and brand voice guidelines.' },
-    ],
-    results: [{ label: 'Content Output', value: '3x' }, { label: 'Production Time', value: '-50%' }, { label: 'Brand Consistency', value: '+60%' }],
-    lessons: ['AI amplifies human judgment, not replaces it.', 'Editorial oversight is non-negotiable.', 'Start with workflows, not tools.'],
-  },
-  'demand-gen-framework': {
-    title: 'Demand Generation Framework', category: 'Growth', tags: ['Demand Gen', 'Paid', 'Organic'],
-    summary: 'Created a repeatable demand generation framework.',
-    context: 'Demand generation was ad-hoc with no systematic approach.',
-    challenge: 'Unpredictable pipeline with no clear connection between activities and results.',
-    diagnosis: 'Channels operated independently. No unified measurement. No feedback loops.',
-    strategy: 'Built integrated demand gen framework connecting paid, organic, and outbound.',
-    execution: [
-      { phase: 'Channel Strategy', duration: '4 weeks', description: 'Evaluated channels, defined roles and budgets.' },
-      { phase: 'Integration', duration: '6 weeks', description: 'Connected channels into unified funnel.' },
-      { phase: 'Measurement', duration: '3 weeks', description: 'Built attribution and reporting system.' },
-    ],
-    results: [{ label: 'Pipeline Predictability', value: '+80%' }, { label: 'CAC', value: '-25%' }, { label: 'ROI', value: '3.2x' }],
-    lessons: ['Integration creates compound returns.', 'Measurement drives optimization.', 'Framework enables scale.'],
-  },
-};
-
 export function CaseStudyPage() {
   const { caseStudyId } = useParams();
-  const cs = caseStudies[caseStudyId as keyof typeof caseStudies];
-  if (!cs) return <div className="py-32 text-center"><h2 className="text-xl font-semibold">Case study not found</h2><Link to="/work" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back to Work</Link></div>;
+  const cs = getCaseStudyBySlug(caseStudyId);
+  const detail = cs?.caseStudy;
+  if (!cs || !detail) return <div className="py-32 text-center"><h2 className="text-xl font-semibold">Case study not found</h2><Link to="/work" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back to Work</Link></div>;
   const icons = { Context: <BookOpen size={16} />, Challenge: <AlertCircle size={16} />, Diagnosis: <Target size={16} />, Strategy: <Lightbulb size={16} />, Execution: <CheckCircle size={16} />, Results: <TrendingUp size={16} /> };
+  const coreSections = [
+    { label: 'Context', text: detail.context },
+    { label: 'Challenge', text: detail.challenge },
+    { label: 'Diagnosis', text: detail.diagnosis },
+    { label: 'Strategy', text: detail.strategy },
+  ].filter((s) => s.text);
   return (
     <div className="py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -233,55 +178,114 @@ export function CaseStudyPage() {
           </div>
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>{cs.title}</h1>
           <p className="mt-4 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{cs.summary}</p>
-          <div className="mt-4 flex flex-wrap gap-2">{cs.tags.map((tag: string) => <span key={tag} className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-tertiary)' }}>{tag}</span>)}</div>
+          <div className="mt-4 flex flex-wrap gap-2">{cs.tags.map((tag) => <span key={tag} className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-tertiary)' }}>{tag}</span>)}</div>
         </header>
         <div className="max-w-3xl">
-          {['Context', 'Challenge', 'Diagnosis', 'Strategy'].map((section) => (
-            <section key={section} className="mb-12">
+          {coreSections.map((section) => (
+            <section key={section.label} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons[section as keyof typeof icons]}</div>
-                <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>{section}</h2>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons[section.label as keyof typeof icons]}</div>
+                <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>{section.label}</h2>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{cs[section.toLowerCase()]}</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{section.text}</p>
             </section>
           ))}
-          <section className="mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons.Execution}</div>
-              <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Execution</h2>
-            </div>
-            <div className="space-y-4">
-              {cs.execution.map((item: any, i: number) => (
-                <div key={i} className="p-4 rounded-lg border" style={{ borderColor: 'var(--border-color)' }}>
-                  <div className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{item.phase}</div>
-                  <div className="text-xs mb-1" style={{ color: 'var(--text-tertiary)' }}>{item.duration}</div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>{item.description}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons.Results}</div>
-              <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Results</h2>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {cs.results.map((metric: any, i: number) => (
-                <div key={i} className="p-4 rounded-lg border text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
-                  <div className="text-2xl font-semibold" style={{ color: 'var(--accent)' }}>{metric.value}</div>
-                  <div className="text-xs font-medium mt-1" style={{ color: 'var(--text-primary)' }}>{metric.label}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="mb-12">
-            <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Lessons Learned</h2>
-            <ul className="space-y-2">
-              {cs.lessons.map((lesson: string, i: number) => (
-                <li key={i} className="flex gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}><span style={{ color: 'var(--accent)' }}>→</span><span>{lesson}</span></li>
-              ))}
-            </ul>
-          </section>
+          {detail.execution && detail.execution.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons.Execution}</div>
+                <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Execution</h2>
+              </div>
+              <div className="space-y-4">
+                {detail.execution.map((item, i: number) => (
+                  <div key={i} className="p-4 rounded-lg border" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{item.phase}</div>
+                    {item.duration && <div className="text-xs mb-1" style={{ color: 'var(--text-tertiary)' }}>{item.duration}</div>}
+                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>{item.description}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          {detail.executionSummary && (
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons.Execution}</div>
+                <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Execution</h2>
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.executionSummary}</p>
+            </section>
+          )}
+          {detail.systems && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Systems Built</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.systems}</p>
+            </section>
+          )}
+          {detail.channels && detail.channels.length > 0 && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Channels</h2>
+              <div className="flex flex-wrap gap-2">
+                {detail.channels.map((channel) => <span key={channel} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>{channel}</span>)}
+              </div>
+            </section>
+          )}
+          {detail.measurement && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Measurement</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.measurement}</p>
+            </section>
+          )}
+          {detail.results && detail.results.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{icons.Results}</div>
+                <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Results</h2>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                {detail.results.map((metric, i: number) => (
+                  <div key={i} className="p-4 rounded-lg border text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
+                    <div className="text-2xl font-semibold" style={{ color: 'var(--accent)' }}>{metric.value}</div>
+                    <div className="text-xs font-medium mt-1" style={{ color: 'var(--text-primary)' }}>{metric.label}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          {detail.outcome && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Outcome</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.outcome}</p>
+            </section>
+          )}
+          {detail.whatChanged && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>What Changed</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.whatChanged}</p>
+            </section>
+          )}
+          {detail.whatLearned && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>What I Learned</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.whatLearned}</p>
+            </section>
+          )}
+          {detail.whatNext && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>What's Next</h2>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{detail.whatNext}</p>
+            </section>
+          )}
+          {detail.lessons && detail.lessons.length > 0 && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Lessons Learned</h2>
+              <ul className="space-y-2">
+                {detail.lessons.map((lesson, i: number) => (
+                  <li key={i} className="flex gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}><span style={{ color: 'var(--accent)' }}>→</span><span>{lesson}</span></li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ function Navbar({ theme, toggleTheme }: any) {
               className="h-8 w-auto"
             />
           </Link>
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {navigation.map((item) => (
               <Link key={item.path} to={item.path} className="px-3 py-2 text-sm font-medium rounded-md transition-colors" style={{ color: isActive(item.path) ? 'var(--accent)' : 'var(--text-secondary)', backgroundColor: isActive(item.path) ? 'var(--bg-secondary)' : 'transparent' }}>{item.label}</Link>
             ))}
@@ -39,13 +39,13 @@ function Navbar({ theme, toggleTheme }: any) {
             <button onClick={toggleTheme} className="p-2 rounded-md" style={{ color: 'var(--text-secondary)' }} aria-label="Toggle theme">
               {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-md" style={{ color: 'var(--text-secondary)' }}>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 rounded-md" style={{ color: 'var(--text-secondary)' }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
         {mobileOpen && (
-          <div className="md:hidden pb-4">
+          <div className="lg:hidden pb-4">
             {navigation.map((item) => (
               <Link key={item.path} to={item.path} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 text-sm font-medium rounded-md" style={{ color: isActive(item.path) ? 'var(--accent)' : 'var(--text-secondary)' }}>{item.label}</Link>
             ))}

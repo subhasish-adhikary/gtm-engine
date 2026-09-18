@@ -1,5 +1,6 @@
 import { GTMInput, GTMReport } from '../../types/gtm-engine';
 import { getChannelById } from '../../data/channels';
+import { currencyForGeography, formatEngineMoney } from '../../engine/gtm-engine';
 
 interface ResultsDisplayProps {
   report: GTMReport;
@@ -8,6 +9,7 @@ interface ResultsDisplayProps {
 }
 
 export function ResultsDisplay({ report, input, onReset }: ResultsDisplayProps) {
+  const currency = currencyForGeography(input.company?.geography);
   return (
     <div className="min-h-screen py-12" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -157,7 +159,7 @@ export function ResultsDisplay({ report, input, onReset }: ResultsDisplayProps) 
                 </h3>
                 <div className="mb-4">
                   <div className="text-3xl font-bold mb-1" style={{ color: 'var(--accent)' }}>
-                    ₹{(scenario.monthlyBudget / 100000).toFixed(1)}L
+                    {formatEngineMoney(scenario.monthlyBudget, currency)}
                   </div>
                   <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
                     per month
@@ -193,9 +195,12 @@ export function ResultsDisplay({ report, input, onReset }: ResultsDisplayProps) 
 
         {/* Expected Funnel */}
         <div className="bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-2xl p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
-            Expected Funnel (Monthly)
+          <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Modeled Funnel (Monthly)
           </h2>
+          <p className="text-sm mb-6" style={{ color: 'var(--text-tertiary)' }}>
+            Monthly volumes required to reach your stated ARR target at benchmark conversion rates. Ranges reflect best-case and worst-case benchmark rates.
+          </p>
           <div className="space-y-4">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>

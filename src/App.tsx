@@ -1,4 +1,5 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { SEO } from './components/SEO';
 import { HomePage } from './pages/HomePage';
@@ -10,12 +11,31 @@ import { GTMStackPage } from './pages/ToolsPages';
 import { GTMIntelligenceEngine } from './pages/gtm-engine/GTMIntelligenceEngine';
 import GlossaryPage from './pages/GlossaryPage';
 import GlossaryTermPage from './pages/GlossaryTermPage';
+import CredentialsPage from './pages/CredentialsPage';
 import { useTheme } from './hooks/useTheme';
+
+/*
+ * Legacy hash-URL compatibility. URLs of the form /#/about (previously the
+ * canonical format) are resolved to /about with a single replace navigation.
+ * Fragment anchors such as #main-content do not start with #/ and are left
+ * untouched, so no redirect loop is possible.
+ */
+function LegacyHashRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#/')) {
+      navigate(hash.slice(1) || '/', { replace: true });
+    }
+  }, [navigate]);
+  return null;
+}
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   return (
-    <HashRouter>
+    <BrowserRouter>
+      <LegacyHashRedirect />
       <Layout theme={theme} toggleTheme={toggleTheme}>
         <SEO />
         <Routes>
@@ -32,11 +52,12 @@ export default function App() {
           <Route path="/gtm-stack" element={<GTMStackPage />} />
           <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/glossary/:slug" element={<GlossaryTermPage />} />
+          <Route path="/credentials" element={<CredentialsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

@@ -23,7 +23,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Current ARR / Annual Revenue (₹)
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.currentARR || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, currentARR: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -40,7 +40,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Target ARR / Annual Revenue (₹)
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.targetARR || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, targetARR: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -54,7 +54,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Average Contract Value / ACV (₹) *
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.acv || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, acv: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -72,7 +72,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Current Monthly Marketing Budget (₹) *
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.currentBudget || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, currentBudget: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -87,7 +87,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Proposed Monthly Marketing Budget (₹)
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.proposedBudget || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, proposedBudget: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -104,7 +104,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Gross Margin (%)
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.grossMargin || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, grossMargin: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"
@@ -118,7 +118,7 @@ export function Step2Commercial({ input, updateInput }: Step2CommercialProps) {
             Current Number of Customers
           </label>
           <input
-            type="number"
+            min="0" type="number"
             value={commercial.currentCustomers || ''}
             onChange={(e) => updateInput({ commercial: { ...commercial, currentCustomers: Number(e.target.value) } })}
             className="w-full px-4 py-3 rounded-lg border-2 text-base"

@@ -4,7 +4,7 @@
 
 ## About
 
-https://subhasishadhikary.com/#/about
+https://subhasishadhikary.com/about
 
 Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience across B2B SaaS, staffing, HR technology, MarTech, and digital businesses. Specializes in:
 - B2B go-to-market strategy
@@ -18,19 +18,19 @@ Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience 
 
 ## GTM Intelligence Tool
 
-https://subhasishadhikary.com/#/tools/gtm-intelligence
+https://subhasishadhikary.com/tools/gtm-intelligence
 
 Interactive GTM intelligence tool that helps B2B companies build go-to-market strategies. Users provide inputs about their company stage, product, target market, and resources. The tool outputs a complete GTM strategy including ICP definition, positioning, messaging framework, channel strategy, and implementation roadmap.
 
 ## GTM Stack
 
-https://subhasishadhikary.com/#/gtm-stack
+https://subhasishadhikary.com/gtm-stack
 
 Interactive GTM stack visualization showing how different marketing technologies connect across the GTM motion. Users can explore how tools integrate across awareness, consideration, decision, and retention stages.
 
 ## B2B Marketing Tool Stacks
 
-https://subhasishadhikary.com/#/gtm-stack
+https://subhasishadhikary.com/gtm-stack
 
 Comprehensive directory of 79+ B2B marketing technology stacks organized by category including:
 - GTM / Go-to-Market
@@ -50,7 +50,7 @@ Each stack includes tool recommendations, use cases, and implementation guidance
 
 ## Marketing Glossary
 
-https://subhasishadhikary.com/#/glossary
+https://subhasishadhikary.com/glossary
 
 Comprehensive marketing glossary covering 150+ modern marketing concepts organized into three-level taxonomy:
 
@@ -72,34 +72,34 @@ Comprehensive marketing glossary covering 150+ modern marketing concepts organiz
 - Data & Analytics
 
 **Key Glossary Terms:**
-- GTM Strategy: https://subhasishadhikary.com/#/glossary/go-to-market-strategy
-- GTM Engineering: https://subhasishadhikary.com/#/glossary/gtm-engineering
-- Marketing Automation: https://subhasishadhikary.com/#/glossary/marketing-automation
-- AI Marketing: https://subhasishadhikary.com/#/glossary/ai-marketing
-- AI Agents: https://subhasishadhikary.com/#/glossary/ai-agents
-- Agentic Marketing: https://subhasishadhikary.com/#/glossary/agentic-marketing
-- AEO: https://subhasishadhikary.com/#/glossary/answer-engine-optimization
-- GEO: https://subhasishadhikary.com/#/glossary/generative-engine-optimization
-- SEO: https://subhasishadhikary.com/#/glossary/search-engine-optimization
-- Semantic SEO: https://subhasishadhikary.com/#/glossary/semantic-seo
-- Topical Authority: https://subhasishadhikary.com/#/glossary/topical-authority
-- Entity SEO: https://subhasishadhikary.com/#/glossary/entity-seo
-- RevOps: https://subhasishadhikary.com/#/glossary/revenue-operations
-- CAC: https://subhasishadhikary.com/#/glossary/customer-acquisition-cost
-- LTV: https://subhasishadhikary.com/#/glossary/customer-lifetime-value
-- LTV:CAC: https://subhasishadhikary.com/#/glossary/ltv-cac
-- Payback Period: https://subhasishadhikary.com/#/glossary/payback-period
-- Incrementality: https://subhasishadhikary.com/#/glossary/incrementality
-- Attribution: https://subhasishadhikary.com/#/glossary/marketing-attribution
-- Cold Email: https://subhasishadhikary.com/#/glossary/cold-email
-- ABM: https://subhasishadhikary.com/#/glossary/account-based-marketing
-- Intent Data: https://subhasishadhikary.com/#/glossary/intent-data
-- Product-Led Growth: https://subhasishadhikary.com/#/glossary/product-led-growth
-- Sales-Led Growth: https://subhasishadhikary.com/#/glossary/sales-led-growth
+- GTM Strategy: https://subhasishadhikary.com/glossary/go-to-market-strategy
+- GTM Engineering: https://subhasishadhikary.com/glossary/gtm-engineering
+- Marketing Automation: https://subhasishadhikary.com/glossary/marketing-automation
+- AI Marketing: https://subhasishadhikary.com/glossary/ai-marketing
+- AI Agents: https://subhasishadhikary.com/glossary/ai-agents
+- Agentic Marketing: https://subhasishadhikary.com/glossary/agentic-marketing
+- AEO: https://subhasishadhikary.com/glossary/answer-engine-optimization
+- GEO: https://subhasishadhikary.com/glossary/generative-engine-optimization
+- SEO: https://subhasishadhikary.com/glossary/search-engine-optimization
+- Semantic SEO: https://subhasishadhikary.com/glossary/semantic-seo
+- Topical Authority: https://subhasishadhikary.com/glossary/topical-authority
+- Entity SEO: https://subhasishadhikary.com/glossary/entity-seo
+- RevOps: https://subhasishadhikary.com/glossary/revenue-operations
+- CAC: https://subhasishadhikary.com/glossary/customer-acquisition-cost
+- LTV: https://subhasishadhikary.com/glossary/customer-lifetime-value
+- LTV:CAC: https://subhasishadhikary.com/glossary/ltv-cac
+- Payback Period: https://subhasishadhikary.com/glossary/payback-period
+- Incrementality: https://subhasishadhikary.com/glossary/incrementality
+- Attribution: https://subhasishadhikary.com/glossary/marketing-attribution
+- Cold Email: https://subhasishadhikary.com/glossary/cold-email
+- ABM: https://subhasishadhikary.com/glossary/account-based-marketing
+- Intent Data: https://subhasishadhikary.com/glossary/intent-data
+- Product-Led Growth: https://subhasishadhikary.com/glossary/product-led-growth
+- Sales-Led Growth: https://subhasishadhikary.com/glossary/sales-led-growth
 
 ## Articles
 
-https://subhasishadhikary.com/#/thinking
+https://subhasishadhikary.com/thinking
 
 Strategic marketing articles covering:
 - B2B GTM strategy
@@ -111,13 +111,13 @@ Strategic marketing articles covering:
 - RevOps
 
 **Article Categories:**
-- GTM: https://subhasishadhikary.com/#/thinking/gtm
-- Marketing Automation: https://subhasishadhikary.com/#/thinking/automation
-- AI Marketing: https://subhasishadhikary.com/#/thinking/ai-marketing
+- GTM: https://subhasishadhikary.com/thinking/gtm
+- Marketing Automation: https://subhasishadhikary.com/thinking/automation
+- AI Marketing: https://subhasishadhikary.com/thinking/ai-marketing
 
 ## Tools
 
-https://subhasishadhikary.com/#/tools
+https://subhasishadhikary.com/tools
 
 Strategic marketing tools for B2B marketers:
 - GTM Intelligence Engine: Interactive GTM strategy builder
@@ -128,7 +128,7 @@ Strategic marketing tools for B2B marketers:
 
 ## Author
 
-https://subhasishadhikary.com/#/about
+https://subhasishadhikary.com/about
 
 **Subhasish Adhikary**
 - Growth Marketing & GTM Strategist
@@ -137,9 +137,22 @@ https://subhasishadhikary.com/#/about
 - Expertise: GTM strategy, marketing automation, AI marketing, demand generation
 - Location: Hyderabad, India
 
+## Education & Credentials
+
+https://subhasishadhikary.com/credentials
+
+Formal education, professional certifications and continuous learning:
+- MBA in Marketing, Manipal Institute of Management, MAHE, Manipal (2021 to 2023)
+- McKinsey.org Forward Program (completed)
+- Outbound Automation Certification, Clay
+- Product-led Certification, Pendo.io
+- Salesforce Marketing Cloud Email/Admin/Consultant Training (via Udemy)
+- Introduction to Strategy Consulting Job Simulation (BCG, via Forage)
+- Additional credentials across digital marketing, SEO, analytics and advertising
+
 ## Contact
 
-https://subhasishadhikary.com/#/contact
+https://subhasishadhikary.com/contact
 
 Contact page with contact form and professional contact information.
 

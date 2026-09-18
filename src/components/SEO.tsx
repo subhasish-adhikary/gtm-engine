@@ -3,17 +3,21 @@ import { useLocation } from 'react-router-dom';
 import { allArticles } from '../data/articles';
 import { tools } from '../data/content';
 import { glossaryTerms, getTermBySlug } from '../data/glossary';
-import { 
-  generateWebSiteSchema, 
-  generatePersonSchema, 
-  generateArticleSchema, 
+import {
+  generateWebSiteSchema,
+  generatePersonSchema,
+  generateArticleSchema,
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema,
   generateFAQPageSchema,
   generateDefinedTermSchema,
+  generateEducationSchema,
+  generateCredentialCourseSchema,
   injectMultipleStructuredData,
-  updateMetaTags 
+  updateMetaTags
 } from '../utils/structuredData';
+import { education, featuredCredentials } from '../data/credentials';
+import { getCaseStudyBySlug } from '../data/caseStudies';
 
 const baseUrl = 'https://subhasishadhikary.com';
 
@@ -50,6 +54,10 @@ const routeMetadata: Record<string, { title: string; description: string }> = {
     title: 'Interactive Marketing Tools — Strategy Toolkits | Subhasish Adhikary',
     description: 'Decision-focused marketing tools: GTM Budget Lab, Channel Planner, GTM Diagnostic, Stack Builder, Automation Planner, Ad Copy Analyzer, and more.'
   },
+  '/tools/gtm-intelligence': {
+    title: 'GTM Intelligence Engine — Interactive GTM Strategy Tool | Subhasish Adhikary',
+    description: 'Answer 8 questions about your B2B business and get a data-driven GTM strategy: readiness score, recommended channel portfolio, budget allocation scenarios, and a 90-day plan.'
+  },
   '/gtm-stack': {
     title: '79+ B2B Marketing Tool Stacks — Curated by Category | Subhasish Adhikary',
     description: '79+ curated B2B marketing technology stacks organized by company stage, budget, and GTM motion. Each stack includes rationale, trade-offs, and alternatives.'
@@ -57,6 +65,10 @@ const routeMetadata: Record<string, { title: string; description: string }> = {
   '/glossary': {
     title: 'Marketing Glossary — 150+ Modern Marketing Terms | Subhasish Adhikary',
     description: 'Comprehensive marketing glossary covering 150+ modern marketing concepts including GTM, Growth, Demand Generation, Marketing Automation, AI Marketing, AEO, GEO, SEO, and more.'
+  },
+  '/credentials': {
+    title: 'Education & Credentials — Subhasish Adhikary',
+    description: 'MBA in Marketing (Manipal Institute of Management, MAHE) plus professional certifications and continuous learning across GTM, growth, marketing automation, product-led growth, analytics and AI-enabled marketing.'
   },
   '/contact': {
     title: 'Contact — Subhasish Adhikary',
@@ -91,17 +103,22 @@ export function SEO() {
         if (article.faq && article.faq.length > 0) {
           schemas.push(generateFAQPageSchema(article.faq));
         }
-        updateMetaTags(
-          `${article.title} | Subhasish Adhikary`,
-          article.thesis,
-          `${baseUrl}/#/thinking/${category}/${articleId}`
-        );
+          updateMetaTags(
+            `${article.title} | Subhasish Adhikary`,
+            article.thesis,
+            `${baseUrl}/thinking/${category}/${articleId}`
+          );
+      } else {
+        // Unknown article: self-canonicalize and noindex rather than
+        // inheriting the homepage canonical.
+        updateMetaTags('Article Not Found | Subhasish Adhikary', 'The article you are looking for does not exist.', `${baseUrl}${path}`, true);
       }
     } else {
-      // Check for tool route
+      // Check for tool route (gtm-intelligence has its own page component and
+      // is handled by the standard-page branch below)
       const toolMatch = path.match(/^\/tools\/([^/]+)$/);
-      if (toolMatch) {
-        const [, toolId] = toolMatch;
+      const toolId = toolMatch && toolMatch[1] !== 'gtm-intelligence' ? toolMatch[1] : null;
+      if (toolId) {
         const tool = tools.find(t => t.id === toolId);
         if (tool) {
           schemas.push(generateSoftwareApplicationSchema(tool));
@@ -113,8 +130,10 @@ export function SEO() {
           updateMetaTags(
             `${tool.title} — Interactive Marketing Tool | Subhasish Adhikary`,
             tool.description,
-            `${baseUrl}/#/tools/${toolId}`
+            `${baseUrl}/tools/${toolId}`
           );
+        } else {
+          updateMetaTags('Tool Not Found | Subhasish Adhikary', 'The tool you are looking for does not exist.', `${baseUrl}${path}`, true);
         }
       } else {
         // Check for glossary term route
@@ -129,16 +148,40 @@ export function SEO() {
               { label: 'Glossary', path: '/glossary' },
               { label: term.term }
             ]));
-            updateMetaTags(
-              `${term.term} — Marketing Glossary | Subhasish Adhikary`,
-              term.shortDefinition,
-              `${baseUrl}/#/glossary/${slug}`
-            );
+          updateMetaTags(
+            `${term.term} — Marketing Glossary | Subhasish Adhikary`,
+            term.shortDefinition,
+            `${baseUrl}/glossary/${slug}`
+          );
+          } else {
+            updateMetaTags('Term Not Found | Subhasish Adhikary', 'The glossary term you are looking for does not exist.', `${baseUrl}${path}`, true);
           }
         } else {
-          // Standard page route
-          const metadata = routeMetadata[path] || routeMetadata['/'];
-          updateMetaTags(metadata.title, metadata.description, `${baseUrl}${path === '/' ? '' : '/#' + path}`);
+          // Case-study route: /work/:slug
+          const caseStudyMatch = path.match(/^\/work\/([^/]+)$/);
+          const caseStudy = caseStudyMatch ? getCaseStudyBySlug(caseStudyMatch[1]) : undefined;
+          if (caseStudy) {
+            schemas.push(generateBreadcrumbSchema([
+              { label: 'Home', path: '/' },
+              { label: 'Work', path: '/work' },
+              { label: caseStudy.title }
+            ]));
+            updateMetaTags(
+              `${caseStudy.title} — Case Study | Subhasish Adhikary`,
+              caseStudy.summary,
+              `${baseUrl}/work/${caseStudy.slug}`
+            );
+          } else {
+            // Standard page route. Known paths get their own metadata; unknown
+            // paths (404) self-canonicalize with noindex instead of inheriting
+            // the homepage identity.
+            const metadata = routeMetadata[path];
+            if (metadata) {
+              updateMetaTags(metadata.title, metadata.description, `${baseUrl}${path === '/' ? '/' : path}`);
+            } else {
+              updateMetaTags('Page Not Found | Subhasish Adhikary', 'The page you are looking for does not exist.', `${baseUrl}${path}`, true);
+            }
+          }
           
           // Add breadcrumb for non-home pages
           if (path !== '/') {
@@ -147,6 +190,14 @@ export function SEO() {
               { label: 'Home', path: '/' },
               { label }
             ]));
+          }
+
+          // Credentials page: education and featured credential course schemas
+          if (path === '/credentials') {
+            schemas.push(generateEducationSchema(education));
+            featuredCredentials.forEach((credential) => {
+              schemas.push(generateCredentialCourseSchema(credential));
+            });
           }
         }
       }

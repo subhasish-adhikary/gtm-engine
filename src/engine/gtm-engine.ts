@@ -9,12 +9,71 @@ import {
 import { channels, getChannelById } from '../data/channels';
 import { getBenchmark, getBenchmarkRange } from '../data/benchmarks';
 
+/*
+ * Currency handling.
+ * The engine does NOT convert currencies (no conversion mechanism exists).
+ * Instead, the reporting currency is resolved from the selected geography:
+ * India-based benchmarks are denominated in INR, the North America CAC
+ * benchmark in USD, and every other geography falls back to USD (the
+ * currency used by the rest of the website). All displayed amounts are
+ * explicitly prefixed with their currency symbol.
+ */
+export type EngineCurrency = 'INR' | 'USD';
+
+export function currencyForGeography(geography?: string): EngineCurrency {
+  return geography === 'india' ? 'INR' : 'USD';
+}
+
+export function formatEngineMoney(amount: number, currency: EngineCurrency): string {
+  const safe = Number.isFinite(amount) ? Math.max(0, Math.round(amount)) : 0;
+  return currency === 'INR'
+    ? `₹${safe.toLocaleString('en-IN')}`
+    : `$${safe.toLocaleString('en-US')}`;
+}
+
+// Sanitize a numeric input: any non-finite value (NaN, Infinity, undefined,
+// malformed strings) falls back to the provided default.
+function sanitizeNumber(value: unknown, fallback: number): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+}
+
+// Clamp a computed range so that 0 <= low <= high. This is a final safety
+// guard after the corrected formulas, not a substitute for them.
+function orderRange(low: number, high: number): { low: number; high: number } {
+  const l = Number.isFinite(low) ? Math.max(0, Math.ceil(low)) : 0;
+  const h = Number.isFinite(high) ? Math.max(0, Math.ceil(high)) : 0;
+  return { low: Math.min(l, h), high: Math.max(l, h) };
+}
+
 // Main GTM Intelligence Engine
 export class GTMEngine {
   private input: GTMInput;
 
   constructor(input: GTMInput) {
     this.input = input;
+  }
+
+  private currency(): EngineCurrency {
+    return currencyForGeography(this.input.company.geography);
+  }
+
+  private fmt(amount: number): string {
+    return formatEngineMoney(amount, this.currency());
+  }
+
+  // Single source of truth for the effective budget. Proposed budget wins
+  // when present; 0 is a legitimate value and must not fall through to the
+  // current budget (the old `proposedBudget || currentBudget` pattern
+  // silently replaced an entered zero with the fallback).
+  private resolvedBudget(): number {
+    const { proposedBudget, currentBudget } = this.input.commercial;
+    if (typeof proposedBudget === 'number' && Number.isFinite(proposedBudget)) {
+      return Math.max(0, proposedBudget);
+    }
+    if (typeof currentBudget === 'number' && Number.isFinite(currentBudget)) {
+      return Math.max(0, currentBudget);
+    }
+    return 0;
   }
 
   // Generate complete GTM report
@@ -86,21 +145,71 @@ export class GTMEngine {
     };
   }
 
-  // Validate inputs for impossible combinations
+  // Validate inputs for impossible values and combinations
   private validateInputs(): { valid: boolean; issues: string[] } {
     const issues: string[] = [];
-    const { commercial, resources, buyer } = this.input;
+    const { commercial, resources, buyer, icp } = this.input;
 
-    // Check budget vs target
-    if (commercial.targetARR && commercial.proposedBudget) {
-      const requiredBudget = this.estimateRequiredBudget(commercial.targetARR, commercial.acv || 100000);
-      if (commercial.proposedBudget < requiredBudget * 0.5) {
-        issues.push(`Budget too low for target. Estimated minimum: ₹${(requiredBudget / 100000).toFixed(1)}L/month`);
+    // --- Numeric sanity (hard failures) ---
+    const numericChecks: Array<{ label: string; value: unknown; optional: boolean }> = [
+      { label: 'Current ARR', value: commercial.currentARR, optional: true },
+      { label: 'Target ARR', value: commercial.targetARR, optional: true },
+      { label: 'ACV', value: commercial.acv, optional: true },
+      { label: 'Current budget', value: commercial.currentBudget, optional: false },
+      { label: 'Proposed budget', value: commercial.proposedBudget, optional: true },
+      { label: 'Current CAC', value: commercial.currentCAC, optional: true },
+      { label: 'LTV', value: commercial.ltv, optional: true },
+      { label: 'Gross margin', value: commercial.grossMargin, optional: true },
+      { label: 'Current customers', value: commercial.currentCustomers, optional: true },
+      { label: 'Potential accounts', value: icp.potentialAccounts, optional: true },
+      { label: 'Marketing team size', value: resources.marketingTeamSize, optional: false },
+      { label: 'Sales team size', value: resources.salesTeamSize, optional: false },
+    ];
+
+    for (const check of numericChecks) {
+      if (check.value === undefined || check.value === null) {
+        if (!check.optional) issues.push(`${check.label} is required.`);
+        continue;
+      }
+      const v = check.value as number;
+      if (!Number.isFinite(v)) {
+        issues.push(`${check.label} must be a valid number.`);
+        continue;
+      }
+      if (v < 0) {
+        issues.push(`${check.label} cannot be negative.`);
+        continue;
+      }
+      // Percentage fields must stay within 0-100.
+      if (check.label === 'Gross margin' && v > 100) {
+        issues.push('Gross margin must be between 0 and 100.');
       }
     }
 
-    // Check sales cycle vs budget
-    if (buyer.salesCycle === '12_plus' && commercial.proposedBudget && commercial.proposedBudget < 200000) {
+    // Short-circuit: with invalid numerics, further checks are meaningless.
+    if (issues.length > 0) {
+      return { valid: false, issues };
+    }
+
+    const budget = commercial.proposedBudget ?? commercial.currentBudget ?? 0;
+    const acv = commercial.acv ?? 0;
+    const grossMargin = commercial.grossMargin;
+
+    // Check budget vs target (only meaningful with a positive growth target)
+    if (commercial.targetARR && budget > 0) {
+      const currentARR = commercial.currentARR ?? 0;
+      const requiredBudget = this.estimateRequiredBudget(
+        Math.max(0, commercial.targetARR - currentARR),
+        acv > 0 ? acv : 100000
+      );
+      if (requiredBudget > 0 && budget < requiredBudget * 0.5) {
+        issues.push(`Budget too low for target. Estimated minimum: ${this.fmt(requiredBudget)}/month`);
+      }
+    }
+
+    // Check sales cycle vs budget (threshold scales with the reporting currency)
+    const longCycleBudgetFloor = this.currency() === 'INR' ? 200000 : 20000;
+    if (buyer.salesCycle === '12_plus' && budget > 0 && budget < longCycleBudgetFloor) {
       issues.push('Long sales cycle requires higher budget for sustained nurturing');
     }
 
@@ -110,8 +219,13 @@ export class GTMEngine {
     }
 
     // Check ACV vs sales motion
-    if ((commercial.acv || 0) > 500000 && this.input.gtm.salesMotion === 'self_serve') {
+    if (acv > 500000 && this.input.gtm.salesMotion === 'self_serve') {
       issues.push('High ACV typically requires sales-led motion, not self-serve');
+    }
+
+    // Gross margin sanity (redundant with the loop above, kept explicit)
+    if (grossMargin !== undefined && (grossMargin < 0 || grossMargin > 100)) {
+      issues.push('Gross margin must be between 0 and 100.');
     }
 
     return {
@@ -360,68 +474,102 @@ export class GTMEngine {
   // Calculate economic model
   private calculateEconomics() {
     const { commercial, buyer } = this.input;
-    const acv = commercial.acv || 100000;
-    const targetARR = commercial.targetARR || (commercial.currentARR ? commercial.currentARR * 2 : 5000000);
-    const currentARR = commercial.currentARR || 0;
-    const requiredNewARR = targetARR - currentARR;
+    const acv = Math.max(1, sanitizeNumber(commercial.acv, 100000));
+    const targetARR = sanitizeNumber(commercial.targetARR, commercial.currentARR ? commercial.currentARR * 2 : 5000000);
+    const currentARR = sanitizeNumber(commercial.currentARR, 0);
 
-    // Calculate required customers
-    const requiredCustomers = Math.ceil(requiredNewARR / acv);
+    // Net-new ARR required. A raw subtraction can go negative when the
+    // stated target is at or below the current ARR, which previously
+    // poisoned the entire funnel with negative values. Net-new acquisition
+    // requirements are floored at zero; the zero-growth case is surfaced
+    // transparently in the recommendation instead.
+    const requiredNewARR = Math.max(0, targetARR - currentARR);
+    const targetAtOrBelowCurrent = targetARR > 0 && targetARR <= currentARR;
 
-    // Get conversion benchmarks
+    // Calculate required customers (annual, to hit the net-new target)
+    const requiredCustomersAnnual = Math.ceil(requiredNewARR / acv);
+
+    // Get conversion benchmarks (percent values, e.g. 2.5 = 2.5%)
     const visitorToLead = getBenchmarkRange('visitor_to_lead_conversion', 'B2B SaaS', this.input.company.geography);
     const leadToMQL = getBenchmarkRange('lead_to_mql_conversion', 'B2B SaaS', this.input.company.geography);
     const mqlToSQL = getBenchmarkRange('mql_to_sql_conversion', 'B2B SaaS', this.input.company.geography);
     const sqlToOpp = getBenchmarkRange('sql_to_opportunity_conversion', 'B2B SaaS', this.input.company.geography);
     const oppToClose = getBenchmarkRange('opportunity_to_close_rate', 'B2B SaaS', this.input.company.geography);
 
-    // Calculate funnel requirements (using ranges)
-    const requiredOpps = {
-      low: Math.ceil(requiredCustomers / ((oppToClose?.high || 35) / 100)),
-      high: Math.ceil(requiredCustomers / ((oppToClose?.low || 15) / 100))
+    // Structured funnel arithmetic (annual requirements):
+    //   Customers = Net-new ARR / ACV
+    //   Opportunities = Customers / close rate
+    //   SQLs = Opportunities / SQL-to-opp rate   (SQLs >= Opportunities)
+    //   MQLs = SQLs / MQL-to-SQL rate            (MQLs >= SQLs)
+    //   Leads = MQLs / lead-to-MQL rate          (Leads >= MQLs)
+    //   Traffic = Leads / visitor-to-lead rate   (Traffic >= Leads)
+    // The "low" bound of each stage uses the HIGH conversion rate (best
+    // case: fewer are needed); the "high" bound uses the LOW rate (worst
+    // case). Numerators are non-negative, so ordering cannot invert.
+    const requiredOppsAnnual = {
+      low: Math.ceil(requiredCustomersAnnual / ((oppToClose?.high || 35) / 100)),
+      high: Math.ceil(requiredCustomersAnnual / ((oppToClose?.low || 15) / 100))
     };
 
-    const requiredSQLs = {
-      low: Math.ceil(requiredOpps.low / ((sqlToOpp?.high || 50) / 100)),
-      high: Math.ceil(requiredOpps.high / ((sqlToOpp?.low || 30) / 100))
+    const requiredSQLsAnnual = {
+      low: Math.ceil(requiredOppsAnnual.low / ((sqlToOpp?.high || 50) / 100)),
+      high: Math.ceil(requiredOppsAnnual.high / ((sqlToOpp?.low || 30) / 100))
     };
 
-    const requiredMQLs = {
-      low: Math.ceil(requiredSQLs.low / ((mqlToSQL?.high || 40) / 100)),
-      high: Math.ceil(requiredSQLs.high / ((mqlToSQL?.low || 20) / 100))
+    const requiredMQLsAnnual = {
+      low: Math.ceil(requiredSQLsAnnual.low / ((mqlToSQL?.high || 40) / 100)),
+      high: Math.ceil(requiredSQLsAnnual.high / ((mqlToSQL?.low || 20) / 100))
     };
 
-    const requiredLeads = {
-      low: Math.ceil(requiredMQLs.low / ((leadToMQL?.high || 20) / 100)),
-      high: Math.ceil(requiredMQLs.high / ((leadToMQL?.low || 10) / 100))
+    const requiredLeadsAnnual = {
+      low: Math.ceil(requiredMQLsAnnual.low / ((leadToMQL?.high || 20) / 100)),
+      high: Math.ceil(requiredMQLsAnnual.high / ((leadToMQL?.low || 10) / 100))
     };
 
-    const requiredTraffic = {
-      low: Math.ceil(requiredLeads.low / ((visitorToLead?.high || 3.5) / 100)),
-      high: Math.ceil(requiredLeads.high / ((visitorToLead?.low || 1.5) / 100))
+    const requiredTrafficAnnual = {
+      low: Math.ceil(requiredLeadsAnnual.low / ((visitorToLead?.high || 3.5) / 100)),
+      high: Math.ceil(requiredLeadsAnnual.high / ((visitorToLead?.low || 1.5) / 100))
     };
 
-    // Calculate CAC
-    const budget = commercial.proposedBudget || commercial.currentBudget;
-    const cac = budget > 0 ? (budget * 12) / requiredCustomers : 0;
+    // Convert annual requirements to monthly for reporting. The UI labels
+    // the funnel as monthly, so the previous annual figures were displayed
+    // 12x too large.
+    const toMonthly = (r: { low: number; high: number }) =>
+      orderRange(r.low / 12, r.high / 12);
+
+    const requiredTraffic = toMonthly(requiredTrafficAnnual);
+    const requiredLeads = toMonthly(requiredLeadsAnnual);
+    const requiredMQLs = toMonthly(requiredMQLsAnnual);
+    const requiredSQLs = toMonthly(requiredSQLsAnnual);
+    const requiredOpps = toMonthly(requiredOppsAnnual);
+    const requiredCustomers = orderRange(
+      requiredCustomersAnnual / 12,
+      requiredCustomersAnnual / 12
+    );
+
+    // Calculate CAC (blended, from annual spend and annual customer target)
+    const budget = this.resolvedBudget();
+    const cac = budget > 0 && requiredCustomersAnnual > 0 ? (budget * 12) / requiredCustomersAnnual : 0;
 
     // Calculate payback
-    const grossMargin = commercial.grossMargin || 75;
+    const grossMargin = Math.max(0, sanitizeNumber(commercial.grossMargin, 75));
     const monthlyGrossProfit = (acv * (grossMargin / 100)) / 12;
-    const paybackMonths = monthlyGrossProfit > 0 ? cac / monthlyGrossProfit : 0;
+    const paybackMonths = monthlyGrossProfit > 0 && cac > 0 ? cac / monthlyGrossProfit : 0;
 
     // Calculate LTV:CAC
-    const ltv = commercial.ltv || (acv * 3); // Assume 3x ACV if not provided
+    const ltv = sanitizeNumber(commercial.ltv, acv * 3); // Assume 3x ACV if not provided
     const ltvCacRatio = cac > 0 ? ltv / cac : 0;
 
-    // Calculate pipeline required
-    const pipelineRequired = {
-      low: requiredOpps.low * acv,
-      high: requiredOpps.high * acv
-    };
+    // Calculate pipeline required (annual opportunity value)
+    const pipelineRequired = orderRange(
+      requiredOppsAnnual.low * acv,
+      requiredOppsAnnual.high * acv
+    );
 
     return {
-      requiredCustomers,
+      requiredCustomersAnnual,
+      requiredNewARR,
+      targetAtOrBelowCurrent,
       requiredTraffic,
       requiredLeads,
       requiredMQLs,
@@ -435,10 +583,11 @@ export class GTMEngine {
         traffic: requiredTraffic,
         leads: requiredLeads,
         qualifiedLeads: requiredMQLs,
-        opportunities: requiredSQLs,
-        customers: { low: requiredCustomers, high: Math.ceil(requiredCustomers * 1.2) },
+        // Fixed mislabeling: this stage previously displayed the SQL count.
+        opportunities: requiredOpps,
+        customers: requiredCustomers,
         pipeline: pipelineRequired,
-        revenue: { low: requiredNewARR, high: Math.ceil(requiredNewARR * 1.2) }
+        revenue: orderRange(requiredNewARR / 12, requiredNewARR / 12)
       }
     };
   }
@@ -549,7 +698,7 @@ export class GTMEngine {
   }
 
   private calculateBudgetFitness(channel: typeof channels[0], commercial: typeof this.input.commercial): number {
-    const budget = commercial.proposedBudget || commercial.currentBudget;
+    const budget = this.resolvedBudget();
     const minBudget = channel.minimumViableBudget;
     
     if (budget >= minBudget * 2) return 90;
@@ -623,7 +772,7 @@ export class GTMEngine {
   private calculatePenalties(channel: typeof channels[0]): string[] {
     const penalties: string[] = [];
     const { commercial, resources, foundation, buyer } = this.input;
-    const budget = commercial.proposedBudget || commercial.currentBudget;
+    const budget = this.resolvedBudget();
 
     if (budget < channel.minimumViableBudget) {
       penalties.push('Budget below minimum viable threshold');
@@ -649,7 +798,7 @@ export class GTMEngine {
   }
 
   private determineRecommendation(fit: number, channel: typeof channels[0], commercial: typeof this.input.commercial): ChannelScore['recommendation'] {
-    const budget = commercial.proposedBudget || commercial.currentBudget;
+    const budget = this.resolvedBudget();
     
     if (fit >= 80 && budget >= channel.minimumViableBudget) return 'core';
     if (fit >= 65 && budget >= channel.minimumViableBudget * 0.7) return 'growth';
@@ -698,7 +847,7 @@ export class GTMEngine {
 
     // Select top channels based on capacity
     const { resources, commercial } = this.input;
-    const budget = commercial.proposedBudget || commercial.currentBudget;
+    const budget = this.resolvedBudget();
     const teamSize = resources.marketingTeamSize + resources.salesTeamSize;
 
     // Determine max channels based on capacity
@@ -731,7 +880,7 @@ export class GTMEngine {
   // Generate budget scenarios
   private generateBudgetScenarios(portfolio: ChannelScore[], economics: any): BudgetScenario[] {
     const { commercial } = this.input;
-    const baseBudget = commercial.proposedBudget || commercial.currentBudget;
+    const baseBudget = this.resolvedBudget();
 
     const scenarios: BudgetScenario[] = [
       this.generateLeanScenario(portfolio, baseBudget, economics),
@@ -818,14 +967,16 @@ export class GTMEngine {
   }
 
   private scaleFunnel(funnel: any, factor: number) {
+    const scale = (r: { low: number; high: number }) =>
+      orderRange(r.low * factor, r.high * factor);
     return {
-      traffic: { low: Math.round(funnel.traffic.low * factor), high: Math.round(funnel.traffic.high * factor) },
-      leads: { low: Math.round(funnel.leads.low * factor), high: Math.round(funnel.leads.high * factor) },
-      qualifiedLeads: { low: Math.round(funnel.qualifiedLeads.low * factor), high: Math.round(funnel.qualifiedLeads.high * factor) },
-      opportunities: { low: Math.round(funnel.opportunities.low * factor), high: Math.round(funnel.opportunities.high * factor) },
-      customers: { low: Math.round(funnel.customers.low * factor), high: Math.round(funnel.customers.high * factor) },
-      pipeline: { low: Math.round(funnel.pipeline.low * factor), high: Math.round(funnel.pipeline.high * factor) },
-      revenue: { low: Math.round(funnel.revenue.low * factor), high: Math.round(funnel.revenue.high * factor) }
+      traffic: scale(funnel.traffic),
+      leads: scale(funnel.leads),
+      qualifiedLeads: scale(funnel.qualifiedLeads),
+      opportunities: scale(funnel.opportunities),
+      customers: scale(funnel.customers),
+      pipeline: scale(funnel.pipeline),
+      revenue: scale(funnel.revenue)
     };
   }
 
@@ -900,6 +1051,17 @@ export class GTMEngine {
       assumptions.push('LTV estimated as 3x ACV');
     }
 
+    // Currency proxy disclosure: benchmarks are currency-denominated, and
+    // geographies without a matched benchmark use the USD benchmark.
+    const geo = this.input.company.geography;
+    if (geo !== 'india' && geo !== 'north_america') {
+      assumptions.push('CAC benchmark uses the US figure as a proxy for the selected geography; treat absolute CAC values as indicative.');
+    }
+
+    if (economics.targetAtOrBelowCurrent) {
+      assumptions.push('Stated ARR target is at or below current ARR, so no net-new acquisition is modeled.');
+    }
+
     return assumptions;
   }
 
@@ -907,11 +1069,15 @@ export class GTMEngine {
   private generateEvidence(portfolio: ChannelScore[]) {
     const evidence: Array<{ claim: string; source: string; date: string; relevance: string }> = [];
 
-    // Add benchmark evidence
-    const cacBenchmark = getBenchmark('cac_b2b_saas', 'B2B SaaS', this.input.company.geography);
+    // Add benchmark evidence (currency-matched to the reporting currency)
+    const geo = this.input.company.geography;
+    const cacBenchmark =
+      geo === 'india'
+        ? getBenchmark('cac_b2b_saas', 'B2B SaaS', 'india')
+        : getBenchmark('cac_b2b_saas_us', 'B2B SaaS', 'north_america');
     if (cacBenchmark) {
       evidence.push({
-        claim: `Average B2B SaaS CAC: ₹${cacBenchmark.value.toLocaleString()}`,
+        claim: `Average ${geo === 'india' ? 'India' : 'US'} B2B SaaS CAC: ${this.fmt(cacBenchmark.value)}`,
         source: cacBenchmark.source,
         date: `${cacBenchmark.publicationYear}`,
         relevance: 'Used to validate CAC assumptions'
@@ -925,19 +1091,27 @@ export class GTMEngine {
   private generateCounterfactuals(portfolio: ChannelScore[], economics: any) {
     const counterfactuals: Array<{ condition: string; change: string }> = [];
 
-    const budget = this.input.commercial.proposedBudget || this.input.commercial.currentBudget;
+    const budget = this.resolvedBudget();
 
-    if (budget < 200000) {
+    // Thresholds scale with the reporting currency so the same heuristic
+    // applies to INR- and USD-denominated inputs.
+    const inr = this.currency() === 'INR';
+    const budgetThreshold = inr ? 200000 : 20000;
+    const budgetUpsellTarget = inr ? 500000 : 50000;
+    const acvThreshold = inr ? 200000 : 20000;
+    const acvUpsellTarget = inr ? 500000 : 50000;
+
+    if (budget > 0 && budget < budgetThreshold) {
       counterfactuals.push({
-        condition: 'If budget increases to ₹5L/month',
+        condition: `If budget increases to ${this.fmt(budgetUpsellTarget)}/month`,
         change: 'Add paid channels and increase experimentation'
       });
     }
 
-    const acv = this.input.commercial.acv || 100000;
-    if (acv < 200000) {
+    const acv = this.input.commercial.acv || 0;
+    if (acv > 0 && acv < acvThreshold) {
       counterfactuals.push({
-        condition: 'If ACV increases to ₹5L',
+        condition: `If ACV increases to ${this.fmt(acvUpsellTarget)}`,
         change: 'Shift to enterprise-focused channels and ABM'
       });
     }
@@ -946,11 +1120,23 @@ export class GTMEngine {
   }
 
   // Helper methods
-  private estimateRequiredBudget(targetARR: number, acv: number): number {
-    const requiredCustomers = targetARR / acv;
-    const cac = getBenchmark('cac_b2b_saas', 'B2B SaaS', this.input.company.geography)?.value || 250000;
+  private estimateRequiredBudget(netNewARR: number, acv: number): number {
+    if (netNewARR <= 0 || acv <= 0) return 0;
+    const requiredCustomers = netNewARR / acv;
+    // Use the CAC benchmark that matches the reporting currency of the
+    // selected geography. India has an INR-denominated benchmark; North
+    // America a USD-denominated one. Other geographies fall back to the USD
+    // benchmark (the website's default currency) and the assumption is
+    // surfaced in the report.
+    const geo = this.input.company.geography;
+    const cacBenchmark =
+      geo === 'india'
+        ? getBenchmark('cac_b2b_saas', 'B2B SaaS', 'india')
+        : getBenchmark('cac_b2b_saas_us', 'B2B SaaS', 'north_america');
+    const cacFallback = this.currency() === 'INR' ? 250000 : 15000;
+    const cac = sanitizeNumber(cacBenchmark?.value, cacFallback);
     const totalInvestment = requiredCustomers * cac;
-    
+
     return totalInvestment / 12; // Monthly budget
   }
 
@@ -972,13 +1158,52 @@ export class GTMEngine {
   }
 
   private calculateOverallConfidence(scores: ChannelScore[]): 'high' | 'medium' | 'low' {
-    const avgConfidence = scores.reduce((sum, s) => {
-      return sum + (s.confidence === 'high' ? 3 : s.confidence === 'medium' ? 2 : 1);
-    }, 0) / scores.length;
+    // Heuristic confidence, NOT a statistically validated measure. It
+    // combines three transparent factors:
+    //   1. Average per-channel confidence (derived from attribution + CRM
+    //      maturity of the inputs).
+    //   2. Input completeness: how many of the optional commercial numbers
+    //      the user actually provided. A model built on defaults deserves
+    //      lower confidence.
+    //   3. Benchmark coverage: whether a currency- and geography-matched CAC
+    //      benchmark exists.
+    const { commercial } = this.input;
 
-    if (avgConfidence >= 2.5) return 'high';
-    if (avgConfidence >= 1.5) return 'medium';
-    
+    const avgConfidence = scores.length > 0
+      ? scores.reduce((sum, s) => {
+          return sum + (s.confidence === 'high' ? 3 : s.confidence === 'medium' ? 2 : 1);
+        }, 0) / scores.length
+      : 1;
+
+    const optionalInputs = [
+      commercial.acv,
+      commercial.targetARR,
+      commercial.currentARR,
+      commercial.proposedBudget,
+      commercial.grossMargin,
+      commercial.ltv,
+      commercial.currentCAC,
+      commercial.currentCustomers,
+    ];
+    const provided = optionalInputs.filter(v => typeof v === 'number' && Number.isFinite(v)).length;
+    const completeness = provided / optionalInputs.length;
+
+    const geo = this.input.company.geography;
+    const hasCurrencyMatchedCAC =
+      geo === 'india'
+        ? !!getBenchmark('cac_b2b_saas', 'B2B SaaS', 'india')
+        : !!getBenchmark('cac_b2b_saas_us', 'B2B SaaS', 'north_america');
+    const benchmarkCoverage = hasCurrencyMatchedCAC ? 1 : 0.5;
+
+    // Weighted heuristic score out of 3.
+    const score =
+      avgConfidence * 0.5 +
+      completeness * 3 * 0.3 +
+      benchmarkCoverage * 3 * 0.2;
+
+    if (score >= 2.4 && completeness >= 0.5) return 'high';
+    if (score >= 1.6 && completeness >= 0.25) return 'medium';
+
     return 'low';
   }
 
@@ -988,7 +1213,8 @@ export class GTMEngine {
     economics: any
   ): string {
     const channelNames = portfolio.slice(0, 3).map(p => getChannelById(p.channelId)?.name || p.channelId);
-    const budget = this.input.commercial.proposedBudget || this.input.commercial.currentBudget;
+    const commercial = this.input.commercial;
+    const budget = this.resolvedBudget();
 
     let recommendation = `Based on your GTM readiness score of ${readinessScore.overall}/100, `;
 
@@ -1001,9 +1227,27 @@ export class GTMEngine {
     }
 
     recommendation += `Recommended approach: Focus on ${channelNames.join(', ')}. `;
-    recommendation += `With ₹${(budget / 100000).toFixed(1)}L/month budget, expect to generate `;
-    recommendation += `${economics.expectedFunnel.leads.low}-${economics.expectedFunnel.leads.high} leads/month, `;
-    recommendation += `resulting in ${economics.expectedFunnel.customers.low}-${economics.expectedFunnel.customers.high} new customers/month.`;
+
+    // Zero-budget state: no paid acquisition can be modeled, so no funnel
+    // projection is presented (organic recommendations still stand).
+    if (budget <= 0) {
+      recommendation += `No acquisition budget was provided, so no paid acquisition projections are modeled. The recommendations above are limited to channels that can run on organic effort alone; add a budget to see volume projections.`;
+      return recommendation;
+    }
+
+    // Target at or below current ARR: the model requires zero net-new
+    // acquisition, which is stated plainly instead of showing zero-funnel.
+    if (economics.targetAtOrBelowCurrent) {
+      recommendation += `Your stated ARR target is at or below your current ARR, so this plan models no net-new acquisition. Increase your target above ${this.fmt(commercial.currentARR ?? 0)} to see volume requirements.`;
+      return recommendation;
+    }
+
+    // The funnel figures are REQUIREMENTS to hit the stated target at
+    // benchmark conversion rates, expressed per month, not guarantees.
+    const funnel = economics.expectedFunnel;
+    recommendation += `To reach your target with ${this.fmt(budget)}/month, plan for approximately `;
+    recommendation += `${funnel.leads.low.toLocaleString()}-${funnel.leads.high.toLocaleString()} leads/month `;
+    recommendation += `and ${funnel.customers.low.toLocaleString()}-${funnel.customers.high.toLocaleString()} net-new customers/month at benchmark conversion rates.`;
 
     return recommendation;
   }
