@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Calendar, Clock, User, Search, BookOpen } from '
 import { thinkingCategories } from '../data/content';
 import { allArticles } from '../data/articles';
 import { SectionHeader, Card, Breadcrumb } from '../components/UI';
+import { AuthorBox } from '../components/AuthorBox';
 
 export function ThinkingPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -230,13 +231,7 @@ export function ArticlePage() {
 
           {/* Author Bio */}
           <section className="mt-12 pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-semibold" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>SA</div>
-              <div>
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{article.author}</h3>
-                <p className="mt-1 text-sm" style={{ color: 'var(--text-tertiary)' }}>{article.authorBio}</p>
-              </div>
-            </div>
+            <AuthorBox name={article.author} />
           </section>
 
           {/* Related Articles */}
