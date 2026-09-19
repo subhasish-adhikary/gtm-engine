@@ -1,200 +1,279 @@
-/*
- * Post-build prerenderer.
- *
- * Runs the production build in a headless browser (real app, real SEO
- * effects) and saves each route's fully rendered HTML to
- * dist/<route>/index.html. Hosting platforms serve these static files
- * before the SPA fallback, so crawlers that don't execute JavaScript still
- * receive complete page content (head metadata, JSON-LD, and body).
- *
- * Route list is derived from the same canonical data sources as the sitemap
- * (case studies, articles, glossary terms, tools) so there is a single
- * source of truth and no content drift.
- *
- * Usage: node scripts/prerender.mjs   (after `vite build`)
- */
-import { execSync, spawn } from 'node:child_process';
-import { mkdirSync, writeFileSync, rmSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { join, dirname } from 'node:path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Downloaded browsers must live inside node_modules (not ~/.cache) so CI
-// hosts that cache node_modules (Vercel) reuse them across builds. Has to be
-// set before playwright-core is imported.
-process.env.PLAYWRIGHT_BROWSERS_PATH ??= '0';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distDir = path.resolve(__dirname, '../dist');
+const templatePath = path.join(distDir, 'index.html');
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const dist = join(root, 'dist');
-const PORT = 4180;
-const BASE = `http://localhost:${PORT}`;
-const CONCURRENCY = 4;
-
-// 1. Bundle the data sources to CJS so the script imports the exact same
-//    modules the app uses.
-const tmpEntry = join(root, '.prerender-entry.ts');
-const tmpData = join(root, '.prerender-data.cjs');
-writeFileSync(tmpEntry, `
-  export { allArticles } from './src/data/articles.ts';
-  export { glossaryTerms } from './src/data/glossary.ts';
-  export { caseStudies } from './src/data/caseStudies.ts';
-  export { tools, thinkingCategories } from './src/data/content.ts';
-`);
-execSync(
-  `npx esbuild --bundle --format=cjs --outfile=${JSON.stringify(tmpData)} --log-level=error ${JSON.stringify(tmpEntry)}`,
-  { cwd: root, stdio: 'inherit' }
-);
-rmSync(tmpEntry, { force: true });
-
-const require = createRequire(import.meta.url);
-const { allArticles, glossaryTerms, caseStudies, tools, thinkingCategories } = require(tmpData);
-if (!caseStudies || !glossaryTerms || !allArticles || !tools || !thinkingCategories) {
-  throw new Error('Data bundle incomplete: ' + Object.keys(require(tmpData)).join(', '));
-}
-
-// 2. Build the route inventory (mirrors the sitemap generator).
-const routes = [];
-const add = (p) => { if (!routes.includes(p)) routes.push(p); };
-add('/');
-// Vercel's static 404 convention: unknown URLs are served this file with a
-// real 404 status instead of an SPA fallback soft-404.
-add('/404.html');
-for (const p of ['/about', '/credentials', '/work', '/thinking', '/tools', '/gtm-stack', '/glossary', '/contact', '/privacy']) add(p);
-caseStudies.forEach((cs) => add(`/work/${cs.slug}`));
-thinkingCategories.forEach((c) => add(`/thinking/${c.id}`));
-allArticles.forEach((a) => add(`/thinking/${a.category}/${a.id}`));
-add('/tools/gtm-intelligence');
-tools.forEach((t) => add(`/tools/${t.id}`));
-const seenSlugs = new Set();
-glossaryTerms.forEach((t) => {
-  if (!seenSlugs.has(t.slug)) { seenSlugs.add(t.slug); add(`/glossary/${t.slug}`); }
-});
-
-console.log(`Prerendering ${routes.length} routes...`);
-
-// 3. Serve the production build.
-const preview = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'], {
-  cwd: root,
-  stdio: 'ignore',
-  detached: true,
-});
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-let up = false;
-for (let i = 0; i < 40; i++) {
-  try {
-    const res = await fetch(`${BASE}/`);
-    if (res.ok) { up = true; break; }
-  } catch { /* retry */ }
-  await wait(500);
-}
-if (!up) {
-  preview.kill();
-  throw new Error('vite preview did not start');
-}
-
-// 4. Capture routes with a real browser. Prefer an installed Chrome (dev
-//    machines); containers without one (Vercel etc.) fall back to Playwright's
-//    bundled Chromium, downloading it on first use. If no browser can run at
-//    all, prerendering is skipped so the deploy still ships the SPA.
-const { chromium } = await import('playwright-core');
-const noSandbox = ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'];
-const launchers = [
-  { label: 'system Chrome', run: () => chromium.launch({ channel: 'chrome', headless: true }) },
-  {
-    label: 'bundled Chromium',
-    run: () => {
-      execSync('npx playwright-core install chromium', { cwd: root, stdio: 'inherit' });
-      return chromium.launch({ headless: true, args: noSandbox });
-    },
-  },
-  {
-    label: 'bundled Chromium headless shell',
-    run: () => {
-      execSync('npx playwright-core install chromium-headless-shell', { cwd: root, stdio: 'inherit' });
-      return chromium.launch({ channel: 'chromium-headless-shell', headless: true, args: noSandbox });
-    },
-  },
-];
-let browser;
-let lastLaunchError;
-for (const { label, run } of launchers) {
-  try {
-    browser = await run();
-    console.log(`Browser: ${label}`);
-    break;
-  } catch (err) {
-    lastLaunchError = err;
-  }
-}
-if (!browser) {
-  try { process.kill(-preview.pid, 'SIGTERM'); } catch { preview.kill(); }
-  rmSync(tmpData, { force: true });
-  // On CI a missing browser must fail the build: shipping the un-prerendered
-  // SPA shell defeats the site's SSG/SEO setup. Skip is only allowed
-  // locally, or when explicitly opted out via PRERENDER_ALLOW_SKIP=1.
-  if ((process.env.CI || process.env.VERCEL) && !process.env.PRERENDER_ALLOW_SKIP) {
-    console.error('\nERROR: no usable browser found on CI — failing build instead of shipping the un-prerendered SPA shell.');
-    console.error(`Launch error: ${String(lastLaunchError).split('\n').slice(0, 6).join('\n')}`);
-    try {
-      console.error(`Expected Chromium at: ${chromium.executablePath()}`);
-      console.error(execSync(`ldd ${JSON.stringify(chromium.executablePath())} 2>&1 | grep 'not found' || echo '(no missing libraries reported)'`).toString());
-    } catch { /* diagnostics only */ }
-    process.exit(1);
-  }
-  console.warn(`\nWARNING: no usable browser found; skipping prerender.\n  ${String(lastLaunchError).split('\n')[0]}\n`);
-  process.exit(0);
-}
-const context = await browser.newContext();
-
-async function capture(route) {
-  const page = await context.newPage();
-  try {
-    // 'domcontentloaded' (not 'load'): the capture serializes the DOM, so
-    // remote images/analytics don't need to finish downloading — waiting for
-    // them only makes the build flaky on slow networks.
-    await page.goto(BASE + route, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    // Wait until React has mounted (main has children) plus a settle delay
-    // for the SEO effect to write head tags.
-    await page.waitForFunction(() => document.querySelector('main')?.children.length > 0, { timeout: 15000 }).catch(() => {});
-    await wait(350);
-    const html = await page.evaluate(() => {
-      document.querySelectorAll('script[data-prerender-strip]').forEach((s) => s.remove());
-      return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    });
-    const file = route === '/' ? join(dist, 'index.html')
-      : route === '/404.html' ? join(dist, '404.html')
-      : join(dist, route, 'index.html');
-    mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, html);
-    return { route, ok: html.length > 2000 && /<main[^>]*>\s*\S/.test(html) };
-  } catch (err) {
-    return { route, ok: false, error: String(err).slice(0, 120) };
-  } finally {
-    await page.close();
-  }
-}
-
-let done = 0;
-const failures = [];
-const queue = [...routes];
-const workers = Array.from({ length: CONCURRENCY }, async () => {
-  while (queue.length) {
-    const route = queue.shift();
-    const r = await capture(route);
-    done++;
-    if (!r.ok) failures.push(r);
-    if (done % 40 === 0) console.log(`  ${done}/${routes.length}`);
-  }
-});
-await Promise.all(workers);
-
-await browser.close();
-try { process.kill(-preview.pid, 'SIGTERM'); } catch { preview.kill(); }
-rmSync(tmpData, { force: true });
-
-if (failures.length) {
-  console.error(`FAILED (${failures.length}):`);
-  failures.forEach((f) => console.error(' ', f.route, f.error || ''));
+if (!fs.existsSync(templatePath)) {
+  console.error('dist/index.html not found. Run "vite build" first.');
   process.exit(1);
 }
-console.log(`Prerendered ${routes.length} routes -> dist/`);
+
+const template = fs.readFileSync(templatePath, 'utf8');
+
+// Helper to escape HTML strings
+function escapeHtml(str = '') {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Generate static HTML for a route
+function generatePage({ route, title, description, canonical, h1, bodyHtml, jsonLd }) {
+  let html = template;
+
+  // Replace Title
+  html = html.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(title)}</title>`);
+
+  // Replace Meta Description
+  html = html.replace(
+    /<meta name="description" content=".*?"\s*\/?>/s,
+    `<meta name="description" content="${escapeHtml(description)}" />`
+  );
+
+  // Replace Canonical
+  html = html.replace(
+    /<link rel="canonical" href=".*?"\s*\/?>/s,
+    `<link rel="canonical" href="${canonical}" />`
+  );
+
+  // Replace OpenGraph tags
+  html = html.replace(
+    /<meta property="og:title" content=".*?"\s*\/?>/s,
+    `<meta property="og:title" content="${escapeHtml(title)}" />`
+  );
+  html = html.replace(
+    /<meta property="og:description" content=".*?"\s*\/?>/s,
+    `<meta property="og:description" content="${escapeHtml(description)}" />`
+  );
+  html = html.replace(
+    /<meta property="og:url" content=".*?"\s*\/?>/s,
+    `<meta property="og:url" content="${canonical}" />`
+  );
+
+  // Replace Twitter tags
+  html = html.replace(
+    /<meta name="twitter:title" content=".*?"\s*\/?>/s,
+    `<meta name="twitter:title" content="${escapeHtml(title)}" />`
+  );
+  html = html.replace(
+    /<meta name="twitter:description" content=".*?"\s*\/?>/s,
+    `<meta name="twitter:description" content="${escapeHtml(description)}" />`
+  );
+
+  // Inject JSON-LD Schema if provided
+  if (jsonLd) {
+    const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>`;
+    html = html.replace('</head>', `${schemaTag}\n</head>`);
+  }
+
+  // Pre-render content inside <div id="root">
+  const renderedContent = `
+    <div id="root">
+      <main class="prerendered-content" style="max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: system-ui, -apple-system, sans-serif;">
+        <nav style="margin-bottom: 24px; font-size: 14px;">
+          <a href="/">Home</a> / <a href="/glossary">Glossary</a>
+        </nav>
+        <h1 style="font-size: 36px; font-weight: 700; margin-bottom: 16px;">${escapeHtml(h1 || title)}</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: #4b5563; margin-bottom: 32px;">${escapeHtml(description)}</p>
+        <article style="line-height: 1.8; color: #1f2937;">
+          ${bodyHtml}
+        </article>
+      </main>
+    </div>
+  `;
+
+  html = html.replace(/<div id="root">[\s\S]*?<\/div>/, renderedContent);
+
+  // Write file to dist/[route]/index.html
+  const targetDir = route === '/' ? distDir : path.join(distDir, route);
+  fs.mkdirSync(targetDir, { recursive: true });
+  fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf8');
+}
+
+console.log('Generating pre-rendered static HTML pages for bots and crawlers...');
+
+// Import glossary data dynamically or read from source
+async function run() {
+  try {
+    // 1. Static Core Pages
+    const corePages = [
+      {
+        route: '/about',
+        title: 'About Subhasish Adhikary | Growth Marketing & GTM Engineer',
+        description: '6+ years building B2B growth systems across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps.',
+        canonical: 'https://subhasishadhikary.com/about',
+        h1: 'About Subhasish Adhikary',
+        bodyHtml: `
+          <section>
+            <h2>Growth Marketing & GTM Strategy</h2>
+            <p>Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience across B2B SaaS, staffing, HR technology, MarTech and digital growth.</p>
+            <h3>Core Competencies</h3>
+            <ul>
+              <li>B2B Go-to-Market Strategy (GTM)</li>
+              <li>Marketing Automation & RevOps Workflows</li>
+              <li>Outbound Demand Generation & Cold Email</li>
+              <li>Account-Based Marketing (ABM)</li>
+              <li>AI-Enabled Marketing Operations</li>
+            </ul>
+          </section>
+        `
+      },
+      {
+        route: '/work',
+        title: 'Work & Case Studies | Subhasish Adhikary',
+        description: 'Case studies covering go-to-market redesign, outbound demand generation, and AI-powered RevOps workflows.',
+        canonical: 'https://subhasishadhikary.com/work',
+        h1: 'Strategic Work & Case Studies',
+        bodyHtml: `
+          <section>
+            <h2>Proven B2B GTM Systems</h2>
+            <p>Explore case studies detailing outbound engines, marketing automation overhauls, and pipeline acceleration systems.</p>
+          </section>
+        `
+      },
+      {
+        route: '/thinking',
+        title: 'Thinking — Research-Led Marketing Intelligence | Subhasish Adhikary',
+        description: '15 research-backed articles on B2B GTM strategy, signal-based selling, marketing automation, and AI in marketing.',
+        canonical: 'https://subhasishadhikary.com/thinking',
+        h1: 'Research-Led Marketing Intelligence',
+        bodyHtml: `
+          <section>
+            <h2>B2B Strategy & Analysis</h2>
+            <p>Original frameworks, data analysis, and implementation guides across Go-to-Market, Marketing Automation, and AI Marketing.</p>
+          </section>
+        `
+      },
+      {
+        route: '/glossary',
+        title: 'New-Age Marketing Glossary | Subhasish Adhikary',
+        description: '150+ authoritative B2B marketing definitions covering GTM, ABM, marketing automation, RevOps, and AI search.',
+        canonical: 'https://subhasishadhikary.com/glossary',
+        h1: 'New-Age Marketing Glossary',
+        bodyHtml: `
+          <section>
+            <h2>Modern Marketing Terminology</h2>
+            <p>A practitioner-written reference for terms shaping growth, GTM engineering, RevOps, and AI marketing.</p>
+          </section>
+        `
+      },
+      {
+        route: '/tools',
+        title: 'Interactive Marketing Tools | Subhasish Adhikary',
+        description: 'Strategic B2B marketing tools: GTM Intelligence Engine, Budget Lab, Channel Planner, and Automation Planner.',
+        canonical: 'https://subhasishadhikary.com/tools',
+        h1: 'Interactive Marketing Strategy Tools',
+        bodyHtml: `
+          <section>
+            <h2>Decision-Focused Marketing Tools</h2>
+            <p>Interactive calculators, diagnostics, and planners designed to answer strategic GTM questions.</p>
+          </section>
+        `
+      }
+    ];
+
+    for (const page of corePages) {
+      generatePage(page);
+      console.log(`✓ Pre-rendered: ${page.route}`);
+    }
+
+    // 2. Parse Glossary terms from src/data/glossary.ts
+    const glossarySrc = fs.readFileSync(path.resolve(__dirname, '../src/data/glossary.ts'), 'utf8');
+    
+    // Extract terms via regex
+    const termBlocks = glossarySrc.split(/id:\s*['"]([^'"]+)['"]/g);
+    for (let i = 1; i < termBlocks.length; i += 2) {
+      const id = termBlocks[i];
+      const block = termBlocks[i + 1] || '';
+      
+      const slugMatch = block.match(/slug:\s*['"]([^'"]+)['"]/);
+      const termMatch = block.match(/term:\s*['"]([^'"]+)['"]/);
+      const shortDefMatch = block.match(/shortDefinition:\s*['"]([^'"]+)['"]/);
+      const fullDefMatch = block.match(/fullDefinition:\s*['"]([^'"]+)['"]/);
+      const whyItMattersMatch = block.match(/whyItMatters:\s*['"]([^'"]+)['"]/);
+      const howItWorksMatch = block.match(/howItWorks:\s*['"]([^'"]+)['"]/);
+      const exampleMatch = block.match(/example:\s*['"]([^'"]+)['"]/);
+
+      if (slugMatch && termMatch && shortDefMatch) {
+        const slug = slugMatch[1];
+        const termName = termMatch[1];
+        const shortDef = shortDefMatch[1];
+        const fullDef = fullDefMatch ? fullDefMatch[1] : shortDef;
+        const whyItMatters = whyItMattersMatch ? whyItMattersMatch[1] : '';
+        const howItWorks = howItWorksMatch ? howItWorksMatch[1] : '';
+        const example = exampleMatch ? exampleMatch[1] : '';
+
+        const route = `/glossary/${slug}`;
+        const title = `What is ${termName}? — Marketing Glossary | Subhasish Adhikary`;
+        const canonical = `https://subhasishadhikary.com${route}`;
+
+        const bodyHtml = `
+          <div class="definition-box" style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+            <h2 style="font-size: 20px; margin-top: 0;">Quick Definition</h2>
+            <p style="font-size: 16px;">${escapeHtml(fullDef)}</p>
+          </div>
+
+          ${whyItMatters ? `
+            <section style="margin-bottom: 24px;">
+              <h2>Why It Matters</h2>
+              <p>${escapeHtml(whyItMatters)}</p>
+            </section>
+          ` : ''}
+
+          ${howItWorks ? `
+            <section style="margin-bottom: 24px;">
+              <h2>How It Works</h2>
+              <p>${escapeHtml(howItWorks)}</p>
+            </section>
+          ` : ''}
+
+          ${example ? `
+            <section style="margin-bottom: 24px;">
+              <h2>Real-World B2B Example</h2>
+              <p>${escapeHtml(example)}</p>
+            </section>
+          ` : ''}
+        `;
+
+        const jsonLd = {
+          "@context": "https://schema.org",
+          "@type": "DefinedTerm",
+          "name": termName,
+          "description": shortDef,
+          "url": canonical,
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "New-Age Marketing Glossary",
+            "url": "https://subhasishadhikary.com/glossary"
+          }
+        };
+
+        generatePage({
+          route,
+          title,
+          description: shortDef,
+          canonical,
+          h1: `What is ${termName}?`,
+          bodyHtml,
+          jsonLd
+        });
+
+        console.log(`✓ Pre-rendered: ${route}`);
+      }
+    }
+
+    console.log('✅ Pre-rendering complete! All pages generated successfully.');
+  } catch (err) {
+    console.error('Error during pre-rendering:', err);
+    process.exit(1);
+  }
+}
+
+run();
