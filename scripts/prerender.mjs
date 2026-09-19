@@ -14,11 +14,8 @@ if (!fs.existsSync(templatePath)) {
 }
 
 const template = fs.readFileSync(templatePath, 'utf8');
-
-// Initialize TypeScript module loader
 const jiti = createJiti(import.meta.url);
 
-// Helper to escape HTML strings
 function escapeHtml(str = '') {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -28,10 +25,8 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#039;');
 }
 
-// Write static HTML files (both directory index and .html for Vercel cleanUrls)
-function writePageFiles(route, html) {
+function writePage(route, html) {
   const cleanRoute = route.replace(/^\/+|\/+$/g, '');
-  
   if (cleanRoute === '') {
     fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
     return;
@@ -46,25 +41,18 @@ function writePageFiles(route, html) {
   fs.writeFileSync(path.join(distDir, `${cleanRoute}.html`), html, 'utf8');
 }
 
-function generatePage({ route, title, description, canonical, h1, bodyHtml, jsonLd }) {
+function generateHtml({ route, title, description, canonical, h1, bodyHtml, jsonLd }) {
   let html = template;
 
-  // Replace Title
   html = html.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(title)}</title>`);
-
-  // Replace Meta Description
   html = html.replace(
     /<meta name="description" content=".*?"\s*\/?>/s,
     `<meta name="description" content="${escapeHtml(description)}" />`
   );
-
-  // Replace Canonical
   html = html.replace(
     /<link rel="canonical" href=".*?"\s*\/?>/s,
     `<link rel="canonical" href="${canonical}" />`
   );
-
-  // Replace OpenGraph tags
   html = html.replace(
     /<meta property="og:title" content=".*?"\s*\/?>/s,
     `<meta property="og:title" content="${escapeHtml(title)}" />`
@@ -77,8 +65,6 @@ function generatePage({ route, title, description, canonical, h1, bodyHtml, json
     /<meta property="og:url" content=".*?"\s*\/?>/s,
     `<meta property="og:url" content="${canonical}" />`
   );
-
-  // Replace Twitter tags
   html = html.replace(
     /<meta name="twitter:title" content=".*?"\s*\/?>/s,
     `<meta name="twitter:title" content="${escapeHtml(title)}" />`
@@ -88,13 +74,11 @@ function generatePage({ route, title, description, canonical, h1, bodyHtml, json
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`
   );
 
-  // Inject JSON-LD Schema if provided
   if (jsonLd) {
     const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>`;
     html = html.replace('</head>', `${schemaTag}\n</head>`);
   }
 
-  // Pre-render content inside <div id="root">
   const renderedContent = `
     <div id="root">
       <main class="prerendered-content" style="max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #17191C;">
@@ -111,30 +95,28 @@ function generatePage({ route, title, description, canonical, h1, bodyHtml, json
   `;
 
   html = html.replace(/<div id="root">[\s\S]*?<\/div>/, renderedContent);
-
-  writePageFiles(route, html);
+  writePage(route, html);
 }
 
 async function run() {
-  console.log('🚀 Pre-rendering static HTML for all pages, articles, and glossary terms...');
+  console.log('🚀 Pre-rendering static HTML for all pages...');
 
-  // 1. Load Data directly from TypeScript files
-  const { glossaryTerms, glossaryCategories } = await jiti.import('../src/data/glossary.ts');
+  const { glossaryTerms } = await jiti.import('../src/data/glossary.ts');
   const { allArticles } = await jiti.import('../src/data/articles.ts');
   const { caseStudies } = await jiti.import('../src/data/caseStudies.ts');
   const { tools } = await jiti.import('../src/data/content.ts');
 
-  // 2. Pre-render Core Pages
+  // Core Static Pages
   const corePages = [
     {
       route: '/about',
       title: 'About Subhasish Adhikary | Growth Marketing & GTM Engineer',
       description: '6+ years building B2B growth systems across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps.',
       canonical: 'https://subhasishadhikary.com/about',
-      h1: 'About Subhasish Adhikary — Growth Marketing & GTM Engineer',
+      h1: 'About Subhasish Adhikary',
       bodyHtml: `
         <h2>Professional Background</h2>
-        <p>Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience building demand-generation and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses.</p>
+        <p>Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience building demand-generation, revenue and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses.</p>
         <h2>Core Specializations</h2>
         <ul>
           <li><strong>B2B Go-to-Market Strategy (GTM):</strong> ICP definition, positioning, messaging, and sales enablement.</li>
@@ -152,7 +134,7 @@ async function run() {
       h1: 'Strategic Work & Case Studies',
       bodyHtml: `
         <h2>B2B GTM Systems and Case Studies</h2>
-        <p>Real-world examples of demand generation, marketing automation overhauls, and revenue operations built for B2B companies.</p>
+        <p>Explore real-world case studies detailing outbound engines, marketing automation overhauls, and pipeline acceleration systems.</p>
       `
     },
     {
@@ -189,6 +171,17 @@ async function run() {
       `
     },
     {
+      route: '/gtm-stack',
+      title: '79+ B2B Marketing Tool Stacks | Subhasish Adhikary',
+      description: '79+ curated B2B marketing technology stacks organized by company stage, budget, and GTM motion.',
+      canonical: 'https://subhasishadhikary.com/gtm-stack',
+      h1: '79+ B2B Marketing Tool Stacks',
+      bodyHtml: `
+        <h2>Curated Marketing Technology Stacks</h2>
+        <p>Explore battle-tested marketing technology stacks organized by company stage, budget, and GTM motion.</p>
+      `
+    },
+    {
       route: '/credentials',
       title: 'Education & Credentials | Subhasish Adhikary',
       description: 'MBA in Marketing, McKinsey.org Forward Program, Clay Outbound Automation, and Pendo Product-led certifications.',
@@ -202,11 +195,11 @@ async function run() {
   ];
 
   for (const page of corePages) {
-    generatePage(page);
+    generateHtml(page);
     console.log(`✓ Generated: ${page.route}`);
   }
 
-  // 3. Pre-render All Glossary Terms (150+ terms)
+  // Pre-render Glossary Terms (150+ terms)
   for (const term of glossaryTerms) {
     const route = `/glossary/${term.slug}`;
     const title = `What is ${term.term}? — Marketing Glossary | Subhasish Adhikary`;
@@ -241,7 +234,7 @@ async function run() {
     if (term.example) {
       bodyHtml += `
         <section style="margin-bottom: 28px;">
-          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Real-World Example</h2>
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Real-World B2B Example</h2>
           <div style="background: #F7F7F5; padding: 18px; border-radius: 6px; border: 1px solid #E1E3E5;">
             <p style="margin: 0;">${escapeHtml(term.example)}</p>
           </div>
@@ -298,7 +291,7 @@ async function run() {
       }
     };
 
-    generatePage({
+    generateHtml({
       route,
       title,
       description,
@@ -308,9 +301,9 @@ async function run() {
       jsonLd
     });
   }
-  console.log(`✓ Generated ${glossaryTerms.length} glossary term pages`);
+  console.log(`✓ Pre-rendered ${glossaryTerms.length} glossary terms`);
 
-  // 4. Pre-render Research Articles
+  // Pre-render Research Articles
   for (const article of allArticles) {
     const route = `/thinking/${article.category}/${article.id}`;
     const title = `${article.title} | Subhasish Adhikary`;
@@ -327,7 +320,7 @@ async function run() {
       </div>
     `;
 
-    generatePage({
+    generateHtml({
       route,
       title,
       description,
@@ -336,9 +329,9 @@ async function run() {
       bodyHtml
     });
   }
-  console.log(`✓ Generated ${allArticles.length} research article pages`);
+  console.log(`✓ Pre-rendered ${allArticles.length} research articles`);
 
-  // 5. Pre-render Case Studies
+  // Pre-render Case Studies
   for (const cs of caseStudies) {
     const route = `/work/${cs.slug}`;
     const title = `${cs.title} — Case Study | Subhasish Adhikary`;
@@ -357,7 +350,7 @@ async function run() {
       <p>${escapeHtml(cs.caseStudy.outcome || 'Delivered measurable pipeline and efficiency improvements.')}</p>
     `;
 
-    generatePage({
+    generateHtml({
       route,
       title,
       description,
@@ -366,9 +359,9 @@ async function run() {
       bodyHtml
     });
   }
-  console.log(`✓ Generated ${caseStudies.length} case study pages`);
+  console.log(`✓ Pre-rendered ${caseStudies.length} case studies`);
 
-  console.log('🎉 Static pre-rendering successfully completed for ALL routes!');
+  console.log('✅ ALL static pages pre-rendered successfully!');
 }
 
 run().catch(err => {
