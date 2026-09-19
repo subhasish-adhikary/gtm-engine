@@ -1,16 +1,12 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.subhasishadhikary.com" }],
       "destination": "https://subhasishadhikary.com/:path*",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!assets/|images/|public/|llms.*|robots.txt|sitemap.xml).*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -28,10 +24,6 @@
         { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=86400" }
       ]
-    },
-    {
-      "source": "/((?!assets/)[^.]*)",
-      "headers": [{ "key": "Cache-Control", "value": "s-maxage=86400, stale-while-revalidate=86400" }]
     }
   ]
 }
