@@ -97,7 +97,7 @@ if (!up) {
 //    bundled Chromium, downloading it on first use. If no browser can run at
 //    all, prerendering is skipped so the deploy still ships the SPA.
 const { chromium } = await import('playwright-core');
-const noSandbox = ['--no-sandbox', '--disable-setuid-sandbox'];
+const noSandbox = ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'];
 const launchers = [
   { label: 'system Chrome', run: () => chromium.launch({ channel: 'chrome', headless: true }) },
   {
@@ -127,9 +127,21 @@ for (const { label, run } of launchers) {
   }
 }
 if (!browser) {
-  console.warn(`\nWARNING: no usable browser found; skipping prerender.\n  ${String(lastLaunchError).split('\n')[0]}\n`);
   try { process.kill(-preview.pid, 'SIGTERM'); } catch { preview.kill(); }
   rmSync(tmpData, { force: true });
+  // On CI a missing browser must fail the build: shipping the un-prerendered
+  // SPA shell defeats the site's SSG/SEO setup. Skip is only allowed
+  // locally, or when explicitly opted out via PRERENDER_ALLOW_SKIP=1.
+  if ((process.env.CI || process.env.VERCEL) && !process.env.PRERENDER_ALLOW_SKIP) {
+    console.error('\nERROR: no usable browser found on CI — failing build instead of shipping the un-prerendered SPA shell.');
+    console.error(`Launch error: ${String(lastLaunchError).split('\n').slice(0, 6).join('\n')}`);
+    try {
+      console.error(`Expected Chromium at: ${chromium.executablePath()}`);
+      console.error(execSync(`ldd ${JSON.stringify(chromium.executablePath())} 2>&1 | grep 'not found' || echo '(no missing libraries reported)'`).toString());
+    } catch { /* diagnostics only */ }
+    process.exit(1);
+  }
+  console.warn(`\nWARNING: no usable browser found; skipping prerender.\n  ${String(lastLaunchError).split('\n')[0]}\n`);
   process.exit(0);
 }
 const context = await browser.newContext();
