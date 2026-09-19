@@ -1,5 +1,5 @@
 # robots.txt for subhasishadhikary.com
-# Portfolio and GTM marketing resource site (React SPA served with history fallback)
+# Portfolio and GTM marketing resource site (statically prerendered)
 
 User-agent: *
 Allow: /

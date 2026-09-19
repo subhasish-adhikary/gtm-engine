@@ -1,2 +1,0 @@
-# Netlify SPA fallback: serve the app for all paths without a matching file.
-/*  /index.html  200

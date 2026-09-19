@@ -134,7 +134,7 @@ const context = await browser.newContext();
 async function capture(route) {
   const page = await context.newPage();
   try {
-    await page.goto(BASE + route, { waitUntil: 'load', timeout: 20000 });
+    await page.goto(BASE + route, { waitUntil: 'load', timeout: 45000 });
     // Wait until React has mounted (main has children) plus a settle delay
     // for the SEO effect to write head tags.
     await page.waitForFunction(() => document.querySelector('main')?.children.length > 0, { timeout: 15000 }).catch(() => {});
