@@ -106,7 +106,18 @@ export function SEO() {
           updateMetaTags(
             `${article.title} | Subhasish Adhikary`,
             article.thesis,
-            `${baseUrl}/thinking/${category}/${articleId}`
+            `${baseUrl}/thinking/${category}/${articleId}`,
+            false,
+            {
+              // Articles with a reachable absolute featured image use it for
+              // the share card; local paths without a deployed file fall back
+              // to the site-wide default.
+              image: article.featuredImage && article.featuredImage.startsWith('http')
+                ? article.featuredImage
+                : undefined,
+              imageAlt: article.featuredImageAlt,
+              type: 'article'
+            }
           );
       } else {
         // Unknown article: self-canonicalize and noindex rather than

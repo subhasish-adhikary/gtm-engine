@@ -9,6 +9,7 @@ export function generateWebSiteSchema() {
     name: siteConfig.name,
     url: baseUrl,
     description: siteConfig.description,
+    publisher: { '@id': PERSON_ID },
     potentialAction: {
       '@type': 'SearchAction',
       target: `${baseUrl}/thinking?q={search_term_string}`,
@@ -17,29 +18,64 @@ export function generateWebSiteSchema() {
   };
 }
 
+// Canonical Person entity. Referenced everywhere else via @id so the site has
+// exactly one Person node regardless of how many schemas mention the author.
+const PERSON_ID = `${baseUrl}/#subhasish-adhikary`;
+
+export const DEFAULT_OG_IMAGE = `${baseUrl}/images/og-default.png`;
+export const DEFAULT_OG_IMAGE_ALT = 'Subhasish Adhikary — Growth Marketing & GTM Strategy';
+
 export function generatePersonSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': PERSON_ID,
     name: siteConfig.name,
-    url: baseUrl,
-    jobTitle: 'Growth Marketing & B2B GTM Strategist',
+    url: `${baseUrl}/about`,
+    image: 'https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png',
+    jobTitle: 'Growth Marketing & GTM Engineer',
+    description: siteConfig.professionalSummary,
     worksFor: {
       '@type': 'Organization',
-      name: 'Independent'
+      name: 'LanceSoft'
+    },
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Manipal Institute of Management, MAHE, Manipal'
+    },
+    email: `mailto:${siteConfig.email}`,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Hyderabad',
+      addressRegion: 'Telangana',
+      addressCountry: 'IN'
     },
     sameAs: [
-      siteConfig.linkedin
+      'https://x.com/crazy_subh',
+      'https://www.linkedin.com/in/subhasish-adhikary/',
+      'https://about.me/subhasishadhikary',
+      'https://www.facebook.com/SubhasishAdhikaryDigital/',
+      'https://www.youtube.com/@subhasishadhikary',
+      'https://www.instagram.com/silentkiller_me/'
     ],
     knowsAbout: [
       'B2B Go-to-Market Strategy',
       'Growth Marketing',
+      'GTM Engineering',
       'Product Marketing',
       'Marketing Automation',
       'AI in Marketing',
       'Demand Generation',
+      'Revenue Operations',
       'Marketing Operations',
       'Marketing Economics'
+    ],
+    hasCredential: [
+      { '@type': 'EducationalOccupationalCredential', name: 'Master of Business Administration (MBA), Marketing', credentialCategory: 'degree', recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Manipal Institute of Management, MAHE, Manipal' } },
+      { '@type': 'EducationalOccupationalCredential', name: 'Outbound Automation Certification', recognizedBy: { '@type': 'Organization', name: 'Clay' } },
+      { '@type': 'EducationalOccupationalCredential', name: 'Product-led Certification', recognizedBy: { '@type': 'Organization', name: 'Pendo' } },
+      { '@type': 'EducationalOccupationalCredential', name: 'Salesforce Marketing Cloud Email/Admin/Consultant Training', recognizedBy: { '@type': 'Organization', name: 'Salesforce' } },
+      { '@type': 'EducationalOccupationalCredential', name: 'McKinsey.org Forward Program', recognizedBy: { '@type': 'Organization', name: 'McKinsey & Company' } }
     ]
   };
 }
@@ -53,17 +89,8 @@ export function generateArticleSchema(article: any) {
     image: article.featuredImage,
     datePublished: article.publishedDate,
     dateModified: article.updatedDate || article.publishedDate,
-    author: {
-      '@type': 'Person',
-      name: article.author,
-      url: `${baseUrl}/about`,
-      description: article.authorBio
-    },
-    publisher: {
-      '@type': 'Person',
-      name: siteConfig.name,
-      url: baseUrl
-    },
+    author: { '@id': PERSON_ID, '@type': 'Person', name: article.author },
+    publisher: { '@id': PERSON_ID, '@type': 'Person', name: siteConfig.name },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${baseUrl}/thinking/${article.category}/${article.id}`
@@ -219,7 +246,32 @@ export function injectMultipleStructuredData(schemas: any[]) {
   });
 }
 
-export function updateMetaTags(title: string, description: string, canonical?: string, noindex = false) {
+export interface SocialMetaOptions {
+  /** Absolute URL of the social share image. Falls back to the site default. */
+  image?: string;
+  /** Alt text describing the share image. */
+  imageAlt?: string;
+  /** Open Graph type: 'website' (default) or 'article'. */
+  type?: string;
+}
+
+function setMeta(selector: string, attr: 'name' | 'property', key: string, content: string) {
+  let meta = document.querySelector(selector) as HTMLMetaElement | null;
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute(attr, key);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+export function updateMetaTags(
+  title: string,
+  description: string,
+  canonical?: string,
+  noindex = false,
+  options: SocialMetaOptions = {}
+) {
   if (typeof document === 'undefined') return;
 
   // Update title
@@ -238,7 +290,7 @@ export function updateMetaTags(title: string, description: string, canonical?: s
   } else if (metaRobots) {
     metaRobots.remove();
   }
-  
+
   // Update meta description
   let metaDesc = document.querySelector('meta[name="description"]');
   if (!metaDesc) {
@@ -247,7 +299,7 @@ export function updateMetaTags(title: string, description: string, canonical?: s
     document.head.appendChild(metaDesc);
   }
   metaDesc.setAttribute('content', description);
-  
+
   // Update canonical
   if (canonical) {
     let linkCanonical = document.querySelector('link[rel="canonical"]');
@@ -258,14 +310,26 @@ export function updateMetaTags(title: string, description: string, canonical?: s
     }
     linkCanonical.setAttribute('href', canonical);
   }
-  
-  // Update Open Graph
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.setAttribute('content', title);
-  
-  const ogDesc = document.querySelector('meta[property="og:description"]');
-  if (ogDesc) ogDesc.setAttribute('content', description);
-  
-  const ogUrl = document.querySelector('meta[property="og:url"]');
-  if (ogUrl && canonical) ogUrl.setAttribute('content', canonical);
+
+  // Social share image: page-specific when provided, site-wide default otherwise.
+  const ogImage = options.image || DEFAULT_OG_IMAGE;
+  const ogImageAlt = options.imageAlt || DEFAULT_OG_IMAGE_ALT;
+  const ogType = options.type || 'website';
+
+  // Open Graph
+  setMeta('meta[property="og:title"]', 'property', 'og:title', title);
+  setMeta('meta[property="og:description"]', 'property', 'og:description', description);
+  setMeta('meta[property="og:url"]', 'property', 'og:url', canonical || `${baseUrl}/`);
+  setMeta('meta[property="og:type"]', 'property', 'og:type', ogType);
+  setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
+  setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', ogImageAlt);
+  setMeta('meta[property="og:image:width"]', 'property', 'og:image:width', '1200');
+  setMeta('meta[property="og:image:height"]', 'property', 'og:image:height', '630');
+
+  // Twitter/X card
+  setMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
+  setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
+  setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
+  setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
+  setMeta('meta[name="twitter:image:alt"]', 'name', 'twitter:image:alt', ogImageAlt);
 }
