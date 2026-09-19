@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createJiti } from 'jiti';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,9 +15,12 @@ if (!fs.existsSync(templatePath)) {
 
 const template = fs.readFileSync(templatePath, 'utf8');
 
+// Initialize TypeScript module loader
+const jiti = createJiti(import.meta.url);
+
 // Helper to escape HTML strings
 function escapeHtml(str = '') {
-  return str
+  return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -24,7 +28,24 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#039;');
 }
 
-// Generate static HTML for a route
+// Write static HTML files (both directory index and .html for Vercel cleanUrls)
+function writePageFiles(route, html) {
+  const cleanRoute = route.replace(/^\/+|\/+$/g, '');
+  
+  if (cleanRoute === '') {
+    fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
+    return;
+  }
+
+  // 1. Write dist/route/index.html
+  const targetDir = path.join(distDir, cleanRoute);
+  fs.mkdirSync(targetDir, { recursive: true });
+  fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf8');
+
+  // 2. Write dist/route.html
+  fs.writeFileSync(path.join(distDir, `${cleanRoute}.html`), html, 'utf8');
+}
+
 function generatePage({ route, title, description, canonical, h1, bodyHtml, jsonLd }) {
   let html = template;
 
@@ -76,13 +97,13 @@ function generatePage({ route, title, description, canonical, h1, bodyHtml, json
   // Pre-render content inside <div id="root">
   const renderedContent = `
     <div id="root">
-      <main class="prerendered-content" style="max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: system-ui, -apple-system, sans-serif;">
-        <nav style="margin-bottom: 24px; font-size: 14px;">
-          <a href="/">Home</a> / <a href="/glossary">Glossary</a>
+      <main class="prerendered-content" style="max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #17191C;">
+        <nav style="margin-bottom: 24px; font-size: 14px; color: #62676D;">
+          <a href="/" style="color: #155EEF; text-decoration: none;">Home</a> / <a href="/glossary" style="color: #155EEF; text-decoration: none;">Glossary</a>
         </nav>
-        <h1 style="font-size: 36px; font-weight: 700; margin-bottom: 16px;">${escapeHtml(h1 || title)}</h1>
-        <p style="font-size: 18px; line-height: 1.6; color: #4b5563; margin-bottom: 32px;">${escapeHtml(description)}</p>
-        <article style="line-height: 1.8; color: #1f2937;">
+        <h1 style="font-size: 38px; font-weight: 700; margin-bottom: 16px; color: #17191C;">${escapeHtml(h1 || title)}</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: #62676D; margin-bottom: 28px;">${escapeHtml(description)}</p>
+        <article style="line-height: 1.8; color: #17191C;">
           ${bodyHtml}
         </article>
       </main>
@@ -91,189 +112,266 @@ function generatePage({ route, title, description, canonical, h1, bodyHtml, json
 
   html = html.replace(/<div id="root">[\s\S]*?<\/div>/, renderedContent);
 
-  // Write file to dist/[route]/index.html
-  const targetDir = route === '/' ? distDir : path.join(distDir, route);
-  fs.mkdirSync(targetDir, { recursive: true });
-  fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf8');
+  writePageFiles(route, html);
 }
 
-console.log('Generating pre-rendered static HTML pages for bots and crawlers...');
-
-// Import glossary data dynamically or read from source
 async function run() {
-  try {
-    // 1. Static Core Pages
-    const corePages = [
-      {
-        route: '/about',
-        title: 'About Subhasish Adhikary | Growth Marketing & GTM Engineer',
-        description: '6+ years building B2B growth systems across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps.',
-        canonical: 'https://subhasishadhikary.com/about',
-        h1: 'About Subhasish Adhikary',
-        bodyHtml: `
-          <section>
-            <h2>Growth Marketing & GTM Strategy</h2>
-            <p>Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience across B2B SaaS, staffing, HR technology, MarTech and digital growth.</p>
-            <h3>Core Competencies</h3>
-            <ul>
-              <li>B2B Go-to-Market Strategy (GTM)</li>
-              <li>Marketing Automation & RevOps Workflows</li>
-              <li>Outbound Demand Generation & Cold Email</li>
-              <li>Account-Based Marketing (ABM)</li>
-              <li>AI-Enabled Marketing Operations</li>
-            </ul>
-          </section>
-        `
-      },
-      {
-        route: '/work',
-        title: 'Work & Case Studies | Subhasish Adhikary',
-        description: 'Case studies covering go-to-market redesign, outbound demand generation, and AI-powered RevOps workflows.',
-        canonical: 'https://subhasishadhikary.com/work',
-        h1: 'Strategic Work & Case Studies',
-        bodyHtml: `
-          <section>
-            <h2>Proven B2B GTM Systems</h2>
-            <p>Explore case studies detailing outbound engines, marketing automation overhauls, and pipeline acceleration systems.</p>
-          </section>
-        `
-      },
-      {
-        route: '/thinking',
-        title: 'Thinking — Research-Led Marketing Intelligence | Subhasish Adhikary',
-        description: '15 research-backed articles on B2B GTM strategy, signal-based selling, marketing automation, and AI in marketing.',
-        canonical: 'https://subhasishadhikary.com/thinking',
-        h1: 'Research-Led Marketing Intelligence',
-        bodyHtml: `
-          <section>
-            <h2>B2B Strategy & Analysis</h2>
-            <p>Original frameworks, data analysis, and implementation guides across Go-to-Market, Marketing Automation, and AI Marketing.</p>
-          </section>
-        `
-      },
-      {
-        route: '/glossary',
-        title: 'New-Age Marketing Glossary | Subhasish Adhikary',
-        description: '150+ authoritative B2B marketing definitions covering GTM, ABM, marketing automation, RevOps, and AI search.',
-        canonical: 'https://subhasishadhikary.com/glossary',
-        h1: 'New-Age Marketing Glossary',
-        bodyHtml: `
-          <section>
-            <h2>Modern Marketing Terminology</h2>
-            <p>A practitioner-written reference for terms shaping growth, GTM engineering, RevOps, and AI marketing.</p>
-          </section>
-        `
-      },
-      {
-        route: '/tools',
-        title: 'Interactive Marketing Tools | Subhasish Adhikary',
-        description: 'Strategic B2B marketing tools: GTM Intelligence Engine, Budget Lab, Channel Planner, and Automation Planner.',
-        canonical: 'https://subhasishadhikary.com/tools',
-        h1: 'Interactive Marketing Strategy Tools',
-        bodyHtml: `
-          <section>
-            <h2>Decision-Focused Marketing Tools</h2>
-            <p>Interactive calculators, diagnostics, and planners designed to answer strategic GTM questions.</p>
-          </section>
-        `
-      }
-    ];
+  console.log('🚀 Pre-rendering static HTML for all pages, articles, and glossary terms...');
 
-    for (const page of corePages) {
-      generatePage(page);
-      console.log(`✓ Pre-rendered: ${page.route}`);
+  // 1. Load Data directly from TypeScript files
+  const { glossaryTerms, glossaryCategories } = await jiti.import('../src/data/glossary.ts');
+  const { allArticles } = await jiti.import('../src/data/articles.ts');
+  const { caseStudies } = await jiti.import('../src/data/caseStudies.ts');
+  const { tools } = await jiti.import('../src/data/content.ts');
+
+  // 2. Pre-render Core Pages
+  const corePages = [
+    {
+      route: '/about',
+      title: 'About Subhasish Adhikary | Growth Marketing & GTM Engineer',
+      description: '6+ years building B2B growth systems across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps.',
+      canonical: 'https://subhasishadhikary.com/about',
+      h1: 'About Subhasish Adhikary — Growth Marketing & GTM Engineer',
+      bodyHtml: `
+        <h2>Professional Background</h2>
+        <p>Subhasish Adhikary is a Growth and GTM professional with 6+ years of experience building demand-generation and marketing-operations systems across B2B SaaS, staffing, HR technology, MarTech and digital businesses.</p>
+        <h2>Core Specializations</h2>
+        <ul>
+          <li><strong>B2B Go-to-Market Strategy (GTM):</strong> ICP definition, positioning, messaging, and sales enablement.</li>
+          <li><strong>Marketing Automation & RevOps:</strong> HubSpot, Salesforce, Clay, Make, and automated data workflows.</li>
+          <li><strong>Outbound & ABM:</strong> Multi-channel outbound, lead enrichment, and account-based marketing.</li>
+          <li><strong>AI in Marketing:</strong> AI-powered RevOps workflows, agentic automation, and pipeline operations.</li>
+        </ul>
+      `
+    },
+    {
+      route: '/work',
+      title: 'Work & Case Studies | Subhasish Adhikary',
+      description: 'Strategic case studies covering GTM redesign, outbound demand generation, and AI-powered RevOps workflows.',
+      canonical: 'https://subhasishadhikary.com/work',
+      h1: 'Strategic Work & Case Studies',
+      bodyHtml: `
+        <h2>B2B GTM Systems and Case Studies</h2>
+        <p>Real-world examples of demand generation, marketing automation overhauls, and revenue operations built for B2B companies.</p>
+      `
+    },
+    {
+      route: '/thinking',
+      title: 'Thinking — Research-Led Marketing Intelligence | Subhasish Adhikary',
+      description: '15 research-backed articles on B2B GTM strategy, signal-based selling, marketing automation, and AI in marketing.',
+      canonical: 'https://subhasishadhikary.com/thinking',
+      h1: 'Research-Led Marketing Intelligence',
+      bodyHtml: `
+        <h2>B2B Strategy & Industry Frameworks</h2>
+        <p>Original research and deep analysis on B2B Go-to-Market Strategy, Marketing Automation, and AI-enabled marketing systems.</p>
+      `
+    },
+    {
+      route: '/glossary',
+      title: 'New-Age Marketing Glossary | Subhasish Adhikary',
+      description: '150+ authoritative B2B marketing definitions covering GTM, ABM, marketing automation, RevOps, and AI search.',
+      canonical: 'https://subhasishadhikary.com/glossary',
+      h1: 'New-Age Marketing Glossary',
+      bodyHtml: `
+        <h2>Modern Marketing Terminology</h2>
+        <p>A comprehensive, practitioner-written glossary for the concepts shaping modern growth, GTM engineering, marketing automation, and AI operations.</p>
+      `
+    },
+    {
+      route: '/tools',
+      title: 'Interactive Marketing Tools | Subhasish Adhikary',
+      description: 'Decision-focused B2B marketing tools: GTM Intelligence Engine, Budget Lab, Channel Planner, and Automation Planner.',
+      canonical: 'https://subhasishadhikary.com/tools',
+      h1: 'Interactive Marketing Strategy Tools',
+      bodyHtml: `
+        <h2>Strategic Decision Tools</h2>
+        <p>Interactive diagnostics, budget planners, and stack builders designed for B2B marketers and founders.</p>
+      `
+    },
+    {
+      route: '/credentials',
+      title: 'Education & Credentials | Subhasish Adhikary',
+      description: 'MBA in Marketing, McKinsey.org Forward Program, Clay Outbound Automation, and Pendo Product-led certifications.',
+      canonical: 'https://subhasishadhikary.com/credentials',
+      h1: 'Education & Professional Credentials',
+      bodyHtml: `
+        <h2>Education & Continuous Learning</h2>
+        <p>MBA in Marketing from Manipal Institute of Management, MAHE, alongside verified certifications in GTM automation, outbound systems, and product-led growth.</p>
+      `
     }
+  ];
 
-    // 2. Parse Glossary terms from src/data/glossary.ts
-    const glossarySrc = fs.readFileSync(path.resolve(__dirname, '../src/data/glossary.ts'), 'utf8');
-    
-    // Extract terms via regex
-    const termBlocks = glossarySrc.split(/id:\s*['"]([^'"]+)['"]/g);
-    for (let i = 1; i < termBlocks.length; i += 2) {
-      const id = termBlocks[i];
-      const block = termBlocks[i + 1] || '';
-      
-      const slugMatch = block.match(/slug:\s*['"]([^'"]+)['"]/);
-      const termMatch = block.match(/term:\s*['"]([^'"]+)['"]/);
-      const shortDefMatch = block.match(/shortDefinition:\s*['"]([^'"]+)['"]/);
-      const fullDefMatch = block.match(/fullDefinition:\s*['"]([^'"]+)['"]/);
-      const whyItMattersMatch = block.match(/whyItMatters:\s*['"]([^'"]+)['"]/);
-      const howItWorksMatch = block.match(/howItWorks:\s*['"]([^'"]+)['"]/);
-      const exampleMatch = block.match(/example:\s*['"]([^'"]+)['"]/);
-
-      if (slugMatch && termMatch && shortDefMatch) {
-        const slug = slugMatch[1];
-        const termName = termMatch[1];
-        const shortDef = shortDefMatch[1];
-        const fullDef = fullDefMatch ? fullDefMatch[1] : shortDef;
-        const whyItMatters = whyItMattersMatch ? whyItMattersMatch[1] : '';
-        const howItWorks = howItWorksMatch ? howItWorksMatch[1] : '';
-        const example = exampleMatch ? exampleMatch[1] : '';
-
-        const route = `/glossary/${slug}`;
-        const title = `What is ${termName}? — Marketing Glossary | Subhasish Adhikary`;
-        const canonical = `https://subhasishadhikary.com${route}`;
-
-        const bodyHtml = `
-          <div class="definition-box" style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-            <h2 style="font-size: 20px; margin-top: 0;">Quick Definition</h2>
-            <p style="font-size: 16px;">${escapeHtml(fullDef)}</p>
-          </div>
-
-          ${whyItMatters ? `
-            <section style="margin-bottom: 24px;">
-              <h2>Why It Matters</h2>
-              <p>${escapeHtml(whyItMatters)}</p>
-            </section>
-          ` : ''}
-
-          ${howItWorks ? `
-            <section style="margin-bottom: 24px;">
-              <h2>How It Works</h2>
-              <p>${escapeHtml(howItWorks)}</p>
-            </section>
-          ` : ''}
-
-          ${example ? `
-            <section style="margin-bottom: 24px;">
-              <h2>Real-World B2B Example</h2>
-              <p>${escapeHtml(example)}</p>
-            </section>
-          ` : ''}
-        `;
-
-        const jsonLd = {
-          "@context": "https://schema.org",
-          "@type": "DefinedTerm",
-          "name": termName,
-          "description": shortDef,
-          "url": canonical,
-          "inDefinedTermSet": {
-            "@type": "DefinedTermSet",
-            "name": "New-Age Marketing Glossary",
-            "url": "https://subhasishadhikary.com/glossary"
-          }
-        };
-
-        generatePage({
-          route,
-          title,
-          description: shortDef,
-          canonical,
-          h1: `What is ${termName}?`,
-          bodyHtml,
-          jsonLd
-        });
-
-        console.log(`✓ Pre-rendered: ${route}`);
-      }
-    }
-
-    console.log('✅ Pre-rendering complete! All pages generated successfully.');
-  } catch (err) {
-    console.error('Error during pre-rendering:', err);
-    process.exit(1);
+  for (const page of corePages) {
+    generatePage(page);
+    console.log(`✓ Generated: ${page.route}`);
   }
+
+  // 3. Pre-render All Glossary Terms (150+ terms)
+  for (const term of glossaryTerms) {
+    const route = `/glossary/${term.slug}`;
+    const title = `What is ${term.term}? — Marketing Glossary | Subhasish Adhikary`;
+    const description = term.shortDefinition;
+    const canonical = `https://subhasishadhikary.com${route}`;
+
+    let bodyHtml = `
+      <div style="background-color: #F1F3F5; border-left: 4px solid #155EEF; padding: 20px; border-radius: 6px; margin-bottom: 28px;">
+        <h2 style="font-size: 18px; margin-top: 0; color: #17191C;">Quick Definition</h2>
+        <p style="font-size: 16px; margin-bottom: 0; color: #17191C;">${escapeHtml(term.fullDefinition || term.shortDefinition)}</p>
+      </div>
+    `;
+
+    if (term.whyItMatters) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Why It Matters</h2>
+          <p>${escapeHtml(term.whyItMatters)}</p>
+        </section>
+      `;
+    }
+
+    if (term.howItWorks) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">How It Works</h2>
+          <p>${escapeHtml(term.howItWorks)}</p>
+        </section>
+      `;
+    }
+
+    if (term.example) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Real-World Example</h2>
+          <div style="background: #F7F7F5; padding: 18px; border-radius: 6px; border: 1px solid #E1E3E5;">
+            <p style="margin: 0;">${escapeHtml(term.example)}</p>
+          </div>
+        </section>
+      `;
+    }
+
+    if (term.useCases && term.useCases.length > 0) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Common Use Cases</h2>
+          <ul>
+            ${term.useCases.map(u => `<li>${escapeHtml(u)}</li>`).join('')}
+          </ul>
+        </section>
+      `;
+    }
+
+    if (term.commonMistakes && term.commonMistakes.length > 0) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Common Mistakes to Avoid</h2>
+          <ul>
+            ${term.commonMistakes.map(m => `<li>${escapeHtml(m)}</li>`).join('')}
+          </ul>
+        </section>
+      `;
+    }
+
+    if (term.faq && term.faq.length > 0) {
+      bodyHtml += `
+        <section style="margin-bottom: 28px;">
+          <h2 style="font-size: 22px; font-weight: 600; color: #17191C;">Frequently Asked Questions</h2>
+          ${term.faq.map(f => `
+            <div style="margin-bottom: 16px;">
+              <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 6px; color: #17191C;">${escapeHtml(f.question)}</h3>
+              <p style="color: #62676D; margin-top: 0;">${escapeHtml(f.answer)}</p>
+            </div>
+          `).join('')}
+        </section>
+      `;
+    }
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "DefinedTerm",
+      "name": term.term,
+      "description": term.shortDefinition,
+      "url": canonical,
+      "inDefinedTermSet": {
+        "@type": "DefinedTermSet",
+        "name": "New-Age Marketing Glossary",
+        "url": "https://subhasishadhikary.com/glossary"
+      }
+    };
+
+    generatePage({
+      route,
+      title,
+      description,
+      canonical,
+      h1: `What is ${term.term}?`,
+      bodyHtml,
+      jsonLd
+    });
+  }
+  console.log(`✓ Generated ${glossaryTerms.length} glossary term pages`);
+
+  // 4. Pre-render Research Articles
+  for (const article of allArticles) {
+    const route = `/thinking/${article.category}/${article.id}`;
+    const title = `${article.title} | Subhasish Adhikary`;
+    const description = article.thesis;
+    const canonical = `https://subhasishadhikary.com${route}`;
+
+    const bodyHtml = `
+      <div style="background-color: #F1F3F5; border-left: 4px solid #155EEF; padding: 20px; border-radius: 6px; margin-bottom: 28px;">
+        <h2 style="font-size: 18px; margin-top: 0; color: #17191C;">Key Thesis</h2>
+        <p style="font-size: 16px; margin: 0; color: #17191C;">${escapeHtml(article.thesis)}</p>
+      </div>
+      <div>
+        ${article.content}
+      </div>
+    `;
+
+    generatePage({
+      route,
+      title,
+      description,
+      canonical,
+      h1: article.title,
+      bodyHtml
+    });
+  }
+  console.log(`✓ Generated ${allArticles.length} research article pages`);
+
+  // 5. Pre-render Case Studies
+  for (const cs of caseStudies) {
+    const route = `/work/${cs.slug}`;
+    const title = `${cs.title} — Case Study | Subhasish Adhikary`;
+    const description = cs.summary;
+    const canonical = `https://subhasishadhikary.com${route}`;
+
+    const bodyHtml = `
+      <h2>Executive Summary</h2>
+      <p>${escapeHtml(cs.summary)}</p>
+      <h2>Context &amp; Challenge</h2>
+      <p>${escapeHtml(cs.caseStudy.context)}</p>
+      <p>${escapeHtml(cs.caseStudy.challenge)}</p>
+      <h2>Strategy &amp; Architecture</h2>
+      <p>${escapeHtml(cs.caseStudy.strategy)}</p>
+      <h2>Outcomes &amp; Impact</h2>
+      <p>${escapeHtml(cs.caseStudy.outcome || 'Delivered measurable pipeline and efficiency improvements.')}</p>
+    `;
+
+    generatePage({
+      route,
+      title,
+      description,
+      canonical,
+      h1: cs.title,
+      bodyHtml
+    });
+  }
+  console.log(`✓ Generated ${caseStudies.length} case study pages`);
+
+  console.log('🎉 Static pre-rendering successfully completed for ALL routes!');
 }
 
-run();
+run().catch(err => {
+  console.error('Fatal pre-render error:', err);
+  process.exit(1);
+});
