@@ -56,6 +56,9 @@ if (!caseStudies || !glossaryTerms || !allArticles || !tools || !thinkingCategor
 const routes = [];
 const add = (p) => { if (!routes.includes(p)) routes.push(p); };
 add('/');
+// Vercel's static 404 convention: unknown URLs are served this file with a
+// real 404 status instead of an SPA fallback soft-404.
+add('/404.html');
 for (const p of ['/about', '/credentials', '/work', '/thinking', '/tools', '/gtm-stack', '/glossary', '/contact', '/privacy']) add(p);
 caseStudies.forEach((cs) => add(`/work/${cs.slug}`));
 thinkingCategories.forEach((c) => add(`/thinking/${c.id}`));
@@ -143,7 +146,9 @@ async function capture(route) {
       document.querySelectorAll('script[data-prerender-strip]').forEach((s) => s.remove());
       return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     });
-    const file = route === '/' ? join(dist, 'index.html') : join(dist, route, 'index.html');
+    const file = route === '/' ? join(dist, 'index.html')
+      : route === '/404.html' ? join(dist, '404.html')
+      : join(dist, route, 'index.html');
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, html);
     return { route, ok: html.length > 2000 && /<main[^>]*>\s*\S/.test(html) };
