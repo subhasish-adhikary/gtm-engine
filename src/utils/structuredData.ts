@@ -22,8 +22,8 @@ export function generateWebSiteSchema() {
 // exactly one Person node regardless of how many schemas mention the author.
 const PERSON_ID = `${baseUrl}/#subhasish-adhikary`;
 
-export const DEFAULT_OG_IMAGE = `${baseUrl}/images/og-default.png`;
-export const DEFAULT_OG_IMAGE_ALT = 'Subhasish Adhikary — Growth Marketing & GTM Strategy';
+export const DEFAULT_OG_IMAGE = `${baseUrl}/images/og-default.jpg`;
+export const DEFAULT_OG_IMAGE_ALT = 'Subhasish Adhikary GTM Systems That Drive Growth';
 
 export function generatePersonSchema() {
   return {
