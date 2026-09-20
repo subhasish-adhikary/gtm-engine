@@ -192,6 +192,20 @@ async function run() {
         <h2>Education & Continuous Learning</h2>
         <p>MBA in Marketing from Manipal Institute of Management, MAHE, alongside verified certifications in GTM automation, outbound systems, and product-led growth.</p>
       `
+    },
+    {
+      route: '/contact',
+      title: 'Contact Subhasish Adhikary | GTM Strategy & Growth Marketing',
+      description: "Get in touch with Subhasish Adhikary about GTM strategy, marketing automation, or AI in marketing. Reach out via email or LinkedIn.",
+      canonical: 'https://subhasishadhikary.com/contact',
+      h1: "Let's Connect",
+      bodyHtml: `
+        <p>Whether you're exploring GTM strategy, marketing automation, or AI in marketing, the fastest way to reach Subhasish Adhikary is via email or LinkedIn. Responses typically arrive within 48 hours, and strategic conversations about GTM, automation, or AI in marketing can be scheduled as a call.</p>
+        <h2>Email</h2>
+        <p><a href="mailto:subhasishadhikary@proton.me">subhasishadhikary@proton.me</a></p>
+        <h2>LinkedIn</h2>
+        <p><a href="https://www.linkedin.com/in/subhasish-adhikary/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></p>
+      `
     }
   ];
 
