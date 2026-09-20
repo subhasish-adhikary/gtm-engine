@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distDir = path.resolve(__dirname, '../dist');
 const templatePath = path.join(distDir, 'index.html');
+const BASE = 'https://subhasishadhikary.com';
 
 if (!fs.existsSync(templatePath)) {
   console.error('dist/index.html not found. Run "vite build" first.');
@@ -16,6 +17,18 @@ if (!fs.existsSync(templatePath)) {
 const template = fs.readFileSync(templatePath, 'utf8');
 const jiti = createJiti(import.meta.url);
 
+// Schema generators live in the app's central structured-data system so the
+// static HTML and the client-side SEO component emit the same entities. The
+// canonical Person (with stable @id) ships once via the index.html template
+// on every page, including the homepage.
+const {
+  generateBreadcrumbSchema,
+  generateFAQPageSchema,
+  generateSoftwareApplicationSchema,
+  generateArticleSchema,
+  DEFAULT_OG_IMAGE
+} = await jiti.import('../src/utils/structuredData.ts');
+
 function escapeHtml(str = '') {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -24,6 +37,8 @@ function escapeHtml(str = '') {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+const generatedRoutes = new Set(['/']);
 
 function writePage(route, html) {
   const cleanRoute = route.replace(/^\/+|\/+$/g, '');
@@ -42,7 +57,14 @@ function writePage(route, html) {
   fs.writeFileSync(path.join(distDir, `${cleanRoute}.html`), html, 'utf8');
 }
 
-function generateHtml({ route, title, description, canonical, h1, bodyHtml, jsonLd }) {
+function generateHtml({
+  route, title, description, canonical, h1, bodyHtml,
+  schemas = [],           // array of JSON-LD objects (Person/WebSite come from the template)
+  crumbs = [],            // visible breadcrumb: [{ label, path? }]
+  image, imageAlt,        // per-page social image; defaults stay from the template
+  ogType,                 // 'article' for article pages
+  noindex = false
+}) {
   let html = template;
 
   html = html.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(title)}</title>`);
@@ -75,17 +97,52 @@ function generateHtml({ route, title, description, canonical, h1, bodyHtml, json
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`
   );
 
-  if (jsonLd) {
-    const schemaTag = `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>`;
-    html = html.replace('</head>', `${schemaTag}\n</head>`);
+  if (image) {
+    html = html.replace(
+      /<meta property="og:image" content=".*?"\s*\/?>/s,
+      `<meta property="og:image" content="${image}" />`
+    );
+    html = html.replace(
+      /<meta name="twitter:image" content=".*?"\s*\/?>/s,
+      `<meta name="twitter:image" content="${image}" />`
+    );
+    if (imageAlt) {
+      html = html.replace(
+        /<meta property="og:image:alt" content=".*?"\s*\/?>/s,
+        `<meta property="og:image:alt" content="${escapeHtml(imageAlt)}" />`
+      );
+    }
   }
+  if (ogType) {
+    html = html.replace(
+      /<meta property="og:type" content=".*?"\s*\/?>/s,
+      `<meta property="og:type" content="${ogType}" />`
+    );
+  }
+  if (noindex) {
+    html = html.replace(
+      /<title>/,
+      `<meta name="robots" content="noindex" />\n    <title>`
+    );
+  }
+
+  if (schemas.length) {
+    const schemaTags = schemas
+      .map(s => `<script type="application/ld+json">\n${JSON.stringify(s, null, 2)}\n</script>`)
+      .join('\n    ');
+    html = html.replace('</head>', `    ${schemaTags}\n  </head>`);
+  }
+
+  const crumbNav = ['<a href="/" style="color: #155EEF; text-decoration: none;">Home</a>']
+    .concat(crumbs.map(c => c.path
+      ? `<a href="${c.path}" style="color: #155EEF; text-decoration: none;">${escapeHtml(c.label)}</a>`
+      : escapeHtml(c.label)))
+    .join(' / ');
 
   const renderedContent = `
     <div id="root">
       <main class="prerendered-content" style="max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #17191C;">
-        <nav style="margin-bottom: 24px; font-size: 14px; color: #62676D;">
-          <a href="/" style="color: #155EEF; text-decoration: none;">Home</a> / <a href="/glossary" style="color: #155EEF; text-decoration: none;">Glossary</a>
-        </nav>
+        <nav style="margin-bottom: 24px; font-size: 14px; color: #62676D;">${crumbNav}</nav>
         <h1 style="font-size: 38px; font-weight: 700; margin-bottom: 16px; color: #17191C;">${escapeHtml(h1 || title)}</h1>
         <p style="font-size: 18px; line-height: 1.6; color: #62676D; margin-bottom: 28px;">${escapeHtml(description)}</p>
         <article style="line-height: 1.8; color: #17191C;">
@@ -97,6 +154,34 @@ function generateHtml({ route, title, description, canonical, h1, bodyHtml, json
 
   html = html.replace(/<div id="root">[\s\S]*?<\/div>/, renderedContent);
   writePage(route, html);
+  generatedRoutes.add(route === '404' ? route : route.replace(/\/$/, '') || '/');
+}
+
+function linkList(items, { ordered = false } = {}) {
+  const tag = ordered ? 'ol' : 'ul';
+  return `<${tag} style="padding-left: 20px; margin: 8px 0 0;">${items.join('')}</${tag}>`;
+}
+
+function relatedSection(heading, itemsHtml) {
+  if (!itemsHtml) return '';
+  return `
+    <section style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #E1E3E5;">
+      <h2 style="font-size: 20px; font-weight: 600; color: #17191C;">${escapeHtml(heading)}</h2>
+      ${itemsHtml}
+    </section>
+  `;
+}
+
+function acronymOf(termName) {
+  const m = String(termName).match(/\(([A-Z]{2,6})\)/);
+  return m ? m[1] : null;
+}
+
+function textMentionsTerm(haystack, term) {
+  const h = haystack.toLowerCase();
+  if (h.includes(String(term.term).toLowerCase())) return true;
+  const acr = acronymOf(term.term);
+  return acr ? new RegExp(`\\b${acr}\\b`).test(haystack) : false;
 }
 
 async function run() {
@@ -105,15 +190,71 @@ async function run() {
   const { glossaryTerms } = await jiti.import('../src/data/glossary.ts');
   const { allArticles } = await jiti.import('../src/data/articles.ts');
   const { caseStudies } = await jiti.import('../src/data/caseStudies.ts');
-  const { tools } = await jiti.import('../src/data/content.ts');
+  const { tools, thinkingCategories } = await jiti.import('../src/data/content.ts');
 
-  // Core Static Pages
+  const categoryLabel = (id) => thinkingCategories.find(c => c.id === id)?.title || id;
+
+  // tools[] excludes the flagship tool, which has its own page component.
+  const allTools = [
+    { id: 'gtm-intelligence', title: 'GTM Intelligence Engine', description: 'Answer 8 questions about your B2B business and get a data-driven GTM strategy: readiness score, recommended channel portfolio, budget allocation scenarios, and a 90-day plan.', category: 'Strategy' },
+    ...tools.map(t => ({ id: t.id, title: t.title, description: t.description, category: t.category }))
+  ];
+
+  const articleBySlug = (id) => allArticles.find(a => a.id === id);
+  const termById = (id) => glossaryTerms.find(t => t.id === id);
+  const toolById = (id) => allTools.find(t => t.id === id);
+
+  // ---------- Contextual link builders (real data + genuine text matches) ----------
+
+  function termsMentionedIn(text, limit) {
+    return glossaryTerms
+      .filter(t => textMentionsTerm(text, t))
+      .slice(0, limit)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/glossary/${t.slug}" style="color: #155EEF;">${escapeHtml(t.term)}</a></li>`);
+  }
+
+  function articlesMentioningTerm(term, limit) {
+    return allArticles
+      .filter(a => textMentionsTerm(`${a.title} ${a.thesis}`, term))
+      .slice(0, limit)
+      .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
+  }
+
+  function toolsMentioningTerm(term, limit) {
+    return allTools
+      .filter(t => textMentionsTerm(`${t.title} ${t.description}`, term))
+      .slice(0, limit)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a></li>`);
+  }
+
+  function caseStudiesMentioningTerm(term, limit) {
+    return caseStudies
+      .filter(cs => textMentionsTerm(`${cs.title} ${cs.summary}`, term))
+      .slice(0, limit)
+      .map(cs => `<li style="margin-bottom: 6px;"><a href="/work/${cs.slug}" style="color: #155EEF;">${escapeHtml(cs.title)}</a></li>`);
+  }
+
+  // ---------- Core Static Pages ----------
+
+  const workList = linkList(caseStudies.map(cs =>
+    `<li style="margin-bottom: 10px;"><a href="/work/${cs.slug}" style="color: #155EEF;">${escapeHtml(cs.title)}</a><br/><span style="color: #62676D; font-size: 15px;">${escapeHtml(cs.summary)}</span></li>`));
+
+  const thinkingList = linkList(
+    thinkingCategories.map(c => `<li style="margin-bottom: 10px;"><a href="/thinking/${c.id}" style="color: #155EEF;">${escapeHtml(c.title)}</a> — ${escapeHtml(c.description)}</li>`)
+      .concat(allArticles.map(a =>
+        `<li style="margin-bottom: 8px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
+  );
+
+  const toolsList = linkList(allTools.map(t =>
+    `<li style="margin-bottom: 10px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a> — ${escapeHtml(t.description)}</li>`));
+
   const corePages = [
     {
       route: '/about',
       title: 'About Subhasish Adhikary | Growth Marketing & GTM Engineer',
       description: '6+ years building B2B growth systems across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps.',
-      canonical: 'https://subhasishadhikary.com/about',
+      canonical: `${BASE}/about`,
+      crumbs: [{ label: 'About' }],
       h1: 'About Subhasish Adhikary',
       bodyHtml: `
         <h2>Professional Background</h2>
@@ -125,57 +266,74 @@ async function run() {
           <li><strong>Outbound & ABM:</strong> Multi-channel outbound, lead enrichment, and account-based marketing.</li>
           <li><strong>AI in Marketing:</strong> AI-powered RevOps workflows, agentic automation, and pipeline operations.</li>
         </ul>
+        ${relatedSection('Explore the Work', linkList([
+          `<li style="margin-bottom: 6px;"><a href="/work" style="color: #155EEF;">Case studies</a> — GTM redesigns, outbound engines and automation overhauls.</li>`,
+          `<li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research-led articles</a> — GTM strategy, automation and AI in marketing.</li>`,
+          `<li style="margin-bottom: 6px;"><a href="/credentials" style="color: #155EEF;">Education & credentials</a></li>`
+        ]))}
       `
     },
     {
       route: '/work',
       title: 'Work & Case Studies | Subhasish Adhikary',
       description: 'Strategic case studies covering GTM redesign, outbound demand generation, and AI-powered RevOps workflows.',
-      canonical: 'https://subhasishadhikary.com/work',
+      canonical: `${BASE}/work`,
+      crumbs: [{ label: 'Work' }],
       h1: 'Strategic Work & Case Studies',
       bodyHtml: `
         <h2>B2B GTM Systems and Case Studies</h2>
         <p>Explore real-world case studies detailing outbound engines, marketing automation overhauls, and pipeline acceleration systems.</p>
+        ${workList}
       `
     },
     {
       route: '/thinking',
       title: 'Thinking — Research-Led Marketing Intelligence | Subhasish Adhikary',
       description: '15 research-backed articles on B2B GTM strategy, signal-based selling, marketing automation, and AI in marketing.',
-      canonical: 'https://subhasishadhikary.com/thinking',
+      canonical: `${BASE}/thinking`,
+      crumbs: [{ label: 'Thinking' }],
       h1: 'Research-Led Marketing Intelligence',
       bodyHtml: `
         <h2>B2B Strategy & Industry Frameworks</h2>
         <p>Original research and deep analysis on B2B Go-to-Market Strategy, Marketing Automation, and AI-enabled marketing systems.</p>
+        ${thinkingList}
       `
     },
     {
       route: '/glossary',
       title: 'New-Age Marketing Glossary | Subhasish Adhikary',
       description: '150+ authoritative B2B marketing definitions covering GTM, ABM, marketing automation, RevOps, and AI search.',
-      canonical: 'https://subhasishadhikary.com/glossary',
+      canonical: `${BASE}/glossary`,
+      crumbs: [{ label: 'Glossary' }],
       h1: 'New-Age Marketing Glossary',
       bodyHtml: `
         <h2>Modern Marketing Terminology</h2>
         <p>A comprehensive, practitioner-written glossary for the concepts shaping modern growth, GTM engineering, marketing automation, and AI operations.</p>
+        ${relatedSection('Related Resources', linkList([
+          `<li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research-led articles</a> applying these concepts to B2B GTM, automation and AI marketing.</li>`,
+          `<li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive strategy tools</a> built on this terminology.</li>`
+        ]))}
       `
     },
     {
       route: '/tools',
       title: 'Interactive Marketing Tools | Subhasish Adhikary',
       description: 'Decision-focused B2B marketing tools: GTM Intelligence Engine, Budget Lab, Channel Planner, and Automation Planner.',
-      canonical: 'https://subhasishadhikary.com/tools',
+      canonical: `${BASE}/tools`,
+      crumbs: [{ label: 'Tools' }],
       h1: 'Interactive Marketing Strategy Tools',
       bodyHtml: `
         <h2>Strategic Decision Tools</h2>
         <p>Interactive diagnostics, budget planners, and stack builders designed for B2B marketers and founders.</p>
+        ${toolsList}
       `
     },
     {
       route: '/gtm-stack',
       title: '79+ B2B Marketing Tool Stacks | Subhasish Adhikary',
       description: '79+ curated B2B marketing technology stacks organized by company stage, budget, and GTM motion.',
-      canonical: 'https://subhasishadhikary.com/gtm-stack',
+      canonical: `${BASE}/gtm-stack`,
+      crumbs: [{ label: 'GTM Stack' }],
       h1: '79+ B2B Marketing Tool Stacks',
       bodyHtml: `
         <h2>Curated Marketing Technology Stacks</h2>
@@ -186,7 +344,8 @@ async function run() {
       route: '/credentials',
       title: 'Education & Credentials | Subhasish Adhikary',
       description: 'MBA in Marketing, McKinsey.org Forward Program, Clay Outbound Automation, and Pendo Product-led certifications.',
-      canonical: 'https://subhasishadhikary.com/credentials',
+      canonical: `${BASE}/credentials`,
+      crumbs: [{ label: 'Credentials' }],
       h1: 'Education & Professional Credentials',
       bodyHtml: `
         <h2>Education & Continuous Learning</h2>
@@ -197,7 +356,8 @@ async function run() {
       route: '/contact',
       title: 'Contact Subhasish Adhikary | GTM Strategy & Growth Marketing',
       description: "Get in touch with Subhasish Adhikary about GTM strategy, marketing automation, or AI in marketing. Reach out via email or LinkedIn.",
-      canonical: 'https://subhasishadhikary.com/contact',
+      canonical: `${BASE}/contact`,
+      crumbs: [{ label: 'Contact' }],
       h1: "Let's Connect",
       bodyHtml: `
         <p>Whether you're exploring GTM strategy, marketing automation, or AI in marketing, the fastest way to reach Subhasish Adhikary is via email or LinkedIn. Responses typically arrive within 48 hours, and strategic conversations about GTM, automation, or AI in marketing can be scheduled as a call.</p>
@@ -206,20 +366,98 @@ async function run() {
         <h2>LinkedIn</h2>
         <p><a href="https://www.linkedin.com/in/subhasish-adhikary/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></p>
       `
+    },
+    {
+      route: '/privacy',
+      title: 'Privacy Policy | Subhasish Adhikary',
+      description: 'How subhasishadhikary.com handles visitor data: what is collected, why, and how to get in touch.',
+      canonical: `${BASE}/privacy`,
+      crumbs: [{ label: 'Privacy Policy' }],
+      h1: 'Privacy Policy',
+      bodyHtml: `
+        <h2>Overview</h2>
+        <p>This is a personal portfolio and content website. It does not sell products, operate user accounts, or knowingly collect personal information from visitors.</p>
+        <h2>Analytics</h2>
+        <p>The site uses Google Tag Manager to measure aggregate traffic and content engagement. No personally identifiable profiles are built, and no advertising cookies are set by this site.</p>
+        <h2>Contact</h2>
+        <p>Questions about this policy can be sent to <a href="mailto:subhasishadhikary@proton.me">subhasishadhikary@proton.me</a>.</p>
+      `
     }
   ];
 
   for (const page of corePages) {
     generateHtml(page);
-    console.log(`✓ Generated: ${page.route}`);
   }
+  console.log(`✓ Generated: ${corePages.length} core pages (incl. /privacy)`);
 
-  // Pre-render Glossary Terms (150+ terms)
+  // ---------- Thinking category hubs (fixes /thinking/:category 404s) ----------
+
+  for (const cat of thinkingCategories) {
+    const arts = allArticles.filter(a => a.category === cat.id);
+    generateHtml({
+      route: `/thinking/${cat.id}`,
+      title: `${cat.title} — Articles & Frameworks | Subhasish Adhikary`,
+      description: cat.description,
+      canonical: `${BASE}/thinking/${cat.id}`,
+      crumbs: [{ label: 'Thinking', path: '/thinking' }, { label: cat.title }],
+      h1: cat.title,
+      bodyHtml: `
+        <p>${escapeHtml(cat.description)}</p>
+        ${relatedSection('Articles in this Category', linkList(arts.map(a =>
+          `<li style="margin-bottom: 10px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a><br/><span style="color: #62676D; font-size: 15px;">${escapeHtml(a.thesis)}</span></li>`)))}
+        ${relatedSection('Related Resources', linkList([
+          `<li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive strategy tools</a></li>`,
+          `<li style="margin-bottom: 6px;"><a href="/glossary" style="color: #155EEF;">Marketing glossary</a></li>`,
+          `<li style="margin-bottom: 6px;"><a href="/work" style="color: #155EEF;">Case studies</a></li>`
+        ]))}
+      `,
+      schemas: [generateBreadcrumbSchema([
+        { label: 'Home', path: '/' },
+        { label: 'Thinking', path: '/thinking' },
+        { label: cat.title }
+      ])]
+    });
+  }
+  console.log(`✓ Generated: ${thinkingCategories.length} thinking category hubs`);
+
+  // ---------- Tool pages (fixes /tools/:id 404s) ----------
+
+  for (const tool of allTools) {
+    const termLinks = termsMentionedIn(`${tool.title} ${tool.description}`, 4);
+    const otherTools = allTools.filter(t => t.id !== tool.id).slice(0, 5)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a></li>`);
+    generateHtml({
+      route: `/tools/${tool.id}`,
+      title: `${tool.title} — Interactive Marketing Tool | Subhasish Adhikary`,
+      description: tool.description,
+      canonical: `${BASE}/tools/${tool.id}`,
+      crumbs: [{ label: 'Tools', path: '/tools' }, { label: tool.title }],
+      h1: tool.title,
+      bodyHtml: `
+        <p>${escapeHtml(tool.description)}</p>
+        <p style="margin-top: 20px;"><a href="/tools/${tool.id}" style="display: inline-block; background: #155EEF; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Open the interactive tool</a></p>
+        ${relatedSection('Related Glossary Concepts', termLinks.length ? linkList(termLinks) : '')}
+        ${relatedSection('More Tools', linkList(otherTools))}
+      `,
+      schemas: [
+        generateSoftwareApplicationSchema({ ...tool, title: tool.title, description: tool.description }),
+        generateBreadcrumbSchema([
+          { label: 'Home', path: '/' },
+          { label: 'Tools', path: '/tools' },
+          { label: tool.title }
+        ])
+      ]
+    });
+  }
+  console.log(`✓ Generated: ${allTools.length} tool pages`);
+
+  // ---------- Glossary terms ----------
+
   for (const term of glossaryTerms) {
     const route = `/glossary/${term.slug}`;
     const title = `What is ${term.term}? — Marketing Glossary | Subhasish Adhikary`;
     const description = term.shortDefinition;
-    const canonical = `https://subhasishadhikary.com${route}`;
+    const canonical = `${BASE}${route}`;
 
     let bodyHtml = `
       <div style="background-color: #F1F3F5; border-left: 4px solid #155EEF; padding: 20px; border-radius: 6px; margin-bottom: 28px;">
@@ -293,39 +531,69 @@ async function run() {
       `;
     }
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "DefinedTerm",
-      "name": term.term,
-      "description": term.shortDefinition,
-      "url": canonical,
-      "inDefinedTermSet": {
-        "@type": "DefinedTermSet",
-        "name": "New-Age Marketing Glossary",
-        "url": "https://subhasishadhikary.com/glossary"
-      }
-    };
+    // Contextual internal links: real relatedTerms data plus genuine text matches.
+    const relatedTermLinks = (term.relatedTerms || [])
+      .map(id => termById(id))
+      .filter(Boolean)
+      .slice(0, 6)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/glossary/${t.slug}" style="color: #155EEF;">${escapeHtml(t.term)}</a></li>`);
+    const articleLinks = articlesMentioningTerm(term, 3);
+    const toolLinks = toolsMentioningTerm(term, 3);
+    const csLinks = caseStudiesMentioningTerm(term, 2);
+
+    bodyHtml += relatedSection('Related Glossary Concepts', relatedTermLinks.length ? linkList(relatedTermLinks) : '');
+    bodyHtml += relatedSection('Further Reading', articleLinks.length ? linkList(articleLinks) : '');
+    bodyHtml += relatedSection('Related Tools', toolLinks.length ? linkList(toolLinks) : '');
+    bodyHtml += relatedSection('In Practice — Case Studies', csLinks.length ? linkList(csLinks) : '');
+
+    const schemas = [
+      {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        "name": term.term,
+        "description": term.shortDefinition,
+        "url": canonical,
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "New-Age Marketing Glossary",
+          "url": `${BASE}/glossary`
+        }
+      },
+      generateBreadcrumbSchema([
+        { label: 'Home', path: '/' },
+        { label: 'Glossary', path: '/glossary' },
+        { label: term.term }
+      ])
+    ];
+    if (term.faq && term.faq.length > 0) {
+      schemas.push(generateFAQPageSchema(term.faq));
+    }
 
     generateHtml({
-      route,
-      title,
-      description,
-      canonical,
+      route, title, description, canonical,
+      crumbs: [{ label: 'Glossary', path: '/glossary' }, { label: term.term }],
       h1: `What is ${term.term}?`,
       bodyHtml,
-      jsonLd
+      schemas
     });
   }
   console.log(`✓ Pre-rendered ${glossaryTerms.length} glossary terms`);
 
-  // Pre-render Research Articles
+  // ---------- Research articles ----------
+
   for (const article of allArticles) {
     const route = `/thinking/${article.category}/${article.id}`;
     const title = `${article.title} | Subhasish Adhikary`;
     const description = article.thesis;
-    const canonical = `https://subhasishadhikary.com${route}`;
+    const canonical = `${BASE}${route}`;
 
-    const bodyHtml = `
+    // Only externally hosted featured images are usable as social images;
+    // local paths without a deployed file fall back to the site default.
+    const ogImage = article.featuredImage && article.featuredImage.startsWith('http')
+      ? article.featuredImage
+      : DEFAULT_OG_IMAGE;
+
+    let bodyHtml = `
       <div style="background-color: #F1F3F5; border-left: 4px solid #155EEF; padding: 20px; border-radius: 6px; margin-bottom: 28px;">
         <h2 style="font-size: 18px; margin-top: 0; color: #17191C;">Key Thesis</h2>
         <p style="font-size: 16px; margin: 0; color: #17191C;">${escapeHtml(article.thesis)}</p>
@@ -335,25 +603,64 @@ async function run() {
       </div>
     `;
 
+    const termLinks = termsMentionedIn(`${article.title} ${article.thesis} ${article.content}`, 6);
+    const relToolLinks = (article.relatedTools || [])
+      .map(id => toolById(id)).filter(Boolean)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a></li>`);
+    const relArticleLinks = (article.relatedArticles || [])
+      .map(id => articleBySlug(id)).filter(Boolean)
+      .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
+    const relCsLinks = caseStudies
+      .filter(cs => textMentionsTerm(`${cs.title} ${cs.summary}`, { term: article.title.length > 12 ? { term: article.title.split(':')[0] } : { term: article.title } }))
+      .slice(0, 2)
+      .map(cs => `<li style="margin-bottom: 6px;"><a href="/work/${cs.slug}" style="color: #155EEF;">${escapeHtml(cs.title)}</a></li>`);
+
+    bodyHtml += relatedSection('Key Concepts from the Glossary', termLinks.length ? linkList(termLinks) : '');
+    bodyHtml += relatedSection('Related Tools', relToolLinks.length ? linkList(relToolLinks) : '');
+    bodyHtml += relatedSection('Related Thinking', relArticleLinks.length ? linkList(relArticleLinks) : '');
+
+    const articleSchema = generateArticleSchema(article);
+    articleSchema.image = ogImage; // absolute URL even when featuredImage is a stale local path
+
+    const schemas = [
+      articleSchema,
+      generateBreadcrumbSchema([
+        { label: 'Home', path: '/' },
+        { label: 'Thinking', path: '/thinking' },
+        { label: categoryLabel(article.category), path: `/thinking/${article.category}` },
+        { label: article.title }
+      ])
+    ];
+    if (article.faq && article.faq.length > 0) {
+      schemas.push(generateFAQPageSchema(article.faq));
+    }
+
     generateHtml({
-      route,
-      title,
-      description,
-      canonical,
+      route, title, description, canonical,
+      crumbs: [
+        { label: 'Thinking', path: '/thinking' },
+        { label: categoryLabel(article.category), path: `/thinking/${article.category}` },
+        { label: article.title }
+      ],
       h1: article.title,
-      bodyHtml
+      bodyHtml,
+      schemas,
+      image: ogImage,
+      imageAlt: article.featuredImageAlt,
+      ogType: 'article'
     });
   }
   console.log(`✓ Pre-rendered ${allArticles.length} research articles`);
 
-  // Pre-render Case Studies
+  // ---------- Case studies ----------
+
   for (const cs of caseStudies) {
     const route = `/work/${cs.slug}`;
     const title = `${cs.title} — Case Study | Subhasish Adhikary`;
     const description = cs.summary;
-    const canonical = `https://subhasishadhikary.com${route}`;
+    const canonical = `${BASE}${route}`;
 
-    const bodyHtml = `
+    let bodyHtml = `
       <h2>Executive Summary</h2>
       <p>${escapeHtml(cs.summary)}</p>
       <h2>Context &amp; Challenge</h2>
@@ -365,16 +672,99 @@ async function run() {
       <p>${escapeHtml(cs.caseStudy.outcome || 'Delivered measurable pipeline and efficiency improvements.')}</p>
     `;
 
+    const csText = `${cs.title} ${cs.summary} ${cs.caseStudy.context || ''} ${cs.caseStudy.strategy || ''}`;
+    const termLinks = termsMentionedIn(csText, 4);
+    const toolLinks = allTools
+      .filter(t => textMentionsTerm(csText, { term: t.title.replace(/ — .*$/, '') }))
+      .slice(0, 2)
+      .map(t => `<li style="margin-bottom: 6px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a></li>`);
+    const otherCs = caseStudies.filter(c => c.slug !== cs.slug).slice(0, 3)
+      .map(c => `<li style="margin-bottom: 6px;"><a href="/work/${c.slug}" style="color: #155EEF;">${escapeHtml(c.title)}</a></li>`);
+
+    bodyHtml += relatedSection('Glossary Concepts in This Work', termLinks.length ? linkList(termLinks) : '');
+    bodyHtml += relatedSection('Tools Used', toolLinks.length ? linkList(toolLinks) : '');
+    bodyHtml += relatedSection('More Case Studies', linkList(otherCs));
+
     generateHtml({
-      route,
-      title,
-      description,
-      canonical,
+      route, title, description, canonical,
+      crumbs: [{ label: 'Work', path: '/work' }, { label: cs.title }],
       h1: cs.title,
-      bodyHtml
+      bodyHtml,
+      schemas: [
+        generateBreadcrumbSchema([
+          { label: 'Home', path: '/' },
+          { label: 'Work', path: '/work' },
+          { label: cs.title }
+        ])
+      ]
     });
   }
   console.log(`✓ Pre-rendered ${caseStudies.length} case studies`);
+
+  // ---------- Branded 404 (Vercel serves dist/404.html with a real 404 status) ----------
+
+  generateHtml({
+    route: '404',
+    title: 'Page Not Found | Subhasish Adhikary',
+    description: 'The page you are looking for does not exist.',
+    canonical: `${BASE}/404`,
+    crumbs: [{ label: 'Page Not Found' }],
+    h1: 'Page not found',
+    bodyHtml: `
+      <p>The page you're looking for doesn't exist. Try one of these instead:</p>
+      <ul>
+        <li style="margin-bottom: 6px;"><a href="/" style="color: #155EEF;">Home</a></li>
+        <li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research articles</a></li>
+        <li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive tools</a></li>
+        <li style="margin-bottom: 6px;"><a href="/glossary" style="color: #155EEF;">Marketing glossary</a></li>
+        <li style="margin-bottom: 6px;"><a href="/work" style="color: #155EEF;">Case studies</a></li>
+      </ul>
+    `,
+    noindex: true
+  });
+  console.log('✓ Generated: branded 404 page');
+
+  // ---------- Sitemap sync check + data-driven lastmod ----------
+
+  const sitemapPath = path.join(distDir, 'sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    let sitemap = fs.readFileSync(sitemapPath, 'utf8');
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].trim().replace(/\/$/, ''));
+    const sitemapSet = new Set(locs.map(l => l.replace(BASE, '') || '/'));
+
+    const missingFiles = [...sitemapSet].filter(r => !generatedRoutes.has(r));
+    const unlistedRoutes = [...generatedRoutes].filter(r => r !== '404' && !sitemapSet.has(r));
+
+    if (missingFiles.length || unlistedRoutes.length) {
+      console.error(`\nERROR: sitemap and generated routes are out of sync.`);
+      if (missingFiles.length) console.error(`  Sitemap URLs with no generated page (${missingFiles.length}):`, missingFiles.join(', '));
+      if (unlistedRoutes.length) console.error(`  Generated pages missing from sitemap (${unlistedRoutes.length}):`, unlistedRoutes.join(', '));
+      process.exit(1);
+    }
+
+    // lastmod only where real content dates exist — never fabricated.
+    const lastmodByRoute = new Map();
+    for (const a of allArticles) {
+      const d = a.updatedDate || a.publishedDate;
+      if (d) lastmodByRoute.set(`/thinking/${a.category}/${a.id}`, new Date(d).toISOString().slice(0, 10));
+    }
+    for (const t of glossaryTerms) {
+      if (t.updatedDate) lastmodByRoute.set(`/glossary/${t.slug}`, new Date(t.updatedDate).toISOString().slice(0, 10));
+    }
+
+    let injected = 0;
+    sitemap = sitemap.replace(/<url>\s*<loc>([^<]+)<\/loc>/g, (m, loc) => {
+      const route = loc.trim().replace(BASE, '').replace(/\/$/, '') || '/';
+      const lm = lastmodByRoute.get(route);
+      if (!lm) return m;
+      injected++;
+      return m.replace(/<\/loc>/, `</loc>\n    <lastmod>${lm}</lastmod>`);
+    });
+    fs.writeFileSync(sitemapPath, sitemap, 'utf8');
+    console.log(`✓ Sitemap verified in sync (${locs.length} URLs); injected ${injected} data-driven lastmod entries`);
+  } else {
+    console.warn('⚠ dist/sitemap.xml not found — skipped sync check');
+  }
 
   console.log('✅ ALL static pages pre-rendered successfully!');
 }
