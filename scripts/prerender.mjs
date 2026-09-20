@@ -32,12 +32,13 @@ function writePage(route, html) {
     return;
   }
 
-  // 1. Write dist/route/index.html
-  const targetDir = path.join(distDir, cleanRoute);
+  // Write dist/route.html only. With "cleanUrls": true + "trailingSlash": false
+  // in vercel.json, this is the single unambiguous file Vercel should resolve
+  // /route to. Also emitting dist/route/index.html for the same route created
+  // two physical files for one clean URL, which is very likely why Vercel's
+  // static routing fell back to the SPA shell instead of serving this file.
+  const targetDir = path.dirname(path.join(distDir, `${cleanRoute}.html`));
   fs.mkdirSync(targetDir, { recursive: true });
-  fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf8');
-
-  // 2. Write dist/route.html
   fs.writeFileSync(path.join(distDir, `${cleanRoute}.html`), html, 'utf8');
 }
 
