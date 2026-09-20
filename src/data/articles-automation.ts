@@ -227,7 +227,7 @@ export const automationArticles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-05-13',
     readingTime: '10 min read',
-    featuredImage: '/images/articles/marketing-automation-strategy-framework.png',
+    featuredImage: '/images/articles/automation-strategy.webp',
     featuredImageAlt: 'Marketing automation strategy framework showing systems approach',
     atAGlance: [
       'Companies with documented automation strategy see 40% higher revenue growth (HubSpot)',
@@ -294,7 +294,7 @@ export const automationArticles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-05-27',
     readingTime: '10 min read',
-    featuredImage: '/images/articles/marketing-automation-roi-framework.png',
+    featuredImage: '/images/articles/automation-roi.webp',
     featuredImageAlt: 'Marketing automation ROI framework showing business outcome measurement',
     atAGlance: [
       'Companies measuring automation by business outcomes see 3x higher ROI than those measuring activity',

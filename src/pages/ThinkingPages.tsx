@@ -161,10 +161,16 @@ export function ArticlePage() {
           </div>
         </header>
 
-        {/* Feature Image */}
-        {article.featuredImage && !article.featuredImage.startsWith('/images/') && (
+        {/* Feature Image — hero/LCP element: eager, with intrinsic dimensions to avoid CLS */}
+        {article.featuredImage && (
           <div className="mb-12 aspect-video rounded-lg overflow-hidden max-w-4xl">
-            <img src={article.featuredImage} alt={article.featuredImageAlt} className="w-full h-full object-cover" />
+            <img
+              src={article.featuredImage}
+              alt={article.featuredImageAlt}
+              width={1200}
+              height={630}
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
 

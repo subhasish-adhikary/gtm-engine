@@ -581,19 +581,41 @@ async function run() {
 
   // ---------- Research articles ----------
 
+  // Featured-image validation: every article must carry exactly one canonical
+  // image that actually exists. A missing file fails the build rather than
+  // silently shipping a broken reference or falling back unnoticed.
+  for (const article of allArticles) {
+    if (!article.featuredImage) {
+      console.error(`\nERROR: article "${article.id}" has no featuredImage.`);
+      process.exit(1);
+    }
+    if (!article.featuredImage.startsWith('http') && !fs.existsSync(path.join(__dirname, '../public', article.featuredImage))) {
+      console.error(`\nERROR: article "${article.id}" references missing image: ${article.featuredImage}`);
+      process.exit(1);
+    }
+    if (!article.featuredImageAlt) {
+      console.error(`\nERROR: article "${article.id}" has no featuredImageAlt.`);
+      process.exit(1);
+    }
+  }
+
   for (const article of allArticles) {
     const route = `/thinking/${article.category}/${article.id}`;
     const title = `${article.title} | Subhasish Adhikary`;
     const description = article.thesis;
     const canonical = `${BASE}${route}`;
 
-    // Only externally hosted featured images are usable as social images;
-    // local paths without a deployed file fall back to the site default.
-    const ogImage = article.featuredImage && article.featuredImage.startsWith('http')
+    // Article-specific social image; local paths get the absolute origin.
+    const ogImage = article.featuredImage.startsWith('http')
       ? article.featuredImage
-      : DEFAULT_OG_IMAGE;
+      : `${BASE}${article.featuredImage}`;
+
+    // Hero image in the prerendered HTML. It is the article LCP element, so
+    // it renders eagerly with intrinsic dimensions (no CLS) and high priority.
+    const heroImg = `<img src="${escapeHtml(article.featuredImage)}" alt="${escapeHtml(article.featuredImageAlt)}" width="1200" height="630" fetchpriority="high" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 28px;" />`;
 
     let bodyHtml = `
+      ${heroImg}
       <div style="background-color: #F1F3F5; border-left: 4px solid #155EEF; padding: 20px; border-radius: 6px; margin-bottom: 28px;">
         <h2 style="font-size: 18px; margin-top: 0; color: #17191C;">Key Thesis</h2>
         <p style="font-size: 16px; margin: 0; color: #17191C;">${escapeHtml(article.thesis)}</p>

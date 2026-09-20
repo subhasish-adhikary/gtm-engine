@@ -300,7 +300,7 @@ export const articles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-02-19',
     readingTime: '11 min read',
-    featuredImage: '/images/articles/hybrid-channel-gtm-architecture.png',
+    featuredImage: '/images/articles/hybrid-channel-gtm.webp',
     featuredImageAlt: 'Hybrid channel GTM architecture showing integrated multi-channel motion',
     atAGlance: [
       'Buyers use an average of 11.4 channels to gather information (Gartner, 2024)',

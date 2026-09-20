@@ -90,7 +90,7 @@ export const aiMarketingArticles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-06-10',
     readingTime: '11 min read',
-    featuredImage: '/images/articles/ai-content-expertise-framework.png',
+    featuredImage: '/images/articles/ai-content-expertise.webp',
     featuredImageAlt: 'AI content expertise framework showing authority building',
     atAGlance: [
       'AI-generated content volume increased 400% from 2023 to 2025 (Content Marketing Institute)',
@@ -236,7 +236,7 @@ export const aiMarketingArticles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-07-08',
     readingTime: '11 min read',
-    featuredImage: '/images/articles/ai-native-advertising-framework.png',
+    featuredImage: '/images/articles/ai-native-advertising.webp',
     featuredImageAlt: 'AI-native advertising framework showing continuous optimization',
     atAGlance: [
       'AI-optimized ad campaigns see 35% better ROAS than manually optimized (Google)',
@@ -311,7 +311,7 @@ export const aiMarketingArticles: Article[] = [
     authorBio: 'Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.',
     publishedDate: '2024-07-22',
     readingTime: '13 min read',
-    featuredImage: '/images/articles/ai-marketing-roi-framework.png',
+    featuredImage: '/images/articles/ai-marketing-roi.webp',
     featuredImageAlt: 'AI marketing ROI framework showing value measurement',
     atAGlance: [
       'Only 23% of companies can accurately measure AI marketing ROI (McKinsey, 2024)',
