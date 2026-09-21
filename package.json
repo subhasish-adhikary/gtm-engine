@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-   "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "dev": "vite",
+    "build": "sanity build public/studio --yes && node scripts/clean-studio-output.mjs && vite build && node scripts/prerender.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@sanity/vision": "^3.99.0",
     "@tailwindcss/vite": "^4.1.7",
     "@types/canvas-confetti": "^1.6.4",
     "@types/react": "^18.2.0",
@@ -31,6 +32,8 @@
     "@vitejs/plugin-react": "^4.3.4",
     "jiti": "^2.7.0",
     "playwright-core": "^1.63.0",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.5.3",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.7.0",
     "vite": "^6.3.5"
