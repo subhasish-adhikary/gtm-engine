@@ -9,22 +9,18 @@
       "permanent": true
     }
   ],
-  "rewrites": {
-    "afterFiles": [
-      {
-        "source": "/((?!studio/).*)",
-        "has": [{ "type": "host", "value": "cms.subhasishadhikary.com" }],
-        "destination": "/studio/$1"
-      }
-    ],
-    "fallback": [
-      {
-        "source": "/studio/:path*",
-        "has": [{ "type": "host", "value": "cms.subhasishadhikary.com" }],
-        "destination": "/studio/index.html"
-      }
-    ]
-  },
+  "rewrites": [
+    {
+      "source": "/static/:path*",
+      "has": [{ "type": "host", "value": "cms.subhasishadhikary.com" }],
+      "destination": "/studio/static/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "cms.subhasishadhikary.com" }],
+      "destination": "/studio/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
