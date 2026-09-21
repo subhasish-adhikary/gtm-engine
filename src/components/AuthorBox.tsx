@@ -1,4 +1,4 @@
-import { Linkedin } from 'lucide-react';
+import { LinkedinIcon } from './icons';
 import { siteConfig } from '../data/content';
 
 function XIcon({ size = 16 }: { size?: number }) {
@@ -50,7 +50,7 @@ export function AuthorBox({
             className="w-9 h-9 rounded-md border flex items-center justify-center transition-colors hover:border-accent"
             style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
           >
-            <Linkedin size={16} />
+            <LinkedinIcon size={16} />
           </a>
           <a
             href={siteConfig.twitter}

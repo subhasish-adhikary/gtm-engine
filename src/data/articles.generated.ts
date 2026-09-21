@@ -10,6 +10,168 @@ export const generatedSource: 'sanity' | 'none' = "sanity";
 
 export const generatedArticles: Article[] = [
   {
+    "id": "lead-generation-to-pipeline-generation",
+    "title": "Why B2B Marketing Teams Are Moving From Lead Generation to Pipeline Generation",
+    "thesis": "Lead volume was the growth metric of the last decade. The teams compounding revenue now organize marketing around pipeline creation — and the shift changes everything from headcount to measurement.",
+    "category": "gtm",
+    "author": "Subhasish Adhikary",
+    "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
+    "publishedDate": "2026-09-22",
+    "readingTime": "9 min read",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/9b76cd33e49c46ea63dc5efd2ab885a7a8a5d602-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
+    "featuredImageAlt": "Editorial graphic showing B2B marketing teams moving from lead generation to pipeline generation",
+    "atAGlance": [
+      "Lead volume is a marketing metric; pipeline is a revenue metric — the difference changes how every campaign is judged",
+      "Pipeline generation shifts marketing accountability from form fills to qualified opportunities created",
+      "The operating model change touches ICP definition, content strategy, scoring, and sales handoff simultaneously",
+      "Teams that make the shift report better sales-marketing alignment because both functions share one definition of progress"
+    ],
+    "tableOfContents": [
+      {
+        "id": "from-volume-to-value",
+        "title": "From Volume to Value"
+      },
+      {
+        "id": "what-pipeline-generation-means",
+        "title": "What Pipeline Generation Actually Means"
+      },
+      {
+        "id": "the-operating-model-shift",
+        "title": "The Operating Model Shift"
+      },
+      {
+        "id": "what-changes-in-practice",
+        "title": "What Changes in Practice"
+      },
+      {
+        "id": "measurement",
+        "title": "Measurement: From CPL to Pipeline Coverage"
+      }
+    ],
+    "content": "<h2 id=\"from-volume-to-value\">From Volume to Value</h2>\n<p>For most of the last decade, B2B marketing teams were measured on one number: how many leads they produced. The metric shaped budgets, headcount, and campaign design. It also created a quiet dysfunction — marketing celebrated volumes that sales struggled to convert, and both teams argued about lead quality instead of collaborating on revenue.</p>\n<p>Pipeline generation is the corrective. It reframes marketing <strong>from a lead factory to a revenue contributor</strong> — the unit of progress is not the contact who downloaded an ebook, but the qualified opportunity that enters the forecast.</p>\n<h2 id=\"what-pipeline-generation-means\">What Pipeline Generation Actually Means</h2>\n<p>Pipeline generation is the discipline of creating qualified sales opportunities through marketing activity. The definition sounds subtle, but its consequences are not: a whitepaper download is no longer a success event. It is a signal, one input among many, that may or may not contribute to an account becoming pipeline.</p>\n<p>This reframing changes what gets measured. Instead of cost per lead, teams track <strong>pipeline coverage and pipeline contribution</strong> — how much qualified opportunity exists relative to target, and how much of it marketing influenced or sourced.</p>\n<h2 id=\"the-operating-model-shift\">The Operating Model Shift</h2>\n<p>Moving from lead generation to pipeline generation is an operating model change, not a campaign change. It touches four areas at once:</p>\n<ul><li><strong>ICP definition: </strong>target accounts are chosen for revenue potential, not for how easily they convert into contacts.</li><li><strong>Scoring: </strong>accounts and buying-group activity are scored, not individual form fills.</li><li><strong>Content strategy: </strong>assets are designed to reach buying committees, not to maximize download volume.</li><li><strong>Handoff: </strong>sales and marketing share one definition of a qualified opportunity before any outreach begins.</li></ul>\n<h2 id=\"what-changes-in-practice\">What Changes in Practice</h2>\n<p>In practice, the shift shows up as fewer, better-targeted campaigns and a much stronger data layer. Teams consolidate lead lists into account plans, route buying signals directly into the CRM, and give sales transparency into which accounts are warming and why.</p>\n<p>The marketing automation platform changes role too. It stops being a campaign-sending tool and becomes the routing layer that moves signals between your website, enrichment, CRM, and sales workflows.</p>\n<h2 id=\"measurement\">Measurement: From CPL to Pipeline Coverage</h2>\n<p>The final change is measurement. Cost per lead loses its throne. In its place: pipeline coverage against target, pipeline sourced or influenced by marketing, conversion rates from opportunity to close, and the speed at which accounts move through stages.</p>\n<p>These metrics are harder to game and far more meaningful. They also create the shared language that finally ends the marketing-versus-sales quality debate — because both teams are measured against the same pipeline outcomes.</p>\n<p>If your team is still reporting lead volume to the board, the question to ask is not &quot;how do we generate more leads?&quot; It is &quot;what would it take to report pipeline instead?&quot; The answer to that question is the beginning of the shift.</p>",
+    "faq": [
+      {
+        "question": "Is pipeline generation just lead generation with a new name?",
+        "answer": "No. The distinction is in what marketing is accountable for. Lead generation optimizes for volume of contacts entering the funnel; pipeline generation optimizes for qualified opportunities with real revenue attached. The tactics overlap, but the goals, scoring, and reporting are structurally different."
+      },
+      {
+        "question": "Does pipeline generation mean abandoning inbound?",
+        "answer": "No. Inbound remains a primary pipeline source. The shift is in how inbound output is measured — not leads generated, but the pipeline contribution of inbound-sourced accounts."
+      },
+      {
+        "question": "How long does the transition take?",
+        "answer": "Most teams need one to two quarters to redefine scoring and reporting, and a further quarter or two to restructure campaigns around account-based signals rather than volume-based capture."
+      }
+    ],
+    "sources": [
+      {
+        "title": "6sense Buyer Experience Report",
+        "url": "https://6sense.com/reports/buyer-experience",
+        "description": "Research on B2B buyer journey completion before sales contact."
+      },
+      {
+        "title": "Forrester B2B Revenue and Pipeline Research",
+        "url": "https://www.forrester.com/research",
+        "description": "Analysis of B2B revenue operations and marketing accountability trends."
+      },
+      {
+        "title": "Gong Labs Data on Buyer Interactions",
+        "url": "https://www.gong.io/blog/",
+        "description": "Behavioral data from analyzed B2B sales interactions."
+      }
+    ],
+    "relatedArticles": [
+      "signal-based-gtm",
+      "post-mql-gtm",
+      "hybrid-channel-gtm"
+    ],
+    "relatedTools": [
+      "channel-planner",
+      "gtm-diagnostic"
+    ]
+  },
+  {
+    "id": "marketing-automation-gtm-infrastructure",
+    "title": "Marketing Automation Is Becoming a GTM Infrastructure Layer",
+    "thesis": "Marketing automation started as a campaign-sending tool. In modern B2B organizations it has quietly become the connective infrastructure between marketing, sales, and revenue data — and treating it that way changes how you build it.",
+    "category": "automation",
+    "author": "Subhasish Adhikary",
+    "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
+    "publishedDate": "2026-09-22",
+    "readingTime": "8 min read",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/36c10d931e13d34cab0cb40c2763da974208a79c-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
+    "featuredImageAlt": "Editorial graphic showing marketing automation as a GTM infrastructure layer",
+    "atAGlance": [
+      "Marketing automation now carries data flows that connect marketing, sales, and revenue systems — not just email campaigns",
+      "Treating automation as infrastructure changes decisions about tooling, data models, and team structure",
+      "The layer approach makes signal routing, enrichment, and lifecycle orchestration first-class capabilities",
+      "Teams that architect for infrastructure avoid the brittle campaign-tangle that stalls growth at scale"
+    ],
+    "tableOfContents": [
+      {
+        "id": "beyond-campaign-tools",
+        "title": "Automation Has Outgrown Campaign Tools"
+      },
+      {
+        "id": "the-infrastructure-layer",
+        "title": "The GTM Infrastructure Layer"
+      },
+      {
+        "id": "what-lives-in-the-layer",
+        "title": "What Lives in the Layer"
+      },
+      {
+        "id": "signals-in-actions-out",
+        "title": "Signals In, Actions Out"
+      },
+      {
+        "id": "getting-started",
+        "title": "Getting Started Without a Replatform"
+      }
+    ],
+    "content": "<h2 id=\"beyond-campaign-tools\">Automation Has Outgrown Campaign Tools</h2>\n<p>Marketing automation platforms earned their place by sending campaigns: emails, nurture tracks, landing pages. That era is over. In most B2B organizations the automation layer now carries a much heavier load — routing signals, orchestrating lifecycle stages, syncing enrichment data, and keeping marketing, sales and revenue systems coherent.</p>\n<p>When a platform carries that much operational weight, treating it as a campaign tool is a architectural mistake. It has become <strong>infrastructure</strong> — the connective layer of the go-to-market system.</p>\n<h2 id=\"the-infrastructure-layer\">The GTM Infrastructure Layer</h2>\n<p>Infrastructure is anything your GTM motion depends on that should not break when a campaign changes. Data flows, lifecycle logic, enrichment pipelines, scoring models, alerting — these outlive individual campaigns and quietly determine whether the whole motion compounds or collapses.</p>\n<p>Thinking in layers changes the questions you ask. Instead of &quot;which tool sends this email?&quot; you ask <strong>&quot;where does this signal live, and who consumes it?&quot;</strong> The answers reveal a system, not a collection of campaigns.</p>\n<h2 id=\"what-lives-in-the-layer\">What Lives in the Layer</h2>\n<ul><li><strong>Identity and account data: </strong>the unified record of accounts, contacts, and buying groups across systems.</li><li><strong>Signal routing: </strong>behavioral, intent, and firmographic signals flowing from source systems to the CRM and sales tools.</li><li><strong>Enrichment: </strong>continuous firmographic and technographic updates applied at the account level.</li><li><strong>Lifecycle orchestration: </strong>stage transitions, nurturing logic, and alerting that operate across campaigns.</li><li><strong>Measurement plumbing: </strong>the attribution and reporting pipes that make pipeline visible.</li></ul>\n<h2 id=\"signals-in-actions-out\">Signals In, Actions Out</h2>\n<p>The practical value of the layer is speed: a signal enters (an account visits pricing, a champion changes jobs, an intent topic spikes), and actions come out (CRM fields update, an owner is alerted, an outbound motion triggers). When this routing is reliable, marketing and sales stop debating who saw what and start acting on shared, current information.</p>\n<p>When it is unreliable, every team builds local spreadsheets and shadow processes. That is the real cost of treating automation as a campaign tool — not the missed emails, but the missing trust.</p>\n<h2 id=\"getting-started\">Getting Started Without a Replatform</h2>\n<p>You do not need a replatform to start thinking in layers. Begin by drawing the flows you already have: which signals exist, where they land, who acts on them, and where the manual glue lives. Most teams discover their automation stack is two or three flows away from being genuinely dependable.</p>\n<p>Then pick one signal, one destination, and one action, and make that flow fully reliable. Infrastructure is built the way trust is built — one dependable connection at a time.</p>",
+    "faq": [
+      {
+        "question": "Does infrastructure thinking mean buying more tools?",
+        "answer": "Usually the opposite. Infrastructure thinking reduces tool sprawl because each system gets a defined role in the data flow, which exposes overlapping purchases and brittle point integrations."
+      },
+      {
+        "question": "Can a small marketing team operate this model?",
+        "answer": "Yes — the layer concept scales down well. A small team needs fewer flows, but the same discipline: one data model, defined owners for each flow, and lifecycle logic that lives outside individual campaigns."
+      },
+      {
+        "question": "What is the first system to connect?",
+        "answer": "Start with the CRM as the system of record for accounts and opportunities, then route behavioral and firmographic signals into it through enrichment. Most other integrations become simpler once that spine exists."
+      }
+    ],
+    "sources": [
+      {
+        "title": "HubSpot State of Marketing Report",
+        "url": "https://www.hubspot.com/state-of-marketing",
+        "description": "Annual research on marketing automation adoption and operations."
+      },
+      {
+        "title": "Salesforce State of Marketing",
+        "url": "https://www.salesforce.com/resources/research-reports/state-of-marketing/",
+        "description": "Research on automation, AI and cross-functional GTM operations."
+      },
+      {
+        "title": "Clay Engineering Blog",
+        "url": "https://www.clay.com/blog",
+        "description": "Practitioner writing on outbound automation and data enrichment workflows."
+      }
+    ],
+    "relatedArticles": [
+      "ai-marketing-os",
+      "automation-strategy",
+      "ai-lead-scoring"
+    ],
+    "relatedTools": [
+      "automation-planner",
+      "stack-builder"
+    ]
+  },
+  {
     "id": "ai-marketing-roi",
     "title": "Measuring AI Marketing ROI: A Framework",
     "thesis": "Most companies cannot measure the ROI of their AI marketing investments. This framework provides a structured approach to quantifying AI value across the marketing organization.",

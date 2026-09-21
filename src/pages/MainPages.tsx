@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight, Mail, Linkedin, BookOpen, AlertCircle, Target, Lightbulb, CheckCircle, TrendingUp } from 'lucide-react';
+import { ArrowRight, Mail, BookOpen, AlertCircle, Target, Lightbulb, CheckCircle, TrendingUp } from 'lucide-react';
+import { LinkedinIcon } from '../components/icons';
 import { siteConfig, aboutContent } from '../data/content';
 import { caseStudies, getCaseStudyBySlug } from '../data/caseStudies';
 import { Button, SectionHeader, Card, Tag, Breadcrumb } from '../components/UI';
@@ -22,7 +23,7 @@ export function AboutPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--accent)' }}>
-              <Linkedin size={16} /> Connect on LinkedIn
+              <LinkedinIcon size={16} /> Connect on LinkedIn
             </a>
             <a href={`mailto:${siteConfig.email}`} className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--accent)' }}>
               <Mail size={16} /> {siteConfig.email}
@@ -312,7 +313,7 @@ export function ContactPage() {
             </Card>
             <Card>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}><Linkedin size={18} /></div>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}><LinkedinIcon size={18} /></div>
                 <div>
                   <p className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>LinkedIn</p>
                   <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Connect on LinkedIn</a>
