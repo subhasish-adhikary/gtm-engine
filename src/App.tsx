@@ -44,7 +44,10 @@ export default function App() {
           <Route path="/work" element={<WorkPage />} />
           <Route path="/work/:caseStudyId" element={<CaseStudyPage />} />
           <Route path="/thinking" element={<ThinkingPage />} />
-          <Route path="/thinking/:categoryId" element={<ThinkingCategoryPage />} />
+          <Route path="/thinking/gtm" element={<ThinkingCategoryPage />} />
+          <Route path="/thinking/automation" element={<ThinkingCategoryPage />} />
+          <Route path="/thinking/ai-marketing" element={<ThinkingCategoryPage />} />
+          <Route path="/thinking/:slug" element={<ArticlePage />} />
           <Route path="/thinking/:categoryId/:articleId" element={<ArticlePage />} />
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/tools/:toolId" element={<ToolPage />} />

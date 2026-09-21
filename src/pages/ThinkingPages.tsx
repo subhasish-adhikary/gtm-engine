@@ -6,6 +6,11 @@ import { allArticles } from '../data/articles';
 import { SectionHeader, Card, Breadcrumb } from '../components/UI';
 import { AuthorBox } from '../components/AuthorBox';
 
+// URL pattern: migrated articles keep /thinking/<category>/<id>; Sanity-native
+// articles publish at /thinking/<slug> (category stays on the document).
+const articlePath = (a: { urlPath?: string; category: string; id: string }) =>
+  a.urlPath || `/thinking/${a.category}/${a.id}`;
+
 export function ThinkingPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,7 +48,7 @@ export function ThinkingPage() {
         {featuredArticle && selectedCategory === 'all' && searchQuery === '' && (
           <div className="mt-12">
             <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-tertiary)' }}>Featured</h3>
-            <Link to={`/thinking/${featuredArticle.category}/${featuredArticle.id}`} className="block group">
+            <Link to={articlePath(featuredArticle)} className="block group">
               <Card hoverable>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {featuredArticle.featuredImage && !featuredArticle.featuredImage.startsWith('/images/') && (
@@ -73,7 +78,7 @@ export function ThinkingPage() {
           {regularArticles.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {regularArticles.map((article) => (
-                <Link key={article.id} to={`/thinking/${article.category}/${article.id}`} className="block group">
+                <Link key={article.id} to={articlePath(article)} className="block group">
                   <Card hoverable className="h-full flex flex-col">
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full self-start" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{thinkingCategories.find(c => c.id === article.category)?.title}</span>
                     <h3 className="mt-3 text-lg font-semibold group-hover:text-accent transition-colors" style={{ color: 'var(--text-primary)' }}>{article.title}</h3>
@@ -112,7 +117,7 @@ export function ThinkingCategoryPage() {
         {categoryArticles.length > 0 ? (
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoryArticles.map((article) => (
-              <Link key={article.id} to={`/thinking/${article.category}/${article.id}`}>
+              <Link key={article.id} to={articlePath(article)}>
                 <Card hoverable>
                   <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{article.title}</h3>
                   <p className="mt-2 text-sm" style={{ color: 'var(--text-tertiary)' }}>{article.thesis}</p>
@@ -136,8 +141,8 @@ export function ThinkingCategoryPage() {
 }
 
 export function ArticlePage() {
-  const { categoryId, articleId } = useParams();
-  const article = allArticles.find(a => a.id === articleId);
+  const { categoryId, articleId, slug } = useParams();
+  const article = allArticles.find(a => a.id === (articleId || slug));
 
   if (!article) return <div className="py-32 text-center"><h2 className="text-xl font-semibold">Article not found</h2><Link to="/thinking" className="mt-4 inline-block text-sm" style={{ color: 'var(--accent)' }}>← Back</Link></div>;
 
@@ -246,7 +251,7 @@ export function ArticlePage() {
               <h3 className="text-sm font-semibold uppercase tracking-wider mb-6" style={{ color: 'var(--text-tertiary)' }}>Related Thinking</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {relatedArticles.map((related) => (
-                  <Link key={related.id} to={`/thinking/${related.category}/${related.id}`}>
+                  <Link key={related.id} to={articlePath(related)}>
                     <Card hoverable>
                       <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent)' }}>{thinkingCategories.find(c => c.id === related.category)?.title}</span>
                       <h4 className="mt-2 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{related.title}</h4>

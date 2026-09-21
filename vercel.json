@@ -3,6 +3,16 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/thinking/gtm/lead-generation-to-pipeline-generation",
+      "destination": "/thinking/lead-generation-to-pipeline-generation",
+      "permanent": true
+    },
+    {
+      "source": "/thinking/automation/marketing-automation-gtm-infrastructure",
+      "destination": "/thinking/marketing-automation-gtm-infrastructure",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

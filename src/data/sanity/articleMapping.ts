@@ -76,6 +76,10 @@ export function sanityArticleToArticle(doc: SanityArticleDoc): Article {
   return {
     id: slug,
     title: doc.title || 'Untitled',
+    // URL pattern: migrated (legacy) articles keep /thinking/<category>/<slug>;
+    // Sanity-native articles use /thinking/<slug>. Category stays on the doc.
+    legacyId: doc.legacyId || undefined,
+    urlPath: doc.legacyId ? `/thinking/${doc.category}/${slug}` : `/thinking/${slug}`,
     thesis: doc.thesis || '',
     category: doc.category || 'gtm',
     author: doc.author || 'Subhasish Adhikary',

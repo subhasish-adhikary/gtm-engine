@@ -1,5 +1,7 @@
 export interface Article {
   id: string;
+  urlPath?: string;
+  legacyId?: string;
   title: string;
   thesis: string;
   category: 'gtm' | 'automation' | 'ai-marketing';

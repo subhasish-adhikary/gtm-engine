@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { allArticles } from '../data/articles';
-import { tools } from '../data/content';
+import { tools, thinkingCategories } from '../data/content';
 import { glossaryTerms, getTermBySlug } from '../data/glossary';
 import {
   generateWebSiteSchema,
@@ -186,8 +186,39 @@ export function SEO() {
             // Standard page route. Known paths get their own metadata; unknown
             // paths (404) self-canonicalize with noindex instead of inheriting
             // the homepage identity.
+            // Sanity-native articles publish at /thinking/<slug> (no category
+            // segment). Resolve them here; category hubs are matched by the
+            // routeMetadata check below.
             const metadata = routeMetadata[path];
-            if (metadata) {
+            const slugArticleMatch = path.match(/^\/thinking\/([^/]+)$/);
+            const slugArticle = slugArticleMatch && !thinkingCategories.some(c => c.id === slugArticleMatch[1])
+              ? allArticles.find(a => a.id === slugArticleMatch[1])
+              : null;
+            if (slugArticle) {
+              const schemasSlug: any[] = [generateArticleSchema(slugArticle)];
+              schemasSlug.push(generateBreadcrumbSchema([
+                { label: 'Home', path: '/' },
+                { label: 'Thinking', path: '/thinking' },
+                { label: thinkingCategories.find(c => c.id === slugArticle.category)?.title || '', path: `/thinking/${slugArticle.category}` },
+                { label: slugArticle.title }
+              ]));
+              if (slugArticle.faq && slugArticle.faq.length > 0) {
+                schemasSlug.push(generateFAQPageSchema(slugArticle.faq));
+              }
+              schemas.length = 0;
+              schemas.push(...schemasSlug);
+              updateMetaTags(
+                `${slugArticle.title} | Subhasish Adhikary`,
+                slugArticle.thesis,
+                `${baseUrl}${path}`,
+                false,
+                {
+                  image: slugArticle.featuredImage?.startsWith('http') ? slugArticle.featuredImage : undefined,
+                  imageAlt: slugArticle.featuredImageAlt,
+                  type: 'article'
+                }
+              );
+            } else if (metadata) {
               updateMetaTags(metadata.title, metadata.description, `${baseUrl}${path === '/' ? '/' : path}`);
             } else {
               updateMetaTags('Page Not Found | Subhasish Adhikary', 'The page you are looking for does not exist.', `${baseUrl}${path}`, true);

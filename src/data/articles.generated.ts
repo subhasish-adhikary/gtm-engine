@@ -12,6 +12,7 @@ export const generatedArticles: Article[] = [
   {
     "id": "lead-generation-to-pipeline-generation",
     "title": "Why B2B Marketing Teams Are Moving From Lead Generation to Pipeline Generation",
+    "urlPath": "/thinking/lead-generation-to-pipeline-generation",
     "thesis": "Lead volume was the growth metric of the last decade. The teams compounding revenue now organize marketing around pipeline creation — and the shift changes everything from headcount to measurement.",
     "category": "gtm",
     "author": "Subhasish Adhikary",
@@ -93,6 +94,7 @@ export const generatedArticles: Article[] = [
   {
     "id": "marketing-automation-gtm-infrastructure",
     "title": "Marketing Automation Is Becoming a GTM Infrastructure Layer",
+    "urlPath": "/thinking/marketing-automation-gtm-infrastructure",
     "thesis": "Marketing automation started as a campaign-sending tool. In modern B2B organizations it has quietly become the connective infrastructure between marketing, sales, and revenue data — and treating it that way changes how you build it.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -172,8 +174,123 @@ export const generatedArticles: Article[] = [
     ]
   },
   {
+    "id": "territory-based-gtm-small-teams",
+    "title": "Building a Territory-Based GTM Model for Small B2B Teams",
+    "urlPath": "/thinking/territory-based-gtm-small-teams",
+    "thesis": "A territory-based GTM model assigns every account to one named owner who is accountable for coverage. For teams under 20 people it works only when built as capacity-honest coverage promises — here is the build sequence, the segmentation choice, and the routing standard.",
+    "category": "gtm",
+    "author": "Subhasish Adhikary",
+    "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
+    "publishedDate": "2026-09-22",
+    "readingTime": "9 min read",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/bb9e7d6ac945e5a3bd950e693b4af7cce06aff5b-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
+    "featuredImageAlt": "Territory-based GTM model diagram showing account territories assigned to owners on a small B2B team",
+    "atAGlance": [
+      "A territory-based GTM model assigns every account to one named owner accountable for coverage — it is a promise-keeping device, not a growth strategy",
+      "Island, assembly line, and pod describe how work flows; territory describes who owns which accounts — small teams need both answers, in that order",
+      "Do not design territories before you can name your last ten closed-won customers; pre-PMF, a shared target-account list beats any geography",
+      "The capacity math comes before the org chart: tier accounts by coverage promise, then check whether the hours exist to keep it",
+      "Route by territory to a five-minute first-touch standard — only 23% of B2B companies hit that bar today (Optifai, 2026)"
+    ],
+    "tableOfContents": [
+      {
+        "id": "what-is-a-territory-based-gtm-model",
+        "title": "What Is a Territory-Based GTM Model?"
+      },
+      {
+        "id": "when-should-a-small-team-use-territories",
+        "title": "When Should a Small Team Use a Territory Model Instead of Something Else?"
+      },
+      {
+        "id": "how-to-design-territories-under-20-people",
+        "title": "How Do You Design Territories When You Have Fewer Than 20 People?"
+      },
+      {
+        "id": "segmentation-choice",
+        "title": "Geographic, Vertical, or Named-Account Territories?"
+      },
+      {
+        "id": "territory-design-and-lead-routing",
+        "title": "How Does Territory Design Connect to Lead Routing?"
+      },
+      {
+        "id": "worked-example",
+        "title": "What Does a Territory-Based GTM Model Look Like in Practice?"
+      },
+      {
+        "id": "when-to-restructure",
+        "title": "When Should You Restructure or Abandon Territories?"
+      },
+      {
+        "id": "common-mistakes",
+        "title": "The Most Common Mistakes Small Teams Make With Territory Design"
+      }
+    ],
+    "content": "<p>A territory-based GTM model assigns every account in your addressable market to one named owner — a rep, a pod, or a founder — who is accountable for coverage of that account: the research, the touches, the response time, and the outcome. It answers &quot;who owns this account?&quot; rather than &quot;how does work flow through my team?&quot;, and the two questions get confused constantly. For small B2B teams, a territory model works when it is built as a set of explicit coverage promises sized against real capacity, and fails when it is built as a miniature version of an enterprise org chart.</p>\n<p>I have built and rebuilt these structures several times, mostly for B2B teams between 6 and 20 people in the GTM function. What follows is the version of territory design I wish someone had handed me the first time — including the parts that are boring, the parts that break, and the parts you should skip until later.</p>\n<h2 id=\"what-is-a-territory-based-gtm-model\">What Is a Territory-Based GTM Model?</h2>\n<p>A territory-based GTM model divides your total addressable market into owned segments — geographic regions, industries, or named-account lists — and assigns each segment to a specific owner who is accountable for every commercial outcome inside it. Ownership is exclusive: one account, one owner, no ambiguity about who is responsible when an account goes quiet.</p>\n<p>The definition matters because most &quot;territory&quot; confusion is actually two overlapping decisions stacked together. The first is a <strong>workflow decision</strong>: does work move through your team as an assembly line (SDRs prospect, AEs close), as islands (each rep owns the full cycle), or as pods (small cross-functional units that own a segment end to end)? The second is a <strong>coverage decision</strong>: which accounts does each unit own? Territory is the answer to the second question. Island, assembly line, and pod are answers to the first — and the standard industry framing treats them as the three core sales team structures (Spotio, 2026).</p>\n<p>The territory layer sits on top of whichever workflow you pick. A three-person team can be three islands with territories. A 30-person team can run pods with territories. The models compose; they do not compete — which is why &quot;territory vs pod&quot; is the wrong question, and &quot;what coverage promise can we actually keep?&quot; is the right one.</p>\n<h2 id=\"when-should-a-small-team-use-territories\">When Should a Small Team Use a Territory Model Instead of Something Else?</h2>\n<p>Use a territory model when your accounts have become numerous and diverse enough that unowned accounts are slipping through, and not before. There are three signals that the moment has arrived, and each is observable in your CRM rather than a matter of opinion.</p>\n<p><strong>Signal one: ownership ambiguity is costing you response time.</strong> The classic Lead Response Management study (Oldroyd, 2007, later covered by Harvard Business Review) found that the odds of qualifying an inbound lead drop roughly 21x once response time stretches from five minutes to thirty. More recent benchmarks show how rare fast response still is: only about 23% of B2B companies respond to a lead within five minutes, and roughly 42% take more than 24 hours (Optifai benchmark of 939 B2B SaaS companies, reported 2026; Chili Piper's aggregation puts the average response time at about 42 hours). If your team's answer to &quot;who is calling this lead back?&quot; is &quot;whoever sees it first,&quot; you are leaking pipeline into that gap. Territory-based lead routing closes it by making ownership computable.</p>\n<p><strong>Signal two: accounts are being touched inconsistently.</strong> When a founder owns 400 accounts, &quot;coverage&quot; is a fiction — some get attention because the founder knows them, the rest get a newsletter. Territories force an honest capacity conversation.</p>\n<p><strong>Signal three: you are hiring, or about to.</strong> Territories are the mechanism for onboarding a new AE without re-opening every account in the CRM. If a hire is coming within two quarters, design territories for the team you will have, not the team you have.</p>\n<p>And one contrarian warning: if you are pre-product-market fit, skip formal territories entirely. When you still are not sure who your best customers are, a rigid territory design freezes a guess into your org structure. A shared target-account list, worked flexibly by whoever has capacity, is the honest version of coverage at that stage. I have watched a 9-person team redraw its geographies three times in six months while their actual closed-won pattern refused to match any of the maps. The territory was not the problem. The ICP was not settled.</p>\n<h2 id=\"how-to-design-territories-under-20-people\">How Do You Design Territories When You Have Fewer Than 20 People?</h2>\n<p>Start with capacity math, not with a map. The four-step sequence below is the whole method; the order is non-negotiable because each step consumes the output of the one before it.</p>\n<ul><li>Count the coverage hours you actually have. Take each quota-carrying owner and estimate the weekly hours available for proactive account work after delivery and internal load. For a working AE in a small team, that is typically 8 to 12 hours a week, not 40.</li><li>Tier your accounts by the coverage they need. Tier 1: named accounts that warrant direct, personal outreach weekly or biweekly (say, 1 to 2 hours per account per month). Tier 2: accounts that warrant a systematic monthly touch. Tier 3: accounts covered by automated, programmatic motion only.</li><li>Draw territories so every Tier 1 and Tier 2 promise is keepable. Assign the Tier 1 accounts first — by vertical, geography, or relationship history — then distribute Tier 2 until each owner's ledger sums to their real hours. Tier 3 stays pooled and programmatic.</li><li>Write the promise down per territory. One document: which accounts, what coverage cadence, what response-time standard, what the owner does when an out-of-territory inbound arrives. If it does not fit on one page, it will not survive contact with a real quarter.</li></ul>\n<p>Step 3 is where small teams fail, and they fail the same way every time: they draw territories for the revenue they want and ignore the hours they have. A territory that assigns 150 Tier 1 accounts to one AE is not a territory. It is a resignation letter with a map attached.</p>\n<p>There is a threshold I use, borrowed from watching where teams actually redraw: <strong>the two-quarter rule</strong>. If you expect your team size or ICP to change materially within two quarters, design the simplest territories that solve today's coverage problem — usually a named-account list per owner with no geography at all — and save the real design for the org you are becoming. Segment-first, territory-second is the hybrid pattern that scales; small teams just run the sequence earlier and with less ceremony.</p>\n<h2 id=\"segmentation-choice\">Geographic, Vertical, or Named-Account Territories: Which Segmentation Should You Pick?</h2>\n<p>Pick the axis that best predicts why your customers buy — not the one that looks cleanest on a map. Geography fits when the sales cycle requires presence or buyers cluster regionally. Verticals fit when proof points, compliance needs, or language differ sharply by industry. Named accounts fit when your market is concentrated in identifiable companies, or when you are moving upmarket.</p>\n<p>For teams under 20 people, the pattern I have seen work most often is <strong>vertical-first with a named-account overlay</strong>: two or three industries where the team has real proof, each owned by one person, with the best-fit accounts inside each industry explicitly tiered and named. Gong's territory planning guidance (2025) makes the same behavioral point from the enterprise side — segment on how accounts buy, not on how they look on a map. What you should almost never do at this size is carve geography because a spreadsheet made it look balanced. Balanced-looking territories with no regard for account quality produce equal workloads and unequal pipelines, which is the worst of both worlds.</p>\n<h2 id=\"territory-design-and-lead-routing\">How Does Territory Design Connect to Lead Routing?</h2>\n<p>Territory design and lead routing are the same system viewed from two directions: design decides who <strong>should</strong> own an account, routing decides who <strong>does</strong> own the next inbound signal. If your territories live in a spreadsheet but your routing runs on &quot;round-robin to whoever is free,&quot; you have built an ownership model and then suspended it at the exact moment it matters most — the moment a buyer raised their hand.</p>\n<p>The routing standard worth aiming for is five minutes to first human touch on inbound. Territory-based routing gets a small team there through three mechanical rules: route by account, not by form field (match the inbound to its territory owner by domain first, with a fallback owner for unmatched domains); define the fallback explicitly (out-of-territory inbound goes to a named catch-all owner with a same-day review); and make the SLA visible (a territory owner's response clock is a number someone can see — when it is invisible, the five-minute standard quietly becomes forty-two hours).</p>\n<p>Tooling-wise this does not require much: an owner field on every account, a routing rule in your CRM or automation layer, and a report that shows response time by territory. The channel and coverage trade-offs you discover while doing this feed directly into the kind of planning the Channel Planner and GTM Diagnostic tools on this site are built for.</p>\n<h2 id=\"worked-example\">What Does a Territory-Based GTM Model Look Like in Practice?</h2>\n<p>Here is a worked, composited example from a 14-person workflow-automation SaaS team I advised (numbers rounded, details anonymized). Their market: roughly 4,000 accounts in North America and the UK. Their GTM function: one founder-led sales motion, two AEs, one SDR, and a marketing person running programs.</p>\n<p>The capacity math came first. Two AEs at about 10 proactive hours a week each, an SDR at 15, and the founder at 5 — about 40 coverage hours a week. Their historical win pattern showed two clusters: mid-market logistics companies and professional-services firms, with almost nothing closed outside those. So geography was the wrong axis; vertical was the right one.</p>\n<p>The design they landed on: two vertical territories (logistics, professional services), one per AE, each with a named Tier 1 list of about 60 accounts (biweekly touches), roughly 400 Tier 2 accounts (monthly programmatic-plus touches), and everything else pooled into Tier 3 automation. The SDR owned inbound routing for both territories against a five-minute standard, plus Tier 2 outbound sequences. The founder kept a named list of about 25 strategic accounts.</p>\n<p>The coverage promise per AE: 60 Tier 1 accounts at two meaningful touches a month plus opportunity work — roughly 10 hours a week. Keepable. The previous plan — 1,000 accounts each, untouched — was not.</p>\n<p>What this example shows is the real function of territory design at small scale: it converts ambition into arithmetic. Every coverage claim either survives the hours calculation or gets cut, and the cuts happen on a spreadsheet before they happen in a quota conversation.</p>\n<h2 id=\"when-to-restructure\">When Should You Restructure or Abandon Territories?</h2>\n<p>Restructure when the coverage promises stop being keepable or the axis stops predicting wins. Three triggers cover most cases, and all three are visible in data you already have. One: quota attainment diverges by territory for two consecutive quarters, and it tracks the territory rather than the person — redraw around the winning pattern. Two: your closed-won mix drifts from the territory design, meaning a growing share of revenue comes from accounts your segmentation treats as low priority — the axis is wrong, and it deserves a scheduled review rather than a panic reorganization. Three: a hire changes the capacity math — new territories get designed before the start date, not three months into it.</p>\n<p>Abandon the model entirely only if you return to pre-product-market-fit conditions — a new product line, a pivot — where coverage promises would freeze a guess again. Otherwise, restructure; the ownership discipline is worth keeping even when the lines move.</p>\n<h2 id=\"common-mistakes\">The Most Common Mistakes Small Teams Make With Territory Design</h2>\n<p><strong>Designing for the 18-month org chart.</strong> Territories built for a team you will have next year create coverage gaps this quarter. Design for the two-quarter window.</p>\n<p><strong>Copy-pasting enterprise geography.</strong> The Salesforce-scale territory guides assume planning teams and dedicated RevOps. At 15 people, geography usually just hides the vertical patterns that actually predict wins.</p>\n<p><strong>Ignoring response time in the design.</strong> A territory model that does not specify inbound routing leaves the highest-conversion moment in the entire funnel unowned.</p>\n<p><strong>No fallback owner.</strong> Every unmatched domain needs a named human. Orphan leads are not a routing bug; they are an unbuilt system.</p>\n<p><strong>Treating Tier 3 as covered.</strong> Programmatic coverage is a real strategy, but it is a decision — write it down, or Tier 3 quietly becomes Tier Never.</p>\n<p><strong>Letting the design age silently.</strong> Put the two-quarter review on the calendar when you write the territories. Structures that no one is scheduled to question tend to outlive their assumptions.</p>\n<p>The pattern across all six: territory design fails when it is treated as an org-chart art project, and works when it is treated as a set of capacity-honest promises with a routing system behind them. Get the promises right and the structure is mostly bookkeeping. Get them wrong and no amount of structural elegance will save the quarter.</p>",
+    "faq": [
+      {
+        "question": "What is a territory-based GTM model?",
+        "answer": "A territory-based GTM model assigns every account in your addressable market to one named owner — a rep, pod, or founder — accountable for coverage: research, touches, response time, and outcomes. It answers who owns each account, which is a different question from how work flows through the team (island, assembly line, or pod)."
+      },
+      {
+        "question": "When should a small team use a territory model instead of pod or island structures?",
+        "answer": "When accounts are numerous enough that unowned ones slip through, or when a hire is coming within two quarters. Island, pod, and assembly line describe how work flows; territory describes who owns which accounts. Small teams need both answers, and territory should be built as a coverage promise sized against real capacity."
+      },
+      {
+        "question": "How do you avoid over-engineering territory design pre-PMF?",
+        "answer": "Skip formal territories until you can name your last ten closed-won customers. Before product-market fit, use a shared target-account list worked flexibly by whoever has capacity — a rigid design freezes a guess into your org structure and usually gets redrawn within months."
+      },
+      {
+        "question": "How does territory design connect to lead routing tools?",
+        "answer": "Territories define who should own an account; routing rules enforce who does own each inbound signal. Practically: an owner field on every account, a domain-matching routing rule in your CRM or automation layer, a named fallback owner, and a response-time report by territory aimed at a five-minute first-touch standard."
+      },
+      {
+        "question": "What is a healthy routing benchmark for a small team?",
+        "answer": "Aim for five-minute first touch on inbound; industry benchmarks show only about 23% of B2B companies achieve it (Optifai, 2026). For MQL-to-SQL conversion, healthy funnels typically run 30–50%, but a small team's honest baseline matters more than the benchmark — measure by territory and improve against yourself."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Field Sales Team Structure: Models, Ratios & Org Charts — Spotio (2026)",
+        "url": "https://spotio.com",
+        "description": "Island, assembly line, and pod sales structures and hiring order."
+      },
+      {
+        "title": "Lead Response Management study (Oldroyd) — covered by Harvard Business Review",
+        "url": "https://hbr.org",
+        "description": "Conversion odds collapse as inbound response time stretches past five minutes."
+      },
+      {
+        "title": "Lead response time benchmarks — Chili Piper (2025)",
+        "url": "https://www.chilipiper.com",
+        "description": "Aggregated average B2B lead response time of roughly 42 hours."
+      },
+      {
+        "title": "The Art of Sales Territory Planning — Gong (2025)",
+        "url": "https://www.gong.io",
+        "description": "Five-step territory planning guidance segmenting on buyer behavior."
+      },
+      {
+        "title": "How to Build a Sales Territory Plan: 2026 Guide — ZoomInfo",
+        "url": "https://pipeline.zoominfo.com",
+        "description": "Territory planning as strategic assignment of accounts to maximize revenue coverage."
+      }
+    ],
+    "relatedArticles": [
+      "hybrid-channel-gtm",
+      "signal-based-gtm",
+      "post-mql-gtm"
+    ],
+    "relatedTools": [
+      "channel-planner",
+      "gtm-diagnostic"
+    ]
+  },
+  {
     "id": "ai-marketing-roi",
     "title": "Measuring AI Marketing ROI: A Framework",
+    "legacyId": "ai-marketing-roi",
+    "urlPath": "/thinking/ai-marketing/ai-marketing-roi",
     "thesis": "Most companies cannot measure the ROI of their AI marketing investments. This framework provides a structured approach to quantifying AI value across the marketing organization.",
     "category": "ai-marketing",
     "author": "Subhasish Adhikary",
@@ -255,6 +372,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-native-advertising",
     "title": "AI-Native Advertising: Beyond Prompt Engineering",
+    "legacyId": "ai-native-advertising",
+    "urlPath": "/thinking/ai-marketing/ai-native-advertising",
     "thesis": "AI is transforming advertising from campaign-based to always-on optimization. The winners are building AI-native advertising systems, not just using AI to write ad copy.",
     "category": "ai-marketing",
     "author": "Subhasish Adhikary",
@@ -336,6 +455,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "marketing-agents",
     "title": "Marketing Agents: The New Workforce",
+    "legacyId": "marketing-agents",
+    "urlPath": "/thinking/ai-marketing/marketing-agents",
     "thesis": "AI agents are not just tools - they are becoming members of the marketing team. The organizations that figure out how to integrate agents into their workflows will have a fundamental advantage.",
     "category": "ai-marketing",
     "author": "Subhasish Adhikary",
@@ -416,6 +537,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-content-expertise",
     "title": "AI Content and Expertise: Building Authority in an AI World",
+    "legacyId": "ai-content-expertise",
+    "urlPath": "/thinking/ai-marketing/ai-content-expertise",
     "thesis": "As AI generates more content, human expertise becomes more valuable, not less. The brands that win will be those that demonstrate genuine expertise AI cannot replicate.",
     "category": "ai-marketing",
     "author": "Subhasish Adhikary",
@@ -497,6 +620,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-search-geo",
     "title": "AI Search and AEO/GEO: What Marketers Need to Know",
+    "legacyId": "ai-search-geo",
+    "urlPath": "/thinking/ai-marketing/ai-search-geo",
     "thesis": "AI search is reshaping how buyers find information. Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO) are becoming critical marketing disciplines.",
     "category": "ai-marketing",
     "author": "Subhasish Adhikary",
@@ -583,6 +708,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "automation-roi",
     "title": "The ROI of Marketing Automation: Measuring What Matters",
+    "legacyId": "automation-roi",
+    "urlPath": "/thinking/automation/automation-roi",
     "thesis": "Most companies measure marketing automation wrong. They track activity metrics instead of business outcomes. Here is how to measure what actually matters.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -658,6 +785,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "automation-strategy",
     "title": "Marketing Automation Strategy: A Systems Approach",
+    "legacyId": "automation-strategy",
+    "urlPath": "/thinking/automation/automation-strategy",
     "thesis": "Most marketing automation is built bottom-up, tactic by tactic. The winning approach is top-down: design the system first, then build the workflows.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -733,6 +862,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "lifecycle-personalization",
     "title": "Lifecycle Personalization at Scale: A Framework",
+    "legacyId": "lifecycle-personalization",
+    "urlPath": "/thinking/automation/lifecycle-personalization",
     "thesis": "Personalization is not just about using someone's first name in an email. True lifecycle personalization adapts every touchpoint based on where the customer is in their journey.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -808,6 +939,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-lead-scoring",
     "title": "AI Lead Scoring: Beyond Rules-Based Models",
+    "legacyId": "ai-lead-scoring",
+    "urlPath": "/thinking/automation/ai-lead-scoring",
     "thesis": "Rules-based lead scoring is dead. AI-powered scoring models that learn from data outperform static rules by 3-5x in predictive accuracy.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -883,6 +1016,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-marketing-os",
     "title": "The AI Marketing Operating System: Architecture for the Next Era",
+    "legacyId": "ai-marketing-os",
+    "urlPath": "/thinking/automation/ai-marketing-os",
     "thesis": "Marketing is evolving from a collection of tools to an integrated operating system powered by AI. The companies that build this architecture will have a structural advantage.",
     "category": "automation",
     "author": "Subhasish Adhikary",
@@ -958,6 +1093,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "ai-assisted-buying",
     "title": "AI-Assisted B2B Buying: What It Means for Your GTM",
+    "legacyId": "ai-assisted-buying",
+    "urlPath": "/thinking/gtm/ai-assisted-buying",
     "thesis": "B2B buyers are using AI to research, evaluate, and make decisions. Your GTM motion needs to adapt to buyers who are more informed, more efficient, and less dependent on sales.",
     "category": "gtm",
     "author": "Subhasish Adhikary",
@@ -1034,6 +1171,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "hybrid-channel-gtm",
     "title": "Hybrid Channel GTM: Building a Coherent Multi-Channel Motion",
+    "legacyId": "hybrid-channel-gtm",
+    "urlPath": "/thinking/gtm/hybrid-channel-gtm",
     "thesis": "Most B2B companies run channels in silos. The winners integrate channels into a coherent motion where each channel amplifies the others.",
     "category": "gtm",
     "author": "Subhasish Adhikary",
@@ -1110,6 +1249,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "gtm-efficiency",
     "title": "GTM Efficiency: How B2B Companies Are Doing More With Less",
+    "legacyId": "gtm-efficiency",
+    "urlPath": "/thinking/gtm/gtm-efficiency",
     "thesis": "The era of growth-at-all-costs is over. The winning B2B companies are building efficient GTM motions that maximize revenue per dollar spent.",
     "category": "gtm",
     "author": "Subhasish Adhikary",
@@ -1190,6 +1331,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "post-mql-gtm",
     "title": "The Post-MQL GTM: What Happens After Marketing Qualifies a Lead",
+    "legacyId": "post-mql-gtm",
+    "urlPath": "/thinking/gtm/post-mql-gtm",
     "thesis": "Most B2B companies optimize for lead generation but neglect the critical handoff and conversion stages. The real leverage is in what happens after the MQL.",
     "category": "gtm",
     "author": "Subhasish Adhikary",
@@ -1276,6 +1419,8 @@ export const generatedArticles: Article[] = [
   {
     "id": "signal-based-gtm",
     "title": "Signal-Based GTM: Why Intent Data Is Replacing Traditional Lead Scoring",
+    "legacyId": "signal-based-gtm",
+    "urlPath": "/thinking/gtm/signal-based-gtm",
     "thesis": "Traditional MQL frameworks are broken. The companies winning in B2B are building go-to-market motions around real-time buying signals, not arbitrary form fills.",
     "category": "gtm",
     "author": "Subhasish Adhikary",

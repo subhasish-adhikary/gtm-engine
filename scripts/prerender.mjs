@@ -200,6 +200,7 @@ async function run() {
     ...tools.map(t => ({ id: t.id, title: t.title, description: t.description, category: t.category }))
   ];
 
+  const articlePath = (a) => a.urlPath || `/thinking/${a.category}/${a.id}`;
   const articleBySlug = (id) => allArticles.find(a => a.id === id);
   const termById = (id) => glossaryTerms.find(t => t.id === id);
   const toolById = (id) => allTools.find(t => t.id === id);
@@ -217,7 +218,7 @@ async function run() {
     return allArticles
       .filter(a => textMentionsTerm(`${a.title} ${a.thesis}`, term))
       .slice(0, limit)
-      .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
+      .map(a => `<li style="margin-bottom: 6px;"><a href="${articlePath(a)}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
   }
 
   function toolsMentioningTerm(term, limit) {
@@ -242,7 +243,7 @@ async function run() {
   const thinkingList = linkList(
     thinkingCategories.map(c => `<li style="margin-bottom: 10px;"><a href="/thinking/${c.id}" style="color: #155EEF;">${escapeHtml(c.title)}</a> — ${escapeHtml(c.description)}</li>`)
       .concat(allArticles.map(a =>
-        `<li style="margin-bottom: 8px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
+        `<li style="margin-bottom: 8px;"><a href="${articlePath(a)}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
   );
 
   const toolsList = linkList(allTools.map(t =>
@@ -359,7 +360,7 @@ async function run() {
           allArticles
             .filter(a => /stack|infrastructure|systems approach|architecture|integration|orchestration/i.test(`${a.title} ${a.thesis}`))
             .slice(0, 4)
-            .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
+            .map(a => `<li style="margin-bottom: 6px;"><a href="${articlePath(a)}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
         )}
       `,
       schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'GTM Stack' }])],
@@ -431,7 +432,7 @@ async function run() {
       bodyHtml: `
         <p>${escapeHtml(cat.description)}</p>
         ${relatedSection('Articles in this Category', linkList(arts.map(a =>
-          `<li style="margin-bottom: 10px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a><br/><span style="color: #62676D; font-size: 15px;">${escapeHtml(a.thesis)}</span></li>`)))}
+          `<li style="margin-bottom: 10px;"><a href="${articlePath(a)}" style="color: #155EEF;">${escapeHtml(a.title)}</a><br/><span style="color: #62676D; font-size: 15px;">${escapeHtml(a.thesis)}</span></li>`)))}
         ${relatedSection('Related Resources', linkList([
           `<li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive strategy tools</a></li>`,
           `<li style="margin-bottom: 6px;"><a href="/glossary" style="color: #155EEF;">Marketing glossary</a></li>`,
@@ -627,7 +628,7 @@ async function run() {
   }
 
   for (const article of allArticles) {
-    const route = `/thinking/${article.category}/${article.id}`;
+    const route = articlePath(article);
     const title = `${article.title} | Subhasish Adhikary`;
     const description = article.thesis;
     const canonical = `${BASE}${route}`;
@@ -658,7 +659,7 @@ async function run() {
       .map(t => `<li style="margin-bottom: 6px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a></li>`);
     const relArticleLinks = (article.relatedArticles || [])
       .map(id => articleBySlug(id)).filter(Boolean)
-      .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
+      .map(a => `<li style="margin-bottom: 6px;"><a href="${articlePath(a)}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`);
     const relCsLinks = caseStudies
       .filter(cs => textMentionsTerm(`${cs.title} ${cs.summary}`, { term: article.title.length > 12 ? { term: article.title.split(':')[0] } : { term: article.title } }))
       .slice(0, 2)
@@ -787,7 +788,7 @@ async function run() {
     const lastmodByRoute = new Map();
     for (const a of allArticles) {
       const d = a.updatedDate || a.publishedDate;
-      if (d) lastmodByRoute.set(`/thinking/${a.category}/${a.id}`, new Date(d).toISOString().slice(0, 10));
+      if (d) lastmodByRoute.set(articlePath(a), new Date(d).toISOString().slice(0, 10));
     }
     for (const t of glossaryTerms) {
       if (t.updatedDate) lastmodByRoute.set(`/glossary/${t.slug}`, new Date(t.updatedDate).toISOString().slice(0, 10));
