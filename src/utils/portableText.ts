@@ -21,8 +21,24 @@ interface PtBlock {
   listItem?: string;
   level?: number;
   anchorId?: string;
+  alt?: string;
+  asset?: {_ref?: string; ref?: string};
   children?: PtChild[];
   markDefs?: {_key: string; _type: string; href?: string}[];
+}
+
+const PT_PROJECT_ID = '0uqx6fxe';
+const PT_DATASET = 'production';
+
+/** Builds the CDN URL for a Sanity image asset reference stored on an image block. */
+function imageUrlFromRef(ref: string | undefined): string {
+  if (!ref) return '';
+  const parts = ref.split('-');
+  const extension = parts.pop();
+  const dimensions = parts.pop();
+  const hash = parts.slice(1).join('-');
+  if (!hash || !dimensions || !extension) return '';
+  return `https://cdn.sanity.io/images/${PT_PROJECT_ID}/${PT_DATASET}/${hash}-${dimensions}.${extension}?auto=format`;
 }
 
 function escapeHtml(str = ''): string {
@@ -84,7 +100,15 @@ export function portableTextToHtml(blocks: PtBlock[] | null | undefined): string
   };
 
   for (const block of blocks) {
-    if (block._type !== 'block') continue; // images inside content are not used by the legacy articles
+    if (block._type === 'image') {
+      const src = imageUrlFromRef(block.asset?._ref || block.asset?.ref);
+      if (src) {
+        const alt = escapeHtml(block.alt || 'Article illustration');
+        out.push(`<img src="${src}" alt="${alt}" width="1200" height="675" loading="lazy" style="width: 100%; height: auto; border-radius: 8px; margin: 24px 0;" />`);
+      }
+      continue;
+    }
+    if (block._type !== 'block') continue;
     const style = block.style || 'normal';
 
     const listItem = block.listItem || (style === 'bullet' || style === 'number' ? style : null);
