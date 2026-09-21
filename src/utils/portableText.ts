@@ -87,8 +87,9 @@ export function portableTextToHtml(blocks: PtBlock[] | null | undefined): string
     if (block._type !== 'block') continue; // images inside content are not used by the legacy articles
     const style = block.style || 'normal';
 
-    if (style === 'bullet' || style === 'number') {
-      const type = style === 'number' ? 'number' : 'bullet';
+    const listItem = block.listItem || (style === 'bullet' || style === 'number' ? style : null);
+    if (listItem) {
+      const type = listItem === 'number' ? 'number' : 'bullet';
       if (!list || list.type !== type) {
         flushList();
         list = { type, items: [] };

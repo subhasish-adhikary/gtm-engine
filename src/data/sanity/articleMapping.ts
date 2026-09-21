@@ -89,7 +89,7 @@ export function sanityArticleToArticle(doc: SanityArticleDoc): Article {
     readingTime: doc.readingTime || '',
     featuredImage: sanityImageUrl(imageRef) || '',
     featuredImageAlt: doc.featuredImageAlt || doc.title || '',
-    atAGlance: doc.atAGlance || [],
+    atAGlance: (doc.atAGlance || []).map((v: any) => typeof v === 'object' && v !== null ? v.value : v),
     // Prefer the stored ToC; fall back to deriving it from H2 headings so a
     // new article authored without a ToC still gets anchors.
     tableOfContents: toc.length > 0 ? toc : tableOfContentsFromPortableText(doc.content),

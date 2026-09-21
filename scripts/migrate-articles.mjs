@@ -146,7 +146,7 @@ function htmlToPortableText(html = '') {
       for (const li of items) {
         const inner = li.replace(/^<li[^>]*>/, '').replace(/<\/li>$/, '');
         const before = blocks.length;
-        makeBlock('bullet', inner);
+        makeBlock('normal', inner);
         blocks[before].listItem = 'bullet';
         blocks[before].level = 1;
       }
@@ -250,11 +250,12 @@ async function main() {
       readingTime: article.readingTime,
       featuredImageAlt: article.featuredImageAlt,
       atAGlance: article.atAGlance,
-      tableOfContents: article.tableOfContents.length > 0 ? article.tableOfContents : derivedToc,
+      tableOfContents: (article.tableOfContents.length > 0 ? article.tableOfContents : derivedToc).map((t, i) => ({...t, _key: `toc${i}`})),
+      atAGlance: article.atAGlance.map((v, i) => ({_key: `agl${i}`, _type: 'string', value: v})),
       content: blocks,
-      faq: article.faq,
-      sources: article.sources,
-      relatedTools: article.relatedTools,
+      faq: article.faq.map((f, i) => ({...f, _key: `faq${i}`})),
+      sources: article.sources.map((src, i) => ({...src, _key: `src${i}`})),
+      relatedTools: article.relatedTools.map((v, i) => ({_key: `rt${i}`, _type: 'string', value: v})),
       legacyId: article.id,
     };
 
@@ -283,7 +284,7 @@ async function main() {
         .map((legacyTarget) => createdIds.get(legacyTarget))
         .filter(Boolean)
         .filter((targetId) => targetId !== sanityId)
-        .map((targetId) => ({_type: 'reference', _ref: targetId}));
+        .map((targetId, i) => ({_key: `rel${i}`, _type: 'reference', _ref: targetId}));
       if (refs.length === 0) continue;
 
       if (existingDoc) {
