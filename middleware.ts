@@ -11,10 +11,6 @@
  *   /static/*    -> /studio/static/*   (Studio's root-relative asset refs)
  *   /studio/*    -> passthrough         (real files)
  *   anything else -> /studio/index.html (SPA deep links, e.g. /desk/...)
- *
- * Rewriting prefers the platform's Response.rewrite and falls back to an
- * internal subrequest; any failure degrades to normal routing rather than
- * erroring.
  */
 export default async function middleware(request: Request): Promise<Response | undefined> {
   const host = (request.headers.get('x-forwarded-host') || request.headers.get('host') || '')
@@ -31,17 +27,29 @@ export default async function middleware(request: Request): Promise<Response | u
       ? new URL(`/studio${pathname}`, request.url)
       : new URL('/studio/index.html', request.url);
 
+  // Preferred: platform rewrite (no subrequest, no body re-encoding).
   try {
-    const rewrite = (Response as unknown as { rewrite?: (u: URL) => Response }).rewrite;
+    const rewrite = (Response as unknown as { rewrite?: (u: string, init?: ResponseInit) => Response })
+      .rewrite;
     if (typeof rewrite === 'function') {
-      return rewrite.call(Response, target);
+      return rewrite.call(Response, target.href);
     }
   } catch {
     /* fall through to subrequest */
   }
 
+  // Fallback: internal subrequest. fetch() transparently decompresses the
+  // body but keeps the original content-encoding header, which breaks browser
+  // decoding — so the stale encoding/length headers must be dropped.
   try {
-    return await fetch(new Request(target, request));
+    const headers = new Headers(request.headers);
+    headers.delete('accept-encoding');
+    const res = await fetch(new Request(target, { method: 'GET', headers, redirect: 'manual' }));
+    const out = new Headers(res.headers);
+    out.delete('content-encoding');
+    out.delete('content-length');
+    out.set('x-middleware-source', 'fetch');
+    return new Response(res.body, { status: res.status, headers: out });
   } catch {
     return undefined;
   }
