@@ -9,7 +9,7 @@ export default defineConfig({
   name: 'default',
   title: 'Subhasish Adhikary — CMS',
 
-  projectId: '0uqx6fx',
+  projectId: '0uqx6fxe',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

@@ -2,7 +2,7 @@ import {defineCliConfig} from 'sanity/cli'
 
 export default defineCliConfig({
   api: {
-    projectId: '0uqx6fx',
+    projectId: '0uqx6fxe',
     dataset: 'production',
   },
   // `sanity build` output target — the Vite build copies public/ into dist/,
