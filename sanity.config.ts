@@ -1,10 +1,9 @@
 import {defineConfig} from 'sanity'
 import {visionTool} from '@sanity/vision'
 import {structureTool} from 'sanity/structure'
+import {schemaTypes} from './src/sanity/schemaTypes'
 
 // Sanity Studio for project-almond-feather.
-// Schemas are intentionally empty for now: content-model work and article
-// migration are a later phase. Document types will be added to this array.
 export default defineConfig({
   name: 'default',
   title: 'Subhasish Adhikary — CMS',
@@ -15,6 +14,6 @@ export default defineConfig({
   plugins: [structureTool(), visionTool()],
 
   schema: {
-    types: [],
+    types: schemaTypes,
   },
 })

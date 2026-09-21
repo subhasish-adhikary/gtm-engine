@@ -446,4 +446,14 @@ export const articles: Article[] = [
 import { automationArticles } from './articles-automation';
 import { aiMarketingArticles } from './articles-ai-marketing';
 
-export const allArticles = [...articles, ...automationArticles, ...aiMarketingArticles];
+// Sanity is the source of truth for the Thinking section: on every build,
+// scripts/generate-articles.mjs fetches published articles from the Content
+// Lake into articles.generated.ts. The legacy TypeScript articles below are
+// kept as a fallback for when Sanity is empty or unreachable (pre-migration
+// state, CMS outages) so the site and build pipeline never break.
+import { generatedArticles, generatedSource } from './articles.generated';
+
+const legacyArticles: Article[] = [...articles, ...automationArticles, ...aiMarketingArticles];
+
+export const allArticles: Article[] =
+  generatedSource === 'sanity' && generatedArticles.length > 0 ? generatedArticles : legacyArticles;

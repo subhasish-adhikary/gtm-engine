@@ -746,23 +746,15 @@ async function run() {
   });
   console.log('✓ Generated: branded 404 page');
 
-  // ---------- Sitemap sync check + data-driven lastmod ----------
+  // ---------- Sitemap sync (self-healing) + data-driven lastmod ----------
+  // Sanity is now the article source of truth: newly published articles get
+  // appended to the sitemap and unpublished ones are dropped automatically.
 
   const sitemapPath = path.join(distDir, 'sitemap.xml');
   if (fs.existsSync(sitemapPath)) {
     let sitemap = fs.readFileSync(sitemapPath, 'utf8');
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].trim().replace(/\/$/, ''));
     const sitemapSet = new Set(locs.map(l => l.replace(BASE, '') || '/'));
-
-    const missingFiles = [...sitemapSet].filter(r => !generatedRoutes.has(r));
-    const unlistedRoutes = [...generatedRoutes].filter(r => r !== '404' && !sitemapSet.has(r));
-
-    if (missingFiles.length || unlistedRoutes.length) {
-      console.error(`\nERROR: sitemap and generated routes are out of sync.`);
-      if (missingFiles.length) console.error(`  Sitemap URLs with no generated page (${missingFiles.length}):`, missingFiles.join(', '));
-      if (unlistedRoutes.length) console.error(`  Generated pages missing from sitemap (${unlistedRoutes.length}):`, unlistedRoutes.join(', '));
-      process.exit(1);
-    }
 
     // lastmod only where real content dates exist — never fabricated.
     const lastmodByRoute = new Map();
@@ -782,8 +774,31 @@ async function run() {
       injected++;
       return m.replace(/<\/loc>/, `</loc>\n    <lastmod>${lm}</lastmod>`);
     });
+
+    // Append prerendered pages missing from the sitemap (new Sanity articles).
+    const missing = [...generatedRoutes].filter(r => r !== '404' && !sitemapSet.has(r));
+    for (const route of missing) {
+      const lm = lastmodByRoute.get(route);
+      const entry = `\n  <url>\n    <loc>${BASE}${route === '/' ? '/' : route}</loc>${
+        lm ? `\n    <lastmod>${lm}</lastmod>` : ''
+      }\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
+      sitemap = sitemap.replace(/<\/urlset>/, `${entry}\n</urlset>`);
+    }
+
+    // Drop sitemap entries whose pages no longer exist (unpublished articles).
+    const stale = [...sitemapSet].filter(r => !generatedRoutes.has(r));
+    if (stale.length) {
+      for (const route of stale) {
+        const re = new RegExp(`\\n\\s*<url>\\s*<loc>${BASE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<\\/loc>[\\s\\S]*?<\\/url>`, 'g');
+        sitemap = sitemap.replace(re, '');
+      }
+    }
+
     fs.writeFileSync(sitemapPath, sitemap, 'utf8');
-    console.log(`✓ Sitemap verified in sync (${locs.length} URLs); injected ${injected} data-driven lastmod entries`);
+    const total = (sitemap.match(/<loc>/g) || []).length;
+    console.log(`✓ Sitemap synced: ${total} URLs (+${missing.length} added, -${stale.length} removed, ${injected} lastmod)`);
+    if (missing.length) console.log(`  added: ${missing.join(', ')}`);
+    if (stale.length) console.log(`  removed: ${stale.join(', ')}`);
   } else {
     console.warn('⚠ dist/sitemap.xml not found — skipped sync check');
   }

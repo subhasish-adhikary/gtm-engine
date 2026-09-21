@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "sanity build public/studio --yes && node scripts/clean-studio-output.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/generate-articles.mjs && sanity build public/studio --yes && node scripts/clean-studio-output.mjs && vite build && node scripts/prerender.mjs",
+    "migrate:articles": "node scripts/migrate-articles.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +24,8 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@portabletext/toolkit": "^6.0.0",
+    "@sanity/client": "^7.27.0",
     "@sanity/vision": "^3.99.0",
     "@tailwindcss/vite": "^4.1.7",
     "@types/canvas-confetti": "^1.6.4",
