@@ -70,7 +70,7 @@ export function sanityArticleToArticle(doc: SanityArticleDoc): Article {
     author: doc.author || 'Subhasish Adhikary',
     authorBio: doc.authorBio || '',
     publishedDate: doc.publishedDate || '',
-    updatedDate: doc.updatedDate,
+    updatedDate: doc.updatedDate || undefined,
     readingTime: doc.readingTime || '',
     featuredImage: sanityImageUrl(imageRef) || '',
     featuredImageAlt: doc.featuredImageAlt || doc.title || '',

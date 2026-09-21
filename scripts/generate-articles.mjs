@@ -30,7 +30,7 @@ const DATASET = 'production';
 const QUERY = `*[_type == "article" && defined(slug.current)] | order(publishedDate desc) {
   _id, title, "slug": slug, category, thesis, author, authorBio,
   publishedDate, updatedDate, readingTime,
-  "featuredImage": featuredImage{asset->{ref}}, featuredImageAlt,
+  "featuredImage": featuredImage{asset}, featuredImageAlt,
   atAGlance, tableOfContents, content, faq, sources,
   "relatedArticles": relatedArticles[]{_ref}, relatedTools, legacyId
 }`;
@@ -44,7 +44,9 @@ async function main() {
       projectId: PROJECT_ID,
       dataset: DATASET,
       apiVersion: '2024-10-01',
-      useCdn: true,
+      // Build-time reads must be fresh (a deploy should pick up newly
+      // published articles immediately, not wait for CDN propagation).
+      useCdn: false,
       perspective: 'published',
     });
     docs = await client.fetch(QUERY);
