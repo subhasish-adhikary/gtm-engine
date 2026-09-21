@@ -42,16 +42,27 @@ export interface SanityArticleDoc {
   legacyId?: string;
 }
 
-/** Builds the CDN URL for a Sanity image asset reference. */
+/**
+ * Builds the CDN URL for a Sanity image asset reference.
+ * Ref format: "image-<hash>-<width>x<height>-<ext>"; the canonical URL is
+ * /images/<projectId>/<dataset>/<hash>-<width>x<height>.<ext> with query
+ * params for resizing/cropping.
+ */
 export function sanityImageUrl(
   ref: string | undefined,
   {width = 1200, height = 630, quality = 80}: {width?: number; height?: number; quality?: number} = {}
 ): string {
   if (!ref) return '';
-  const [, assetId, dimensions, extension] = ref.split('-');
-  if (!assetId || !dimensions || !extension) return '';
-  const size = width && height ? `-${width}x${height}` : '';
-  return `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${assetId}-${dimensions}-${extension}${size}.${extension}?q=${quality}&fit=fill&auto=format`;
+  const parts = ref.split('-');
+  // asset hashes are hex (no dashes); the last two segments are dims + ext.
+  const extension = parts.pop();
+  const dimensions = parts.pop();
+  const hash = parts.slice(1).join('-');
+  if (!hash || !dimensions || !extension) return '';
+  const params = new URLSearchParams({auto: 'format', fit: 'fill', q: String(quality)});
+  if (width) params.set('w', String(width));
+  if (height) params.set('h', String(height));
+  return `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${hash}-${dimensions}.${extension}?${params}`;
 }
 
 /** Maps a raw Sanity article document into the site's Article interface. */

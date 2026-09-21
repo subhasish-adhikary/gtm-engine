@@ -18,7 +18,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-07-22",
     "readingTime": "13 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/492a714f7090ad46c0ca1b692fb715e11b966049-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/492a714f7090ad46c0ca1b692fb715e11b966049-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI marketing ROI framework showing value measurement",
     "atAGlance": [
       "Only 23% of companies can accurately measure AI marketing ROI (McKinsey, 2024)",
@@ -99,7 +99,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-07-08",
     "readingTime": "11 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/cc836557e3336c2ec583ee6f513fb19355c54b68-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/cc836557e3336c2ec583ee6f513fb19355c54b68-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI-native advertising framework showing continuous optimization",
     "atAGlance": [
       "AI-optimized ad campaigns see 35% better ROAS than manually optimized (Google)",
@@ -180,7 +180,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-06-24",
     "readingTime": "12 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/3868306796b0e1924f426f2d9d1169fcbb971e56-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/3868306796b0e1924f426f2d9d1169fcbb971e56-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Marketing agents workforce concept showing specialized AI agents",
     "atAGlance": [
       "Gartner predicts 40% of enterprise apps will embed AI agents by 2026",
@@ -260,7 +260,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-06-10",
     "readingTime": "11 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/1ef065ab888c301a8066ec42b642cf15632b68b7-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/1ef065ab888c301a8066ec42b642cf15632b68b7-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI content expertise framework showing authority building",
     "atAGlance": [
       "AI-generated content volume increased 400% from 2023 to 2025 (Content Marketing Institute)",
@@ -341,7 +341,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-05-27",
     "readingTime": "13 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/e09427bc4d46389dde54f25caa0e36a877fc5285-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/e09427bc4d46389dde54f25caa0e36a877fc5285-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI search and GEO visibility framework showing content authority signals",
     "atAGlance": [
       "Zero-click searches on Google grew from 56% to 69% following AI Overviews rollout (Similarweb, 2025)",
@@ -427,7 +427,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-05-27",
     "readingTime": "10 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/5452dcc73d8ba4db4657cc6c51c423110a1e8ec5-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/5452dcc73d8ba4db4657cc6c51c423110a1e8ec5-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Marketing automation ROI framework showing business outcome measurement",
     "atAGlance": [
       "Companies measuring automation by business outcomes see 3x higher ROI than those measuring activity",
@@ -502,7 +502,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-05-13",
     "readingTime": "10 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/e57c6ec91985b5b48f33ec6816ff0d58d2edf730-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/e57c6ec91985b5b48f33ec6816ff0d58d2edf730-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Marketing automation strategy framework showing systems approach",
     "atAGlance": [
       "Companies with documented automation strategy see 40% higher revenue growth (HubSpot)",
@@ -577,7 +577,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-04-29",
     "readingTime": "12 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/598bfa4fa9c52920be86bf5ddc8baa94b945c188-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/598bfa4fa9c52920be86bf5ddc8baa94b945c188-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Lifecycle personalization framework showing customer journey stages",
     "atAGlance": [
       "80% of consumers are more likely to buy from companies that offer personalized experiences (Salesforce)",
@@ -652,7 +652,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-04-15",
     "readingTime": "11 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/bda157e274093837645d9d93c3d52ffb133686a8-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/bda157e274093837645d9d93c3d52ffb133686a8-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI lead scoring model showing data analysis through algorithmic layers",
     "atAGlance": [
       "AI lead scoring models outperform rules-based models by 3-5x in predictive accuracy (Forrester)",
@@ -727,7 +727,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-04-01",
     "readingTime": "14 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/cd1c9de7760c00cddc5920067613eb62ef9ec47b-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/cd1c9de7760c00cddc5920067613eb62ef9ec47b-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI marketing operating system architecture with layered system design",
     "atAGlance": [
       "Marketing technology stacks average 13 tools per company (Chiefmartec)",
@@ -802,7 +802,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-03-04",
     "readingTime": "12 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/d32adb64c5ade2997eef818c7edf49d9b0d7cd24-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/d32adb64c5ade2997eef818c7edf49d9b0d7cd24-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "AI-assisted B2B buying journey showing AI intelligence layer",
     "atAGlance": [
       "67% of B2B buyers use AI tools to research solutions (Salesforce, 2024)",
@@ -878,7 +878,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-02-19",
     "readingTime": "11 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/1f9778a10d182063dda5e8ae9685c03d63b095ef-1200x630-webp-1200x630.webp?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/1f9778a10d182063dda5e8ae9685c03d63b095ef-1200x630.webp?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Hybrid channel GTM architecture showing integrated multi-channel motion",
     "atAGlance": [
       "Buyers use an average of 11.4 channels to gather information (Gartner, 2024)",
@@ -954,7 +954,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-02-05",
     "readingTime": "13 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/3f976a2f4fe37749d96fb0fc1f1dc82720f633d2-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/3f976a2f4fe37749d96fb0fc1f1dc82720f633d2-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "GTM efficiency matrix showing cost efficiency vs revenue impact",
     "atAGlance": [
       "Average B2B CAC increased 32% from 2021 to 2024 (Bessemer Venture Partners)",
@@ -1034,7 +1034,7 @@ export const generatedArticles: Article[] = [
     "authorBio": "Strategic marketer specializing in B2B go-to-market, demand generation, and marketing automation.",
     "publishedDate": "2024-01-22",
     "readingTime": "12 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/a1177420cc419a95b20fa6730d49c12bc5f62c43-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/a1177420cc419a95b20fa6730d49c12bc5f62c43-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Post-MQL GTM workflow showing lead progression through sales engagement",
     "atAGlance": [
       "Only 27% of MQLs are followed up by sales within 24 hours (MarketingSherpa)",
@@ -1121,7 +1121,7 @@ export const generatedArticles: Article[] = [
     "publishedDate": "2024-01-15",
     "updatedDate": "2024-02-01",
     "readingTime": "14 min read",
-    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/95f87424e0a5d866fa21a6c892a2f615b7b970e7-1200x630-png-1200x630.png?q=80&fit=fill&auto=format",
+    "featuredImage": "https://cdn.sanity.io/images/0uqx6fxe/production/95f87424e0a5d866fa21a6c892a2f615b7b970e7-1200x630.png?auto=format&fit=fill&q=80&w=1200&h=630",
     "featuredImageAlt": "Signal-based GTM framework visualization showing buyer intent signals converging into unified scoring",
     "atAGlance": [
       "70% of B2B buying journey happens before first sales contact (6sense, 2024)",
