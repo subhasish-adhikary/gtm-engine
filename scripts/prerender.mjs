@@ -271,7 +271,8 @@ async function run() {
           `<li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research-led articles</a> — GTM strategy, automation and AI in marketing.</li>`,
           `<li style="margin-bottom: 6px;"><a href="/credentials" style="color: #155EEF;">Education & credentials</a></li>`
         ]))}
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'About' }])],
     },
     {
       route: '/work',
@@ -284,7 +285,8 @@ async function run() {
         <h2>B2B GTM Systems and Case Studies</h2>
         <p>Explore real-world case studies detailing outbound engines, marketing automation overhauls, and pipeline acceleration systems.</p>
         ${workList}
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Work' }])],
     },
     {
       route: '/thinking',
@@ -297,7 +299,8 @@ async function run() {
         <h2>B2B Strategy & Industry Frameworks</h2>
         <p>Original research and deep analysis on B2B Go-to-Market Strategy, Marketing Automation, and AI-enabled marketing systems.</p>
         ${thinkingList}
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Thinking' }])],
     },
     {
       route: '/glossary',
@@ -313,7 +316,8 @@ async function run() {
           `<li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research-led articles</a> applying these concepts to B2B GTM, automation and AI marketing.</li>`,
           `<li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive strategy tools</a> built on this terminology.</li>`
         ]))}
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Glossary' }])],
     },
     {
       route: '/tools',
@@ -326,7 +330,8 @@ async function run() {
         <h2>Strategic Decision Tools</h2>
         <p>Interactive diagnostics, budget planners, and stack builders designed for B2B marketers and founders.</p>
         ${toolsList}
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Tools' }])],
     },
     {
       route: '/gtm-stack',
@@ -338,7 +343,26 @@ async function run() {
       bodyHtml: `
         <h2>Curated Marketing Technology Stacks</h2>
         <p>Explore battle-tested marketing technology stacks organized by company stage, budget, and GTM motion.</p>
-      `
+        ${relatedSection('Build Your Stack With These Tools', linkList(
+          ['gtm-intelligence', 'channel-planner', 'budget-lab', 'stack-builder', 'automation-planner']
+            .map(id => toolById(id))
+            .filter(Boolean)
+            .map(t => `<li style="margin-bottom: 8px;"><a href="/tools/${t.id}" style="color: #155EEF;">${escapeHtml(t.title)}</a> — ${escapeHtml(t.description)}</li>`)
+        ))}
+        ${relatedSection('Glossary Concepts Behind the Stacks', linkList(
+          ['gtm-stack', 'gtm-systems', 'gtm-engineering', 'gtm-operations', 'revops', 'marketing-orchestration']
+            .map(id => termById(id))
+            .filter(Boolean)
+            .map(t => `<li style="margin-bottom: 6px;"><a href="/glossary/${t.slug}" style="color: #155EEF;">${escapeHtml(t.term)}</a></li>`))
+        )}
+        ${relatedSection('Further Reading', linkList(
+          allArticles
+            .filter(a => /stack|infrastructure|systems approach|architecture|integration|orchestration/i.test(`${a.title} ${a.thesis}`))
+            .slice(0, 4)
+            .map(a => `<li style="margin-bottom: 6px;"><a href="/thinking/${a.category}/${a.id}" style="color: #155EEF;">${escapeHtml(a.title)}</a></li>`))
+        )}
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'GTM Stack' }])],
     },
     {
       route: '/credentials',
@@ -350,7 +374,8 @@ async function run() {
       bodyHtml: `
         <h2>Education & Continuous Learning</h2>
         <p>MBA in Marketing from Manipal Institute of Management, MAHE, alongside verified certifications in GTM automation, outbound systems, and product-led growth.</p>
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Credentials' }])],
     },
     {
       route: '/contact',
@@ -365,7 +390,8 @@ async function run() {
         <p><a href="mailto:subhasishadhikary@proton.me">subhasishadhikary@proton.me</a></p>
         <h2>LinkedIn</h2>
         <p><a href="https://www.linkedin.com/in/subhasish-adhikary/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></p>
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Contact' }])],
     },
     {
       route: '/privacy',
@@ -381,7 +407,8 @@ async function run() {
         <p>The site uses Google Tag Manager to measure aggregate traffic and content engagement. No personally identifiable profiles are built, and no advertising cookies are set by this site.</p>
         <h2>Contact</h2>
         <p>Questions about this policy can be sent to <a href="mailto:subhasishadhikary@proton.me">subhasishadhikary@proton.me</a>.</p>
-      `
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Privacy Policy' }])],
     }
   ];
 
