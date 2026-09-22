@@ -117,6 +117,32 @@ check('no Kit embed script referenced', !bundleText.includes('kit.com/') || !/ki
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+
+  // Capture analytics calls without the Vercel platform script (test browsers
+  // only). @vercel/analytics installs its own window.va on mount and can replace
+  // a pre-installed collector, so re-wrap until its implementation is present.
+  await context.addInitScript(() => {
+    const w = window;
+    w.__vaEvents = [];
+    w.vaq = w.vaq || [];
+    w.__installCollector = function installCollector() {
+      const current = w.va;
+      if (typeof current === 'function' && current.__collector) return;
+      const collector = (...args) => {
+        w.__vaEvents.push(args);
+        if (typeof current === 'function') current(...args);
+      };
+      collector.__collector = true;
+      w.va = collector;
+    };
+    w.__installCollector();
+    let ticks = 0;
+    const timer = setInterval(() => {
+      w.__installCollector();
+      if (++ticks > 400) clearInterval(timer);
+    }, 20);
+  });
+
   const page = await context.newPage();
   const subscribePosts = [];
   page.on('request', (req) => {
@@ -175,6 +201,9 @@ try {
       check('Kit read-back requires KIT_API_KEY in the local environment', false, 'rerun with KIT_API_KEY set');
     } else {
       const headers = { 'X-Kit-Api-Key': process.env.KIT_API_KEY, Accept: 'application/json' };
+      const keyIsUsable = /^[\x20-\x7e]+$/.test(process.env.KIT_API_KEY);
+      check('local KIT_API_KEY is usable for read-back', keyIsUsable, keyIsUsable ? '' : 'key contains non-ASCII characters');
+      if (!keyIsUsable) throw new Error('local KIT_API_KEY unusable for read-back');
       const formResponse = await fetch(`https://api.kit.com/v4/forms/${FORM_ID}/subscribers`, { headers });
       const formBody = await formResponse.json().catch(() => null);
       const inForm = Array.isArray(formBody?.subscribers)
@@ -189,6 +218,35 @@ try {
         check('custom fields persisted (source_page / lead_magnet)', Boolean(fields?.source_page && fields?.lead_magnet), JSON.stringify(fields));
       }
     }
+
+  // ---------- contextual magnet and analytics on an article page ----------
+  await page.goto(`${url}/thinking/territory-based-gtm-small-teams`, { waitUntil: 'networkidle' });
+  const articleBlock = page.locator('section[aria-labelledby="article-newsletter-heading"]');
+  await articleBlock.waitFor({ state: 'visible', timeout: 20000 });
+  const magnetId = await articleBlock.getAttribute('data-lead-magnet');
+  const viewEvents = await page.evaluate(() => JSON.stringify(window.__vaEvents || []));
+  check('lead_magnet_view fires on the article page', viewEvents.includes('lead_magnet_view') && viewEvents.includes(magnetId), `id=${magnetId}`);
+
+  const articleHrefs = await articleBlock.locator('a').evaluateAll((nodes) => nodes.map((n) => n.getAttribute('href')));
+  check(
+    'no downloadable resource link is rendered',
+    !articleHrefs.some((href) => /\.(pdf|zip|docx|xlsx|csv|epub)(\?|$)/i.test(href || '')),
+    articleHrefs.length ? articleHrefs.join(', ') : 'no anchors in block',
+  );
+
+  if (live && email) {
+    await articleBlock.locator('input[type="email"]').fill(email);
+    await articleBlock.locator('button[type="submit"]').click();
+    let settled = false;
+    for (let i = 0; i < 40 && !settled; i += 1) {
+      settled = /Subscribed|already subscribed/i.test(await articleBlock.innerText());
+      if (!settled) await page.waitForTimeout(500);
+    }
+    check('article-page signup settles in the UI', settled, '');
+    const events = await page.evaluate(() => JSON.stringify(window.__vaEvents || []));
+    check('newsletter_signup fires', events.includes('newsletter_signup'), events.slice(0, 200));
+    check('lead_magnet_submit fires for a specific magnet', events.includes('lead_magnet_submit'), events.slice(0, 260));
+    check('lead_magnet_download stays dormant (no artifact exists)', !events.includes('lead_magnet_download'), '');
   } else if (live) {
     console.log('     note: --live requires --email=<address>; skipping the live signup');
   }
