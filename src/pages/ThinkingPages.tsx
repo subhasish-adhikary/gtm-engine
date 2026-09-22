@@ -5,6 +5,9 @@ import { thinkingCategories } from '../data/content';
 import { allArticles } from '../data/articles';
 import { SectionHeader, Card, Breadcrumb } from '../components/UI';
 import { AuthorBox } from '../components/AuthorBox';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { newsletterPlacements } from '../data/newsletter';
+import { resolveArticleLeadMagnet } from '../data/leadMagnets';
 
 // URL pattern: migrated articles keep /thinking/<category>/<id>; Sanity-native
 // articles publish at /thinking/<slug> (category stays on the document).
@@ -97,6 +100,17 @@ export function ThinkingPage() {
             </div>
           )}
         </div>
+
+        {/* Newsletter */}
+        <div className="mt-16">
+          <NewsletterSignup
+            source={newsletterPlacements.thinkingHub.source}
+            leadMagnet={newsletterPlacements.thinkingHub.leadMagnet}
+            heading={newsletterPlacements.thinkingHub.heading}
+            description={newsletterPlacements.thinkingHub.description}
+            cta={newsletterPlacements.thinkingHub.cta}
+          />
+        </div>
       </div>
     </div>
   );
@@ -148,6 +162,9 @@ export function ArticlePage() {
 
   const relatedArticles = allArticles.filter(a => article.relatedArticles.includes(a.id));
   const relatedTools = allArticles.flatMap(a => a.relatedTools).filter((v, i, a) => a.indexOf(v) === i);
+  // Relevant lead magnet for this article, with the newsletter as the fallback.
+  const leadMagnet = resolveArticleLeadMagnet(article);
+  const categoryTitle = thinkingCategories.find(c => c.id === article.category)?.title;
 
   return (
     <div className="py-12 sm:py-16">
@@ -292,6 +309,20 @@ export function ArticlePage() {
               </Link>
             </div>
           </section>
+
+          {/* Newsletter */}
+          <div className="mt-12">
+            <NewsletterSignup
+              source="article"
+              leadMagnet={leadMagnet.id}
+              heading={leadMagnet.title}
+              description={leadMagnet.description}
+              cta={leadMagnet.cta}
+              availability={leadMagnet.availability}
+              resource={leadMagnet.resource}
+              contextNote={categoryTitle ? `Matched to this article's category: ${categoryTitle}.` : undefined}
+            />
+          </div>
         </div>
       </div>
     </div>

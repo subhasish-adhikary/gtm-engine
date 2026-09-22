@@ -2,6 +2,8 @@ import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { navigation, siteConfig } from '../data/content';
+import { NewsletterSignup } from './NewsletterSignup';
+import { newsletterPlacements } from '../data/newsletter';
 
 export function ScrollToTop() {
   const { pathname } = useLocation();
@@ -85,6 +87,16 @@ function Footer() {
               <li><Link to="/contact" className="text-sm" style={{ color: 'var(--text-secondary)' }}>Contact</Link></li>
             </ul>
           </div>
+        </div>
+        <div className="mt-10 pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
+          <NewsletterSignup
+            variant="compact"
+            source={newsletterPlacements.footer.source}
+            leadMagnet={newsletterPlacements.footer.leadMagnet}
+            heading={newsletterPlacements.footer.heading}
+            description={newsletterPlacements.footer.description}
+            cta={newsletterPlacements.footer.cta}
+          />
         </div>
         <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--border-color)' }}>
           <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>

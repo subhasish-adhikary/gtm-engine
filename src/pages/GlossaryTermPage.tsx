@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowRight, Calendar, User, BookOpen } from 'lucide-react';
 import { getTermBySlug, glossaryCategories, glossaryTerms } from '../data/glossary';
 import { Breadcrumb, Card, Tag } from '../components/UI';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { resolveGlossaryLeadMagnet } from '../data/leadMagnets';
 
 export default function GlossaryTermPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -24,6 +26,8 @@ export default function GlossaryTermPage() {
   }
 
   const category = glossaryCategories.find(c => c.id === term.category);
+  // Relevant lead magnet for this term, with the newsletter as the fallback.
+  const leadMagnet = resolveGlossaryLeadMagnet(term);
   const relatedTermsData = (term.relatedTerms || [])
     .map(id => glossaryTerms.find(t => t.id === id))
     .filter(Boolean) as typeof glossaryTerms;
@@ -271,6 +275,20 @@ export default function GlossaryTermPage() {
             </div>
           </Card>
         </section>
+
+        {/* Newsletter */}
+        <div className="mb-12">
+          <NewsletterSignup
+            source="glossary-term"
+            leadMagnet={leadMagnet.id}
+            heading={leadMagnet.title}
+            description={leadMagnet.description}
+            cta={leadMagnet.cta}
+            availability={leadMagnet.availability}
+            resource={leadMagnet.resource}
+            contextNote={category ? `Matched to the ${category.name} area of this glossary.` : undefined}
+          />
+        </div>
 
         {/* Back to Glossary */}
         <div className="text-center">

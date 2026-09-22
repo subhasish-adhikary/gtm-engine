@@ -4,6 +4,8 @@ import { ArrowRight, TrendingUp, Package, Target, Zap, Brain, BarChart3 } from '
 import { siteConfig, capabilities, selectedWork, thinkingCategories, tools } from '../data/content';
 import { Button, SectionHeader, Card, Tag } from '../components/UI';
 import { GTMSystemVisualization } from '../components/GTMSystemVisualization';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { newsletterPlacements } from '../data/newsletter';
 
 const iconMap: any = { 'trending-up': <TrendingUp size={20} />, 'package': <Package size={20} />, 'target': <Target size={20} />, 'zap': <Zap size={20} />, 'brain': <Brain size={20} />, 'bar-chart': <BarChart3 size={20} /> };
 
@@ -540,6 +542,19 @@ export function HomePage() {
               See the full journey <ArrowRight size={14} className="ml-2" />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* NEWSLETTER */}
+      <section className="py-16 sm:py-20 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <NewsletterSignup
+            source={newsletterPlacements.homepage.source}
+            leadMagnet={newsletterPlacements.homepage.leadMagnet}
+            heading={newsletterPlacements.homepage.heading}
+            description={newsletterPlacements.homepage.description}
+            cta={newsletterPlacements.homepage.cta}
+          />
         </div>
       </section>
 

@@ -6,6 +6,9 @@ import { gtmStacks } from '../data/gtmStacks';
 import { SectionHeader, Card, Tag, Breadcrumb } from '../components/UI';
 import { GTMBudgetLab, GTMDiagnostic, GTMStackBuilder } from './ToolsAdvanced';
 import { MarketingAutomationPlanner, AdCopyAnalyzer, ContentOpportunityAnalyzer, GTMExperimentPlanner, AIVisibilityDiagnostic } from './ToolsAdvanced2';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { newsletterPlacements } from '../data/newsletter';
+import { resolveLeadMagnet } from '../data/leadMagnets';
 
 export function ToolsPage() {
   return (
@@ -69,6 +72,17 @@ export function ToolsPage() {
           ))}
         </div>
 
+        {/* Newsletter */}
+        <div className="mt-16">
+          <NewsletterSignup
+            source={newsletterPlacements.toolsHub.source}
+            leadMagnet={newsletterPlacements.toolsHub.leadMagnet}
+            heading={newsletterPlacements.toolsHub.heading}
+            description={newsletterPlacements.toolsHub.description}
+            cta={newsletterPlacements.toolsHub.cta}
+          />
+        </div>
+
         <div className="mt-16 p-8 rounded-lg border text-center" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
           <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Need help applying these tools to your strategy?</h3>
           <p className="mt-3 text-sm max-w-lg mx-auto" style={{ color: 'var(--text-tertiary)' }}>
@@ -91,6 +105,8 @@ export function ToolsPage() {
 export function ToolPage() {
   const { toolId } = useParams();
   const tool = tools.find(t => t.id === toolId);
+  // Tools context always resolves to the stack builder lead magnet.
+  const leadMagnet = resolveLeadMagnet({ context: 'tool' });
   
   if (!tool) {
     return (
@@ -124,7 +140,24 @@ export function ToolPage() {
     );
   }
 
-  return <ToolComponent />;
+  return (
+    <>
+      <ToolComponent />
+      <div className="pb-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <NewsletterSignup
+            source="tool-page"
+            leadMagnet={leadMagnet.id}
+            heading={leadMagnet.title}
+            description={leadMagnet.description}
+            cta={leadMagnet.cta}
+            resource={leadMagnet.resource}
+            contextNote={`Matched to the tools section. Tool: ${tool?.title ?? toolId}.`}
+          />
+        </div>
+      </div>
+    </>
+  );
 }
 
 function ChannelPlannerTool() {

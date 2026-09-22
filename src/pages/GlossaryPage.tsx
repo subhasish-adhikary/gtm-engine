@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Search, ArrowRight, TrendingUp, Sparkles, Clock } from 'lucide-react';
 import { glossaryCategories, glossaryTerms, getFeaturedTerms, getEmergingTerms, searchTerms } from '../data/glossary';
 import { Breadcrumb, SectionHeader, Card, Tag } from '../components/UI';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { newsletterPlacements } from '../data/newsletter';
 
 export default function GlossaryPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -290,6 +292,17 @@ export default function GlossaryPage() {
             </p>
           </Card>
         </section>
+
+        {/* Newsletter */}
+        <div className="mt-12">
+          <NewsletterSignup
+            source={newsletterPlacements.glossaryHub.source}
+            leadMagnet={newsletterPlacements.glossaryHub.leadMagnet}
+            heading={newsletterPlacements.glossaryHub.heading}
+            description={newsletterPlacements.glossaryHub.description}
+            cta={newsletterPlacements.glossaryHub.cta}
+          />
+        </div>
       </div>
     </div>
   );
