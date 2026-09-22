@@ -218,6 +218,7 @@ try {
         check('custom fields persisted (source_page / lead_magnet)', Boolean(fields?.source_page && fields?.lead_magnet), JSON.stringify(fields));
       }
     }
+  }
 
   // ---------- contextual magnet and analytics on an article page ----------
   await page.goto(`${url}/thinking/territory-based-gtm-small-teams`, { waitUntil: 'networkidle' });
