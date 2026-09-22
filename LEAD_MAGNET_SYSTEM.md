@@ -16,8 +16,11 @@ LeadMagnet (data)  →  resolveLeadMagnet()  →  <NewsletterSignup />  →  POS
 - **No separate Kit form per lead magnet.** The magnet id is stored in the existing
   `lead_magnet` custom field, alongside `source_page` and the UTM fields.
 - **No raw Kit embed.** The component is native React; the credential stays server-side.
-- **No fake downloads.** A magnet whose artifact does not exist yet renders no link
-  at all. Subscription is the conversion mechanism until the artifact ships.
+- **No fake downloads.** A magnet renders a link only when a real artifact exists at
+  that URL. All five magnets now ship one; the newsletter has none. Verify with
+  `node scripts/verify-lead-magnets.mjs --local-dist`.
+- **One asset per magnet.** The downloadable resource is read from the registry
+  automatically, so a placement only needs to set the canonical magnet id.
 
 ## 2. Data structure
 
@@ -43,11 +46,11 @@ real downloadable artifact. **Only `'external'` emits `lead_magnet_download`.**
 
 | id | Title | Context | Artifact |
 | --- | --- | --- | --- |
-| `b2b-gtm-audit-checklist` | The B2B GTM Audit Checklist | B2B GTM content | pending |
-| `gtm-engineering-blueprint` | The GTM Engineering Blueprint | GTM engineering | pending |
-| `marketing-automation-maturity-assessment` | The Marketing Automation Maturity Assessment | Marketing automation | pending |
-| `b2b-demand-generation-playbook` | The B2B Demand Generation Playbook | Demand generation | pending |
-| `gtm-stack-builder-template` | The GTM Stack Builder | Tools | `/tools/stack-builder` (exists) |
+| `b2b-gtm-audit-checklist` | The B2B GTM Audit Checklist | B2B GTM content | `/downloads/b2b-gtm-audit-checklist.pdf` |
+| `gtm-engineering-blueprint` | The GTM Engineering Blueprint | GTM engineering | `/downloads/gtm-engineering-blueprint.pdf` |
+| `marketing-automation-maturity-assessment` | The Marketing Automation Maturity Assessment | Marketing automation | `/downloads/marketing-automation-maturity-assessment.pdf` |
+| `b2b-demand-generation-playbook` | The B2B Demand Generation Playbook | Demand generation | `/downloads/b2b-demand-generation-playbook.pdf` |
+| `gtm-stack-builder-template` | The GTM Stack Builder | Tools | `/downloads/gtm-stack-builder-template.xlsx` |
 | `gtm-systems-brief` | The GTM Systems Brief | Homepage / fallback | the newsletter itself |
 
 Placements may only use these ids — the browser check asserts it, so segmentation

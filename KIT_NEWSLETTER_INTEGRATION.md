@@ -242,3 +242,18 @@ strategy, which is out of scope here.
   endpoint's 8-per-10-minutes rate limit window rather than misreading a 429.
 
 Production results are recorded in the deployment report under `DELIVERY/`.
+
+
+---
+
+## 12. Lead-magnet artifacts (2026-09-22)
+
+The five lead magnets now ship real downloadable artifacts in `public/downloads/`
+(four PDFs plus an XLSX stack builder), wired to their magnet ids in
+`src/data/leadMagnets.ts`. The component reads the resource from the registry, so
+any placement that sets a canonical magnet id automatically exposes the right
+download, and a click fires `lead_magnet_download`. The Kit integration,
+`/api/subscribe` and `source_page` attribution are unchanged.
+
+Generation is reproducible: `scripts/generate-lead-magnets.py` renders from
+`scripts/lead-magnet-content.py`. Verification: `scripts/verify-lead-magnets.mjs`.

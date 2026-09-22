@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { track } from '@vercel/analytics';
 import { newsletterConfig, type NewsletterVariant } from '../data/newsletter';
-import { GENERIC_LEAD_MAGNET_ID, type LeadMagnetResource } from '../data/leadMagnets';
+import { GENERIC_LEAD_MAGNET_ID, leadMagnets, type LeadMagnetId, type LeadMagnetResource } from '../data/leadMagnets';
 
 /**
  * Reusable newsletter / lead-magnet signup.
@@ -165,6 +165,16 @@ export function NewsletterSignup({
 
   /** The generic brief is the fallback placement; specific magnets are the ones worth measuring. */
   const isSpecificLeadMagnet = Boolean(leadMagnet) && leadMagnet !== 'none' && leadMagnet !== GENERIC_LEAD_MAGNET_ID;
+
+  /**
+   * A magnet's downloadable resource is read from the registry unless a caller
+   * passes one explicitly, so a placement that sets a canonical `leadMagnet`
+   * always exposes the right download without repeating the URL.
+   */
+  const registryResource = leadMagnet && leadMagnet !== 'none'
+    ? leadMagnets[leadMagnet as LeadMagnetId]?.resource ?? null
+    : null;
+  const activeResource = resource ?? registryResource;
 
   const resolvedHeading = heading ?? newsletterConfig.name;
   const resolvedDescription = description ?? newsletterConfig.description;
@@ -339,33 +349,32 @@ export function NewsletterSignup({
   );
 
   /**
-   * Secondary destination. Rendered only when a resource genuinely exists, so a
-   * lead magnet that has not shipped can never expose a broken download.
+   * A downloadable artifact becomes the primary action; a link to another page
+   * on this site stays secondary. Nothing renders when `resource` is null, so a
+   * magnet that has not shipped can never expose a broken download.
    */
-  const resourceNode = resource
-    ? resource.kind === 'internal'
-      ? (
-        <Link
-          to={resource.url}
-          className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold"
-          style={{ color: 'var(--accent)' }}
-        >
-          {resource.label} →
-        </Link>
-      )
-      : (
-        <a
-          href={resource.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold"
-          style={{ color: 'var(--accent)' }}
-          onClick={() => safeTrack('lead_magnet_download', { lead_magnet: leadMagnet, source, destination: resource.url })}
-        >
-          {resource.label} →
-        </a>
-      )
-    : null;
+  const isDownload = Boolean(activeResource && activeResource.kind === 'external');
+  const downloadNode = isDownload && activeResource ? (
+    <div>
+      <a
+        href={activeResource.url}
+        download
+        className="inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold"
+        style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+        onClick={() => safeTrack('lead_magnet_download', { lead_magnet: leadMagnet, source, destination: activeResource.url })}
+      >
+        {activeResource.label} <span aria-hidden="true">↓</span>
+      </a>
+      {activeResource.meta && (
+        <p className="mt-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>{activeResource.meta}</p>
+      )}
+    </div>
+  ) : null;
+  const resourceNode = activeResource && activeResource.kind === 'internal' ? (
+    <Link to={activeResource.url} className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+      {activeResource.label} →
+    </Link>
+  ) : null;
 
   if (isCompact) {
     return (
@@ -435,7 +444,18 @@ export function NewsletterSignup({
           )}
           {resourceNode}
         </div>
-        <div>{formNode}</div>
+        <div>
+          {downloadNode}
+          {isDownload && (
+            <p className={downloadNode ? 'mt-3 text-xs leading-relaxed' : 'text-xs leading-relaxed'} style={{ color: 'var(--text-tertiary)' }}>
+              Prefer email? Subscribers get every new resource and The GTM Systems Brief.
+            </p>
+          )}
+          <div className={isDownload ? 'mt-5 border-t pt-5' : ''} style={{ borderColor: 'var(--border-color)' }}>
+            {formNode}
+          </div>
+          {resourceNode}
+        </div>
       </div>
     </section>
   );

@@ -95,6 +95,28 @@ node scripts/verify-newsletter-browser.mjs          # real browser check (dev se
 node scripts/verify-newsletter-browser.mjs --dist   # same checks against the built, prerendered output
 node scripts/verify-production.mjs --local-dist     # post-deploy check, dry run against dist/
 node scripts/verify-source-page.mjs --local-dist   # submit-page attribution matrix
+node scripts/verify-lead-magnets.mjs --local-dist   # assets, CTAs and download tracking
+```
+
+### Downloadable lead magnets
+
+Five resources ship in `public/downloads/` and are wired to their magnets in
+`src/data/leadMagnets.ts` (one file per magnet id; the newsletter itself has no
+download):
+
+| Magnet | File |
+| --- | --- |
+| `b2b-gtm-audit-checklist` | `/downloads/b2b-gtm-audit-checklist.pdf` |
+| `gtm-engineering-blueprint` | `/downloads/gtm-engineering-blueprint.pdf` |
+| `marketing-automation-maturity-assessment` | `/downloads/marketing-automation-maturity-assessment.pdf` |
+| `b2b-demand-generation-playbook` | `/downloads/b2b-demand-generation-playbook.pdf` |
+| `gtm-stack-builder-template` | `/downloads/gtm-stack-builder-template.xlsx` |
+
+They are regenerated from `scripts/lead-magnet-content.py` (copy) and
+`scripts/generate-lead-magnets.py` (ReportLab/openpyxl layout):
+
+```bash
+python3 scripts/generate-lead-magnets.py     # writes public/downloads/
 ```
 
 ### Post-deployment verification

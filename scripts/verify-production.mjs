@@ -229,11 +229,12 @@ try {
   check('lead_magnet_view fires on the article page', viewEvents.includes('lead_magnet_view') && viewEvents.includes(magnetId), `id=${magnetId}`);
 
   const articleHrefs = await articleBlock.locator('a').evaluateAll((nodes) => nodes.map((n) => n.getAttribute('href')));
-  check(
-    'no downloadable resource link is rendered',
-    !articleHrefs.some((href) => /\.(pdf|zip|docx|xlsx|csv|epub)(\?|$)/i.test(href || '')),
-    articleHrefs.length ? articleHrefs.join(', ') : 'no anchors in block',
-  );
+  const articleAsset = articleHrefs.filter((href) => href && href.startsWith('/downloads/'));
+  check('the article magnet exposes exactly one download', articleAsset.length === 1, articleAsset.join(', ') || 'none');
+  for (const href of articleAsset) {
+    const asset = await fetch(`${url}${href}`, { redirect: 'manual' });
+    check(`download resolves on production: ${href}`, asset.status < 400, `status=${asset.status}`);
+  }
 
   if (live && email) {
     await articleBlock.locator('input[type="email"]').fill(email);

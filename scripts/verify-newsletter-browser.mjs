@@ -275,11 +275,14 @@ try {
 
   // No fake downloads: every link inside the block must be a real destination.
   const hrefs = await articleBlock.locator('a').evaluateAll((nodes) => nodes.map((n) => n.getAttribute('href')));
-  check(
-    'no downloadable-file links are rendered for a pending artifact',
-    !hrefs.some((href) => /\.(pdf|zip|docx|xlsx|csv|epub)(\?|$)/i.test(href || '')),
-    hrefs.length ? hrefs.join(', ') : 'no anchors in block',
-  );
+  // The shipped lead magnets now expose real downloads, so the invariant is that
+  // every download link in the block resolves — not that none exists.
+  const assetLinks = hrefs.filter((href) => href && href.startsWith('/downloads/'));
+  for (const href of assetLinks) {
+    const asset = await fetch(`${BASE_URL}${href}`, { redirect: 'manual' });
+    check(`block download resolves: ${href}`, asset.status < 400, `status=${asset.status}`);
+  }
+  check('every download link in the block points at a shipped asset', assetLinks.length <= 1, assetLinks.join(', ') || 'none');
   for (const href of hrefs) {
     if (!href || !href.startsWith('/')) continue;
     const target = await fetch(`${BASE_URL}${href}`, { redirect: 'manual' });

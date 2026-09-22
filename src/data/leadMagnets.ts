@@ -23,10 +23,15 @@ export type LeadMagnetId =
 
 export interface LeadMagnetResource {
   label: string;
-  /** An internal route or absolute URL that really resolves. */
+  /** A route or absolute URL that really resolves. */
   url: string;
-  /** `external` is reserved for a real downloadable artifact. */
+  /**
+   * `external` = opens a downloadable artifact (the click emits
+   * `lead_magnet_download`); `internal` = navigates to a page on this site.
+   */
   kind: 'internal' | 'external';
+  /** Short file facts shown next to the link, e.g. `PDF · 6 pages`. */
+  meta?: string;
 }
 
 export interface LeadMagnet {
@@ -49,8 +54,12 @@ export const leadMagnets: Record<LeadMagnetId, LeadMagnet> = {
     description:
       'A structured audit of a B2B go-to-market system: positioning, ICP fit, channel mix, funnel architecture and pipeline coverage — the gaps that quietly cost a quarter.',
     cta: 'Join the brief',
-    resource: null,
-    availability: 'In production. Subscribers to The GTM Systems Brief get it the day it ships.',
+    resource: {
+      label: 'Download the audit checklist',
+      url: '/downloads/b2b-gtm-audit-checklist.pdf',
+      kind: 'external',
+      meta: 'PDF · 6 pages · 16 audit areas',
+    },
   },
   'gtm-engineering-blueprint': {
     id: 'gtm-engineering-blueprint',
@@ -58,8 +67,12 @@ export const leadMagnets: Record<LeadMagnetId, LeadMagnet> = {
     description:
       'How to wire data, routing, automation and reporting into one go-to-market system — the architecture behind a GTM function that runs without heroics.',
     cta: 'Join the brief',
-    resource: null,
-    availability: 'Being written now. Brief subscribers receive it first.',
+    resource: {
+      label: 'Download the blueprint',
+      url: '/downloads/gtm-engineering-blueprint.pdf',
+      kind: 'external',
+      meta: 'PDF · 6 pages · architecture and sequence',
+    },
   },
   'marketing-automation-maturity-assessment': {
     id: 'marketing-automation-maturity-assessment',
@@ -67,8 +80,12 @@ export const leadMagnets: Record<LeadMagnetId, LeadMagnet> = {
     description:
       'A staged assessment of where your automation actually sits — from manual sends and static nurture to event-driven lifecycle systems.',
     cta: 'Join the brief',
-    resource: null,
-    availability: 'In production. Delivered to brief subscribers when it is ready.',
+    resource: {
+      label: 'Download the assessment',
+      url: '/downloads/marketing-automation-maturity-assessment.pdf',
+      kind: 'external',
+      meta: 'PDF · 7 pages · 15 scored dimensions',
+    },
   },
   'b2b-demand-generation-playbook': {
     id: 'b2b-demand-generation-playbook',
@@ -76,8 +93,12 @@ export const leadMagnets: Record<LeadMagnetId, LeadMagnet> = {
     description:
       'Channel-by-channel playbook for building demand that turns into pipeline — coverage, sequencing, response standards and the metrics worth keeping.',
     cta: 'Join the brief',
-    resource: null,
-    availability: 'In production. Brief subscribers get it first.',
+    resource: {
+      label: 'Download the playbook',
+      url: '/downloads/b2b-demand-generation-playbook.pdf',
+      kind: 'external',
+      meta: 'PDF · 5 pages · channel framework and 90-day plan',
+    },
   },
   'gtm-stack-builder-template': {
     id: 'gtm-stack-builder-template',
@@ -85,8 +106,12 @@ export const leadMagnets: Record<LeadMagnetId, LeadMagnet> = {
     description:
       'Design your marketing technology stack against company size and growth stage, then see where the overlaps and gaps are.',
     cta: 'Join the brief',
-    // The only destination that genuinely exists today: the on-site stack builder.
-    resource: { label: 'Open the GTM Stack Builder', url: '/tools/stack-builder', kind: 'internal' },
+    resource: {
+      label: 'Download the stack template',
+      url: '/downloads/gtm-stack-builder-template.xlsx',
+      kind: 'external',
+      meta: 'XLSX · 5 sheets · editable template',
+    },
   },
   'gtm-systems-brief': {
     id: 'gtm-systems-brief',
