@@ -123,7 +123,16 @@ try {
     if (req.url().includes('/api/subscribe')) subscribePosts.push(req.method());
   });
 
-  const pagesToCheck = ['/', '/thinking', '/glossary', '/glossary/gtm-engineering', '/tools', '/thinking/territory-based-gtm-small-teams'];
+  // The page set from the deployment brief, including the two contextual
+  // magnets that are easiest to get wrong.
+  const pagesToCheck = [
+    '/',
+    '/thinking',
+    '/thinking/territory-based-gtm-small-teams',
+    '/glossary/gtm-engineering',
+    '/glossary/marketing-automation',
+    '/tools',
+  ];
   for (const path of pagesToCheck) {
     const response = await page.goto(`${url}${path}`, { waitUntil: 'networkidle' });
     const blocks = page.locator('section[aria-labelledby$="-newsletter-heading"]');
