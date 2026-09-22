@@ -5,9 +5,12 @@ User-agent: *
 Allow: /
 Disallow: /assets/*.map
 
+# Block aggressive non-search scrapers (optional)
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
 # Sitemap
 Sitemap: https://subhasishadhikary.com/sitemap.xml
-
-# LLM discoverability files
-# llms.txt and llms-full.txt are served from the root and are intentionally
-# left open to crawling so AI systems can discover site structure.
