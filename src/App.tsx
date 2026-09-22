@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Layout } from './components/Layout';
 import { SEO } from './components/SEO';
 import { HomePage } from './pages/HomePage';
@@ -61,6 +63,8 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
