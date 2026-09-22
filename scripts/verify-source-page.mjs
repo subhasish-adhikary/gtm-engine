@@ -26,6 +26,9 @@ const urlArg = args.find((a) => a.startsWith('--url='));
 const base = (localDist ? 'http://localhost:4311' : urlArg ? urlArg.slice('--url='.length) : 'http://localhost:3000').replace(/\/$/, '');
 const emailBase = (args.find((a) => a.startsWith('--email-base=')) || '--email-base=logicalnerds+autoclaw-sp').split('=')[1];
 const outArg = args.find((a) => a.startsWith('--out='));
+const outPath = outArg ? outArg.slice('--out='.length) : null;
+const casesArg = args.find((a) => a.startsWith('--cases='));
+const onlyCases = casesArg ? new Set(casesArg.slice('--cases='.length).split(',').map((x) => x.trim())) : null;
 const FORM_ID = process.env.KIT_FORM_ID || '9947751';
 
 const MAILBOX = emailBase.split('+')[0];
@@ -40,7 +43,21 @@ function check(name, passed, detail = '') {
   console.log(`  [${passed ? 'PASS' : 'FAIL'}] ${name}${detail ? ` — ${detail}` : ''}`);
 }
 
+/** Evidence is persisted as the run progresses, so a stall cannot lose captured payloads. */
+function persistEvidence() {
+  if (!outPath) return;
+  fs.writeFileSync(outPath, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    base,
+    formId: FORM_ID,
+    rows,
+    payloads,
+    responses,
+  }, null, 2));
+}
+
 function record(entry) {
+  persistEvidence();
   rows.push(entry);
   const verdict = entry.ok ? 'ok' : 'MISMATCH';
   console.log(
@@ -193,7 +210,7 @@ async function runCase(page, { name, slug, route, selector, expectedPath, expect
  */
 async function kitLookup(emails) {
   const headers = { 'X-Kit-Api-Key': process.env.KIT_API_KEY, Accept: 'application/json' };
-  const form = await fetch(`https://api.kit.com/v4/forms/${FORM_ID}/subscribers`, { headers });
+  const form = await fetch(`https://api.kit.com/v4/forms/${FORM_ID}/subscribers`, { headers, signal: AbortSignal.timeout(20000) });
   const formBody = await form.json().catch(() => null);
   const members = Array.isArray(formBody?.subscribers) ? formBody.subscribers : [];
   const byEmail = new Map(members.map((s) => [String(s.email_address).toLowerCase(), s]));
@@ -204,7 +221,7 @@ async function kitLookup(emails) {
       out.set(email, { found: false });
       continue;
     }
-    const detail = await fetch(`https://api.kit.com/v4/subscribers/${member.id}`, { headers });
+    const detail = await fetch(`https://api.kit.com/v4/subscribers/${member.id}`, { headers, signal: AbortSignal.timeout(20000) });
     const detailBody = await detail.json().catch(() => null);
     out.set(email, {
       found: true,
@@ -220,40 +237,41 @@ async function kitLookup(emails) {
 
 const cases = [];
 try {
+  const wants = (id) => !onlyCases || onlyCases.has(id);
   const desktop = await newSession({ width: 1440, height: 950 }, localDist ? '203.0.113.11' : null);
 
   // ---- the six required surfaces -------------------------------------------------
-  cases.push(await runCase(desktop.page, {
+  if (wants('1')) cases.push(await runCase(desktop.page, {
     name: '1 homepage (section form)', slug: 'home', route: '/', selector: SECTION('homepage'), expectedPath: '/',
   }));
-  cases.push(await runCase(desktop.page, {
+  if (wants('2')) cases.push(await runCase(desktop.page, {
     name: '2 glossary /glossary/gtm-engineering', slug: 'glossary-gtm-eng',
     route: '/glossary/gtm-engineering', selector: SECTION('glossary-term'), expectedPath: '/glossary/gtm-engineering',
   }));
-  cases.push(await runCase(desktop.page, {
+  if (wants('3')) cases.push(await runCase(desktop.page, {
     name: '3 glossary /glossary/marketing-automation', slug: 'glossary-mkt-auto',
     route: '/glossary/marketing-automation', selector: SECTION('glossary-term'), expectedPath: '/glossary/marketing-automation',
   }));
-  cases.push(await runCase(desktop.page, {
+  if (wants('4')) cases.push(await runCase(desktop.page, {
     name: '4 article /thinking/territory-…', slug: 'article',
     route: '/thinking/territory-based-gtm-small-teams', selector: SECTION('article'),
     expectedPath: '/thinking/territory-based-gtm-small-teams',
   }));
-  cases.push(await runCase(desktop.page, {
+  if (wants('5')) cases.push(await runCase(desktop.page, {
     name: '5 tools hub /tools', slug: 'tools', route: '/tools', selector: SECTION('tools-hub'), expectedPath: '/tools',
   }));
-  cases.push(await runCase(desktop.page, {
+  if (wants('6')) cases.push(await runCase(desktop.page, {
     name: '6 footer form (submitted from /about)', slug: 'footer', route: '/about', selector: FOOTER, expectedPath: '/about',
   }));
 
   // ---- internal navigation before submit ----------------------------------------
-  cases.push(await runCase(desktop.page, {
+  if (wants('7')) cases.push(await runCase(desktop.page, {
     name: '7 internal nav: land on /, submit on /tools', slug: 'internal-nav',
     route: '/tools', selector: SECTION('tools-hub'), navigateFrom: '/', expectedPath: '/tools',
   }));
 
   // ---- duplicate subscriber ------------------------------------------------------
-  cases.push(await runCase(desktop.page, {
+  if (wants('8')) cases.push(await runCase(desktop.page, {
     name: '8 duplicate: resubmit case 2 address', slug: 'glossary-gtm-eng',
     route: '/glossary/gtm-engineering', selector: SECTION('glossary-term'),
     expectedPath: '/glossary/gtm-engineering', expectDuplicate: true,
@@ -262,7 +280,7 @@ try {
 
   // ---- mobile viewport -----------------------------------------------------------
   const mobile = await newSession({ width: 390, height: 844 }, localDist ? '203.0.113.21' : null);
-  cases.push(await runCase(mobile.page, {
+  if (wants('9')) cases.push(await runCase(mobile.page, {
     name: '9 mobile /glossary/marketing-automation', slug: 'mobile-glossary',
     route: '/glossary/marketing-automation', selector: SECTION('glossary-term'),
     expectedPath: '/glossary/marketing-automation',
@@ -274,17 +292,24 @@ try {
   // ---- multiple forms on one page (section form + footer form) -------------------
   const multi = await newSession({ width: 1440, height: 950 }, localDist ? '203.0.113.31' : null);
   const multiRoute = '/thinking/territory-based-gtm-small-teams';
-  const multiSection = await runCase(multi.page, {
-    name: '10a article section form', slug: 'multi-section',
-    route: multiRoute, selector: SECTION('article'), expectedPath: multiRoute,
-  });
-  const multiFooter = await runCase(multi.page, {
-    name: '10b same page, footer form', slug: 'multi-footer',
-    route: multiRoute, selector: FOOTER, expectedPath: multiRoute,
-  });
+  let multiSection = null;
+  let multiFooter = null;
+  if (wants('10a')) {
+    multiSection = await runCase(multi.page, {
+      name: '10a article section form', slug: 'multi-section',
+      route: multiRoute, selector: SECTION('article'), expectedPath: multiRoute,
+    });
+  }
+  if (wants('10b')) {
+    multiFooter = await runCase(multi.page, {
+      name: '10b same page, footer form', slug: 'multi-footer',
+      route: multiRoute, selector: FOOTER, expectedPath: multiRoute,
+    });
+  }
   await multi.context.close();
 
-  cases.push(multiSection, multiFooter);
+  if (multiSection) cases.push(multiSection);
+  if (multiFooter) cases.push(multiFooter);
 } catch (error) {
   check('matrix completed without crashing', false, String(error?.message || error));
 } finally {
@@ -293,7 +318,9 @@ try {
 }
 
 // ------------------------------------------------------------------ read back
+persistEvidence();
 const kit = await kitLookup(cases.map((c) => c.email));
+persistEvidence();
 
 console.log('\npayload → Kit comparison');
 for (const c of cases) {
@@ -358,15 +385,8 @@ check('no document.referrer in the attribution code', !/document\.referrer/.test
 check('no first-touch/first-visit value feeds source_page', !/first.?touch|first.?visit/i.test(componentCode + handlerCode), 'code only, comments excluded');
 check('source_page is bound to window.location.pathname', /window\.location\.pathname/.test(componentCode), '');
 
-if (outArg) {
-  const outPath = outArg.slice('--out='.length);
-  fs.writeFileSync(outPath, JSON.stringify({
-    generatedAt: new Date().toISOString(),
-    base,
-    formId: FORM_ID,
-    rows,
-    payloads,
-  }, null, 2));
+if (outPath) {
+  persistEvidence();
   console.log(`\nraw evidence written to ${outPath}`);
 }
 

@@ -49,6 +49,13 @@ and Development) and redeploy:
 | `KIT_FORM_ID` | no | Kit form id. Defaults to `9947751` ("Newsletter site"). |
 | `KIT_TAG_ID` | no | Optional Kit tag applied to every subscriber. |
 
+`source_page` is the **pathname of the page the visitor was on when they pressed
+submit** (e.g. `/glossary/gtm-engineering`), read from `window.location` inside
+the submit handler — never `document.referrer` and never a stored first-touch
+page. `/api/subscribe` validates it as a site-relative path; the placement label
+used for element ids and analytics is deliberately not accepted as a fallback, so
+a wrong value cannot be stored silently.
+
 Endpoint contract:
 
 ```
@@ -87,6 +94,7 @@ KIT_API_KEY=REPLACE_WITH_KEY node scripts/test-subscribe.mjs --live --email=you@
 node scripts/verify-newsletter-browser.mjs          # real browser check (dev server)
 node scripts/verify-newsletter-browser.mjs --dist   # same checks against the built, prerendered output
 node scripts/verify-production.mjs --local-dist     # post-deploy check, dry run against dist/
+node scripts/verify-source-page.mjs --local-dist   # submit-page attribution matrix
 ```
 
 ### Post-deployment verification

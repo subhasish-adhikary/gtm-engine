@@ -85,7 +85,7 @@ component:
 
 | Prop | Purpose |
 | --- | --- |
-| `source` | acquisition page (`homepage`, `article`, `glossary-term`, `tool-page`, `footer`, …) |
+| `source` | placement label (`homepage`, `article`, `glossary-term`, `tool-page`, `footer`) — used for element ids and analytics, **not** for Kit's `source_page` |
 | `leadMagnet` | canonical magnet id stored in Kit |
 | `heading` / `description` / `cta` | contextual copy |
 | `eyebrow` | small label above the heading |
@@ -99,7 +99,7 @@ component:
 
 | Event | Fires when | Properties |
 | --- | --- | --- |
-| `newsletter_signup` | any successful submit | `source`, `lead_magnet`, `duplicate` |
+| `newsletter_signup` | any successful submit | `source` (placement), `lead_magnet`, `duplicate` |
 | `lead_magnet_view` | a **specific** magnet block mounts (once per mount) | `lead_magnet`, `source` |
 | `lead_magnet_submit` | a successful submit on a specific magnet | `lead_magnet`, `source`, `duplicate` |
 | `lead_magnet_download` | a click on an `external` resource | `lead_magnet`, `source`, `destination` |

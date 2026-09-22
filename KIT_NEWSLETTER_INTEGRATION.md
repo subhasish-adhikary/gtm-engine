@@ -220,3 +220,25 @@ client-renders, so the page works. **This predates the newsletter work** —
 verified by stashing the change set and re-running the same probe at `HEAD`,
 where the identical error appears. Fixing it would mean changing the prerender
 strategy, which is out of scope here.
+
+
+---
+
+## 11. Attribution fix (2026-09-22): source_page is the submit-page pathname
+
+`source_page` previously stored a static placement label (`homepage`, `article`,
+`footer`), which does not answer "which page did this visitor submit from?".
+
+- The component now reads `window.location.pathname` inside the submit handler,
+  normalises it (drops any query string or fragment, collapses duplicate slashes,
+  trims a trailing slash except for the root) and sends it as `sourcePage`.
+  `document.referrer` and first-touch values are not used.
+- `/api/subscribe` validates `source_page` as a site-relative pathname and no
+  longer accepts the placement label as a fallback, so a wrong value cannot be
+  stored silently. `lead_magnet` and the single Kit form `9947751` are unchanged.
+- New `scripts/verify-source-page.mjs` runs the attribution matrix (six surfaces,
+  internal navigation, two forms on one page, duplicate, mobile/desktop) and
+  compares the captured payload with the Kit read-back. It waits out the
+  endpoint's 8-per-10-minutes rate limit window rather than misreading a 429.
+
+Production results are recorded in the deployment report under `DELIVERY/`.
