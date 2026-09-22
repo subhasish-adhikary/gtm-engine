@@ -15,6 +15,8 @@ import { GENERIC_LEAD_MAGNET_ID, type LeadMagnetResource } from '../data/leadMag
  * server-side `/api/subscribe` endpoint, which talks to Kit.
  *
  * Design notes:
+ * - `source_page` sent to Kit is the live page pathname read at the moment of
+ *   submission — never `document.referrer`, never a stored first-touch page.
  * - Native React form (no Kit embed <script>), so it can be mounted on many
  *   pages without loading duplicate scripts.
  * - Prerender/hydration safe: nothing touches `window`, `document` or
@@ -32,7 +34,11 @@ type UtmParams = Partial<Record<UtmKey, string>>;
 type Status = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error';
 
 export interface NewsletterSignupProps {
-  /** Acquisition source page identifier, e.g. `homepage`, `article`, `footer`. */
+  /**
+   * Placement label, e.g. `homepage`, `article`, `footer`. Used for element ids
+   * and analytics only — it is NOT what Kit stores as `source_page`; that is the
+   * live pathname captured at submit time.
+   */
   source?: string;
   /** Lead magnet identifier stored in the Kit `lead_magnet` custom field. */
   leadMagnet?: string;
@@ -54,6 +60,27 @@ export interface NewsletterSignupProps {
   /** Show the newsletter topic chips (generic brief placements only). */
   showTopics?: boolean;
   className?: string;
+}
+
+/**
+ * The page the visitor is on at the moment they submit.
+ *
+ * Read from `window.location` inside the submit handler, so it reflects where the
+ * form was actually submitted — not where the visitor first landed, and not the
+ * HTTP Referer. Query string and fragment are dropped, duplicate slashes
+ * collapsed, and a trailing slash removed (except for the root path) so the value
+ * matches the site's canonical URLs.
+ */
+function currentPathname(): string {
+  try {
+    const raw = window.location.pathname || '/';
+    const withoutQueryOrHash = raw.split('?')[0].split('#')[0];
+    const collapsed = withoutQueryOrHash.replace(/\/{2,}/g, '/');
+    const normalised = collapsed.length > 1 ? collapsed.replace(/\/+$/, '') : '/';
+    return normalised || '/';
+  } catch {
+    return '/';
+  }
 }
 
 function readStoredAttribution(): UtmParams {
@@ -180,7 +207,8 @@ export function NewsletterSignup({
         body: JSON.stringify({
           email: trimmedEmail,
           firstName: firstName.trim() || undefined,
-          source,
+          // Exact page being submitted from, evaluated now (not at page load).
+          sourcePage: currentPathname(),
           leadMagnet,
           utmSource: attribution.utm_source,
           utmMedium: attribution.utm_medium,

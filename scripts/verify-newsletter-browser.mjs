@@ -309,7 +309,7 @@ try {
   const payload = parsedBodies[0];
   check('article submit reaches /api/subscribe', parsedBodies.length > 0, `posts=${parsedBodies.length}`);
   check('submit carries the resolved lead_magnet', payload?.leadMagnet === magnetId, `leadMagnet=${payload?.leadMagnet}`);
-  check('submit records the source page', payload?.source === 'article', `source=${payload?.source}`);
+  check('submit records the page pathname as source_page', payload?.sourcePage === '/thinking/territory-based-gtm-small-teams', `sourcePage=${payload?.sourcePage}`);
 
   const submitEvents = await page.evaluate(() => JSON.stringify(window.__vaEvents || []));
   check('lead_magnet_submit fired for the magnet', submitEvents.includes('lead_magnet_submit'), submitEvents.slice(0, 260));

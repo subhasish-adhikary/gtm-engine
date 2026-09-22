@@ -11,6 +11,7 @@
  *
  * Kit calls made by this handler:
  *   1. GET  /v4/subscribers?email_address=...        (duplicate pre-check, eventually consistent)
+ *      source_page is validated as a site-relative pathname (see cleanPathname).
  *   2. POST /v4/subscribers                          (create/update subscriber + custom fields; 201 new, 200 existing)
  *   3. POST /v4/forms/{form_id}/subscribers          (add subscriber to the newsletter form)
  *   4. POST /v4/tags/{tag_id}/subscribers            (optional, only when KIT_TAG_ID is set)
@@ -101,6 +102,25 @@ function isRateLimited(ip: string): boolean {
     }
   }
   return false;
+}
+
+/**
+ * Validate a submitted page pathname.
+ *
+ * Accepts only a site-relative path (leading `/`), drops any query string or
+ * fragment, collapses duplicate slashes and removes a trailing slash so the
+ * stored value matches the site's canonical URLs. Anything else is rejected
+ * rather than stored, so a bad value can never masquerade as attribution.
+ */
+function cleanPathname(value: unknown): string | undefined {
+  const raw = cleanText(value, 200);
+  if (!raw) return undefined;
+  if (!raw.startsWith('/')) return undefined;
+  const withoutQueryOrHash = raw.split('?')[0].split('#')[0];
+  if (/\s/.test(withoutQueryOrHash)) return undefined;
+  const collapsed = withoutQueryOrHash.replace(/\/{2,}/g, '/');
+  const normalised = collapsed.length > 1 ? collapsed.replace(/\/+$/, '') : '/';
+  return normalised || '/';
 }
 
 /** Trim, strip control characters (blocks header injection), cap length. */
@@ -206,8 +226,14 @@ export default async function handler(req: any, res: any): Promise<void> {
   const firstName = cleanText(body.firstName ?? body.first_name, 80);
 
   const attributes: Record<string, string> = {};
+
+  // `source_page` must be the page pathname captured at submit time. The static
+  // placement label is deliberately NOT accepted as a fallback: storing
+  // "homepage" instead of "/" would hide real attribution bugs.
+  const sourcePage = cleanPathname(body.sourcePage ?? body.source_page);
+
   const attributeInputs: Record<string, unknown> = {
-    source_page: body.sourcePage ?? body.source ?? body.source_page,
+    source_page: sourcePage,
     lead_magnet: body.leadMagnet ?? body.lead_magnet,
     utm_source: body.utmSource ?? body.utm_source,
     utm_medium: body.utmMedium ?? body.utm_medium,
@@ -280,7 +306,10 @@ export default async function handler(req: any, res: any): Promise<void> {
       }
     }
 
-    console.log(`kit_subscribe status=200 duplicate=${duplicate} form=${formId} fields=${Object.keys(attributes).length}`);
+    console.log(
+      `kit_subscribe status=200 duplicate=${duplicate} form=${formId} fields=${Object.keys(attributes).length}` +
+        ` source_page=${attributes.source_page ?? 'none'} lead_magnet=${attributes.lead_magnet ?? 'none'}`,
+    );
     send(res, 200, { ok: true, duplicate });
   } catch (error: any) {
     const aborted = error?.name === 'AbortError';
