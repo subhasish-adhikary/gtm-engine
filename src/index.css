@@ -213,3 +213,18 @@ img[loading="lazy"] {
   body { background: white; color: black; }
   a { color: black; text-decoration: underline; }
 }
+
+/* ── Hero right column — single continuous editorial composition ──
+   Guarantees the location/time → portrait → metadata → handwritten
+   statement → capability list → rule → based-in copy stack never
+   escapes into a separate section (no wrapping, no absolute escape). */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-right > figure {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}

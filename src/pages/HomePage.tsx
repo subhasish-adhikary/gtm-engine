@@ -61,31 +61,43 @@ export function HomePage() {
               </div>
             </div>
 
-            {/* Portrait first — warm duotone treatment, thin rule frame; live clock directly below */}
-            <div className="lg:col-span-5 flex lg:justify-end">
-              <figure className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
-                <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
-                  <img
-                    src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
-                    alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                    className="w-full aspect-[4/5] object-cover object-top"
-                    style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
-                    loading="eager"
-                  />
-                </div>
-                <figcaption>
-                  {/* Location + live clock — immediately below the image */}
-                  <div className="pt-4 pb-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+            {/* RIGHT HERO COLUMN — split so the editorial content sits BESIDE the
+                portrait (mockup layout):
+                left sub-column : location/time → portrait → image metadata
+                right sub-column: handwritten statement → capability list → blue rule → based-in copy
+                Both sub-columns live inside the hero's right column. No separate section. */}
+            <div className="hero-right lg:col-span-5">
+              <div className="flex gap-8 lg:gap-10">
+                {/* Portrait sub-column */}
+                <figure className="shrink-0 w-[180px] sm:w-[220px] lg:w-[240px]">
+                  {/* Location + live clock — top of the right column */}
+                  <figcaption className="pb-4">
                     <LocationClock />
-                  </div>
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
-                    <span>Subhasish Adhikary</span>
-                    <span>Kolkata · Est. 2017</span>
+                  </figcaption>
+
+                  {/* Portrait */}
+                  <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
+                    <img
+                      src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
+                      alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                      className="w-full aspect-[4/5] object-cover object-top"
+                      style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
+                      loading="eager"
+                    />
                   </div>
 
+                  {/* Image caption / metadata row */}
+                  <div className="pt-3 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                    <div>Subhasish Adhikary</div>
+                    <div className="mt-1">Kolkata · Est. 2017</div>
+                  </div>
+                </figure>
+
+                {/* Editorial sub-column — beside the portrait */}
+                <div className="min-w-0 flex-1 pt-2">
                   {/* Handwritten blue statement with handwritten blue underline (per reference) */}
-                  <div className="mt-20 sm:mt-24">
-                    <p className="font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
+                  <div>
+                    <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[2rem]" style={{ color: 'var(--accent)' }}>
                       Marketing<br />
                       systems for<br />
                       a more open future.
@@ -96,8 +108,8 @@ export function HomePage() {
                     </svg>
                   </div>
 
-                  {/* Vertical blue-accent editorial list — thin rule treatment */}
-                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
+                  {/* Vertical blue-accent editorial list — thin rule to the LEFT of the list */}
+                  <ul className="mt-14 sm:mt-16 space-y-3 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
                     <li>Strategy</li>
                     <li>Automation</li>
                     <li>Content</li>
@@ -106,24 +118,25 @@ export function HomePage() {
                   </ul>
 
                   {/* Short horizontal blue line */}
-                  <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+                  <span aria-hidden="true" className="mt-14 sm:mt-16 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
 
                   {/* Based-in note */}
-                  <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="mt-8 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     Based in Kolkata, India.<br />
                     Working with global teams<br />
                     across time zones.
                   </p>
-                </figcaption>
-              </figure>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Thin editorial divider closing the hero */}
-          <div className="mt-12 sm:mt-16 h-px w-full" style={{ backgroundColor: 'var(--border-color)' }} />
-
-          {/* GTM System Visualization - Below Hero */}
-          <div className="mt-12 sm:mt-16 animate-fade-in-up delay-400">
+      {/* GTM System Visualization - Below Hero */}
+      <section className="py-12 sm:py-16 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="animate-fade-in-up delay-400">
             <GTMSystemVisualization />
           </div>
         </div>
