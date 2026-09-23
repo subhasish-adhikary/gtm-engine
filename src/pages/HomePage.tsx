@@ -16,41 +16,67 @@ export function HomePage() {
 
   return (
     <div>
-      {/* HERO SECTION - Two Column Layout */}
-      <section className="py-16 sm:py-20 lg:py-28">
+      {/* HERO SECTION — editorial masthead */}
+      <section className="pt-14 pb-0 sm:pt-20 lg:pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Content */}
-            <div className="animate-fade-in-up">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Growth Marketing · GTM Strategy · Marketing Automation</span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]" style={{ color: 'var(--text-primary)' }}>
-                I build the systems behind modern B2B growth.
+          {/* Top rail: discipline line (left) · live location + clock (right) */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-8">
+            <div className="flex items-center gap-3">
+              <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+              <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--text-secondary)' }}>
+                Growth Marketing · GTM Strategy · Marketing Automation
+              </span>
+            </div>
+            <LocationClock className="shrink-0 sm:text-right" />
+          </div>
+
+          {/* Masthead grid: oversized serif headline (left) · portrait (right) */}
+          <div className="mt-10 sm:mt-14 grid lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+            <div className="lg:col-span-7">
+              <h1 className="font-serif leading-[1.06] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">I build the <em className="italic" style={{ color: 'var(--accent)' }}>systems</em></span>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">behind modern</span>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">B2B growth.</span>
               </h1>
-              <p className="mt-6 text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mt-8 max-w-xl text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
               </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Button to="/work" size="lg">View Work <ArrowRight size={16} className="ml-2" /></Button>
-                <Button to="/thinking" variant="secondary" size="lg">Explore Thinking</Button>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 pb-2">
+                <Link to="/work" className="group inline-flex items-center gap-2 text-sm font-semibold tracking-wide" style={{ color: 'var(--text-primary)' }}>
+                  View selected work
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" style={{ color: 'var(--accent)' }}><ArrowRight size={15} /></span>
+                </Link>
+                <Link to="/thinking" className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide underline-offset-4 hover:underline" style={{ color: 'var(--text-secondary)' }}>
+                  Read the thinking
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" style={{ color: 'var(--accent)' }}><ArrowRight size={14} /></span>
+                </Link>
               </div>
             </div>
 
-            {/* Right: Profile Image */}
-            <div className="flex justify-center lg:justify-end animate-fade-in-up delay-200">
-              <img 
-                src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png" 
-                alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4"
-                style={{ borderColor: 'var(--border-color)' }}
-              />
+            {/* Portrait — strong photography, plain rectangular crop, thin rule frame */}
+            <div className="lg:col-span-5 flex lg:justify-end">
+              <figure className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
+                <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)' }}>
+                  <img
+                    src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
+                    alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                    className="w-full aspect-[4/5] object-cover object-top"
+                    loading="eager"
+                  />
+                </div>
+                <figcaption className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                  <span>Subhasish Adhikary</span>
+                  <span>Kolkata · Est. 2017</span>
+                </figcaption>
+              </figure>
             </div>
           </div>
 
+          {/* Thin editorial divider closing the hero */}
+          <div className="mt-12 sm:mt-16 h-px w-full" style={{ backgroundColor: 'var(--border-color)' }} />
+
           {/* GTM System Visualization - Below Hero */}
-          <div className="mt-16 sm:mt-20 animate-fade-in-up delay-400">
+          <div className="mt-12 sm:mt-16 animate-fade-in-up delay-400">
             <GTMSystemVisualization />
           </div>
         </div>
