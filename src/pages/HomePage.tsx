@@ -133,6 +133,41 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* METRICS + POSITIONING — editorial rail directly below hero (sibling of hero) */}
+      <section className="border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Four metrics on a true grid, spanning the full content width */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 pt-16 pb-4 sm:pt-20 lg:pt-24">
+            {[
+              { value: '7+', label: 'Years in marketing' },
+              { value: 'B2B', label: 'My focus' },
+              { value: 'Systems', label: 'My approach' },
+              { value: 'Impact', label: 'The goal' },
+            ].map((metric) => (
+              <div key={metric.label}>
+                <div className="font-display text-5xl sm:text-6xl leading-none" style={{ color: '#111111' }}>
+                  {metric.value}
+                </div>
+                <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+                  {metric.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Positioning quote — left-aligned, oversized opening quotation mark */}
+          <div className="relative max-w-xl pb-20 sm:pb-28 lg:pb-32 mt-16 sm:mt-20">
+            <span aria-hidden="true" className="font-display absolute -top-10 -left-2 select-none leading-none" style={{ fontSize: '7rem', color: 'var(--accent)', opacity: 0.18 }}>
+              &ldquo;
+            </span>
+            <blockquote className="font-display relative text-3xl sm:text-4xl leading-snug" style={{ color: '#1a1a1a' }}>
+              A more thoughtful, systems-driven<br />
+              approach to marketing.
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
       {/* GTM System Visualization - Below Hero */}
       <section className="py-12 sm:py-16 border-t" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
