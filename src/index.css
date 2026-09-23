@@ -3,6 +3,7 @@
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
+  --font-handwriting: 'Caveat', 'Segoe Script', cursive;
 }
 
 :root {

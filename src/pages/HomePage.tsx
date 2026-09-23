@@ -73,7 +73,8 @@ export function HomePage() {
                     loading="eager"
                   />
                 </div>
-                <figcaption className="mt-0">
+                <figcaption>
+                  {/* Location + live clock — immediately below the image */}
                   <div className="pt-4 pb-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
                     <LocationClock />
                   </div>
@@ -81,6 +82,33 @@ export function HomePage() {
                     <span>Subhasish Adhikary</span>
                     <span>Kolkata · Est. 2017</span>
                   </div>
+
+                  {/* Handwritten blue statement with blue underline (per reference) */}
+                  <p className="mt-20 sm:mt-24 font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
+                    Marketing<br />
+                    systems for<br />
+                    a more open future.
+                  </p>
+                  <span aria-hidden="true" className="mt-3 block h-[3px] w-28" style={{ backgroundColor: 'var(--accent)', opacity: 0.85 }} />
+
+                  {/* Vertical blue-accent editorial list */}
+                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-xs font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '2px solid var(--accent)', color: 'var(--text-primary)' }}>
+                    <li>Strategy</li>
+                    <li>Automation</li>
+                    <li>Content</li>
+                    <li>Growth</li>
+                    <li>Real impact.</li>
+                  </ul>
+
+                  {/* Short horizontal blue line */}
+                  <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+
+                  {/* Based-in note */}
+                  <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    Based in Kolkata, India.<br />
+                    Working with global teams<br />
+                    across time zones.
+                  </p>
                 </figcaption>
               </figure>
             </div>

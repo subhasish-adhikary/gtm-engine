@@ -1,0 +1,16 @@
+# robots.txt for subhasishadhikary.com
+# Portfolio and GTM marketing resource site (statically prerendered)
+
+User-agent: *
+Allow: /
+Disallow: /assets/*.map
+
+# Block aggressive non-search scrapers (optional)
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://subhasishadhikary.com/sitemap.xml
