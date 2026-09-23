@@ -61,7 +61,7 @@ function Navbar({ theme, toggleTheme }: any) {
             <img 
               src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
               alt="Subhasish Adhikary" 
-              className="h-8 w-auto"
+              className="h-6 sm:h-7 w-auto"
             />
           </Link>
 

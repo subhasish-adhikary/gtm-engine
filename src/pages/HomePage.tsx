@@ -19,54 +19,96 @@ export function HomePage() {
       {/* HERO SECTION — editorial masthead */}
       <section className="pt-14 pb-0 sm:pt-20 lg:pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Top rail: discipline line (left) · live location + clock (right) */}
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-8">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
-              <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--text-secondary)' }}>
-                Growth Marketing · GTM Strategy · Marketing Automation
-              </span>
-            </div>
-            <LocationClock className="shrink-0 sm:text-right" />
-          </div>
-
-          {/* Masthead grid: oversized serif headline (left) · portrait (right) */}
-          <div className="mt-10 sm:mt-14 grid lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+          {/* Masthead grid: numbered editorial column (left) · portrait first (right) */}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-start">
             <div className="lg:col-span-7">
-              <h1 className="font-serif leading-[1.06] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">I build the <em className="italic" style={{ color: 'var(--accent)' }}>systems</em></span>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">behind modern</span>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">B2B growth.</span>
+              {/* Section number */}
+              <div className="text-xs font-semibold tracking-[0.22em]" style={{ color: 'var(--accent)' }}>01</div>
+
+              {/* Eyebrow — thin rule + discipline line */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--text-secondary)' }}>
+                  Growth Marketing · GTM Strategy · Marketing Automation
+                </span>
+              </div>
+
+              <h1 className="mt-8 font-serif leading-[1.06] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">I build the systems</span>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">behind modern B2B</span>
+                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]"><em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
               </h1>
               <p className="mt-8 max-w-xl text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 pb-2">
-                <Link to="/work" className="group inline-flex items-center gap-2 text-sm font-semibold tracking-wide" style={{ color: 'var(--text-primary)' }}>
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <Link
+                  to="/work"
+                  className="group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors"
+                  style={{ backgroundColor: 'var(--text-primary)', color: 'var(--bg-primary)' }}
+                >
                   View selected work
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" style={{ color: 'var(--accent)' }}><ArrowRight size={15} /></span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1"><ArrowRight size={15} /></span>
                 </Link>
-                <Link to="/thinking" className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide underline-offset-4 hover:underline" style={{ color: 'var(--text-secondary)' }}>
+                <Link
+                  to="/thinking"
+                  className="group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors"
+                  style={{ border: '1px solid var(--text-primary)', color: 'var(--text-primary)', backgroundColor: 'transparent' }}
+                >
                   Read the thinking
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" style={{ color: 'var(--accent)' }}><ArrowRight size={14} /></span>
                 </Link>
               </div>
             </div>
 
-            {/* Portrait — strong photography, plain rectangular crop, thin rule frame */}
+            {/* Portrait first — warm duotone treatment, thin rule frame; live clock directly below */}
             <div className="lg:col-span-5 flex lg:justify-end">
               <figure className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
-                <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)' }}>
+                <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
                   <img
                     src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
                     alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
                     className="w-full aspect-[4/5] object-cover object-top"
+                    style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
                     loading="eager"
                   />
                 </div>
-                <figcaption className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
-                  <span>Subhasish Adhikary</span>
-                  <span>Kolkata · Est. 2017</span>
+                <figcaption>
+                  {/* Location + live clock — immediately below the image */}
+                  <div className="pt-4 pb-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                    <LocationClock />
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                    <span>Subhasish Adhikary</span>
+                    <span>Kolkata · Est. 2017</span>
+                  </div>
+
+                  {/* Handwritten blue statement with blue underline (per reference) */}
+                  <p className="mt-20 sm:mt-24 font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
+                    Marketing<br />
+                    systems for<br />
+                    a more open future.
+                  </p>
+                  <span aria-hidden="true" className="mt-3 block h-[3px] w-28" style={{ backgroundColor: 'var(--accent)', opacity: 0.85 }} />
+
+                  {/* Vertical blue-accent editorial list */}
+                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-xs font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '2px solid var(--accent)', color: 'var(--text-primary)' }}>
+                    <li>Strategy</li>
+                    <li>Automation</li>
+                    <li>Content</li>
+                    <li>Growth</li>
+                    <li>Real impact.</li>
+                  </ul>
+
+                  {/* Short horizontal blue line */}
+                  <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+
+                  {/* Based-in note */}
+                  <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    Based in Kolkata, India.<br />
+                    Working with global teams<br />
+                    across time zones.
+                  </p>
                 </figcaption>
               </figure>
             </div>
