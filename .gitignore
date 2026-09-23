@@ -1,15 +1,2 @@
+# Dependencies
 node_modules/
-.next/
-dist/
-build/
-*.log
-.DS_Store
-
-# Local environment files — never commit credentials
-.env
-.env.*
-!.env.example
-.vercel
-
-# Sanity Studio build output (generated at build time)
-public/studio/

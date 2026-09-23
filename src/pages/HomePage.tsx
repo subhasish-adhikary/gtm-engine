@@ -5,6 +5,7 @@ import { siteConfig, capabilities, selectedWork, thinkingCategories, tools } fro
 import { Button, SectionHeader, Card, Tag } from '../components/UI';
 import { GTMSystemVisualization } from '../components/GTMSystemVisualization';
 import { NewsletterSignup } from '../components/NewsletterSignup';
+import { LocationClock } from '../components/LocationClock';
 import { newsletterPlacements } from '../data/newsletter';
 
 const iconMap: any = { 'trending-up': <TrendingUp size={20} />, 'package': <Package size={20} />, 'target': <Target size={20} />, 'zap': <Zap size={20} />, 'brain': <Brain size={20} />, 'bar-chart': <BarChart3 size={20} /> };

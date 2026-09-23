@@ -22,6 +22,43 @@ export const navigation = [
   { label: "Contact", path: "/contact" },
 ];
 
+/*
+ * Primary site navigation — 5 editorial items with subtle dropdown groups.
+ * Every href below maps to an existing route; no routes were added or removed.
+ */
+export type NavChild = { label: string; path: string };
+export type NavItem = { label: string; path?: string; children?: NavChild[] };
+
+export const navGroups: NavItem[] = [
+  { label: "Home", path: "/" },
+  {
+    label: "Work",
+    path: "/work",
+    children: [
+      { label: "Case Studies", path: "/work" },
+      { label: "Projects", path: "/lab" },
+    ],
+  },
+  {
+    label: "Thinking",
+    path: "/thinking",
+    children: [
+      { label: "Articles", path: "/thinking" },
+      { label: "Research", path: "/thinking" },
+      { label: "Glossary", path: "/glossary" },
+    ],
+  },
+  {
+    label: "Tools",
+    path: "/tools",
+    children: [
+      { label: "GTM Tools", path: "/tools" },
+      { label: "Marketing Stack", path: "/gtm-stack" },
+    ],
+  },
+  { label: "About", path: "/about" },
+];
+
 export const capabilities = [
   { title: "Growth Marketing", description: "Building scalable B2B acquisition engines through outbound, ABM, demand generation and data-driven experimentation.", icon: "trending-up" },
   { title: "GTM Strategy & Engineering", description: "Designing go-to-market systems that connect ICP, positioning, demand generation and sales enablement into predictable pipeline.", icon: "target" },
