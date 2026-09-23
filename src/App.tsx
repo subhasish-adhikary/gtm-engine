@@ -14,6 +14,7 @@ import { GTMIntelligenceEngine } from './pages/gtm-engine/GTMIntelligenceEngine'
 import GlossaryPage from './pages/GlossaryPage';
 import GlossaryTermPage from './pages/GlossaryTermPage';
 import CredentialsPage from './pages/CredentialsPage';
+import { LabPage } from './pages/LabPage';
 import { useTheme } from './hooks/useTheme';
 
 /*
@@ -60,6 +61,7 @@ export default function App() {
           <Route path="/credentials" element={<CredentialsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/lab" element={<LabPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

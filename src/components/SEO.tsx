@@ -74,6 +74,10 @@ const routeMetadata: Record<string, { title: string; description: string }> = {
     title: 'Contact — Subhasish Adhikary',
     description: 'Get in touch about B2B GTM strategy, marketing automation, or AI in marketing. Available for strategic conversations and consulting engagements.'
   },
+  '/lab': {
+    title: 'The Lab — Interactive Marketing Systems | Subhasish Adhikary',
+    description: 'An interactive digital laboratory: AI agent ID cards, a GTM system builder, an agent assembly line, this website\'s architecture map, and a marketing build simulator.'
+  },
   '/privacy': {
     title: 'Privacy Policy — Subhasish Adhikary',
     description: 'Privacy policy for subhasishadhikary.com. How this website handles visitor data.'

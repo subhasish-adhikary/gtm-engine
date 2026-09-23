@@ -15,6 +15,7 @@ export const navigation = [
   { label: "Work", path: "/work" },
   { label: "Thinking", path: "/thinking" },
   { label: "Tools", path: "/tools" },
+  { label: "Lab", path: "/lab" },
   { label: "GTM Stack", path: "/gtm-stack" },
   { label: "Glossary", path: "/glossary" },
   { label: "Credentials", path: "/credentials" },

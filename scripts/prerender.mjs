@@ -366,6 +366,34 @@ async function run() {
       schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'GTM Stack' }])],
     },
     {
+      route: '/lab',
+      title: 'The Lab — Interactive Marketing Systems | Subhasish Adhikary',
+      description: 'An interactive digital laboratory: AI agent ID cards, a GTM system builder, an agent assembly line, this website\'s architecture map, and a marketing build simulator.',
+      canonical: `${BASE}/lab`,
+      crumbs: [{ label: 'Lab' }],
+      h1: 'The Lab',
+      bodyHtml: `
+        <h2>Where marketing strategy becomes working systems.</h2>
+        <p>An AI-native marketer who can design, orchestrate and ship marketing systems. The Lab demonstrates the methodology interactively: strategy, research, AI agents, build, automation, measurement and iteration.</p>
+        <h2>Five interactive experiences</h2>
+        <ul>
+          <li style="margin-bottom: 6px;"><strong>AI agent ID cards</strong> — the six agent roles in my workflow, with inputs, outputs and boundaries.</li>
+          <li style="margin-bottom: 6px;"><strong>Build your GTM system</strong> — drag and connect marketing components to reveal the resulting motion.</li>
+          <li style="margin-bottom: 6px;"><strong>AI agent assembly line</strong> — watch a project move from idea to deploy through the agent pipeline.</li>
+          <li style="margin-bottom: 6px;"><strong>Explore this website</strong> — an explorable map of this site's actual, verified architecture.</li>
+          <li style="margin-bottom: 6px;"><strong>Run a marketing build</strong> — a simulator that assembles a marketing system from goal, audience and constraint.</li>
+        </ul>
+        <h2>Build log</h2>
+        <p>The Lab also documents verifiable builds from this repository: the Sanity-powered Thinking CMS, the prerendered static pipeline with a self-healing sitemap, the GTM Intelligence Engine, the interactive marketing tools suite, the featured-image generation pipeline, and this Lab page itself.</p>
+        ${relatedSection('Keep Exploring', linkList([
+          `<li style="margin-bottom: 6px;"><a href="/tools" style="color: #155EEF;">Interactive marketing tools</a> — decision frameworks encoded as software.</li>`,
+          `<li style="margin-bottom: 6px;"><a href="/thinking" style="color: #155EEF;">Research-led articles</a> — the strategy behind the systems.</li>`,
+          `<li style="margin-bottom: 6px;"><a href="/work" style="color: #155EEF;">Case studies</a> — GTM systems in production.</li>`
+        ]))}
+      `,
+      schemas: [generateBreadcrumbSchema([{ label: 'Home', path: '/' }, { label: 'Lab' }])],
+    },
+    {
       route: '/credentials',
       title: 'Education & Credentials | Subhasish Adhikary',
       description: 'MBA in Marketing, McKinsey.org Forward Program, Clay Outbound Automation, and Pendo Product-led certifications.',
