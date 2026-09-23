@@ -61,66 +61,73 @@ export function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT HERO COLUMN — one continuous editorial composition:
-                location/time → portrait → image metadata → handwritten statement
-                → capability list → blue rule → based-in copy.
-                Nothing here escapes into a separate section. */}
-            <div className="hero-right lg:col-span-5 flex lg:justify-end">
-              <figure className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
-                {/* Location + live clock — TOP of the right column, above the portrait */}
-                <figcaption className="pb-4">
-                  <LocationClock />
-                </figcaption>
+            {/* RIGHT HERO COLUMN — split so the editorial content sits BESIDE the
+                portrait (mockup layout):
+                left sub-column : location/time → portrait → image metadata
+                right sub-column: handwritten statement → capability list → blue rule → based-in copy
+                Both sub-columns live inside the hero's right column. No separate section. */}
+            <div className="hero-right lg:col-span-5">
+              <div className="flex gap-8 lg:gap-10">
+                {/* Portrait sub-column */}
+                <figure className="shrink-0 w-[180px] sm:w-[220px] lg:w-[240px]">
+                  {/* Location + live clock — top of the right column */}
+                  <figcaption className="pb-4">
+                    <LocationClock />
+                  </figcaption>
 
-                {/* Portrait */}
-                <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
-                  <img
-                    src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
-                    alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                    className="w-full aspect-[4/5] object-cover object-top"
-                    style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
-                    loading="eager"
-                  />
-                </div>
+                  {/* Portrait */}
+                  <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
+                    <img
+                      src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
+                      alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
+                      className="w-full aspect-[4/5] object-cover object-top"
+                      style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
+                      loading="eager"
+                    />
+                  </div>
 
-                {/* Image caption / metadata row */}
-                <div className="pt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
-                  <span>Subhasish Adhikary</span>
-                  <span>Kolkata · Est. 2017</span>
-                </div>
+                  {/* Image caption / metadata row */}
+                  <div className="pt-3 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                    <div>Subhasish Adhikary</div>
+                    <div className="mt-1">Kolkata · Est. 2017</div>
+                  </div>
+                </figure>
 
-                {/* Handwritten blue statement with handwritten blue underline (per reference) */}
-                <div className="mt-20 sm:mt-24">
-                  <p className="font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
-                    Marketing<br />
-                    systems for<br />
-                    a more open future.
+                {/* Editorial sub-column — beside the portrait */}
+                <div className="min-w-0 flex-1 pt-2">
+                  {/* Handwritten blue statement with handwritten blue underline (per reference) */}
+                  <div>
+                    <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[2rem]" style={{ color: 'var(--accent)' }}>
+                      Marketing<br />
+                      systems for<br />
+                      a more open future.
+                    </p>
+                    {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
+                    <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[9.5rem] sm:w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
+                      <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
+                    </svg>
+                  </div>
+
+                  {/* Vertical blue-accent editorial list — thin rule to the LEFT of the list */}
+                  <ul className="mt-14 sm:mt-16 space-y-3 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
+                    <li>Strategy</li>
+                    <li>Automation</li>
+                    <li>Content</li>
+                    <li>Growth</li>
+                    <li>Real impact.</li>
+                  </ul>
+
+                  {/* Short horizontal blue line */}
+                  <span aria-hidden="true" className="mt-14 sm:mt-16 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+
+                  {/* Based-in note */}
+                  <p className="mt-8 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    Based in Kolkata, India.<br />
+                    Working with global teams<br />
+                    across time zones.
                   </p>
-                  {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
-                  <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[9.5rem] sm:w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
-                    <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
-                  </svg>
                 </div>
-
-                {/* Vertical blue-accent editorial list — thin rule treatment */}
-                <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
-                  <li>Strategy</li>
-                  <li>Automation</li>
-                  <li>Content</li>
-                  <li>Growth</li>
-                  <li>Real impact.</li>
-                </ul>
-
-                {/* Short horizontal blue line */}
-                <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
-
-                {/* Based-in note */}
-                <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  Based in Kolkata, India.<br />
-                  Working with global teams<br />
-                  across time zones.
-                </p>
-              </figure>
+              </div>
             </div>
           </div>
         </div>
