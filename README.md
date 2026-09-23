@@ -132,4 +132,4 @@ Read-only by default: it checks that `/api/subscribe` exists, validates input,
 leaks no credential, that no secret appears in the deployed HTML or JS, and that
 the newsletter block renders exactly once per page. `--live` additionally
 performs one real signup and verifies Kit form membership plus the persisted
-custom fields.
+custom fields..
