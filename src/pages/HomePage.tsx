@@ -16,12 +16,12 @@ export function HomePage() {
 
   return (
     <div>
-      {/* HERO SECTION — editorial masthead */}
-      <section className="pt-14 pb-0 sm:pt-20 lg:pt-24">
+      {/* HERO SECTION — editorial masthead (light theme) */}
+      <section className="pt-14 pb-0 sm:pt-20 lg:pt-24" style={{ backgroundColor: '#F7F6F2' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Masthead grid: numbered editorial column (left) · portrait first (right) */}
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-start">
-            <div className="lg:col-span-7">
+          {/* Masthead grid: numbered editorial column (left) · portrait rail + editorial rail (right) */}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+            <div className="lg:col-span-6">
               {/* Section number */}
               <div className="text-xs font-semibold tracking-[0.22em]" style={{ color: 'var(--accent)' }}>01</div>
 
@@ -33,12 +33,12 @@ export function HomePage() {
                 </span>
               </div>
 
-              <h1 className="mt-8 font-serif leading-[1.06] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">I build the systems</span>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]">behind modern B2B</span>
-                <span className="block text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem]"><em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
+              <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
+                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">I build the systems</span>
+                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">behind modern B2B</span>
+                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]"><em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
               </h1>
-              <p className="mt-8 max-w-xl text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mt-8 max-w-md text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -66,11 +66,11 @@ export function HomePage() {
                 left sub-column : location/time → portrait → image metadata
                 right sub-column: handwritten statement → capability list → blue rule → based-in copy
                 Both sub-columns live inside the hero's right column. No separate section. */}
-            <div className="hero-right lg:col-span-5">
-              <div className="flex gap-8 lg:gap-10">
+            <div className="hero-right lg:col-span-6">
+              <div className="ml-auto flex w-full max-w-[560px] gap-8 lg:gap-10">
                 {/* Portrait sub-column */}
-                <figure className="shrink-0 w-[180px] sm:w-[220px] lg:w-[240px]">
-                  {/* Location + live clock — top of the right column */}
+                <figure className="shrink-0 w-[220px] sm:w-[260px] lg:w-[290px]">
+                  {/* Location + live clock — small editorial metadata, top of the right column */}
                   <figcaption className="pb-4">
                     <LocationClock />
                   </figcaption>
@@ -109,7 +109,7 @@ export function HomePage() {
                   </div>
 
                   {/* Vertical blue-accent editorial list — thin rule to the LEFT of the list */}
-                  <ul className="mt-14 sm:mt-16 space-y-3 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
+                  <ul className="mt-10 space-y-2 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)', color: 'var(--text-primary)' }}>
                     <li>Strategy</li>
                     <li>Automation</li>
                     <li>Content</li>
@@ -118,10 +118,10 @@ export function HomePage() {
                   </ul>
 
                   {/* Short horizontal blue line */}
-                  <span aria-hidden="true" className="mt-14 sm:mt-16 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+                  <span aria-hidden="true" className="mt-10 block h-px w-14" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 80%, transparent)' }} />
 
                   {/* Based-in note */}
-                  <p className="mt-8 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="mt-4 text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     Based in Kolkata, India.<br />
                     Working with global teams<br />
                     across time zones.
