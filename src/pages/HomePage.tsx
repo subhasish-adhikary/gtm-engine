@@ -28,17 +28,17 @@ export function HomePage() {
               {/* Eyebrow — thin rule + discipline line */}
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--text-secondary)' }}>
+                <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#4A4A4A' }}>
                   Growth Marketing · GTM Strategy · Marketing Automation
                 </span>
               </div>
 
-              <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
+              <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
                 <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">I build the systems</span>
                 <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">behind modern B2B</span>
                 <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]"><em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
               </h1>
-              <p className="mt-8 max-w-md text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mt-8 max-w-md text-[15px] leading-relaxed" style={{ color: '#555555' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -87,7 +87,7 @@ export function HomePage() {
                   </div>
 
                   {/* Image caption / metadata row */}
-                  <div className="pt-3 text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                  <div className="pt-3 text-[10px] uppercase tracking-[0.16em]" style={{ color: '#3d3d3d' }}>
                     <div>Subhasish Adhikary</div>
                     <div className="mt-1">Kolkata · Est. 2017</div>
                   </div>
@@ -109,7 +109,7 @@ export function HomePage() {
                   </div>
 
                   {/* Vertical blue-accent editorial list — thin rule to the LEFT of the list */}
-                  <ul className="mt-10 space-y-2 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)', color: 'var(--text-primary)' }}>
+                  <ul className="mt-10 space-y-2 pl-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)', color: '#3d3d3d' }}>
                     <li>Strategy</li>
                     <li>Automation</li>
                     <li>Content</li>
@@ -121,7 +121,7 @@ export function HomePage() {
                   <span aria-hidden="true" className="mt-10 block h-px w-14" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 80%, transparent)' }} />
 
                   {/* Based-in note */}
-                  <p className="mt-4 text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="mt-4 text-xs leading-relaxed" style={{ color: '#555555' }}>
                     Based in Kolkata, India.<br />
                     Working with global teams<br />
                     across time zones.
