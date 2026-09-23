@@ -83,16 +83,21 @@ export function HomePage() {
                     <span>Kolkata · Est. 2017</span>
                   </div>
 
-                  {/* Handwritten blue statement with blue underline (per reference) */}
-                  <p className="mt-20 sm:mt-24 font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
-                    Marketing<br />
-                    systems for<br />
-                    a more open future.
-                  </p>
-                  <span aria-hidden="true" className="mt-3 block h-[3px] w-28" style={{ backgroundColor: 'var(--accent)', opacity: 0.85 }} />
+                  {/* Handwritten blue statement with handwritten blue underline (per reference) */}
+                  <div className="mt-20 sm:mt-24">
+                    <p className="font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
+                      Marketing<br />
+                      systems for<br />
+                      a more open future.
+                    </p>
+                    {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
+                    <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[9.5rem] sm:w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
+                      <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
+                    </svg>
+                  </div>
 
-                  {/* Vertical blue-accent editorial list */}
-                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-xs font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '2px solid var(--accent)', color: 'var(--text-primary)' }}>
+                  {/* Vertical blue-accent editorial list — thin rule treatment */}
+                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
                     <li>Strategy</li>
                     <li>Automation</li>
                     <li>Content</li>
