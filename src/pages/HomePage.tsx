@@ -61,9 +61,18 @@ export function HomePage() {
               </div>
             </div>
 
-            {/* Portrait first — warm duotone treatment, thin rule frame; live clock directly below */}
-            <div className="lg:col-span-5 flex lg:justify-end">
+            {/* RIGHT HERO COLUMN — one continuous editorial composition:
+                location/time → portrait → image metadata → handwritten statement
+                → capability list → blue rule → based-in copy.
+                Nothing here escapes into a separate section. */}
+            <div className="hero-right lg:col-span-5 flex lg:justify-end">
               <figure className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
+                {/* Location + live clock — TOP of the right column, above the portrait */}
+                <figcaption className="pb-4">
+                  <LocationClock />
+                </figcaption>
+
+                {/* Portrait */}
                 <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
                   <img
                     src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
@@ -73,57 +82,54 @@ export function HomePage() {
                     loading="eager"
                   />
                 </div>
-                <figcaption>
-                  {/* Location + live clock — immediately below the image */}
-                  <div className="pt-4 pb-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <LocationClock />
-                  </div>
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
-                    <span>Subhasish Adhikary</span>
-                    <span>Kolkata · Est. 2017</span>
-                  </div>
 
-                  {/* Handwritten blue statement with handwritten blue underline (per reference) */}
-                  <div className="mt-20 sm:mt-24">
-                    <p className="font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
-                      Marketing<br />
-                      systems for<br />
-                      a more open future.
-                    </p>
-                    {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
-                    <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[9.5rem] sm:w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
-                      <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
-                    </svg>
-                  </div>
+                {/* Image caption / metadata row */}
+                <div className="pt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.16em]" style={{ color: 'var(--text-tertiary)' }}>
+                  <span>Subhasish Adhikary</span>
+                  <span>Kolkata · Est. 2017</span>
+                </div>
 
-                  {/* Vertical blue-accent editorial list — thin rule treatment */}
-                  <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
-                    <li>Strategy</li>
-                    <li>Automation</li>
-                    <li>Content</li>
-                    <li>Growth</li>
-                    <li>Real impact.</li>
-                  </ul>
-
-                  {/* Short horizontal blue line */}
-                  <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
-
-                  {/* Based-in note */}
-                  <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    Based in Kolkata, India.<br />
-                    Working with global teams<br />
-                    across time zones.
+                {/* Handwritten blue statement with handwritten blue underline (per reference) */}
+                <div className="mt-20 sm:mt-24">
+                  <p className="font-handwriting text-3xl leading-snug sm:text-4xl" style={{ color: 'var(--accent)' }}>
+                    Marketing<br />
+                    systems for<br />
+                    a more open future.
                   </p>
-                </figcaption>
+                  {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
+                  <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[9.5rem] sm:w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
+                    <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
+                  </svg>
+                </div>
+
+                {/* Vertical blue-accent editorial list — thin rule treatment */}
+                <ul className="mt-16 sm:mt-20 space-y-4 pl-6 text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: 'var(--text-primary)' }}>
+                  <li>Strategy</li>
+                  <li>Automation</li>
+                  <li>Content</li>
+                  <li>Growth</li>
+                  <li>Real impact.</li>
+                </ul>
+
+                {/* Short horizontal blue line */}
+                <span aria-hidden="true" className="mt-16 sm:mt-20 block h-px w-16" style={{ backgroundColor: 'var(--accent)' }} />
+
+                {/* Based-in note */}
+                <p className="mt-10 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  Based in Kolkata, India.<br />
+                  Working with global teams<br />
+                  across time zones.
+                </p>
               </figure>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Thin editorial divider closing the hero */}
-          <div className="mt-12 sm:mt-16 h-px w-full" style={{ backgroundColor: 'var(--border-color)' }} />
-
-          {/* GTM System Visualization - Below Hero */}
-          <div className="mt-12 sm:mt-16 animate-fade-in-up delay-400">
+      {/* GTM System Visualization - Below Hero */}
+      <section className="py-12 sm:py-16 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="animate-fade-in-up delay-400">
             <GTMSystemVisualization />
           </div>
         </div>
