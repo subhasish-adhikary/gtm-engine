@@ -23,18 +23,50 @@ export const navigation = [
 ];
 
 /*
- * Primary site navigation — flat menu matching the homepage mockup:
- * Home · Work · Thinking · Tools · Lab · About
- * Every href below maps to an existing route; no routes were added or removed.
+ * Primary site navigation (header):
+ *   Home (link) · Work▾ · Thinking▾ · Tools▾ · Lab (link) · About (link)
+ * Every parent path and every dropdown child maps to an EXISTING route in
+ * src/App.tsx — no invented URLs. Dropdown children reuse real pages/anchors:
+ *   - Selected Work / Case Studies -> /work (case-study cards live there)
+ *   - Articles / Research / Perspectives -> /thinking (category filters)
+ *   - GTM Intelligence -> /tools/gtm-intelligence, GTM Diagnostic ->
+ *     /tools/gtm-diagnostic, Budget + Channel Planner -> /tools/budget-lab &
+ *     /tools/channel-planner, Marketing Tools -> /tools, AI Workflow Planner
+ *     -> /tools/automation-planner (Marketing Automation Planner).
  */
 export type NavChild = { label: string; path: string };
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const navGroups: NavItem[] = [
   { label: "Home", path: "/" },
-  { label: "Work", path: "/work" },
-  { label: "Thinking", path: "/thinking" },
-  { label: "Tools", path: "/tools" },
+  {
+    label: "Work",
+    path: "/work",
+    children: [
+      { label: "Selected Work", path: "/work" },
+      { label: "Case Studies", path: "/work#case-studies" },
+    ],
+  },
+  {
+    label: "Thinking",
+    path: "/thinking",
+    children: [
+      { label: "Articles", path: "/thinking" },
+      { label: "Research", path: "/thinking/gtm" },
+      { label: "Perspectives", path: "/thinking/ai-marketing" },
+    ],
+  },
+  {
+    label: "Tools",
+    path: "/tools",
+    children: [
+      { label: "GTM Intelligence", path: "/tools/gtm-intelligence" },
+      { label: "GTM Diagnostic", path: "/tools/gtm-diagnostic" },
+      { label: "Budget + Channel Planner", path: "/tools/budget-lab" },
+      { label: "Marketing Tools", path: "/tools" },
+      { label: "AI Workflow Planner", path: "/tools/automation-planner" },
+    ],
+  },
   { label: "Lab", path: "/lab" },
   { label: "About", path: "/about" },
 ];
