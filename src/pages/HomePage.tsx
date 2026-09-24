@@ -506,23 +506,27 @@ export function HomePage() {
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2l10 10-10 10L2 12 12 2z" fill="#FF8A00" /></svg>
                   )},
                   { name: 'HubSpot', category: 'CRM & Automation', mark: (
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#FF7A59" strokeWidth="2.4" /><circle cx="12" cy="12" r="3" fill="#FF7A59" /></svg>
+                    <img src="/images/tools/hubspot.png" alt="HubSpot logo" className="h-6 w-auto object-contain" loading="lazy" />
                   )},
+
                   { name: 'Vercel', category: 'Build & Deploy', mark: (
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l10 17H2L12 3z" fill="#111111" /></svg>
                   )},
                   { name: 'OpenAI', category: 'AI & Research', mark: (
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2c1.8 2.2 2.6 4.4 2.6 6.6L12 12l-2.6-3.4C9.4 6.4 10.2 4.2 12 2zm10 16.6c-2.2 1.2-4.4 1.5-6.4.9L12 12l5.2-1.5c1.9-.6 3.4 0 4.8 1.5zM2 18.6c1.4-1.5 2.9-2.1 4.8-1.5L12 12 9.4 19.5c-2 .6-4.2.3-6.4-.9zm4.4 3.1c1.9.6 3.8.3 5.2-.9L12 18l2 2.8c1.4 1.2 3.3 1.5 5.2.9l-3.6 1.6c-1.9.6-4 .3-5.6-.9-1.6 1.2-3.7 1.5-5.6.9V21.7z" fill="#10A37F" /></svg>
+                    <img src="/images/tools/openai.png" alt="OpenAI logo" className="h-6 w-auto object-contain" loading="lazy" />
                   )},
+
                   { name: 'Google Analytics', category: 'Analytics', mark: (
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="12" width="4" height="9" rx="1" fill="#F9AB00" /><rect x="10.5" y="7" width="4" height="14" rx="1" fill="#E37400" /><rect x="17" y="3" width="4" height="18" rx="1" fill="#F9AB00" /></svg>
                   )},
                   { name: 'Clay', category: 'Data & Automation', mark: (
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="#0B0B0B" /><path d="M14.6 9.2c-.7-.9-1.7-1.4-2.8-1.4-2 0-3.6 1.7-3.6 4s1.6 4 3.6 4c1.1 0 2.1-.5 2.8-1.4" fill="none" stroke="#F5C9A6" strokeWidth="2" strokeLinecap="round" /></svg>
+                    <img src="/images/tools/clay.png" alt="Clay logo" className="h-6 w-auto object-contain" loading="lazy" />
                   )},
+
                   { name: 'Notion', category: 'Design', mark: (
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="#FFFFFF" stroke="#111111" strokeWidth="1.6" /><path d="M8 6.6l8 1.3v9.5c0 .6-.4 1-1 1l-4.6-.4c-.4 0-.6-.2-.7-.5L6.6 7.6c-.1-.5.2-1.1.7-1 .2 0 .5.1 .7 .0z" fill="#111111" opacity="0.001" /><path d="M8.1 6.5l7.9 1.2v9.6c0 .7-.5 1.2-1.2 1.1l-4.5-.4c-.5 0-.8-.3-.9-.7L6.9 7.5c-.1-.6.4-1.1 1.2-1zM9.4 8.6v7.1l4.9.4c.3 0 .4-.1.4-.3V9.1c0-.2-.1-.3-.4-.4l-4.9-.1z" fill="#111111" /><path d="M10.3 10.6v4.9c0 .2.1.3.3.3h.6c.2 0 .3-.1.3-.3v-4.9c0-.2-.1-.3-.3-.3h-.6c-.2 0-.3.1-.3.3zm2.2.2v4.7c0 .2.1.3.3.3h.6c.2 0 .3-.1.3-.3v-4.7c0-.2-.1-.3-.3-.3h-.6c-.2 0-.3.1-.3.3z" fill="#FFFFFF" /></svg>
+                    <img src="/images/tools/notion.png" alt="Notion logo" className="h-6 w-auto object-contain" loading="lazy" />
                   )},
+
                 ].map((tool) => (
                   <li key={tool.name} className="border-t py-5" style={{ borderColor: 'var(--border-color)' }}>
                     <div className="flex items-center gap-3">
