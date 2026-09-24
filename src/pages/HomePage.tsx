@@ -272,8 +272,13 @@ export function HomePage() {
           radii, no shadows — images share one identical 4:3 frame and align on their top
           edge because every project column is a flex column pinned to the row start. */}
       <section className="featured-work py-16 sm:py-20 lg:py-24" style={{ backgroundColor: '#F7F6F2' }}>
-        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
-          <div className="grid grid-cols-1 gap-x-[3.5vw] gap-y-14 md:grid-cols-2 lg:grid-cols-[minmax(0,24fr)_minmax(0,25.3fr)_minmax(0,25.3fr)_minmax(0,25.3fr)] lg:gap-y-0">
+        {/* ONE shared parent grid for the whole composition — same site container as
+            every other homepage band (max-w-7xl + standard responsive padding). The
+            intro and the three project columns are direct children of this single
+            grid, so they share one left/right boundary and consistent gaps; nothing
+            is positioned independently. Desktop: [intro ~24%][3 equal project cols]. */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-x-[clamp(2rem,3.5vw,3.5rem)] gap-y-14 md:grid-cols-2 lg:grid-cols-[minmax(0,24fr)_repeat(3,minmax(0,25.3fr))] lg:gap-y-0">
 
             {/* LEFT — editorial intro column (~24% of the section on desktop) */}
             <div className="min-w-0">
@@ -306,15 +311,23 @@ export function HomePage() {
               </Link>
             </div>
 
-            {/* PROJECT COLUMNS — three equal editorial columns */}
+            {/* PROJECT COLUMNS — three equal editorial columns. All vertical rhythm is
+                fixed at the column level (identical image frame, identical margins), and
+                the description row is a shared grid row across the three cards, so link
+                baselines align even when titles/descriptions differ in length. */}
             {featuredWorkItems.map((project, i) => (
-              <article key={project.slug} className="flex min-w-0 flex-col items-start">
+              <article key={project.slug} className="grid min-w-0 auto-rows-min grid-cols-1 items-start justify-items-start">
                 <Link to={`/work/${project.slug}`} className="group block w-full" aria-label={`${project.title} — view project`}>
+                  {/* Source assets are full-bleed editorial graphics whose inner text runs
+                      edge-to-edge — any cover crop clips headlines ("...EKETING"). Render
+                      them with object-contain inside one identical 4:3 frame tinted to the
+                      section background so the complete composition stays visible. */}
                   <img
                     src={project.image}
                     alt={project.alt}
                     loading={i === 0 ? 'eager' : 'lazy'}
-                    className="w-full aspect-[4/3] object-cover"
+                    className="w-full aspect-[4/3] object-contain"
+                    style={{ backgroundColor: '#F7F6F2' }}
                   />
                   <span className="mt-5 block text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#6b6b6b' }}>
                     {project.category}
