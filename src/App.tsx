@@ -15,7 +15,6 @@ import GlossaryPage from './pages/GlossaryPage';
 import GlossaryTermPage from './pages/GlossaryTermPage';
 import CredentialsPage from './pages/CredentialsPage';
 import { LabPage } from './pages/LabPage';
-import { useTheme } from './hooks/useTheme';
 
 /*
  * Legacy hash-URL compatibility. URLs of the form /#/about (previously the
@@ -35,11 +34,10 @@ function LegacyHashRedirect() {
 }
 
 export default function App() {
-  const { theme } = useTheme();
   return (
     <BrowserRouter>
       <LegacyHashRedirect />
-      <Layout theme={theme}>
+      <Layout>
         <SEO />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -23,7 +23,8 @@ export const navigation = [
 ];
 
 /*
- * Primary site navigation — 5 editorial items with subtle dropdown groups.
+ * Primary site navigation — flat menu matching the homepage mockup:
+ * Home · Work · Thinking · Tools · Lab · About
  * Every href below maps to an existing route; no routes were added or removed.
  */
 export type NavChild = { label: string; path: string };
@@ -31,31 +32,10 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const navGroups: NavItem[] = [
   { label: "Home", path: "/" },
-  {
-    label: "Work",
-    path: "/work",
-    children: [
-      { label: "Case Studies", path: "/work" },
-      { label: "Projects", path: "/lab" },
-    ],
-  },
-  {
-    label: "Thinking",
-    path: "/thinking",
-    children: [
-      { label: "Articles", path: "/thinking" },
-      { label: "Research", path: "/thinking" },
-      { label: "Glossary", path: "/glossary" },
-    ],
-  },
-  {
-    label: "Tools",
-    path: "/tools",
-    children: [
-      { label: "GTM Tools", path: "/tools" },
-      { label: "Marketing Stack", path: "/gtm-stack" },
-    ],
-  },
+  { label: "Work", path: "/work" },
+  { label: "Thinking", path: "/thinking" },
+  { label: "Tools", path: "/tools" },
+  { label: "Lab", path: "/lab" },
   { label: "About", path: "/about" },
 ];
 
