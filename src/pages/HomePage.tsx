@@ -44,19 +44,17 @@ export function HomePage() {
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 <Link
                   to="/work"
-                  className="group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors"
-                  style={{ backgroundColor: 'var(--text-primary)', color: 'var(--bg-primary)' }}
+                  className="hero-cta hero-cta-primary group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em]"
                 >
                   View selected work
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1"><ArrowRight size={15} /></span>
+                  <span className="hero-cta-arrow inline-block transition-transform duration-200 group-hover:translate-x-1"><ArrowRight size={15} /></span>
                 </Link>
                 <Link
                   to="/thinking"
-                  className="group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors"
-                  style={{ border: '1px solid var(--text-primary)', color: 'var(--text-primary)', backgroundColor: 'transparent' }}
+                  className="hero-cta hero-cta-secondary group inline-flex items-center gap-2 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.08em]"
                 >
                   Read the thinking
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" style={{ color: 'var(--accent)' }}><ArrowRight size={14} /></span>
+                  <span className="hero-cta-arrow inline-block transition-transform duration-200 group-hover:translate-x-1"><ArrowRight size={14} /></span>
                 </Link>
               </div>
             </div>
