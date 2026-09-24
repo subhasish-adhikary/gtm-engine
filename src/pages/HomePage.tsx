@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, TrendingUp, Package, Target, Zap, Brain, BarChart3 } from 'lucide-react';
 import { siteConfig, capabilities, selectedWork, thinkingCategories, tools } from '../data/content';
+import { allArticles } from '../data/articles';
 import { Button, SectionHeader, Card, Tag } from '../components/UI';
 import { GTMSystemVisualization } from '../components/GTMSystemVisualization';
 import { NewsletterSignup } from '../components/NewsletterSignup';
@@ -409,19 +410,28 @@ export function HomePage() {
               </Link>
             </div>
 
-            {/* COLUMN 2 — article list (DATE | TITLE | ARROW), thin dividers, whole row clickable */}
+            {/* COLUMN 2 — article list (DATE | TITLE | ARROW), thin dividers, whole row clickable.
+                Each row links to its own canonical article route resolved from the CMS/article data
+                (same urlPath / category+id pattern used by ThinkingPages); titles/dates unchanged. */}
             <div className="min-w-0 self-start">
               <ul className="list-none m-0 p-0">
                 {[
-                  { date: 'Sep 12, 2026', title: 'AI-assisted buying is changing the funnel' },
-                  { date: 'Aug 28, 2026', title: 'Why MQLs are losing their relevance' },
-                  { date: 'Aug 14, 2026', title: 'Building an AI-native marketing OS' },
-                  { date: 'Jul 30, 2026', title: 'Signal-based GTM: a better way to grow' },
-                  { date: 'Jul 18, 2026', title: 'The new playbook for marketing efficiency' },
-                ].map((post, i) => (
+                  { date: 'Sep 12, 2026', title: 'AI-assisted buying is changing the funnel', slug: 'ai-assisted-buying' },
+                  { date: 'Aug 28, 2026', title: 'Why MQLs are losing their relevance', slug: 'post-mql-gtm' },
+                  { date: 'Aug 14, 2026', title: 'Building an AI-native marketing OS', slug: 'ai-marketing-os' },
+                  { date: 'Jul 30, 2026', title: 'Signal-based GTM: a better way to grow', slug: 'signal-based-gtm' },
+                  { date: 'Jul 18, 2026', title: 'The new playbook for marketing efficiency', slug: 'gtm-efficiency' },
+                ].map((post, i) => {
+                  const source = allArticles.find((a) => a.id === post.slug);
+                  // Same resolution logic as the Thinking pages: Sanity-native articles publish at
+                  // /thinking/<slug>; migrated articles keep /thinking/<category>/<id>.
+                  const href = source
+                    ? (source.urlPath || `/thinking/${source.category}/${source.id}`)
+                    : '/thinking';
+                  return (
                   <li key={post.title}>
                     <Link
-                      to="/thinking"
+                      to={href}
                       className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 py-5"
                       style={{ borderTop: i === 0 ? 'none' : '1px solid var(--border-color)' }}
                     >
@@ -432,7 +442,8 @@ export function HomePage() {
                       <ArrowRight size={15} className="translate-y-[3px] shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" style={{ color: '#4A4A4A' }} />
                     </Link>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
 
