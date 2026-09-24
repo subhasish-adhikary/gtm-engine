@@ -469,11 +469,11 @@ export function HomePage() {
       </section>
 
       {/* TOOLS I USE (AND RECOMMEND) — editorial left intro + right tool showcase on the same
-          main content container/grid. Notion is intentionally not part of this stack; Clay
-          replaces it (same position/hierarchy). Logos are simple inline brand marks. */}
-      <section aria-labelledby="tools-heading" className="py-16 sm:py-20 lg:py-24 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+          main content container/grid. Compact vertical rhythm per the mockup. Brand marks are
+          local assets in /images/tools or simple inline SVGs. */}
+      <section aria-labelledby="tools-heading" className="py-12 sm:py-14 lg:py-16 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
         <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
-          <div className="grid grid-cols-1 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-12 md:grid-cols-2 lg:grid-cols-[minmax(0,22fr)_repeat(2,minmax(0,26fr))] lg:gap-y-0">
+          <div className="grid grid-cols-1 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-8 md:grid-cols-2 lg:grid-cols-[minmax(0,22fr)_repeat(2,minmax(0,26fr))] lg:gap-y-0">
 
             {/* LEFT — eyebrow, serif heading, description, text-link CTA */}
             <div className="min-w-0">
@@ -483,14 +483,14 @@ export function HomePage() {
                   Tools I Use (and Recommend)
                 </span>
               </div>
-              <h2 id="tools-heading" className="mt-8 font-serif text-[2.1rem] leading-[1.12] tracking-[-0.01em] sm:text-[2.4rem]" style={{ color: '#111111' }}>
+              <h2 id="tools-heading" className="mt-6 font-serif text-[2.1rem] leading-[1.12] tracking-[-0.01em] sm:text-[2.4rem]" style={{ color: '#111111' }}>
                 A curated stack for strategy,
                 <br className="hidden sm:block" /> content, automation and more.
               </h2>
-              <div className="mt-7 h-px w-10" style={{ backgroundColor: 'var(--accent)' }} />
+              <div className="mt-5 h-px w-10" style={{ backgroundColor: 'var(--accent)' }} />
               <Link
                 to="/gtm-stack"
-                className="group mt-9 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                className="group mt-6 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
                 style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
               >
                 Explore my stack
@@ -506,29 +506,29 @@ export function HomePage() {
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2l10 10-10 10L2 12 12 2z" fill="#FF8A00" /></svg>
                   )},
                   { name: 'HubSpot', category: 'CRM & Automation', mark: (
-                    <img src="/images/tools/hubspot.png" alt="HubSpot logo" className="h-6 w-auto object-contain" loading="lazy" />
+                    <img src="/images/tools/hubspot.png" alt="HubSpot logo" className="h-5 w-auto object-contain" loading="lazy" />
                   )},
 
                   { name: 'Vercel', category: 'Build & Deploy', mark: (
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l10 17H2L12 3z" fill="#111111" /></svg>
                   )},
                   { name: 'OpenAI', category: 'AI & Research', mark: (
-                    <img src="/images/tools/openai.png" alt="OpenAI logo" className="h-6 w-auto object-contain" loading="lazy" />
+                    <img src="/images/tools/openai.png" alt="OpenAI logo" className="h-5 w-auto object-contain" loading="lazy" />
                   )},
 
                   { name: 'Google Analytics', category: 'Analytics', mark: (
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="12" width="4" height="9" rx="1" fill="#F9AB00" /><rect x="10.5" y="7" width="4" height="14" rx="1" fill="#E37400" /><rect x="17" y="3" width="4" height="18" rx="1" fill="#F9AB00" /></svg>
                   )},
                   { name: 'Clay', category: 'Data & Automation', mark: (
-                    <img src="/images/tools/clay.png" alt="Clay logo" className="h-6 w-auto object-contain" loading="lazy" />
+                    <img src="/images/tools/clay.png" alt="Clay logo" className="h-5 w-auto object-contain" loading="lazy" />
                   )},
 
                   { name: 'Notion', category: 'Design', mark: (
-                    <img src="/images/tools/notion.png" alt="Notion logo" className="h-6 w-auto object-contain" loading="lazy" />
+                    <img src="/images/tools/notion.png" alt="Notion logo" className="h-5 w-auto object-contain" loading="lazy" />
                   )},
 
                 ].map((tool) => (
-                  <li key={tool.name} className="border-t py-5" style={{ borderColor: 'var(--border-color)' }}>
+                  <li key={tool.name} className="border-t py-4" style={{ borderColor: 'var(--border-color)' }}>
                     <div className="flex items-center gap-3">
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center" aria-hidden="true">{tool.mark}</span>
                       <span className="text-[15px] font-semibold leading-tight" style={{ color: '#111111' }}>{tool.name}</span>
