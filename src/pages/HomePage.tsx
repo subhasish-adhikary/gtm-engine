@@ -9,6 +9,39 @@ import { newsletterPlacements } from '../data/newsletter';
 
 const iconMap: any = { 'trending-up': <TrendingUp size={20} />, 'package': <Package size={20} />, 'target': <Target size={20} />, 'zap': <Zap size={20} />, 'brain': <Brain size={20} />, 'bar-chart': <BarChart3 size={20} /> };
 
+/* ── FEATURED WORK — editorial four-column composition (intro + 3 project columns).
+   The three projects reuse existing case-study slugs from the canonical dataset in
+   ../data/caseStudies (GTM Intelligence Engine, Marketing Automation Overhaul,
+   AI Content Engine) so "View project" links route to the real detail pages.
+   Images are derived from existing site assets (/images/articles/*.webp), cropped
+   to one identical 4:3 editorial frame each. */
+const featuredWorkItems = [
+  {
+    slug: 'gtm-system-redesign',
+    image: '/images/work/gtm-intelligence.jpg',
+    alt: 'GTM Intelligence — market-signal to go-to-market visual',
+    category: 'GTM & Strategy',
+    title: 'GTM Intelligence',
+    description: 'Turning market signals into go-to-market opportunities.',
+  },
+  {
+    slug: 'marketing-automation-overhaul',
+    image: '/images/work/automation-systems.jpg',
+    alt: 'Automation Systems — marketing automation workflow visual',
+    category: 'Marketing Automation',
+    title: 'Automation Systems',
+    description: 'Systems that scale demand and save time.',
+  },
+  {
+    slug: 'ai-content-engine',
+    image: '/images/work/content-engines.jpg',
+    alt: 'Content Engines — content and SEO compounding asset visual',
+    category: 'Content & SEO',
+    title: 'Content Engines',
+    description: 'Turning expertise into a compounding asset.',
+  },
+];
+
 export function HomePage() {
   const [hoveredCapability, setHoveredCapability] = useState<number | null>(null);
   const [hoveredCareer, setHoveredCareer] = useState<number | null>(null);
@@ -227,6 +260,82 @@ export function HomePage() {
             <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 ml-1 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
               <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
             </svg>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED WORK — single horizontal four-column editorial composition on desktop:
+          [ INTRO ~24% ][ PROJECT 1 ][ PROJECT 2 ][ PROJECT 3 ] (three equal columns ≈25.3%
+          each, generous gutters). Same container padding as the hero/metrics bands so the
+          section aligns with the page's editorial grid. Tablet: intro stays a separate
+          column, projects flow in two columns; mobile: everything stacks. No cards, no
+          radii, no shadows — images share one identical 4:3 frame and align on their top
+          edge because every project column is a flex column pinned to the row start. */}
+      <section className="featured-work py-16 sm:py-20 lg:py-24" style={{ backgroundColor: '#F7F6F2' }}>
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
+          <div className="grid grid-cols-1 gap-x-[3.5vw] gap-y-14 md:grid-cols-2 lg:grid-cols-[minmax(0,24fr)_minmax(0,25.3fr)_minmax(0,25.3fr)_minmax(0,25.3fr)] lg:gap-y-0">
+
+            {/* LEFT — editorial intro column (~24% of the section on desktop) */}
+            <div className="min-w-0">
+              <div className="flex items-center gap-3">
+                <span aria-hidden="true" className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-[11px] font-medium uppercase tracking-[0.22em]" style={{ color: '#4A4A4A' }}>
+                  Featured Work
+                </span>
+              </div>
+
+              <h2 className="mt-8 font-serif text-[2.6rem] leading-[1.06] tracking-[-0.01em] sm:text-[3rem]" style={{ color: '#111111' }}>
+                <span className="block">Turning</span>
+                <span className="block">ideas into</span>
+                <span className="block">growth.</span>
+              </h2>
+
+              <span aria-hidden="true" className="mt-9 block h-px w-10" style={{ backgroundColor: 'var(--accent)' }} />
+
+              <p className="mt-5 max-w-xs text-[15px] leading-relaxed" style={{ color: '#555555' }}>
+                A few projects where I've worked on growth, demand generation, marketing automation and GTM.
+              </p>
+
+              <Link
+                to="/work"
+                className="group mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
+              >
+                View all projects
+                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            {/* PROJECT COLUMNS — three equal editorial columns */}
+            {featuredWorkItems.map((project, i) => (
+              <article key={project.slug} className="flex min-w-0 flex-col items-start">
+                <Link to={`/work/${project.slug}`} className="group block w-full" aria-label={`${project.title} — view project`}>
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    className="w-full aspect-[4/3] object-cover"
+                  />
+                  <span className="mt-5 block text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#6b6b6b' }}>
+                    {project.category}
+                  </span>
+                  <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.12] tracking-[-0.01em] xl:text-[1.8rem]" style={{ color: '#111111' }}>
+                    {project.title}
+                  </h3>
+                </Link>
+                <p className="mt-3 text-[14px] leading-relaxed" style={{ color: '#555555' }}>
+                  {project.description}
+                </p>
+                <Link
+                  to={`/work/${project.slug}`}
+                  className="group mt-5 inline-flex items-center gap-1.5 self-start text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                  style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
+                >
+                  View project
+                  <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
       </section>

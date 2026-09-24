@@ -56,6 +56,8 @@ export interface CaseStudy {
   category: string;
   summary: string;
   tags: string[];
+  /** Optional editorial image used by the homepage Featured Work section. */
+  image?: string;
   caseStudy: CaseStudyDetail;
 }
 

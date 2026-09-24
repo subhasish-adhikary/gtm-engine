@@ -310,3 +310,20 @@ section[style*="#F7F6F2"] {
 .hero-cta-secondary:focus-visible .hero-cta-arrow {
   color: #1246B0;
 }
+
+/* ── Featured Work band — editorial link states ──
+   The section sits on the same #F7F6F2 light band as the hero/metrics, but the
+   global `a { color: var(--accent) }` rule would otherwise override the inline
+   dark-ink color of its underlined text links ("View all projects →",
+   "View project →"). These rules pin the inked editorial look and a subtle
+   hover feedback without touching any other section's links. */
+.featured-work a {
+  opacity: 1;
+  visibility: visible;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+.featured-work a:hover,
+.featured-work a:focus-visible {
+  color: var(--accent) !important; /* blue accent feedback on the editorial links */
+  opacity: 0.85;
+}
