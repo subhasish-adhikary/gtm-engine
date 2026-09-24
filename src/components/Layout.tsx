@@ -58,13 +58,11 @@ function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" onMouseLeave={() => setOpenGroup(null)}>
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center" aria-label="Home">
-            <img 
-              src="https://i.ibb.co/13gDzfW/logo-light-mode.png" 
-              alt="Subhasish Adhikary" 
-              width={2073}
-              height={758}
+            <img
+              src="https://i.ibb.co/13gDzfW/logo-light-mode.png"
+              alt="Subhasish Adhikary"
               decoding="async"
-              className="h-6 sm:h-7 w-auto"
+              className="h-7 sm:h-8 w-auto max-w-[150px] sm:max-w-[160px] object-contain object-left"
             />
           </Link>
 
