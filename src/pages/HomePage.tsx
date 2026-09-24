@@ -371,6 +371,164 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* LATEST THINKING — three-column editorial composition (intro | article list | featured image).
+          Shares the site's main content container (same padding system as hero / Featured Work) and the
+          established section-label treatment (blue hairline + uppercase letter-spaced eyebrow). */}
+      <section aria-labelledby="latest-thinking-heading" className="py-16 sm:py-20 lg:py-24 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
+          <div className="grid grid-cols-1 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-12 md:grid-cols-2 lg:grid-cols-[minmax(0,22fr)_repeat(2,minmax(0,26fr))] lg:gap-y-0">
+
+            {/* COLUMN 1 — editorial intro */}
+            <div className="min-w-0">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-6 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#4A4A4A' }}>
+                  Latest Thinking
+                </span>
+              </div>
+              <h2 id="latest-thinking-heading" className="mt-8 font-serif text-[2.6rem] leading-[1.06] tracking-[-0.01em] sm:text-[3rem]" style={{ color: '#111111' }}>
+                Ideas for a
+                <br />
+                more intelligent
+                <br />
+                GTM.
+              </h2>
+              <div className="mt-7 h-px w-10" style={{ backgroundColor: 'var(--accent)' }} />
+              <p className="mt-7 max-w-[34ch] text-[15px] leading-[1.7]" style={{ color: '#4A4A4A' }}>
+                In-depth articles on growth, AI, automation
+                <br className="hidden sm:block" />
+                {' '}and the future of marketing.
+              </p>
+              <Link
+                to="/thinking"
+                className="group mt-9 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
+              >
+                View all articles
+                <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            {/* COLUMN 2 — article list (DATE | TITLE | ARROW), thin dividers, whole row clickable */}
+            <div className="min-w-0 self-start">
+              <ul className="list-none m-0 p-0">
+                {[
+                  { date: 'Sep 12, 2026', title: 'AI-assisted buying is changing the funnel' },
+                  { date: 'Aug 28, 2026', title: 'Why MQLs are losing their relevance' },
+                  { date: 'Aug 14, 2026', title: 'Building an AI-native marketing OS' },
+                  { date: 'Jul 30, 2026', title: 'Signal-based GTM: a better way to grow' },
+                  { date: 'Jul 18, 2026', title: 'The new playbook for marketing efficiency' },
+                ].map((post, i) => (
+                  <li key={post.title}>
+                    <Link
+                      to="/thinking"
+                      className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 py-5"
+                      style={{ borderTop: i === 0 ? 'none' : '1px solid var(--border-color)' }}
+                    >
+                      <time className="shrink-0 text-[12px] tabular-nums" style={{ color: '#8A8A8A' }}>{post.date}</time>
+                      <span className="font-serif text-[1.15rem] leading-snug transition-transform duration-200 group-hover:translate-x-1" style={{ color: '#111111' }}>
+                        {post.title}
+                      </span>
+                      <ArrowRight size={15} className="translate-y-[3px] shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" style={{ color: '#4A4A4A' }} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* COLUMN 3 — single large featured editorial image. Asset is 4:3 with all embedded
+                typography inset from the edges; object-contain in a matching 4/3 frame renders it
+                complete (no crop, no letterbox), top-aligned with the article list. */}
+            <a
+              href="/images/thinking/ai-gtm-thinking.jpg"
+              className="block min-w-0 self-start"
+              aria-label="Featured article — Ideas for a more intelligent GTM"
+            >
+              <div className="aspect-[4/3] w-full flex" style={{ backgroundColor: '#F7F6F2' }}>
+                <img
+                  src="/images/thinking/ai-gtm-thinking.jpg"
+                  alt="Editorial artwork: Ideas for a more intelligent GTM — latest thinking on growth and AI"
+                  className="m-0 h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* TOOLS I USE (AND RECOMMEND) — editorial left intro + right tool showcase on the same
+          main content container/grid. Notion is intentionally not part of this stack; Clay
+          replaces it (same position/hierarchy). Logos are simple inline brand marks. */}
+      <section aria-labelledby="tools-heading" className="py-16 sm:py-20 lg:py-24 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
+          <div className="grid grid-cols-1 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-12 md:grid-cols-2 lg:grid-cols-[minmax(0,22fr)_repeat(2,minmax(0,26fr))] lg:gap-y-0">
+
+            {/* LEFT — eyebrow, serif heading, description, text-link CTA */}
+            <div className="min-w-0">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-6 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+                <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#4A4A4A' }}>
+                  Tools I Use (and Recommend)
+                </span>
+              </div>
+              <h2 id="tools-heading" className="mt-8 font-serif text-[2.1rem] leading-[1.12] tracking-[-0.01em] sm:text-[2.4rem]" style={{ color: '#111111' }}>
+                A curated stack for strategy,
+                <br className="hidden sm:block" /> content, automation and more.
+              </h2>
+              <div className="mt-7 h-px w-10" style={{ backgroundColor: 'var(--accent)' }} />
+              <Link
+                to="/gtm-stack"
+                className="group mt-9 inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
+              >
+                Explore my stack
+                <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            {/* RIGHT — tool showcase grid (spans columns 2–3 on desktop), wrapping cleanly at every width */}
+            <div className="min-w-0 md:col-span-2 lg:col-span-2">
+              <ul className="grid grid-cols-2 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-0 p-0 m-0 list-none sm:grid-cols-3 lg:grid-cols-4">
+                {[
+                  { name: 'Sanity', category: 'Content & CMS', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2l10 10-10 10L2 12 12 2z" fill="#FF8A00" /></svg>
+                  )},
+                  { name: 'HubSpot', category: 'CRM & Automation', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#FF7A59" strokeWidth="2.4" /><circle cx="12" cy="12" r="3" fill="#FF7A59" /></svg>
+                  )},
+                  { name: 'Vercel', category: 'Build & Deploy', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l10 17H2L12 3z" fill="#111111" /></svg>
+                  )},
+                  { name: 'OpenAI', category: 'AI & Research', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2c1.8 2.2 2.6 4.4 2.6 6.6L12 12l-2.6-3.4C9.4 6.4 10.2 4.2 12 2zm10 16.6c-2.2 1.2-4.4 1.5-6.4.9L12 12l5.2-1.5c1.9-.6 3.4 0 4.8 1.5zM2 18.6c1.4-1.5 2.9-2.1 4.8-1.5L12 12 9.4 19.5c-2 .6-4.2.3-6.4-.9zm4.4 3.1c1.9.6 3.8.3 5.2-.9L12 18l2 2.8c1.4 1.2 3.3 1.5 5.2.9l-3.6 1.6c-1.9.6-4 .3-5.6-.9-1.6 1.2-3.7 1.5-5.6.9V21.7z" fill="#10A37F" /></svg>
+                  )},
+                  { name: 'Google Analytics', category: 'Analytics', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="12" width="4" height="9" rx="1" fill="#F9AB00" /><rect x="10.5" y="7" width="4" height="14" rx="1" fill="#E37400" /><rect x="17" y="3" width="4" height="18" rx="1" fill="#F9AB00" /></svg>
+                  )},
+                  { name: 'Clay', category: 'Data & Automation', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="#0B0B0B" /><path d="M14.6 9.2c-.7-.9-1.7-1.4-2.8-1.4-2 0-3.6 1.7-3.6 4s1.6 4 3.6 4c1.1 0 2.1-.5 2.8-1.4" fill="none" stroke="#F5C9A6" strokeWidth="2" strokeLinecap="round" /></svg>
+                  )},
+                  { name: 'Figma', category: 'Design', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8.5 2h3.4v6.2H8.5a3.1 3.1 0 010-6.2z" fill="#F24E1E" /><path d="M11.9 2h3.6a3.1 3.1 0 010 6.2h-3.6V2z" fill="#FF7262" /><path d="M11.9 8.2h3.6a3.1 3.1 0 010 6.2h-3.6V8.2z" fill="#A259FF" /><path d="M8.5 8.2h3.4v6.2H8.5a3.1 3.1 0 010-6.2z" fill="#1ABCFE" /><path d="M8.5 14.4h3.4V18a3.1 3.1 0 11-3.4-3.6z" fill="#0ACF83" /></svg>
+                  )},
+                ].map((tool) => (
+                  <li key={tool.name} className="border-t py-5" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center" aria-hidden="true">{tool.mark}</span>
+                      <span className="text-[15px] font-semibold leading-tight" style={{ color: '#111111' }}>{tool.name}</span>
+                    </div>
+                    <div className="mt-2 pl-12 text-[12px] uppercase tracking-[0.08em]" style={{ color: '#8A8A8A' }}>
+                      {tool.category}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* GTM System Visualization - Below Hero */}
       <section className="py-12 sm:py-16 border-t" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
