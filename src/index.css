@@ -275,3 +275,81 @@ section[style*="#F7F6F2"] {
   --accent: #155EEF;
   --accent-hover: #1246A0;
 }
+
+/* ── Hero CTA buttons — explicit, theme-aware styling ──
+   ROOT CAUSE FIX: the CTAs previously consumed the GLOBAL theme tokens
+   (--text-primary / --bg-primary) via inline styles. The hero band is a
+   light editorial composition (#F7F6F2) in BOTH themes, so under the
+   default DARK theme the primary CTA rendered near-white text on a
+   near-white page and the secondary CTA's border/text went white-on-white
+   (invisible); any stale/persisted theme class could also flip these
+   values per visitor. The rules below stop relying on inherited/global
+   tokens and pin each CTA state explicitly against the actual surface it
+   sits on. No display/visibility/opacity/positioning is involved — the
+   buttons were invisible purely because their colors resolved to the
+   background color. Layout, size and position are untouched. */
+.hero-cta {
+  /* shared reset: neutralize global anchor color rules + guarantee visibility */
+  opacity: 1;
+  visibility: visible;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* PRIMARY — filled button: dark surface + light text in BOTH themes.
+   Matches the hero's headline ink (#111111) on the #F7F6F2 band. */
+.hero-cta-primary {
+  background-color: #111111;
+  border: 1px solid #111111;
+  color: #F7F6F2;
+}
+.hero-cta-primary .hero-cta-arrow {
+  color: #FFFFFF;
+}
+.hero-cta-primary:hover,
+.hero-cta-primary:focus-visible {
+  background-color: #000000;
+  border-color: #000000;
+  color: #FFFFFF;
+}
+.hero-cta-primary:hover .hero-cta-arrow {
+  color: #4C8DFF; /* blue accent on hover, both themes */
+}
+
+/* SECONDARY — text/link treatment: transparent background, theme-aware text,
+   always-blue accent arrow. */
+.hero-cta-secondary {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #111111; /* LIGHT MODE (html.light): dark text on the light page */
+}
+.hero-cta-secondary .hero-cta-arrow {
+  color: #155EEF; /* blue accent arrow, light mode */
+}
+.hero-cta-secondary:hover,
+.hero-cta-secondary:focus-visible {
+  color: #000000;
+  border-color: #111111; /* visible edge feedback on hover/focus */
+}
+.hero-cta-secondary:hover .hero-cta-arrow,
+.hero-cta-secondary:focus-visible .hero-cta-arrow {
+  color: #1246B0;
+}
+
+/* DARK THEME (default, html.dark): secondary flips to light text so it can
+   never inherit dark-on-dark or vanish; primary keeps its dark-surface /
+   light-text treatment (already correct above). Arrow stays blue. */
+html.dark .hero-cta-secondary {
+  color: #F5F7FA;
+}
+html.dark .hero-cta-secondary .hero-cta-arrow {
+  color: #4C8DFF;
+}
+html.dark .hero-cta-secondary:hover,
+html.dark .hero-cta-secondary:focus-visible {
+  color: #FFFFFF;
+  border-color: #F5F7FA;
+}
+html.dark .hero-cta-secondary:hover .hero-cta-arrow,
+html.dark .hero-cta-secondary:focus-visible .hero-cta-arrow {
+  color: #7FB0FF;
+}

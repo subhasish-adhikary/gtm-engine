@@ -6,10 +6,10 @@ export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme') as Theme;
-      // Site is light-first (off-white editorial design); honor any explicit user choice.
-      return saved || 'light';
+      // Dark mode is the site DEFAULT; honor any explicit saved user choice.
+      return saved || 'dark';
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {
