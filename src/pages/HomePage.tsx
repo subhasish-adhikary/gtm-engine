@@ -133,37 +133,43 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* METRICS + POSITIONING — editorial rail directly below hero (sibling of hero) */}
-      <section className="border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Four metrics on a true grid, spanning the full content width */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 pt-16 pb-4 sm:pt-20 lg:pt-24">
-            {[
-              { value: '7+', label: 'Years in marketing' },
-              { value: 'B2B', label: 'My focus' },
-              { value: 'Systems', label: 'My approach' },
-              { value: 'Impact', label: 'The goal' },
-            ].map((metric) => (
-              <div key={metric.label}>
-                <div className="font-display text-5xl sm:text-6xl leading-none" style={{ color: '#111111' }}>
-                  {metric.value}
+      {/* METRICS + POSITIONING — editorial rail directly below hero (sibling of hero).
+          Matches the approved mockup: four handwritten-style metrics on the left,
+          positioning statement inline to their right, all on one baseline row. */}
+      <section className="metrics-positioning border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-20">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
+            {/* Four metrics — script values in the editorial blue, small muted labels */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 sm:gap-x-12 gap-y-8 shrink-0">
+              {[
+                { value: '7+', label: 'Years in marketing' },
+                { value: 'B2B', label: 'My focus' },
+                { value: 'Systems', label: 'My approach' },
+                { value: 'Impact', label: 'The goal' },
+              ].map((metric) => (
+                <div key={metric.label}>
+                  <div className="font-handwriting text-4xl sm:text-5xl leading-none" style={{ color: 'var(--accent)' }}>
+                    {metric.value}
+                  </div>
+                  <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+                    {metric.label}
+                  </div>
                 </div>
-                <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
-                  {metric.label}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* Positioning quote — left-aligned, oversized opening quotation mark */}
-          <div className="relative max-w-xl pb-20 sm:pb-28 lg:pb-32 mt-16 sm:mt-20">
-            <span aria-hidden="true" className="font-display absolute -top-10 -left-2 select-none leading-none" style={{ fontSize: '7rem', color: 'var(--accent)', opacity: 0.18 }}>
-              &ldquo;
-            </span>
-            <blockquote className="font-display relative text-3xl sm:text-4xl leading-snug" style={{ color: '#1a1a1a' }}>
-              A more thoughtful, systems-driven<br />
-              approach to marketing.
-            </blockquote>
+            {/* Positioning statement — handwritten blue, same voice as the hero's
+                "Marketing systems for a more open future." line, with the
+                handwritten brush-stroke underline from the mockup */}
+            <div className="lg:border-l lg:pl-12" style={{ borderColor: 'var(--border-color)' }}>
+              <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[2rem]">
+                A more thoughtful,<br />
+                systems-driven approach to marketing.
+              </p>
+              <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 ml-1 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
+                <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
+              </svg>
+            </div>
           </div>
         </div>
       </section>
