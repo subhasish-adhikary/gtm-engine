@@ -5,7 +5,6 @@ import { siteConfig, capabilities, selectedWork, thinkingCategories, tools } fro
 import { Button, SectionHeader, Card, Tag } from '../components/UI';
 import { GTMSystemVisualization } from '../components/GTMSystemVisualization';
 import { NewsletterSignup } from '../components/NewsletterSignup';
-import { LocationClock } from '../components/LocationClock';
 import { newsletterPlacements } from '../data/newsletter';
 
 const iconMap: any = { 'trending-up': <TrendingUp size={20} />, 'package': <Package size={20} />, 'target': <Target size={20} />, 'zap': <Zap size={20} />, 'brain': <Brain size={20} />, 'bar-chart': <BarChart3 size={20} /> };
@@ -35,8 +34,10 @@ export function HomePage() {
 
               <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
                 <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">I build the systems</span>
-                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">behind modern B2B</span>
-                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]"><em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
+                <span className="block text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">behind modern</span>
+                {/* "B2B growth." pinned to one line on desktop (fits at every ≥sm width);
+                    below sm it's allowed to wrap naturally if space genuinely runs out */}
+                <span className="block whitespace-normal sm:whitespace-nowrap text-[2.4rem] sm:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem]">B2B&nbsp;<em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
               </h1>
               <p className="mt-8 max-w-md text-[15px] leading-relaxed" style={{ color: '#555555' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
@@ -68,12 +69,7 @@ export function HomePage() {
               <div className="ml-auto flex w-full max-w-[560px] gap-8 lg:gap-10">
                 {/* Portrait sub-column */}
                 <figure className="shrink-0 w-[220px] sm:w-[260px] lg:w-[290px]">
-                  {/* Location + live clock — small editorial metadata, top of the right column */}
-                  <figcaption className="pb-4">
-                    <LocationClock />
-                  </figcaption>
-
-                  {/* Portrait */}
+                  {/* Portrait (location/time block removed — it lives in the header only) */}
                   <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
                     <img
                       src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
