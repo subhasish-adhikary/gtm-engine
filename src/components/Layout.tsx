@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { navigation, navGroups, siteConfig } from '../data/content';
 import { NewsletterSignup } from './NewsletterSignup';
 import { newsletterPlacements } from '../data/newsletter';
@@ -27,7 +27,7 @@ function Caret({ open }: { open: boolean }) {
   );
 }
 
-function Navbar({ theme, toggleTheme }: any) {
+function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -59,8 +59,11 @@ function Navbar({ theme, toggleTheme }: any) {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center" aria-label="Home">
             <img 
-              src="https://i.ibb.co/gb5BGLXn/Site-logo-for-menu-and-footer.png" 
+              src="https://i.ibb.co/13gDzfW/logo-light-mode.png" 
               alt="Subhasish Adhikary" 
+              width={2073}
+              height={758}
+              decoding="async"
               className="h-6 sm:h-7 w-auto"
             />
           </Link>
@@ -125,9 +128,6 @@ function Navbar({ theme, toggleTheme }: any) {
             >
               Let&rsquo;s connect
             </Link>
-            <button onClick={toggleTheme} className="p-2 rounded-md" style={{ color: 'var(--text-secondary)' }} aria-label="Toggle theme">
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 rounded-md" style={{ color: 'var(--text-secondary)' }} aria-label="Toggle menu">
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -231,12 +231,12 @@ function Footer() {
   );
 }
 
-export function Layout({ children, theme, toggleTheme }: { children: ReactNode; theme: 'light' | 'dark'; toggleTheme: () => void }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <ScrollToTop />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
       <main id="main-content" className="flex-1 pt-16">{children}</main>
       <Footer />
     </div>

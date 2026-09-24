@@ -35,11 +35,11 @@ function LegacyHashRedirect() {
 }
 
 export default function App() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   return (
     <BrowserRouter>
       <LegacyHashRedirect />
-      <Layout theme={theme} toggleTheme={toggleTheme}>
+      <Layout theme={theme}>
         <SEO />
         <Routes>
           <Route path="/" element={<HomePage />} />

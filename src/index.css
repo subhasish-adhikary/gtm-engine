@@ -6,7 +6,10 @@
   --font-handwriting: 'Caveat', 'Segoe Script', cursive;
 }
 
+/* LIGHT THEME ONLY — the :root tokens below are the site's single, permanent
+   theme. Dark mode has been removed (no .dark class, no persisted preference). */
 :root {
+  color-scheme: light; /* neutralizes prefers-color-scheme: dark for form controls/scrollbars */
   --bg-primary: #F7F7F5;
   --bg-secondary: #F1F3F5;
   --bg-tertiary: #EAF2FF;
@@ -18,20 +21,6 @@
   --accent-hover: #1246A0;
   --card-bg: #FFFFFF;
   --nav-bg: rgba(247, 247, 245, 0.92);
-}
-
-.dark {
-  --bg-primary: #0D0F12;
-  --bg-secondary: #181C21;
-  --bg-tertiary: #10284D;
-  --text-primary: #F5F7FA;
-  --text-secondary: #A8AFB8;
-  --text-tertiary: #8A8F95;
-  --border-color: #292E35;
-  --accent: #4C8DFF;
-  --accent-hover: #2F6FE4;
-  --card-bg: #13161A;
-  --nav-bg: rgba(13, 15, 18, 0.92);
 }
 
 * { box-sizing: border-box; }
@@ -143,10 +132,6 @@ a:hover { color: var(--accent-hover); }
   background-color: #EAF2FF;
   color: #155EEF;
 }
-.dark .badge-soon {
-  background-color: #10284D;
-  color: #4C8DFF;
-}
 
 input:focus, textarea:focus, select:focus {
   border-color: var(--accent) !important;
@@ -184,15 +169,6 @@ input:focus, textarea:focus, select:focus {
 *:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}
-
-/* Ensure proper contrast in both themes */
-.dark .prose {
-  color: var(--text-secondary);
-}
-
-.dark .prose strong {
-  color: var(--text-primary);
 }
 
 /* Image optimization */
@@ -333,23 +309,4 @@ section[style*="#F7F6F2"] {
 .hero-cta-secondary:hover .hero-cta-arrow,
 .hero-cta-secondary:focus-visible .hero-cta-arrow {
   color: #1246B0;
-}
-
-/* DARK THEME (default, html.dark): secondary flips to light text so it can
-   never inherit dark-on-dark or vanish; primary keeps its dark-surface /
-   light-text treatment (already correct above). Arrow stays blue. */
-html.dark .hero-cta-secondary {
-  color: #F5F7FA;
-}
-html.dark .hero-cta-secondary .hero-cta-arrow {
-  color: #4C8DFF;
-}
-html.dark .hero-cta-secondary:hover,
-html.dark .hero-cta-secondary:focus-visible {
-  color: #FFFFFF;
-  border-color: #F5F7FA;
-}
-html.dark .hero-cta-secondary:hover .hero-cta-arrow,
-html.dark .hero-cta-secondary:focus-visible .hero-cta-arrow {
-  color: #7FB0FF;
 }
