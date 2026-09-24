@@ -253,6 +253,22 @@ section[style*="#F7F6F2"] .tnum {
 section[style*="#F7F6F2"] figcaption div:first-child {
   color: #222222 !important;
 }
+
+/* ── Metrics + positioning rail (below hero) — mockup-matched pass ──
+   The mockup renders the four metrics AND the positioning statement in the
+   same blue handwriting as the hero's "Marketing systems for a more open
+   future." line. Pin those colors so a persisted dark-theme class can never
+   wash them out. */
+.metrics-positioning {
+  --accent: #155EEF; /* keep the editorial blue even under .dark */
+}
+.metrics-positioning .font-handwriting {
+  font-weight: 600; /* Caveat reads closer to the mockup's brush script */
+  color: var(--accent) !important;
+}
+.metrics-positioning p {
+  color: var(--accent) !important; /* statement + underline stay blue */
+}
 /* Pin the single editorial blue inside the hero even if a dark theme class
    is persisted on <html> (dark tokens would otherwise shift accents). */
 section[style*="#F7F6F2"] {
