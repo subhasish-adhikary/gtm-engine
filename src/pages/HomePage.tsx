@@ -15,19 +15,20 @@ export function HomePage() {
 
   return (
     <div>
-      {/* HERO SECTION — editorial masthead (light theme) */}
-      <section className="pt-14 pb-0 sm:pt-20 lg:pt-24" style={{ backgroundColor: '#F7F6F2' }}>
-        <div className="mx-auto w-full max-w-[96rem] px-4 sm:px-6 lg:px-10 2xl:max-w-[104rem]">
+      {/* HERO SECTION — editorial masthead (light theme). Proportions matched to the
+          approved mockup: full-bleed container (page padding = 5.7% per side), three
+          columns at ~41% / 35% / 17% with ~3.5% gutters, headline ~60px on desktop. */}
+      <section className="pt-14 pb-0 sm:pt-20 lg:pt-[4.5rem]" style={{ backgroundColor: '#F7F6F2' }}>
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
           {/* MOBILE / TABLET STACK (< lg) — same content, original vertical flow */}
           <div className="lg:hidden">
-            <div className="text-xs font-semibold tracking-[0.22em]" style={{ color: 'var(--accent)' }}>01</div>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+            <div className="flex items-center gap-3">
+              <div className="h-px w-6 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
               <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#4A4A4A' }}>
                 Growth Marketing · GTM Strategy · Marketing Automation
               </span>
             </div>
-            <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
+            <h1 className="mt-7 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
               <span className="block text-[2.4rem] sm:text-[3.25rem]">I build the systems</span>
               <span className="block text-[2.4rem] sm:text-[3.25rem]">behind modern</span>
               <span className="block whitespace-normal sm:whitespace-nowrap text-[2.4rem] sm:text-[3.25rem]">B2B&nbsp;<em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
@@ -91,31 +92,28 @@ export function HomePage() {
             </div>
           </div>
 
-          {/* DESKTOP (≥ lg): wide three-column grid — explicit fractional widths guarantee
-              the right rail sits BESIDE the portrait and the composition spans nearly the
-              full available desktop width.
+          {/* DESKTOP (≥ lg): wide three-column grid measured from the approved mockup —
+              columns ≈ 41% / 35% / 17% with ~3.5% gutters, spanning nearly the full
+              viewport width (container padding matches the header's page padding).
               LEFT = headline/description/buttons · CENTER = large portrait · RIGHT = editorial rail */}
           <div className="hidden lg:block">
-            <div className="flex items-start justify-between gap-[3.5%] xl:gap-[4%]">
-              <div className="w-[33%] min-w-0 shrink-0 xl:w-[34%]">
-              {/* Section number */}
-              <div className="text-xs font-semibold tracking-[0.22em]" style={{ color: 'var(--accent)' }}>01</div>
-
-              {/* Eyebrow — thin rule + discipline line */}
-              <div className="mt-6 flex items-center gap-3">
-                <div className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+            <div className="flex items-start justify-between gap-[3.5vw]">
+              <div className="w-[41%] min-w-0 shrink-0">
+              {/* Eyebrow — short blue rule + discipline line (no "01" marker in the mockup) */}
+              <div className="flex items-center gap-3">
+                <div className="h-px w-6 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
                 <span className="text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: '#4A4A4A' }}>
                   Growth Marketing · GTM Strategy · Marketing Automation
                 </span>
               </div>
 
-              <h1 className="mt-8 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
-                <span className="block text-[3.9rem] xl:text-[4.6rem]">I build the systems</span>
-                <span className="block text-[3.9rem] xl:text-[4.6rem]">behind modern</span>
-                {/* "B2B growth." pinned to one line — the widened headline column fits it at every desktop size */}
-                <span className="block whitespace-nowrap text-[3.9rem] xl:text-[4.6rem]">B2B&nbsp;<em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
+              <h1 className="mt-7 font-serif leading-[1.08] tracking-[-0.01em]" style={{ color: '#111111' }}>
+                <span className="block text-[3.4rem] xl:text-[3.75rem]">I build the systems</span>
+                <span className="block text-[3.4rem] xl:text-[3.75rem]">behind modern</span>
+                {/* "B2B growth." pinned to one line — the 41% headline column fits it at every desktop size */}
+                <span className="block whitespace-nowrap text-[3.4rem] xl:text-[3.75rem]">B2B&nbsp;<em className="italic" style={{ color: 'var(--accent)' }}>growth.</em></span>
               </h1>
-              <p className="mt-8 max-w-lg text-[15px] leading-relaxed" style={{ color: '#555555' }}>
+              <p className="mt-8 max-w-md text-[15px] leading-relaxed" style={{ color: '#555555' }}>
                 Growth marketing and GTM systems for B2B companies. I work across demand generation, marketing automation, outbound, ABM and AI-enabled RevOps — connecting strategy to pipeline through data, automation and technology.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -136,13 +134,14 @@ export function HomePage() {
               </div>
             </div>
 
-              {/* CENTER COLUMN — the portrait is a genuine major column (~28% of the wide grid) */}
-              <figure className="shrink-0 w-[26%] min-w-[300px] xl:min-w-[340px]">
+              {/* CENTER COLUMN — the portrait is a genuine major column (~35% of the
+                  full-bleed grid, ≈ 4.6:6 aspect like the mockup) */}
+              <figure className="shrink-0 w-[35%]">
                 <div className="overflow-hidden" style={{ border: '1px solid var(--border-color)', backgroundColor: '#F6E7DA' }}>
                   <img
                     src="https://i.ibb.co/B2spFn8r/Subhasish-Adhikary-Marketer-1.png"
                     alt="Subhasish Adhikary - Growth Marketing & GTM Strategist"
-                    className="w-full aspect-[4/5] object-cover object-top"
+                    className="w-full aspect-[46/60] object-cover object-top"
                     style={{ mixBlendMode: 'multiply', filter: 'grayscale(1) contrast(1.08)' }}
                     loading="eager"
                   />
@@ -156,22 +155,24 @@ export function HomePage() {
               </figure>
 
               {/* RIGHT COLUMN — handwritten statement + strategy list + location note,
-                  vertically beside the portrait (never below it on desktop) */}
-              <div className="w-[29%] min-w-0 shrink-0 pt-2 xl:w-[30%]">
+                  vertically beside the portrait (never below it on desktop). ~17% wide,
+                  matching the mockup's narrow editorial rail. */}
+              <div className="w-[17%] min-w-0 shrink-0 pt-1">
                 <div>
-                  <p className="font-handwriting text-[2rem] leading-snug" style={{ color: 'var(--accent)' }}>
+                  <p className="font-handwriting text-[1.9rem] leading-snug" style={{ color: 'var(--accent)' }}>
                     Marketing<br />
                     systems for<br />
                     a more open future.
                   </p>
                   {/* Blue handwritten underline — slightly tilted brush-stroke feel */}
-                  <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[11rem]" style={{ transform: 'rotate(-1deg)' }}>
+                  <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-1 ml-1 h-[7px] w-[7.5rem]" style={{ transform: 'rotate(-1deg)' }}>
                     <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
                   </svg>
                 </div>
 
-                {/* Vertical blue-accent editorial list — thin rule to the LEFT of the list */}
-                <ul className="mt-10 space-y-2 pl-5 text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)', color: '#3d3d3d' }}>
+                {/* Editorial list — thin BLUE rule to the LEFT of the list (mockup),
+                    compact spacing so the block ends mid-portrait like the reference */}
+                <ul className="mt-10 space-y-1 pl-4 text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)', color: '#3d3d3d' }}>
                   <li>Strategy</li>
                   <li>Automation</li>
                   <li>Content</li>
@@ -180,7 +181,7 @@ export function HomePage() {
                 </ul>
 
                 {/* Short horizontal blue line */}
-                <span aria-hidden="true" className="mt-10 block h-px w-14" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 80%, transparent)' }} />
+                <span aria-hidden="true" className="mt-10 block h-px w-10" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 80%, transparent)' }} />
 
                 {/* Based-in note */}
                 <p className="mt-4 text-xs leading-relaxed" style={{ color: '#555555' }}>
@@ -194,45 +195,38 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* METRICS + POSITIONING — editorial rail directly below hero (sibling of hero).
-          Matches the approved mockup: four handwritten-style metrics on the left,
-          positioning statement inline to their right, all on one baseline row. */}
-      <section className="metrics-positioning border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
-        {/* Compact editorial strip — reduced vertical padding so Featured Work appears
-            right after it (matches the approved mockup's short metrics row) */}
-        <div className="mx-auto w-full max-w-[96rem] px-4 sm:px-6 lg:px-10 2xl:max-w-[104rem] py-8 sm:py-10 lg:py-12">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-14">
-            {/* Four metrics — script values in the editorial blue, small muted labels */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 sm:gap-x-12 gap-y-6 shrink-0">
-              {[
-                { value: '7+', label: 'Years in marketing' },
-                { value: 'B2B', label: 'My focus' },
-                { value: 'Systems', label: 'My approach' },
-                { value: 'Impact', label: 'The goal' },
-              ].map((metric) => (
-                <div key={metric.label}>
-                  <div className="font-handwriting text-4xl sm:text-5xl leading-none" style={{ color: 'var(--accent)' }}>
-                    {metric.value}
-                  </div>
-                  <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
-                    {metric.label}
-                  </div>
-                </div>
-              ))}
+      {/* METRICS + POSITIONING — compact editorial strip directly below the hero.
+          Mockup proportions: full-bleed, top+bottom hairline borders, 5 equal cells
+          separated by thin vertical dividers (4 metrics + positioning quote). */}
+      <section className="metrics-positioning border-y" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
+        <div className="mx-auto w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 px-[6.5vw] lg:px-[5.7vw]">
+          {[
+            { value: '7+', label: 'Years in marketing' },
+            { value: 'B2B', label: 'My focus' },
+            { value: 'Systems', label: 'My approach' },
+            { value: 'Impact', label: 'The goal' },
+          ].map((metric) => (
+            <div key={metric.label} className="py-8 pr-6 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="font-handwriting text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
+                {metric.value}
+              </div>
+              <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+                {metric.label}
+              </div>
             </div>
+          ))}
 
-            {/* Positioning statement — handwritten blue, same voice as the hero's
-                "Marketing systems for a more open future." line, with the
-                handwritten brush-stroke underline from the mockup */}
-            <div className="lg:border-l lg:pl-12" style={{ borderColor: 'var(--border-color)' }}>
-              <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[2rem]">
-                A more thoughtful,<br />
-                systems-driven approach to marketing.
-              </p>
-              <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 ml-1 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
-                <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
-              </svg>
-            </div>
+          {/* Positioning statement — handwritten blue, same voice as the hero's
+              "Marketing systems for a more open future." line, with the
+              handwritten brush-stroke underline from the mockup */}
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 py-8 pl-0 lg:pl-6">
+            <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
+              A more thoughtful,<br />
+              systems-driven approach to marketing.
+            </p>
+            <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 ml-1 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
+              <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
+            </svg>
           </div>
         </div>
       </section>
