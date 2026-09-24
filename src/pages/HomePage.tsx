@@ -265,26 +265,30 @@ export function HomePage() {
       </section>
 
       {/* FEATURED WORK — single horizontal four-column editorial composition on desktop:
-          [ INTRO ~24% ][ PROJECT 1 ][ PROJECT 2 ][ PROJECT 3 ] (three equal columns ≈25.3%
-          each, generous gutters). Same container padding as the hero/metrics bands so the
-          section aligns with the page's editorial grid. Tablet: intro stays a separate
-          column, projects flow in two columns; mobile: everything stacks. No cards, no
-          radii, no shadows — images share one identical 4:3 frame and align on their top
-          edge because every project column is a flex column pinned to the row start. */}
+          [ INTRO ~22% ][ PROJECT 1 ][ PROJECT 2 ][ PROJECT 3 ] (three equal columns,
+          controlled gutters). Same container padding as the hero/metrics bands so the
+          section aligns with the page's editorial grid. Tablet: intro spans the first
+          row, projects flow in two columns; mobile: everything stacks. No cards, no
+          radii, no shadows — images share one identical 4:3 frame and all content rows
+          are baseline-aligned across the three columns via subgrid. */}
       <section className="featured-work py-16 sm:py-20 lg:py-24" style={{ backgroundColor: '#F7F6F2' }}>
-        {/* ONE shared parent grid for the whole composition — same site container as
-            every other homepage band (max-w-7xl + standard responsive padding). The
-            intro and the three project columns are direct children of this single
-            grid, so they share one left/right boundary and consistent gaps; nothing
-            is positioned independently. Desktop: [intro ~24%][3 equal project cols]. */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-x-[clamp(2rem,3.5vw,3.5rem)] gap-y-14 md:grid-cols-2 lg:grid-cols-[minmax(0,24fr)_repeat(3,minmax(0,25.3fr))] lg:gap-y-0">
+        {/* ONE shared parent grid for the whole composition — same main content
+            container system used by the hero and metrics bands above (full width +
+            the site's standard responsive page padding), so the section's left/right
+            boundaries match the rest of the homepage exactly. The intro and the three
+            project columns are direct children of this single grid — nothing is
+            positioned independently. Desktop: [intro ~22%][3 equal project cols] with
+            controlled, consistent gutters. Tablet: intro spans the full first row,
+            projects flow in a 2-up grid. Mobile: everything stacks in order. */}
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
+          <div className="grid grid-cols-1 gap-x-[clamp(1.5rem,2.6vw,2.5rem)] gap-y-12 md:grid-cols-2 md:[&>section]:col-span-2 lg:grid-cols-[minmax(0,22fr)_repeat(3,minmax(0,26fr))] lg:gap-y-0 lg:[&>section]:col-span-1">
 
-            {/* LEFT — editorial intro column (~24% of the section on desktop) */}
-            <div className="min-w-0">
+            {/* LEFT — editorial intro column (~22% of the section on desktop). Fixed
+                vertical rhythm: eyebrow → heading → blue divider → description → link. */}
+            <section aria-labelledby="featured-work-heading" className="min-w-0">
               <div className="flex items-center gap-3">
                 <span aria-hidden="true" className="h-px w-8 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-[11px] font-medium uppercase tracking-[0.22em]" style={{ color: '#4A4A4A' }}>
+                <span id="featured-work-heading" className="text-[11px] font-medium uppercase tracking-[0.22em]" style={{ color: '#4A4A4A' }}>
                   Featured Work
                 </span>
               </div>
@@ -309,39 +313,53 @@ export function HomePage() {
                 View all projects
                 <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
-            </div>
+            </section>
 
-            {/* PROJECT COLUMNS — three equal editorial columns. All vertical rhythm is
-                fixed at the column level (identical image frame, identical margins), and
-                the description row is a shared grid row across the three cards, so link
-                baselines align even when titles/descriptions differ in length. */}
+            {/* PROJECT COLUMNS — three equal-width editorial columns inside the same
+                parent grid. Each card is itself a 5-row sub-grid (image / category /
+                title / description / link) whose rows are aligned across all three
+                cards via `subgrid`, so every category label, title, description and
+                "View project" link sits on exactly the same horizontal baseline no
+                matter how long an individual title or description is. Image frames are
+                pinned to the tallest image in the row, so the content below starts at
+                the same y in all three columns. */}
             {featuredWorkItems.map((project, i) => (
-              <article key={project.slug} className="grid min-w-0 auto-rows-min grid-cols-1 items-start justify-items-start">
-                <Link to={`/work/${project.slug}`} className="group block w-full" aria-label={`${project.title} — view project`}>
-                  {/* Source assets are full-bleed editorial graphics whose inner text runs
-                      edge-to-edge — any cover crop clips headlines ("...EKETING"). Render
-                      them with object-contain inside one identical 4:3 frame tinted to the
-                      section background so the complete composition stays visible. */}
+              <article
+                key={project.slug}
+                className="grid min-w-0 grid-cols-subgrid grid-rows-[auto_auto_auto_1fr_auto] items-start justify-items-start lg:col-span-1 lg:col-start-auto"
+                style={{ gridTemplateColumns: 'subgrid', gridRow: 'span 1' }}
+              >
+                <Link
+                  to={`/work/${project.slug}`}
+                  aria-label={`${project.title} — view project`}
+                  className="row-start-1 col-span-full flex h-full w-full flex-col justify-start"
+                >
+                  {/* Source assets are 1200×900 (4:3) editorial graphics whose inner
+                      headline runs edge-to-edge — a cover crop clipped letters at both
+                      side edges ("...EKETING"). The frame matches the asset's native 4:3
+                      ratio exactly and renders with object-contain, so the complete
+                      composition is always visible with zero letterboxing and identical
+                      dimensions for all three images. */}
                   <img
                     src={project.image}
                     alt={project.alt}
                     loading={i === 0 ? 'eager' : 'lazy'}
-                    className="w-full aspect-[4/3] object-contain"
+                    className="w-full grow basis-0 object-contain"
                     style={{ backgroundColor: '#F7F6F2' }}
                   />
-                  <span className="mt-5 block text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#6b6b6b' }}>
-                    {project.category}
-                  </span>
-                  <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.12] tracking-[-0.01em] xl:text-[1.8rem]" style={{ color: '#111111' }}>
-                    {project.title}
-                  </h3>
                 </Link>
-                <p className="mt-3 text-[14px] leading-relaxed" style={{ color: '#555555' }}>
+                <span className="row-start-2 col-span-full mt-5 block text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#6b6b6b' }}>
+                  {project.category}
+                </span>
+                <h3 className="row-start-3 col-span-full mt-2 font-serif text-[1.65rem] leading-[1.12] tracking-[-0.01em] xl:text-[1.8rem]" style={{ color: '#111111' }}>
+                  {project.title}
+                </h3>
+                <p className="row-start-4 col-span-full mt-3 text-[14px] leading-relaxed" style={{ color: '#555555' }}>
                   {project.description}
                 </p>
                 <Link
                   to={`/work/${project.slug}`}
-                  className="group mt-5 inline-flex items-center gap-1.5 self-start text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
+                  className="group row-start-5 col-span-full mt-5 inline-flex items-center gap-1.5 self-start text-[12px] font-semibold uppercase tracking-[0.08em] underline underline-offset-4"
                   style={{ color: '#111111', textDecorationColor: 'color-mix(in srgb, #111111 40%, transparent)' }}
                 >
                   View project
