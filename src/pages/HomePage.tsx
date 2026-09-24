@@ -509,8 +509,8 @@ export function HomePage() {
                   { name: 'Clay', category: 'Data & Automation', mark: (
                     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="#0B0B0B" /><path d="M14.6 9.2c-.7-.9-1.7-1.4-2.8-1.4-2 0-3.6 1.7-3.6 4s1.6 4 3.6 4c1.1 0 2.1-.5 2.8-1.4" fill="none" stroke="#F5C9A6" strokeWidth="2" strokeLinecap="round" /></svg>
                   )},
-                  { name: 'Figma', category: 'Design', mark: (
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8.5 2h3.4v6.2H8.5a3.1 3.1 0 010-6.2z" fill="#F24E1E" /><path d="M11.9 2h3.6a3.1 3.1 0 010 6.2h-3.6V2z" fill="#FF7262" /><path d="M11.9 8.2h3.6a3.1 3.1 0 010 6.2h-3.6V8.2z" fill="#A259FF" /><path d="M8.5 8.2h3.4v6.2H8.5a3.1 3.1 0 010-6.2z" fill="#1ABCFE" /><path d="M8.5 14.4h3.4V18a3.1 3.1 0 11-3.4-3.6z" fill="#0ACF83" /></svg>
+                  { name: 'Notion', category: 'Design', mark: (
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="#FFFFFF" stroke="#111111" strokeWidth="1.6" /><path d="M8 6.6l8 1.3v9.5c0 .6-.4 1-1 1l-4.6-.4c-.4 0-.6-.2-.7-.5L6.6 7.6c-.1-.5.2-1.1.7-1 .2 0 .5.1 .7 .0z" fill="#111111" opacity="0.001" /><path d="M8.1 6.5l7.9 1.2v9.6c0 .7-.5 1.2-1.2 1.1l-4.5-.4c-.5 0-.8-.3-.9-.7L6.9 7.5c-.1-.6.4-1.1 1.2-1zM9.4 8.6v7.1l4.9.4c.3 0 .4-.1.4-.3V9.1c0-.2-.1-.3-.4-.4l-4.9-.1z" fill="#111111" /><path d="M10.3 10.6v4.9c0 .2.1.3.3.3h.6c.2 0 .3-.1.3-.3v-4.9c0-.2-.1-.3-.3-.3h-.6c-.2 0-.3.1-.3.3zm2.2.2v4.7c0 .2.1.3.3.3h.6c.2 0 .3-.1.3-.3v-4.7c0-.2-.1-.3-.3-.3h-.6c-.2 0-.3.1-.3.3z" fill="#FFFFFF" /></svg>
                   )},
                 ].map((tool) => (
                   <li key={tool.name} className="border-t py-5" style={{ borderColor: 'var(--border-color)' }}>
