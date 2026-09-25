@@ -4,7 +4,7 @@ import { ArrowRight, TrendingUp, Package, Target, Zap, Brain, BarChart3 } from '
 import { siteConfig, capabilities, selectedWork, thinkingCategories, tools } from '../data/content';
 import { allArticles } from '../data/articles';
 import { Button, SectionHeader, Card, Tag } from '../components/UI';
-import { GTMSystemVisualization } from '../components/GTMSystemVisualization';
+import { GTMOSSystemDiagram } from '../components/GTMOSSystemDiagram';
 import { NewsletterSignup } from '../components/NewsletterSignup';
 import { newsletterPlacements } from '../data/newsletter';
 
@@ -553,81 +553,107 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* GTM System Visualization - Below Hero */}
-      <section className="py-12 sm:py-16 border-t" style={{ borderColor: 'var(--border-color)' }}>
+      {/* ── GTM OPERATING SYSTEM ─────────────────────────────────────────────
+          One section, one visual language (replaces the previous standalone
+          flowchart band + "Experience & Expertise" strip). Hierarchy per the
+          approved direction:
+            1. Small blue uppercase label (editorial eyebrow)
+            2. The horizontal systems diagram — the hero of the section
+            3. Three supporting columns: EXPERIENCE · ORGANIZATIONS · TOOLS
+          Reuses existing tokens only (--accent, --text-*, --border-color,
+          --bg-secondary, --card-bg), the site's Inter type system, and the
+          max-w-7xl container used by neighbouring sections. No new fonts,
+          colors, cards, gradients or animations. */}
+      <section className="py-16 sm:py-20 lg:py-24 border-t" style={{ borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up delay-400">
-            <GTMSystemVisualization />
+
+          {/* 1 — SECTION LABEL */}
+          <div className="flex items-center gap-3">
+            <div className="h-px w-6 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: 'var(--accent)' }}>
+              GTM Operating System
+            </span>
           </div>
-        </div>
-      </section>
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            My experience is built around a complete go-to-market system — not isolated marketing channels.
+          </p>
 
-      {/* EXPERIENCE & EXPERTISE - Compact Credibility Section */}
-      <section className="py-12 border-b" style={{ borderColor: 'var(--border-color)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Experience & Industries */}
+          {/* 2 — GTM SYSTEM VISUAL (editorial nodes-and-connectors diagram) */}
+          <div className="mt-14 sm:mt-16">
+            <GTMOSSystemDiagram />
+          </div>
+
+          {/* 3 — THREE-COLUMN INFORMATION AREA (supporting evidence) */}
+          <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+
+            {/* COLUMN 1 — EXPERIENCE */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Experience</span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-[10px] font-semibold tabular-nums" style={{ color: 'var(--accent)' }}>01</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#3d3d3d' }}>Experience</span>
               </div>
-              <div className="space-y-3">
-                <div>
-                  <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>6+ Years</div>
-                  <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>B2B Marketing Experience</div>
-                </div>
-                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-tertiary)' }}>Industries</div>
-                  <div className="flex flex-wrap gap-2">
-                    {['B2B SaaS', 'Staffing', 'HR Technology', 'MarTech', 'Digital'].map((industry) => (
-                      <span key={industry} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
-                        {industry}
-                      </span>
-                    ))}
-                  </div>
+              <div className="mt-5 font-serif text-[1.9rem] leading-none tracking-[-0.01em]" style={{ color: 'var(--text-primary)' }}>
+                6+ Years
+              </div>
+              <div className="mt-2 text-sm" style={{ color: 'var(--text-tertiary)' }}>B2B Marketing Experience</div>
+
+              <div className="mt-7 pt-6 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: 'var(--text-tertiary)' }}>Industries</div>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {['B2B SaaS', 'Staffing', 'HR Technology', 'MarTech', 'Digital'].map((industry) => (
+                    <span
+                      key={industry}
+                      className="rounded-full px-2.5 py-1 text-[11px] leading-none"
+                      style={{ border: '1px solid var(--border-color)', backgroundColor: 'var(--card-bg)', color: 'var(--text-secondary)' }}
+                    >
+                      {industry}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Companies & Organizations */}
+            {/* COLUMN 2 — ORGANIZATIONS (wordmark treatment: logos are supplied
+                separately; this stays editorial rows + hairline dividers, never
+                cards. Velarudh Infotech removed per the approved content pass.) */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Organizations</span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-[10px] font-semibold tabular-nums" style={{ color: 'var(--accent)' }}>02</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#3d3d3d' }}>Organizations</span>
               </div>
-              <div className="space-y-3">
+              <ul className="mt-5">
                 {[
-                  { name: 'LanceSoft', role: 'Growth Marketing & GTM' },
-                  { name: 'Wisestep (Avance Consulting)', role: 'Senior Growth Marketing & GTM Strategist' },
+                  { name: 'LanceSoft', role: 'Growth Marketing Lead & GTM Strategist' },
+                  { name: 'Wisestep (Avance Consulting)', role: 'Growth Marketing Associate & GTM' },
                   { name: 'Sportskeeda', role: 'Affiliate & Growth Marketing Manager' },
-                  { name: 'Velarudh Infotech', role: 'SEO Content Strategist' },
-                ].map((org) => (
-                  <div key={org.name} className="pb-3 border-b last:border-b-0" style={{ borderColor: 'var(--border-color)' }}>
-                    <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{org.name}</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{org.role}</div>
-                  </div>
+                ].map((org, i) => (
+                  <li key={org.name} className={i > 0 ? 'pt-4 mt-4 border-t' : ''} style={i > 0 ? { borderColor: 'var(--border-color)' } : undefined}>
+                    <div className="text-sm font-semibold leading-snug" style={{ color: 'var(--text-primary)' }}>{org.name}</div>
+                    <div className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>{org.role}</div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
-            {/* Tools & Platforms */}
+            {/* COLUMN 3 — TOOLS & PLATFORMS (compact tags, not cards) */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-px w-6" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Tools & Platforms</span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-[10px] font-semibold tabular-nums" style={{ color: 'var(--accent)' }}>03</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#3d3d3d' }}>Tools & Platforms</span>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {['HubSpot', 'Salesforce', 'Clay', 'Apollo', '6sense', 'Salesforce Marketing Cloud', 'Zoho CRM', 'Marketo', 'Factors.ai', 'RB2B'].map((tool) => (
-                  <span key={tool} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {['HubSpot', 'Clay', 'Apollo', '6sense', 'Salesforce Marketing Cloud', 'Reply.io', 'Lovable.dev', 'Factors.ai', 'R2B2', 'GA4'].map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full px-2.5 py-1 text-[11px] leading-none"
+                    style={{ border: '1px solid var(--border-color)', backgroundColor: 'var(--card-bg)', color: 'var(--text-secondary)' }}
+                  >
                     {tool}
                   </span>
                 ))}
               </div>
-              <div className="mt-4 pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                  <span className="font-semibold">Based on documented project experience</span>
-                </div>
+              <div className="mt-7 pt-5 border-t text-xs" style={{ borderColor: 'var(--border-color)', color: 'var(--text-tertiary)' }}>
+                Based on documented project experience
               </div>
             </div>
           </div>
