@@ -237,17 +237,16 @@ export function HomePage() {
             site container, so every cell ends on a content boundary and there is no
             dead space to the right of any metric / after the last divider. */}
         <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
-        <div className="w-full grid grid-cols-2 gap-x-6 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.7fr)] lg:gap-x-[clamp(1.25rem,2.5vw,2.25rem)]">
+        <div className="w-full grid grid-cols-2 gap-x-6 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.5fr)] lg:gap-x-[clamp(1.25rem,2.5vw,2.25rem)]">
           {[
             { value: '7+', label: 'Years in marketing' },
             { value: 'B2B', label: 'My focus' },
             { value: 'Systems', label: 'My approach' },
             { value: 'Impact', label: 'The goal' },
           ].map((metric) => (
-            /* Equal-width 1fr column; content centered so short words like B2B /
-               Impact sit in the MIDDLE of their fifth — balanced space on both
-               sides instead of a large dead gap on the right. The label's trailing
-               letter-space is trimmed so its optical edge matches the box edge. */
+            /* Equal-width columns, content centered within each cell — matches the
+               mockup rhythm (each metric sits mid-column), with the quote taking one
+               wider final column. Trailing letter-space trimmed for optical centering. */
             <div key={metric.label} className="flex min-w-0 flex-col items-center py-8">
               <div className="font-handwriting whitespace-nowrap text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
                 {metric.value}
@@ -260,13 +259,14 @@ export function HomePage() {
 
           {/* Positioning statement — handwritten blue, same voice as the hero's
               "Marketing systems for a more open future." line, with the
-              handwritten brush-stroke underline from the mockup */}
-          <div className="col-span-2 sm:col-span-3 flex flex-col items-center py-8" >
-            <p className="font-handwriting text-center text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
+              handwritten brush-stroke underline from the mockup. Centered inside
+              its own final grid column (NOT stretched across all four metrics). */}
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 flex min-w-0 flex-col items-center py-8">
+            <p className="font-handwriting text-center text-2xl leading-snug sm:text-3xl lg:text-[1.55rem] xl:text-[1.75rem]">
               A more thoughtful,<br />
               systems-driven approach to marketing.
             </p>
-            <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
+            <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 h-[7px] w-[10rem] sm:w-[12rem]" style={{ transform: 'rotate(-1deg)' }}>
               <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
             </svg>
           </div>
