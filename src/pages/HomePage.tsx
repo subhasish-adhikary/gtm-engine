@@ -244,11 +244,14 @@ export function HomePage() {
             { value: 'Systems', label: 'My approach' },
             { value: 'Impact', label: 'The goal' },
           ].map((metric) => (
-            <div key={metric.label} className="flex flex-col py-8 pl-6 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
-              <div className="font-handwriting text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
+            /* Equal-width cell (1fr — never auto/shrink-wrap), text centered inside
+               the cell so short words like "B2B"/"Impact" sit in the middle of their
+               fifth instead of hugging the left divider with dead space to the right. */
+            <div key={metric.label} className="flex min-w-0 flex-col items-center py-8 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="font-handwriting text-center text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
                 {metric.value}
               </div>
-              <div className="mt-2 w-fit max-w-full text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+              <div className="mt-2 max-w-full text-center text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
                 {metric.label}
               </div>
             </div>
@@ -257,12 +260,12 @@ export function HomePage() {
           {/* Positioning statement — handwritten blue, same voice as the hero's
               "Marketing systems for a more open future." line, with the
               handwritten brush-stroke underline from the mockup */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1 flex flex-col py-8 lg:border-r-0 lg:pl-6" >
-            <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 flex flex-col items-center py-8 lg:border-r-0" >
+            <p className="font-handwriting text-center text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
               A more thoughtful,<br />
               systems-driven approach to marketing.
             </p>
-            <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 ml-1 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
+            <svg aria-hidden="true" viewBox="0 0 120 8" preserveAspectRatio="none" className="-mt-0.5 h-[7px] w-[11rem] sm:w-[14rem]" style={{ transform: 'rotate(-1deg)' }}>
               <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
             </svg>
           </div>
