@@ -233,7 +233,11 @@ export function HomePage() {
           Mockup proportions: full-bleed, top+bottom hairline borders, 5 equal cells
           separated by thin vertical dividers (4 metrics + positioning quote). */}
       <section className="metrics-positioning border-y" style={{ borderColor: 'var(--border-color)', backgroundColor: '#F7F6F2' }}>
-        <div className="mx-auto w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 px-[6.5vw] lg:px-[5.7vw]">
+        {/* Content-width strip (no full-bleed padding): the 5 cells span exactly the
+            site container, so every cell ends on a content boundary and there is no
+            dead space to the right of any metric / after the last divider. */}
+        <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {[
             { value: '7+', label: 'Years in marketing' },
             { value: 'B2B', label: 'My focus' },
@@ -262,6 +266,7 @@ export function HomePage() {
               <path d="M2 5.2 C 24 2.6, 52 3.4, 74 4.0 S 106 5.6, 118 3.2" fill="none" stroke="var(--accent)" strokeWidth="2.6" strokeLinecap="round" opacity="0.9" />
             </svg>
           </div>
+        </div>
         </div>
       </section>
 
