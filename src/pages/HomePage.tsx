@@ -237,22 +237,21 @@ export function HomePage() {
             site container, so every cell ends on a content boundary and there is no
             dead space to the right of any metric / after the last divider. */}
         <div className="mx-auto w-full px-[6.5vw] lg:px-[5.7vw]">
-        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="w-full grid grid-cols-2 gap-x-6 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.7fr)] lg:gap-x-[clamp(1.25rem,2.5vw,2.25rem)]">
           {[
             { value: '7+', label: 'Years in marketing' },
             { value: 'B2B', label: 'My focus' },
             { value: 'Systems', label: 'My approach' },
             { value: 'Impact', label: 'The goal' },
           ].map((metric) => (
-            /* Content-hugging cell: the block shrinks to its widest line, so there is
-               no empty space to the RIGHT of any metric. Text is flush-left; the last
-               label's trailing letter-spacing is trimmed so the optical edge aligns. */
-            <div key={metric.label} className="flex w-fit min-w-0 flex-col py-8 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
+            /* Equal-width 1fr column; content centered so short words like B2B /
+               Impact sit in the MIDDLE of their fifth — balanced space on both
+               sides instead of a large dead gap on the right. The label's trailing
+               letter-space is trimmed so its optical edge matches the box edge. */
+            <div key={metric.label} className="flex min-w-0 flex-col items-center py-8">
               <div className="font-handwriting whitespace-nowrap text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
                 {metric.value}
               </div>
-              {/* pr on the label cancels the trailing 0.18em letter-space so the
-                  block's right edge = the last glyph's optical edge (no dead space) */}
               <div className="mt-2 whitespace-nowrap pr-[0.18em] text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
                 {metric.label}
               </div>
@@ -262,7 +261,7 @@ export function HomePage() {
           {/* Positioning statement — handwritten blue, same voice as the hero's
               "Marketing systems for a more open future." line, with the
               handwritten brush-stroke underline from the mockup */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1 flex flex-col items-center py-8 lg:border-r-0" >
+          <div className="col-span-2 sm:col-span-3 flex flex-col items-center py-8" >
             <p className="font-handwriting text-center text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
               A more thoughtful,<br />
               systems-driven approach to marketing.

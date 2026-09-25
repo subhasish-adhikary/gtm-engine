@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#F7F7F5" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0D0F12" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F7F7F5">
     <title>Subhasish Adhikary | Growth Marketing & GTM Strategy | B2B Marketing Automation</title>
     <meta name="description" content="Growth marketing and GTM systems for B2B companies. Subhasish Adhikary builds demand generation, marketing automation, outbound, ABM, and AI-enabled RevOps systems that connect strategy to pipeline." />
     <meta name="author" content="Subhasish Adhikary" />
@@ -92,15 +91,21 @@
     
     <style>
       html, body { margin: 0; padding: 0; }
+      /* LIGHT THEME ONLY — permanent default, no dark-mode fallback */
       html { background-color: #F7F7F5; color: #17191C; }
-      html.dark { background-color: #0D0F12; color: #F5F7FA; }
       #root { min-height: 100vh; }
     </style>
     <script>
       (function() {
-        const saved = localStorage.getItem('theme');
-        const theme = saved || 'light';
-        document.documentElement.classList.add(theme);
+        // Light theme is the only theme. Remove any stale dark-mode preference
+        // left behind by a previous visit so the site always loads light.
+        try {
+          localStorage.removeItem('theme');
+          sessionStorage.removeItem('theme');
+        } catch (e) { /* storage unavailable — nothing to clear */ }
+        var root = document.documentElement;
+        root.classList.remove('dark');
+        root.classList.add('light');
       })();
     </script>
     
@@ -111,10 +116,10 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-WLNB3S5S');</script>
     <!-- End Google Tag Manager -->
-    <script type="module" crossorigin src="/assets/index-DWrCVeGA.js"></script>
+    <script type="module" crossorigin src="/assets/index-C9-kSjOQ.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-BJTKNF4Q.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-CiFz5fnC.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-DRg1w0Th.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-FvjM-05C.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
