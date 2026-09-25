@@ -244,14 +244,16 @@ export function HomePage() {
             { value: 'Systems', label: 'My approach' },
             { value: 'Impact', label: 'The goal' },
           ].map((metric) => (
-            /* Equal-width cell (1fr — never auto/shrink-wrap), text centered inside
-               the cell so short words like "B2B"/"Impact" sit in the middle of their
-               fifth instead of hugging the left divider with dead space to the right. */
-            <div key={metric.label} className="flex min-w-0 flex-col items-center py-8 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
-              <div className="font-handwriting text-center text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
+            /* Content-hugging cell: the block shrinks to its widest line, so there is
+               no empty space to the RIGHT of any metric. Text is flush-left; the last
+               label's trailing letter-spacing is trimmed so the optical edge aligns. */
+            <div key={metric.label} className="flex w-fit min-w-0 flex-col py-8 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="font-handwriting whitespace-nowrap text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
                 {metric.value}
               </div>
-              <div className="mt-2 max-w-full text-center text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+              {/* pr on the label cancels the trailing 0.18em letter-space so the
+                  block's right edge = the last glyph's optical edge (no dead space) */}
+              <div className="mt-2 whitespace-nowrap pr-[0.18em] text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
                 {metric.label}
               </div>
             </div>
