@@ -240,11 +240,11 @@ export function HomePage() {
             { value: 'Systems', label: 'My approach' },
             { value: 'Impact', label: 'The goal' },
           ].map((metric) => (
-            <div key={metric.label} className="py-8 pr-6 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
+            <div key={metric.label} className="flex flex-col py-8 pl-6 lg:border-r lg:last:border-r-0" style={{ borderColor: 'var(--border-color)' }}>
               <div className="font-handwriting text-4xl leading-none sm:text-5xl" style={{ color: 'var(--accent)' }}>
                 {metric.value}
               </div>
-              <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
+              <div className="mt-2 w-fit max-w-full text-[10px] font-medium uppercase tracking-[0.18em]" style={{ color: '#6b6b6b' }}>
                 {metric.label}
               </div>
             </div>
@@ -253,7 +253,7 @@ export function HomePage() {
           {/* Positioning statement — handwritten blue, same voice as the hero's
               "Marketing systems for a more open future." line, with the
               handwritten brush-stroke underline from the mockup */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1 py-8 pl-0 lg:pl-6">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 flex flex-col py-8 lg:border-r-0 lg:pl-6" >
             <p className="font-handwriting text-2xl leading-snug sm:text-3xl lg:text-[1.9rem]">
               A more thoughtful,<br />
               systems-driven approach to marketing.
