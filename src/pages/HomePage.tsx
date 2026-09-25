@@ -554,20 +554,23 @@ export function HomePage() {
       </section>
 
       {/* ── GTM OPERATING SYSTEM ─────────────────────────────────────────────
-          Editorial composition per the approved mock-up:
-            1. Centered eyebrow + serif statement (the mock-up's headline slot)
-            2. The systems diagram — full-width, uncompressed, quiet caption
-            3. Full-bleed hairline, then numbered columns with blue headings
-          Existing tokens only; no cards, gradients, shadows or animations. */}
+          Approved visual direction:
+            1. Small blue uppercase section label + serif statement
+            2. The systems diagram — circular nodes, thin connectors, one
+               restrained hover interaction (see GTMOSSystemDiagram)
+            3. Full-bleed hairline, then three supporting columns:
+               EXPERIENCE / ORGANIZATIONS (with supplied logos) / TOOLS & PLATFORMS
+          Existing tokens only; no cards, gradients, shadows or extra animation. */}
       <section className="pt-20 sm:pt-24 lg:pt-28 pb-20 sm:pb-24 lg:pb-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* 1 — SECTION HEADER (centered) */}
+          {/* 1 — SECTION LABEL: small blue uppercase eyebrow, subtle and editorial */}
           <div className="flex items-center justify-center gap-3">
-            <div className="h-px w-7 shrink-0" style={{ backgroundColor: 'var(--accent)' }} />
-            <span className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: 'var(--accent)' }}>
+            <div className="h-px w-7 shrink-0" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 55%, transparent)' }} />
+            <span className="text-[11px] font-medium uppercase tracking-[0.22em]" style={{ color: 'var(--accent)' }}>
               GTM Operating System
             </span>
+            <div className="h-px w-7 shrink-0" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 55%, transparent)' }} />
           </div>
           <h2
             className="mt-6 font-serif font-medium text-center text-[28px] sm:text-[34px] lg:text-[38px] leading-[1.25] tracking-tight max-w-2xl mx-auto"
@@ -624,15 +627,27 @@ export function HomePage() {
                   <span className="h-px w-5" style={{ backgroundColor: 'var(--accent)' }} aria-hidden="true" />
                   <h3 className="text-sm font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--accent)' }}>Organizations</h3>
                 </div>
+                {/* Logos are the supplied brand artwork in /public/images/logos/
+                    (wisestep.png is the corrected Wisestep logo). They sit on the
+                    page surface — never inside colored squares — normalized with
+                    fixed height + max width so wordmarks read at one optical size. */}
                 <ul>
                   {[
-                    { name: 'LanceSoft', role: 'Growth Marketing Lead & GTM Strategist' },
-                    { name: 'Wisestep (Avance Consulting)', role: 'Growth Marketing Associate & GTM' },
-                    { name: 'Sportskeeda', role: 'Affiliate & Growth Marketing Manager' },
+                    { name: 'LanceSoft', role: 'Growth Marketing Lead & GTM Strategist', logo: '/images/logos/lancesoft.png' },
+                    { name: 'Wisestep (Avance Consulting)', role: 'Growth Marketing Associate & GTM', logo: '/images/logos/wisestep.png' },
+                    { name: 'Sportskeeda', role: 'Affiliate & Growth Marketing Manager', logo: '/images/logos/sportskeeda.png' },
                   ].map((org, i) => (
                     <li key={org.name} className={i > 0 ? 'pt-6 pb-6 border-t' : 'pb-6'} style={i > 0 ? { borderColor: 'var(--border-color)' } : undefined}>
-                      <div className="text-lg font-semibold leading-snug" style={{ color: 'var(--text-primary)' }}>{org.name}</div>
-                      <div className="mt-1 text-[15px]" style={{ color: 'var(--text-secondary)' }}>{org.role}</div>
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={org.logo}
+                          alt={`${org.name} logo`}
+                          className="h-6 w-auto max-w-[92px] shrink-0 object-contain object-left"
+                          loading="lazy"
+                        />
+                        <div className="text-[15px] font-semibold leading-snug" style={{ color: 'var(--text-primary)' }}>{org.name}</div>
+                      </div>
+                      <div className="mt-1.5 pl-[calc(92px+0.75rem)] max-sm:pl-0 text-[14px]" style={{ color: 'var(--text-secondary)' }}>{org.role}</div>
                     </li>
                   ))}
                 </ul>
